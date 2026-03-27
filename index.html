@@ -1,50 +1,337 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nihon Gateway | 日a本とドイツをつなぐポータル</title>
-    <meta name="description" content="ドイツ在住日本人向け生活情報と、日本に興味のあるドイツ人向け情報をまとめたポータルサイト。">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/">
-    <link rel="stylesheet" href="./assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nihon Gateway — Index Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background: #f0ede6;
+  color: #1a1a1a;
+}
+
+/* NAV */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #e2ddd6;
+}
+.logo { font-size: 15px; font-weight: 900; letter-spacing: 0.08em; color: #1a1a1a; }
+.logo span { color: #d0021b; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { font-size: 13px; color: #666; text-decoration: none; font-weight: 600; }
+.nav-links a:hover { color: #d0021b; }
+
+/* HERO */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #fff9f0 0%, #fff0f3 40%, #f0f4ff 100%);
+  padding: 52px 40px 48px;
+  border-bottom: 1px solid #e2ddd6;
+  overflow: hidden;
+  display: flex; align-items: center; gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hero-circle1 {
+  position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,160,160,0.18) 0%, transparent 70%);
+  top: -120px; right: -80px;
+}
+.hero-circle2 {
+  position: absolute; width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(100,150,255,0.14) 0%, transparent 70%);
+  bottom: -80px; left: 30%;
+}
+.hero-lines {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    45deg, #d0021b 0px, #d0021b 1px, transparent 1px, transparent 28px
+  );
+}
+
+.hero-left { flex: 1; min-width: 240px; position: relative; z-index: 2; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; border: 1px solid #ffd0d4;
+  border-radius: 24px; padding: 5px 14px; margin-bottom: 22px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #d0021b;
+}
+.hero-eyebrow .pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: #d0021b;
+  box-shadow: 0 0 0 3px rgba(208,2,27,0.2);
+}
+.hero h1 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.025em;
+  margin-bottom: 14px; color: #111;
+}
+.hero h1 .red { color: #d0021b; }
+.hero h1 .blue { color: #2255cc; }
+.hero-desc { font-size: 0.9rem; color: #666; line-height: 1.75; max-width: 400px; }
+
+.hero-stats {
+  display: flex; gap: 0; margin-top: 28px;
+  background: #fff; border-radius: 14px;
+  border: 1px solid #e2ddd6; overflow: hidden;
+  width: fit-content;
+}
+.hs { padding: 14px 22px; text-align: center; border-right: 1px solid #e2ddd6; }
+.hs:last-child { border-right: none; }
+.hs-num { font-size: 1.4rem; font-weight: 900; color: #111; line-height: 1; }
+.hs-label { font-size: 10px; color: #aaa; letter-spacing: 0.06em; margin-top: 2px; }
+
+/* カード */
+.cards-section { padding: 28px 28px 36px; }
+.cards-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #bbb; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cards-label::after { content: ''; flex: 1; height: 1px; background: #e2ddd6; }
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+@media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+
+.lcard {
+  border-radius: 20px; overflow: hidden; position: relative;
+  height: 320px; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.lcard:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.15); }
+
+.lcard-photo {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 0.4s ease;
+}
+.lcard:hover .lcard-photo { transform: scale(1.05); }
+
+.lcard-overlay { position: absolute; inset: 0; }
+.ja-ov { background: linear-gradient(170deg, rgba(255,230,230,0.35) 0%, rgba(200,0,40,0.55) 100%); }
+.de-ov { background: linear-gradient(170deg, rgba(220,235,255,0.35) 0%, rgba(20,60,160,0.55) 100%); }
+
+.lcard-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 52%);
+}
+
+.lcard-ilu {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 58%; display: flex; align-items: center; justify-content: center;
+  padding-top: 16px;
+}
+
+.lcard-badge {
+  position: absolute; top: 14px; left: 14px; z-index: 4;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(255,255,255,0.22); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 20px; padding: 4px 11px; color: #fff;
+}
+.lcard-arrow {
+  position: absolute; top: 14px; right: 14px; z-index: 4;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; font-weight: 700;
+}
+
+.lcard-body { position: relative; z-index: 3; padding: 18px 20px; }
+.lcard-title { font-size: 1.55rem; font-weight: 900; color: #fff; letter-spacing: -0.01em; margin-bottom: 4px; }
+.lcard-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 12px; line-height: 1.5; }
+.lcard-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.ltag {
+  font-size: 10px; padding: 3px 9px; border-radius: 10px;
+  background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.footer {
+  background: #fff; border-top: 1px solid #e2ddd6;
+  padding: 14px 28px; display: flex; justify-content: space-between;
+}
+.footer p { font-size: 11px; color: #bbb; }
+</style>
 </head>
-
 <body>
-    <header class="site-header">
-        <div class="container">
-            <h1 class="logo">Nihon Gateway</h1>
-            <p class="tagline">日本とドイツをつなぐポータル</p>
+
+<nav class="nav">
+  <div class="logo">NIHON <span>GATEWAY</span></div>
+  <div class="nav-links">
+    <a href="./ja/">日本語</a>
+    <a href="./de/">Deutsch</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-deco">
+    <div class="hero-circle1"></div>
+    <div class="hero-circle2"></div>
+    <div class="hero-lines"></div>
+  </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      Japan × Deutschland Portal
+    </div>
+    <h1>
+      <span class="red">日本</span>と<br>
+      <span class="blue">ドイツ</span>を<br>
+      つなぐポータル
+    </h1>
+    <p class="hero-desc">在独日本人のための生活情報と、日本に興味を持つドイツ人のための文化・イベント情報をまとめています。</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num">20+</div><div class="hs-label">CITIES</div></div>
+      <div class="hs"><div class="hs-num">100+</div><div class="hs-label">GUIDES</div></div>
+      <div class="hs"><div class="hs-num">2</div><div class="hs-label">LANGUAGES</div></div>
+    </div>
+  </div>
+
+  <div style="flex:1; min-width:200px; display:flex; justify-content:center; align-items:center; position:relative; z-index:2;">
+    <svg viewBox="0 0 320 240" width="100%" style="max-width:320px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="320" height="240" rx="16" fill="#e8f4ff"/>
+      <ellipse cx="60" cy="48" rx="38" ry="18" fill="#fff" opacity="0.9"/>
+      <ellipse cx="85" cy="42" rx="28" ry="16" fill="#fff" opacity="0.9"/>
+      <ellipse cx="250" cy="38" rx="32" ry="14" fill="#fff" opacity="0.8"/>
+      <ellipse cx="272" cy="33" rx="22" ry="12" fill="#fff" opacity="0.8"/>
+      <polygon points="160,55 210,155 110,155" fill="#e8eff8"/>
+      <polygon points="160,55 178,95 142,95" fill="#fff" opacity="0.85"/>
+      <ellipse cx="160" cy="155" rx="70" ry="10" fill="#c8dbb0" opacity="0.7"/>
+      <rect x="0" y="148" width="320" height="92" fill="#d4e8b0"/>
+      <rect x="44" y="118" width="7" height="42" fill="#a0714f"/>
+      <ellipse cx="47" cy="108" rx="22" ry="18" fill="#ffb7c5" opacity="0.9"/>
+      <ellipse cx="36" cy="116" rx="14" ry="12" fill="#ffc8d0" opacity="0.85"/>
+      <ellipse cx="60" cy="114" rx="14" ry="12" fill="#ffa8b8" opacity="0.85"/>
+      <rect x="268" y="120" width="7" height="40" fill="#a0714f"/>
+      <ellipse cx="271" cy="110" rx="20" ry="17" fill="#ffb7c5" opacity="0.9"/>
+      <ellipse cx="260" cy="117" rx="13" ry="11" fill="#ffc8d0" opacity="0.85"/>
+      <ellipse cx="283" cy="115" rx="13" ry="11" fill="#ffa8b8" opacity="0.85"/>
+      <ellipse cx="90" cy="85" rx="3" ry="2" fill="#ffb7c5" opacity="0.7" transform="rotate(-20,90,85)"/>
+      <ellipse cx="130" cy="72" rx="3" ry="2" fill="#ffc8d0" opacity="0.6" transform="rotate(30,130,72)"/>
+      <ellipse cx="200" cy="78" rx="3" ry="2" fill="#ffb7c5" opacity="0.7" transform="rotate(-10,200,78)"/>
+      <ellipse cx="240" cy="90" rx="3" ry="2" fill="#ffa8b8" opacity="0.6" transform="rotate(15,240,90)"/>
+      <rect x="148" y="158" width="24" height="4" rx="2" fill="#e8501a"/>
+      <rect x="146" y="150" width="28" height="4" rx="2" fill="#e8501a"/>
+      <rect x="151" y="154" width="4" height="30" fill="#e8501a"/>
+      <rect x="165" y="154" width="4" height="30" fill="#e8501a"/>
+      <rect x="105" y="175" width="36" height="22" rx="2" fill="#fff" opacity="0.85"/>
+      <polygon points="105,175 123,162 141,175" fill="#e8501a" opacity="0.9"/>
+      <rect x="170" y="178" width="36" height="19" rx="2" fill="#fff" opacity="0.85"/>
+      <polygon points="170,178 188,166 206,178" fill="#c84010" opacity="0.85"/>
+      <circle cx="272" cy="62" r="22" fill="#ffe066" opacity="0.85"/>
+      <circle cx="272" cy="62" r="16" fill="#ffd700" opacity="0.9"/>
+    </svg>
+  </div>
+</div>
+
+<div class="cards-section">
+  <div class="cards-label">セクションを選択 · Choose your section</div>
+  <div class="cards-grid">
+
+    <div class="lcard">
+      <div class="lcard-photo" style="background-image:url('https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=700&q=80');"></div>
+      <div class="lcard-overlay ja-ov"></div>
+      <div class="lcard-grad"></div>
+      <div class="lcard-ilu">
+        <svg viewBox="0 0 200 110" width="190" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.18));">
+          <polygon points="100,12 142,80 58,80" fill="rgba(255,255,255,0.18)"/>
+          <polygon points="100,12 114,42 86,42" fill="rgba(255,255,255,0.32)"/>
+          <g opacity="0.85">
+            <ellipse cx="34" cy="60" rx="16" ry="13" fill="#ffb7c5"/>
+            <ellipse cx="24" cy="66" rx="10" ry="9" fill="#ffc8d0"/>
+            <ellipse cx="45" cy="65" rx="10" ry="9" fill="#ffa8b8"/>
+            <rect x="31" y="68" width="5" height="16" fill="#a07050"/>
+          </g>
+          <g opacity="0.85">
+            <ellipse cx="168" cy="58" rx="15" ry="12" fill="#ffb7c5"/>
+            <ellipse cx="158" cy="64" rx="9" ry="8" fill="#ffc8d0"/>
+            <ellipse cx="178" cy="63" rx="9" ry="8" fill="#ffa8b8"/>
+            <rect x="165" y="66" width="5" height="16" fill="#a07050"/>
+          </g>
+          <rect x="88" y="84" width="24" height="3" rx="1.5" fill="#e8501a"/>
+          <rect x="86" y="78" width="28" height="3" rx="1.5" fill="#e8501a"/>
+          <rect x="90" y="81" width="4" height="22" fill="#e8501a"/>
+          <rect x="106" y="81" width="4" height="22" fill="#e8501a"/>
+          <ellipse cx="68" cy="50" rx="3" ry="2" fill="#ffb7c5" opacity="0.7" transform="rotate(-20,68,50)"/>
+          <ellipse cx="140" cy="45" rx="3" ry="2" fill="#ffc8d0" opacity="0.6" transform="rotate(25,140,45)"/>
+          <ellipse cx="55" cy="38" rx="2.5" ry="1.8" fill="#ffa8b8" opacity="0.65" transform="rotate(10,55,38)"/>
+        </svg>
+      </div>
+      <div class="lcard-badge">🇯🇵 Japanese</div>
+      <div class="lcard-arrow">→</div>
+      <div class="lcard-body">
+        <div class="lcard-title">日本語</div>
+        <div class="lcard-sub">在独日本人向け生活情報ポータル</div>
+        <div class="lcard-tags">
+          <span class="ltag">生活ガイド</span>
+          <span class="ltag">都市情報</span>
+          <span class="ltag">手続き</span>
+          <span class="ltag">医療</span>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <main class="container">
-        <section class="hero">
-            <h2>Welcome</h2>
-            <p>ドイツ在住日本人向け生活情報と、日本に興味のあるドイツ人向け情報をまとめるサイトです。</p>
-        </section>
-
-        <section class="cards">
-            <a class="card" href="./ja/">
-                <h3>日本語</h3>
-                <p>生活情報、手続き、都市別ガイド</p>
-            </a>
-
-            <a class="card" href="./de/">
-                <h3>Deutsch</h3>
-                <p>Japan in Deutschland, Kultur, Events</p>
-            </a>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>© 2026 Nihon Gateway</p>
+    <div class="lcard">
+      <div class="lcard-photo" style="background-image:url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700&q=80');"></div>
+      <div class="lcard-overlay de-ov"></div>
+      <div class="lcard-grad"></div>
+      <div class="lcard-ilu">
+        <svg viewBox="0 0 200 110" width="190" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.18));">
+          <rect x="72" y="54" width="56" height="50" rx="2" fill="rgba(255,255,255,0.28)"/>
+          <rect x="88" y="32" width="24" height="56" rx="2" fill="rgba(255,255,255,0.32)"/>
+          <polygon points="100,10 78,36 122,36" fill="rgba(180,210,255,0.55)"/>
+          <rect x="66" y="50" width="14" height="38" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <polygon points="73,34 62,54 84,54" fill="rgba(180,210,255,0.5)"/>
+          <rect x="120" y="50" width="14" height="38" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <polygon points="127,34 116,54 138,54" fill="rgba(180,210,255,0.5)"/>
+          <rect x="96" y="42" width="8" height="10" rx="2" fill="rgba(255,230,100,0.6)"/>
+          <rect x="80" y="64" width="7" height="9" rx="1.5" fill="rgba(255,230,100,0.5)"/>
+          <rect x="113" y="64" width="7" height="9" rx="1.5" fill="rgba(255,230,100,0.5)"/>
+          <polygon points="20,90 55,38 90,90" fill="rgba(255,255,255,0.10)"/>
+          <polygon points="130,90 165,42 200,90" fill="rgba(255,255,255,0.10)"/>
+          <rect x="26" y="76" width="5" height="20" fill="rgba(80,120,60,0.5)"/>
+          <ellipse cx="28" cy="70" rx="10" ry="14" fill="rgba(80,160,80,0.45)"/>
+          <rect x="164" y="76" width="5" height="20" fill="rgba(80,120,60,0.5)"/>
+          <ellipse cx="166" cy="70" rx="10" ry="14" fill="rgba(80,160,80,0.45)"/>
+          <rect x="99" y="10" width="2" height="14" fill="rgba(255,255,255,0.7)"/>
+          <polygon points="101,10 114,15 101,20" fill="rgba(255,220,0,0.8)"/>
+          <circle cx="30" cy="20" r="2" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="170" cy="15" r="1.5" fill="rgba(255,255,255,0.4)"/>
+          <circle cx="155" cy="28" r="1.5" fill="rgba(255,255,255,0.35)"/>
+          <circle cx="50" cy="26" r="1.5" fill="rgba(255,255,255,0.35)"/>
+        </svg>
+      </div>
+      <div class="lcard-badge">🇩🇪 Deutsch</div>
+      <div class="lcard-arrow">→</div>
+      <div class="lcard-body">
+        <div class="lcard-title">Deutsch</div>
+        <div class="lcard-sub">Japan in Deutschland — Kultur & Events</div>
+        <div class="lcard-tags">
+          <span class="ltag">Kultur</span>
+          <span class="ltag">Events</span>
+          <span class="ltag">Städte</span>
+          <span class="ltag">Essen</span>
         </div>
-    </footer>
+      </div>
+    </div>
 
-    <script src="./assets/js/main.js"></script>
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2026 Nihon Gateway</p>
+  <p>日本とドイツをつなぐ · Verbindet Japan und Deutschland</p>
+</div>
+
 </body>
-
 </html>

@@ -104,6 +104,7 @@ body {
   display: flex; flex-direction: column; justify-content: flex-end;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  text-decoration: none;
 }
 .lcard:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.15); }
 
@@ -169,7 +170,7 @@ body {
   <div class="nav-links">
     <a href="./ja/">日本語</a>
     <a href="./de/">Deutsch</a>
-    <a href="#">About</a>
+    <a href="./about/">About</a>
   </div>
 </nav>
 
@@ -238,8 +239,7 @@ body {
   <div class="cards-label">セクションを選択 · Choose your section</div>
   <div class="cards-grid">
 
-    <a class="lcard" href="./ja/" style="text-decoration:none;">
-    <div class="lcard">
+    <a class="lcard" href="./ja/">
       <div class="lcard-photo" style="background-image:url('https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=700&q=80');"></div>
       <div class="lcard-overlay ja-ov"></div>
       <div class="lcard-grad"></div>
@@ -280,10 +280,9 @@ body {
           <span class="ltag">医療</span>
         </div>
       </div>
-    </div>
+    </a>
 
-<a class="lcard" href="./de/" style="text-decoration:none;">
-    <div class="lcard">
+    <a class="lcard" href="./de/">
       <div class="lcard-photo" style="background-image:url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700&q=80');"></div>
       <div class="lcard-overlay de-ov"></div>
       <div class="lcard-grad"></div>
@@ -325,7 +324,7 @@ body {
           <span class="ltag">Essen</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
 </div>

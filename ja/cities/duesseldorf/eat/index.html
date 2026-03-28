@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>デュッセルドルフのレストラン・カフェ | Nihon Gateway</title>
-  <meta name="description" content="レストラン、ラーメン、和食、カフェ、居酒屋情報を日本語で整理。" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/cities/duesseldorf/eat/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="デュッセルドルフのレストラン・カフェ | Nihon Gateway" />
-  <meta property="og:description" content="レストラン、ラーメン、和食、カフェ、居酒屋情報を日本語で整理。" />
-  <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway/ja/cities/duesseldorf/eat/" />
-  <meta property="og:site_name" content="Nihon Gateway" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="デュッセルドルフのレストラン・カフェ | Nihon Gateway" />
-  <meta name="twitter:description" content="レストラン、ラーメン、和食、カフェ、居酒屋情報を日本語で整理。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"デュッセルドルフのレストラン・カフェ","url":"https://yoshi1234567890.github.io/nihon-gateway/ja/cities/duesseldorf/eat/","description":"レストラン、ラーメン、和食、カフェ、居酒屋情報を日本語で整理。","inLanguage":"ja","isPartOf":{"@type":"WebSite","name":"Nihon Gateway","url":"https://yoshi1234567890.github.io/nihon-gateway/"},"about":{"@type":"Place","name":"Düsseldorf"}}</script>
   <style>
@@ -41,14 +23,144 @@ const PAGE_CONFIG = { city: "duesseldorf", category: "eat", categoryLabel: "Eat"
 const GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec";
 const els = {searchInput:document.getElementById("searchInput"),areaFilter:document.getElementById("areaFilter"),tagFilter:document.getElementById("tagFilter"),resultText:document.getElementById("resultText"),updatedText:document.getElementById("updatedText"),contentArea:document.getElementById("contentArea"),heroCount:document.getElementById("heroCount")};
 let allItems=[]; let filteredItems=[];
+
 function escapeHtml(str){return String(str ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
-function normalizeItem(item){return {name:item.name || item.title || "",description:item.description || item.desc || "",category:(item.category || "").toLowerCase(),city:(item.city || "").toLowerCase(),area:item.area || item.district || "",tags:Array.isArray(item.tags)?item.tags:String(item.tags || "").split(",").map(v=>v.trim()).filter(Boolean),address:item.address || "",website:item.website || item.url || "",mapUrl:item.map_url || item.mapUrl || "",status:(item.status || "").toLowerCase(),updatedAt:item.updated_at || item.updatedAt || ""};}
-function buildApiUrl(){const url=new URL(GAS_BASE_URL); url.searchParams.set("sheet", PAGE_CONFIG.category); url.searchParams.set("city", PAGE_CONFIG.city); url.searchParams.set("lang", PAGE_CONFIG.language); url.searchParams.set("status", "active"); return url.toString();}
-function fillSelect(selectEl, values, label){selectEl.innerHTML=`<option value="">${label}</option>`; values.forEach(v=>{const opt=document.createElement("option"); opt.value=v; opt.textContent=v; selectEl.appendChild(opt);});}
-function applyFilters(){const keyword=els.searchInput.value.trim().toLowerCase(); const area=els.areaFilter.value; const tag=els.tagFilter.value; filteredItems=allItems.filter(item=>{const haystack=[item.name,item.description,item.area,item.address,item.tags.join(" ")].join(" ").toLowerCase(); return (!keyword || haystack.includes(keyword)) && (!area || item.area===area) && (!tag || item.tags.includes(tag));}); renderItems(filteredItems);}
-function renderItems(items){els.heroCount.textContent=String(items.length); els.resultText.textContent=`${items.length}件表示`; if(!items.length){els.contentArea.innerHTML=`<div class="empty-state">条件に合うデータが見つかりませんでした。<br>検索語やフィルターを変更してください。</div>`; return;} const html=items.map(item=>{const tagHtml=item.tags.slice(0,4).map(tag=>`<span class="pill">${escapeHtml(tag)}</span>`).join(""); const websiteBtn=item.website?`<a class="btn btn-primary" href="${escapeHtml(item.website)}" target="_blank" rel="noopener noreferrer">公式サイト</a>`:""; const mapBtn=item.mapUrl?`<a class="btn" href="${escapeHtml(item.mapUrl)}" target="_blank" rel="noopener noreferrer">地図</a>`:""; return `<article class="item-card"><div class="item-topline"></div><div class="item-body"><div class="item-meta">${item.area?`<span class="pill">${escapeHtml(item.area)}</span>`:""}${tagHtml}</div><h2 class="item-title">${item.website?`<a href="${escapeHtml(item.website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`:escapeHtml(item.name)}</h2>${item.description?`<p class="item-desc">${escapeHtml(item.description)}</p>`:""}<div class="item-info">${item.address?`<div><strong>住所</strong><span>${escapeHtml(item.address)}</span></div>`:""}${item.updatedAt?`<div><strong>更新</strong><span>${escapeHtml(item.updatedAt)}</span></div>`:""}</div><div class="item-actions">${websiteBtn}${mapBtn}</div></div></article>`;}).join(""); els.contentArea.innerHTML=`<div class="card-grid">${html}</div>`;}
-async function loadData(){try{els.contentArea.innerHTML=`<div class="loading-state">データを読み込んでいます…</div>`; const res=await fetch(buildApiUrl(),{method:"GET"}); if(!res.ok) throw new Error(`HTTP ${res.status}`); const json=await res.json(); const items=Array.isArray(json.items)?json.items:[]; allItems=items.map(normalizeItem); const areaSet=[...new Set(allItems.map(v=>v.area).filter(Boolean))].sort(); const tagSet=[...new Set(allItems.flatMap(v=>v.tags).filter(Boolean))].sort(); fillSelect(els.areaFilter, areaSet, "エリアを選択"); fillSelect(els.tagFilter, tagSet, "タグを選択"); const updated=allItems.map(v=>v.updatedAt).filter(Boolean).sort().reverse()[0]; els.updatedText.textContent=updated ? `最終更新候補: ${updated}` : ""; applyFilters();}catch(error){console.error(error); els.resultText.textContent="読み込み失敗"; els.contentArea.innerHTML=`<div class="error-state">データの取得に失敗しました。<br>GAS公開設定、シート名、JSON形式を確認してください。</div>`;}}
-els.searchInput.addEventListener("input", applyFilters); els.areaFilter.addEventListener("change", applyFilters); els.tagFilter.addEventListener("change", applyFilters); loadData();
-</script>
-</body>
-</html>
+function normalizeText(v){return String(v ?? "").trim();}
+function toBool(value){if(typeof value==="boolean") return value; return ["true","1","yes","y","on"].includes(normalizeText(value).toLowerCase());}
+function parseTags(tags){if(Array.isArray(tags)) return tags.map(normalizeText).filter(Boolean); return normalizeText(tags).split(/[,、]/).map(v=>v.trim()).filter(Boolean);}
+
+function normalizeItem(item){
+  const lang = PAGE_CONFIG.language === "ja" ? "ja" : "en";
+  return {
+    slug: normalizeText(item.slug),
+    name: normalizeText(item[`name_${lang}`] || item.name || item.title || item.name_ja || item.name_en),
+    description: normalizeText(item[`description_${lang}`] || item.description || item.desc || item.description_ja || item.description_en),
+    category: normalizeText(item.category).toLowerCase(),
+    city: normalizeText(item.city).toLowerCase(),
+    area: normalizeText(item.area || item.district),
+    tags: parseTags(item.tags),
+    address: normalizeText(item.address),
+    postcode: normalizeText(item.postcode),
+    website: normalizeText(item.website || item.url),
+    mapUrl: normalizeText(item.map_url || item.mapUrl),
+    phone: normalizeText(item.phone),
+    email: normalizeText(item.email),
+    openingHours: normalizeText(item.opening_hours || item.openingHours),
+    priceRange: normalizeText(item.price_range || item.priceRange),
+    languageSupport: normalizeText(item.language_support || item.languageSupport),
+    status: normalizeText(item.status).toLowerCase(),
+    featured: toBool(item.featured),
+    priority: Number(normalizeText(item.priority) || 9999),
+    updatedAt: normalizeText(item.updated_at || item.updatedAt),
+    sourceUrl: normalizeText(item.source_url || item.sourceUrl)
+  };
+}
+
+function buildApiCandidates(){
+  const q1 = new URLSearchParams({ city: PAGE_CONFIG.city, category: PAGE_CONFIG.category, lang: PAGE_CONFIG.language, status: "active" });
+  const q2 = new URLSearchParams({ city: PAGE_CONFIG.city, sheet: PAGE_CONFIG.category, lang: PAGE_CONFIG.language, status: "active" });
+  return [`${GAS_BASE_URL}?${q1.toString()}`, `${GAS_BASE_URL}?${q2.toString()}`];
+}
+
+function isVisibleStatus(status){
+  if(!status) return true;
+  return ["active","published","public"].includes(status);
+}
+
+function extractRows(json){
+  if(Array.isArray(json)) return json;
+  if(Array.isArray(json.items)) return json.items;
+  if(Array.isArray(json.data)) return json.data;
+  if(Array.isArray(json.rows)) return json.rows;
+  return [];
+}
+
+function fillSelect(selectEl, values, label){
+  selectEl.innerHTML = `<option value="">${label}</option>`;
+  values.forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    selectEl.appendChild(opt);
+  });
+}
+
+function applyFilters(){
+  const keyword = normalizeText(els.searchInput.value).toLowerCase();
+  const area = els.areaFilter.value;
+  const tag = els.tagFilter.value;
+  filteredItems = allItems.filter(item => {
+    const haystack = [item.name,item.description,item.area,item.address,item.tags.join(" ")].join(" ").toLowerCase();
+    return (!keyword || haystack.includes(keyword)) && (!area || item.area===area) && (!tag || item.tags.includes(tag));
+  });
+  renderItems(filteredItems);
+}
+
+function renderItems(items){
+  els.heroCount.textContent = String(items.length);
+  els.resultText.textContent = `${items.length}件表示`;
+  if(!items.length){
+    els.contentArea.innerHTML = `<div class="empty-state">条件に合うデータが見つかりませんでした。<br>検索語やフィルターを変更してください。</div>`;
+    return;
+  }
+  const html = items.map(item => {
+    const metaPills = [
+      item.area ? `<span class="pill">${escapeHtml(item.area)}</span>` : "",
+      item.featured ? `<span class="pill">注目</span>` : "",
+      ...item.tags.slice(0,3).map(tag=>`<span class="pill">${escapeHtml(tag)}</span>`)
+    ].join("");
+    const websiteBtn = item.website ? `<a class="btn btn-primary" href="${escapeHtml(item.website)}" target="_blank" rel="noopener noreferrer">公式サイト</a>` : "";
+    const mapBtn = item.mapUrl ? `<a class="btn" href="${escapeHtml(item.mapUrl)}" target="_blank" rel="noopener noreferrer">地図</a>` : "";
+    return `<article class="item-card"><div class="item-topline"></div><div class="item-body"><div class="item-meta">${metaPills}</div><h2 class="item-title">${item.website?`<a href="${escapeHtml(item.website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`:escapeHtml(item.name)}</h2>${item.description?`<p class="item-desc">${escapeHtml(item.description)}</p>`:""}<div class="item-info">${item.address?`<div><strong>住所</strong><span>${escapeHtml(item.address)}</span></div>`:""}${item.openingHours?`<div><strong>営業時間</strong><span>${escapeHtml(item.openingHours)}</span></div>`:""}${item.priceRange?`<div><strong>価格帯</strong><span>${escapeHtml(item.priceRange)}</span></div>`:""}${item.languageSupport?`<div><strong>対応言語</strong><span>${escapeHtml(item.languageSupport)}</span></div>`:""}${item.phone?`<div><strong>電話</strong><span>${escapeHtml(item.phone)}</span></div>`:""}${item.updatedAt?`<div><strong>更新</strong><span>${escapeHtml(item.updatedAt)}</span></div>`:""}</div><div class="item-actions">${websiteBtn}${mapBtn}</div></div></article>`;
+  }).join("");
+  els.contentArea.innerHTML = `<div class="card-grid">${html}</div>`;
+}
+
+async function fetchRows(){
+  const urls = buildApiCandidates();
+  let lastErr = null;
+  for(const url of urls){
+    try{
+      const res = await fetch(url, { method: "GET" });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      const rows = extractRows(json);
+      if(rows.length) return rows;
+    }catch(err){
+      lastErr = err;
+    }
+  }
+  throw lastErr || new Error("No data returned");
+}
+
+async function loadData(){
+  try{
+    els.contentArea.innerHTML = `<div class="loading-state">データを読み込んでいます…</div>`;
+    const rows = await fetchRows();
+    allItems = rows
+      .map(normalizeItem)
+      .filter(item => item.name)
+      .filter(item => (!item.city || item.city===PAGE_CONFIG.city))
+      .filter(item => (!item.category || item.category===PAGE_CONFIG.category))
+      .filter(item => isVisibleStatus(item.status))
+      .sort((a,b) => (a.priority-b.priority) || (Number(b.featured)-Number(a.featured)) || a.name.localeCompare(b.name,"ja"));
+
+    const areaSet = [...new Set(allItems.map(v=>v.area).filter(Boolean))].sort();
+    const tagSet = [...new Set(allItems.flatMap(v=>v.tags).filter(Boolean))].sort();
+    fillSelect(els.areaFilter, areaSet, "エリアを選択");
+    fillSelect(els.tagFilter, tagSet, "タグを選択");
+
+    const updated = allItems.map(v=>v.updatedAt).filter(Boolean).sort().reverse()[0];
+    els.updatedText.textContent = updated ? `最終更新候補: ${updated}` : "";
+    applyFilters();
+  }catch(error){
+    console.error(error);
+    els.resultText.textContent = "読み込み失敗";
+    els.contentArea.innerHTML = `<div class="error-state">データの取得に失敗しました。<br>GAS公開設定、シート名、JSON形式を確認してください。</div>`;
+  }
+}
+
+els.searchInput.addEventListener("input", applyFilters);
+els.areaFilter.addEventListener("change", applyFilters);
+els.tagFilter.addEventListener("change", applyFilters);
+loadData();

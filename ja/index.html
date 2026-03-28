@@ -101,8 +101,9 @@ body{
 /* ===================== HERO ===================== */
 .hero{
   position:relative;overflow:hidden;
-  padding:48px 36px 44px;
-  display:flex;align-items:center;gap:32px;flex-wrap:wrap;
+  padding:24px 32px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;flex-wrap:nowrap;
   background:#fff;border-bottom:1.5px solid var(--border);
 }
 .hero::before{
@@ -119,12 +120,17 @@ body{
     rgba(232,0,45,.025) 18px,rgba(232,0,45,.025) 19px
   );
 }
-.hero-text{flex:1;min-width:220px;position:relative;z-index:2;}
+.hero-text{
+  flex:1 1 64%;
+  min-width:0;
+  max-width:620px;
+  position:relative;z-index:2;
+}
 .hero-pill{
   display:inline-flex;align-items:center;gap:7px;
   background:#fff;border:1.5px solid #ffc3c8;
-  border-radius:99px;padding:4px 14px;margin-bottom:20px;
-  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);
+  border-radius:99px;padding:3px 12px;margin-bottom:10px;
+  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);
 }
 .hero-pill-dot{
   width:6px;height:6px;border-radius:50%;background:var(--red);
@@ -133,33 +139,38 @@ body{
 }
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(232,0,45,.18);}50%{box-shadow:0 0 0 6px rgba(232,0,45,.06);}}
 .hero h1{
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  font-weight:900;line-height:1.1;letter-spacing:-.025em;
-  margin-bottom:12px;color:var(--ink);
+  font-size:clamp(1.35rem,3vw,2rem);
+  font-weight:900;line-height:1.06;letter-spacing:-.025em;
+  margin-bottom:7px;color:var(--ink);
 }
 .hero h1 .c-red{color:var(--red);}
 .hero h1 .c-teal{color:var(--teal);}
-.hero-desc{font-size:.9rem;color:var(--muted);line-height:1.8;max-width:400px;margin-bottom:20px;}
-.hero-stats{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-desc{
+  font-size:.77rem;color:var(--muted);line-height:1.58;
+  max-width:470px;margin-bottom:10px;
+}
+.hero-stats{display:flex;gap:6px;flex-wrap:wrap;}
 .stat-chip{
   display:flex;align-items:center;gap:6px;
   background:var(--cream);border:1.5px solid var(--border);
-  border-radius:99px;padding:6px 14px;
+  border-radius:99px;padding:4px 10px;
 }
-.stat-chip .sn{font-size:1rem;font-weight:900;color:var(--ink);}
-.stat-chip .sl{font-size:10px;color:var(--muted);letter-spacing:.06em;}
+.stat-chip .sn{font-size:.86rem;font-weight:900;color:var(--ink);}
+.stat-chip .sl{font-size:9px;color:var(--muted);letter-spacing:.06em;}
 .hero-ilu{
-  flex:1;min-width:200px;max-width:300px;
+  flex:0 0 180px;
+  min-width:180px;max-width:180px;
+  margin-left:-8px;
   position:relative;z-index:2;
   animation:floatY 5s ease-in-out infinite;
 }
 @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
 /* ===================== PAGE BODY ===================== */
-.page-body{max-width:1080px;margin:0 auto;padding:0 24px 60px;}
+.page-body{max-width:1080px;margin:0 auto;padding:0 24px 52px;}
 .sec-head{
   display:flex;align-items:center;gap:12px;
-  padding:32px 0 18px;
+  padding:24px 0 14px;
 }
 .sec-head-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border) 0%,transparent 100%);}
 .sec-tag{
@@ -169,24 +180,26 @@ body{
 }
 .sec-head-label{font-size:13px;font-weight:700;color:var(--muted);}
 
-/* ===================== CATEGORY GRID (6 cards) ===================== */
+/* ===================== CATEGORY GRID ===================== */
 .cat-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:14px;
 }
-@media(max-width:640px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+}
 
 .cat-card{
   position:relative;overflow:hidden;
-  border-radius:20px;padding:22px 20px 20px;
+  border-radius:20px;padding:22px 20px 18px;
   text-decoration:none;
-  display:flex;flex-direction:column;gap:8px;
+  display:flex;flex-direction:column;gap:9px;
   border:2px solid transparent;
   background:#fff;
   transition:transform .2s,box-shadow .2s,border-color .2s;
   box-shadow:0 2px 12px rgba(0,0,0,.06);
-  min-height:130px;
+  min-height:158px;
 }
 .cat-card::before{
   content:'';position:absolute;inset:0;border-radius:18px;
@@ -196,20 +209,20 @@ body{
 .cat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.11);border-color:var(--card-accent,var(--red));}
 .cat-card:hover::before{opacity:1;}
 .cat-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
   background:linear-gradient(90deg,var(--card-accent,var(--red)),var(--card-accent2,var(--orange)));
   border-radius:20px 20px 0 0;opacity:0;transition:opacity .25s;
 }
 .cat-card:hover::after{opacity:1;}
 .cat-icon-wrap{
-  width:44px;height:44px;border-radius:14px;
+  width:52px;height:52px;border-radius:15px;
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;background:var(--icon-bg,rgba(232,0,45,.08));
+  font-size:24px;background:var(--icon-bg,rgba(232,0,45,.08));
   transition:transform .2s;
 }
 .cat-card:hover .cat-icon-wrap{transform:scale(1.1) rotate(-5deg);}
-.cat-title{font-size:.95rem;font-weight:800;color:var(--ink);}
-.cat-sub{font-size:11px;color:var(--muted);line-height:1.5;}
+.cat-title{font-size:1.05rem;font-weight:800;color:var(--ink);}
+.cat-sub{font-size:12px;color:var(--muted);line-height:1.55;}
 
 .cc-guides  {--card-accent:#e8002d;--card-accent2:#ff6b2b;--icon-bg:rgba(232,0,45,.08); --card-glow:rgba(232,0,45,.05);}
 .cc-jobs    {--card-accent:#2f6df5;--card-accent2:#7c3aed;--icon-bg:rgba(47,109,245,.08);--card-glow:rgba(47,109,245,.05);}
@@ -224,8 +237,9 @@ body{
   grid-template-columns:repeat(4,1fr);
   gap:14px;
 }
-@media(max-width:700px){.city-strip{grid-template-columns:repeat(2,1fr);}}
-
+@media(max-width:700px){
+  .city-strip{grid-template-columns:repeat(2,1fr);}
+}
 .city-card{
   position:relative;height:190px;border-radius:18px;overflow:hidden;
   text-decoration:none;display:block;
@@ -233,16 +247,12 @@ body{
   transition:transform .22s,box-shadow .22s;
 }
 .city-card:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 14px 40px rgba(0,0,0,.18);}
-
-/* photo layer */
 .city-photo{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
   transition:transform .4s;
 }
 .city-card:hover .city-photo{transform:scale(1.08);}
-
-/* color overlay tint */
 .city-tint{
   position:absolute;inset:0;
   background:var(--city-tint,rgba(232,0,45,.25));
@@ -250,27 +260,20 @@ body{
   transition:opacity .3s;
 }
 .city-card:hover .city-tint{opacity:.6;}
-
-/* gradient bottom */
 .city-grad{
   position:absolute;inset:0;
   background:linear-gradient(to top,rgba(0,0,0,.80) 0%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.0) 100%);
 }
-
-/* top accent bar */
 .city-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:4;
   background:var(--city-accent,var(--red));
 }
-
-/* SVG illustration overlay */
 .city-ilu{
   position:absolute;top:0;left:0;right:0;
   height:52%;z-index:2;
   display:flex;align-items:center;justify-content:center;
   pointer-events:none;
 }
-
 .city-info{
   position:absolute;bottom:0;left:0;right:0;z-index:3;
   padding:12px 14px;
@@ -296,22 +299,60 @@ body{
 /* ===================== ANIMATIONS ===================== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .hero-text      {animation:fadeUp .6s ease both;}
-.hero-ilu       {animation:fadeUp .6s .15s ease both;}
-.cat-card:nth-child(1){animation:fadeUp .5s .20s ease both;}
-.cat-card:nth-child(2){animation:fadeUp .5s .27s ease both;}
-.cat-card:nth-child(3){animation:fadeUp .5s .34s ease both;}
-.cat-card:nth-child(4){animation:fadeUp .5s .41s ease both;}
-.cat-card:nth-child(5){animation:fadeUp .5s .48s ease both;}
-.cat-card:nth-child(6){animation:fadeUp .5s .55s ease both;}
-.city-card:nth-child(1){animation:fadeUp .5s .28s ease both;}
-.city-card:nth-child(2){animation:fadeUp .5s .36s ease both;}
-.city-card:nth-child(3){animation:fadeUp .5s .44s ease both;}
-.city-card:nth-child(4){animation:fadeUp .5s .52s ease both;}
+.hero-ilu       {animation:fadeUp .6s .12s ease both;}
+.cat-card:nth-child(1){animation:fadeUp .5s .18s ease both;}
+.cat-card:nth-child(2){animation:fadeUp .5s .24s ease both;}
+.cat-card:nth-child(3){animation:fadeUp .5s .30s ease both;}
+.cat-card:nth-child(4){animation:fadeUp .5s .36s ease both;}
+.cat-card:nth-child(5){animation:fadeUp .5s .42s ease both;}
+.cat-card:nth-child(6){animation:fadeUp .5s .48s ease both;}
+.city-card:nth-child(1){animation:fadeUp .5s .22s ease both;}
+.city-card:nth-child(2){animation:fadeUp .5s .28s ease both;}
+.city-card:nth-child(3){animation:fadeUp .5s .34s ease both;}
+.city-card:nth-child(4){animation:fadeUp .5s .40s ease both;}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:900px){
+  .hero{
+    flex-wrap:wrap;
+    gap:12px;
+    padding:24px 24px 20px;
+  }
+  .hero-text{
+    flex:1 1 100%;
+    max-width:100%;
+  }
+  .hero-desc{max-width:100%;}
+  .hero-ilu{
+    flex:0 0 170px;
+    min-width:170px;max-width:170px;
+    margin-left:0;
+  }
+}
+@media(max-width:640px){
+  .nav{padding:0 16px;}
+  .page-body{padding:0 16px 44px;}
+  .hero{
+    padding:20px 16px 16px;
+  }
+  .hero h1{
+    font-size:1.5rem;
+  }
+  .hero-ilu{
+    flex:0 0 150px;
+    min-width:150px;max-width:150px;
+  }
+  .cat-card{
+    min-height:146px;
+    padding:18px 16px 16px;
+  }
+  .cat-title{font-size:.98rem;}
+  .cat-sub{font-size:11px;}
+}
 </style>
 </head>
 <body>
 
-<!-- TOP RIBBON -->
 <div class="top-ribbon">
   <div class="ribbon-left">
     <span class="ribbon-site-name">NIHON <span>GATEWAY</span></span>
@@ -338,13 +379,11 @@ body{
   </div>
 </div>
 
-<!-- MAIN NAV -->
 <nav class="nav">
   <a class="nav-logo" href="../index.html">NIHON <span>GATEWAY</span></a>
   <div class="nav-bc">トップ › <strong>日本語</strong></div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-text">
     <div class="hero-pill">
@@ -403,10 +442,8 @@ body{
   </div>
 </div>
 
-<!-- PAGE BODY -->
 <div class="page-body">
 
-  <!-- CATEGORY GRID (6 cards) -->
   <div class="sec-head">
     <div class="sec-tag" style="--tag-bg:var(--red);">カテゴリ</div>
     <span class="sec-head-label">生活情報を探す</span>
@@ -446,7 +483,6 @@ body{
     </a>
   </div>
 
-  <!-- CITY STRIP -->
   <div class="sec-head">
     <div class="sec-tag" style="--tag-bg:var(--teal);">都市別</div>
     <span class="sec-head-label">あなたの街を選ぶ</span>
@@ -455,23 +491,17 @@ body{
 
   <div class="city-strip">
 
-    <!-- Düsseldorf -->
     <a class="city-card" href="./cities/duesseldorf/" style="--city-accent:var(--red);--city-tint:rgba(232,0,45,.3);">
-      <div class="city-photo" style="background-image:url('https://images.unsplash.com/photo-1587351177784-350a3b2d3d46?w=500&q=80');background-color:#b89090;"></div>
+      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?dusseldorf,city');background-color:#b89090;"></div>
       <div class="city-tint"></div>
       <div class="city-grad"></div>
-      <!-- Rhine Tower SVG overlay -->
       <div class="city-ilu">
         <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".55">
-          <!-- Rhine Tower simplified -->
           <rect x="55" y="8" width="10" height="55" rx="3" fill="#fff"/>
           <ellipse cx="60" cy="20" rx="14" ry="9" fill="none" stroke="#fff" stroke-width="2"/>
           <ellipse cx="60" cy="20" rx="7" ry="4" fill="#fff" opacity=".6"/>
-          <!-- antenna -->
           <rect x="59" y="2" width="2" height="8" fill="#fff"/>
-          <!-- Rhine river wavy -->
           <path d="M0,65 Q20,58 40,65 Q60,72 80,65 Q100,58 120,65 L120,80 L0,80 Z" fill="rgba(100,180,255,0.45)"/>
-          <!-- bridge -->
           <rect x="10" y="60" width="100" height="4" rx="2" fill="rgba(255,255,255,0.5)"/>
           <rect x="25" y="52" width="3" height="10" fill="rgba(255,255,255,0.4)"/>
           <rect x="55" y="52" width="3" height="10" fill="rgba(255,255,255,0.4)"/>
@@ -485,27 +515,20 @@ body{
       </div>
     </a>
 
-    <!-- Frankfurt -->
     <a class="city-card" href="./cities/frankfurt/" style="--city-accent:var(--orange);--city-tint:rgba(255,107,43,.28);">
-      <div class="city-photo" style="background-image:url('https://images.unsplash.com/photo-1571406761960-f96f456ef3f2?w=500&q=80');background-color:#b0a070;"></div>
+      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?frankfurt,germany,skyline');background-color:#b0a070;"></div>
       <div class="city-tint"></div>
       <div class="city-grad"></div>
-      <!-- Frankfurt skyline SVG -->
       <div class="city-ilu">
         <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".5">
-          <!-- Commerzbank Tower -->
           <rect x="52" y="10" width="9" height="52" rx="2" fill="#fff"/>
           <polygon points="52,10 56.5,4 61,10" fill="#fff"/>
-          <!-- Messeturm -->
           <rect x="30" y="22" width="8" height="40" rx="2" fill="rgba(255,255,255,0.7)"/>
           <rect x="32" y="16" width="4" height="8" rx="1" fill="rgba(255,255,255,0.7)"/>
-          <!-- other buildings -->
           <rect x="72" y="28" width="7" height="34" rx="2" fill="rgba(255,255,255,0.65)"/>
           <rect x="82" y="34" width="6" height="28" rx="2" fill="rgba(255,255,255,0.55)"/>
           <rect x="18" y="30" width="8" height="32" rx="2" fill="rgba(255,255,255,0.55)"/>
-          <!-- ground -->
           <rect x="0" y="62" width="120" height="4" rx="2" fill="rgba(255,255,255,0.35)"/>
-          <!-- Main river -->
           <path d="M0,68 Q30,63 60,68 Q90,73 120,68 L120,80 L0,80 Z" fill="rgba(100,180,255,0.4)"/>
         </svg>
       </div>
@@ -516,28 +539,21 @@ body{
       </div>
     </a>
 
-    <!-- München -->
     <a class="city-card" href="./cities/muenchen/" style="--city-accent:var(--blue);--city-tint:rgba(47,109,245,.28);">
-      <div class="city-photo" style="background-image:url('https://images.unsplash.com/photo-1569880153113-76175e659c53?w=500&q=80');background-color:#7888b8;"></div>
+      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?munich,germany');background-color:#7888b8;"></div>
       <div class="city-tint"></div>
       <div class="city-grad"></div>
-      <!-- Frauenkirche SVG -->
       <div class="city-ilu">
         <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".52">
-          <!-- Left tower -->
           <rect x="28" y="18" width="16" height="48" rx="2" fill="rgba(255,255,255,0.7)"/>
           <ellipse cx="36" cy="18" rx="8" ry="12" fill="rgba(255,255,255,0.7)"/>
           <ellipse cx="36" cy="12" rx="4" ry="6" fill="rgba(255,255,255,0.9)"/>
-          <!-- Right tower -->
           <rect x="76" y="18" width="16" height="48" rx="2" fill="rgba(255,255,255,0.7)"/>
           <ellipse cx="84" cy="18" rx="8" ry="12" fill="rgba(255,255,255,0.7)"/>
           <ellipse cx="84" cy="12" rx="4" ry="6" fill="rgba(255,255,255,0.9)"/>
-          <!-- main nave -->
           <rect x="38" y="32" width="44" height="34" rx="2" fill="rgba(255,255,255,0.5)"/>
-          <!-- Alps hint -->
           <polygon points="0,60 25,30 50,60" fill="rgba(255,255,255,0.12)"/>
           <polygon points="70,60 95,28 120,60" fill="rgba(255,255,255,0.12)"/>
-          <!-- ground -->
           <rect x="0" y="66" width="120" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
         </svg>
       </div>
@@ -548,15 +564,12 @@ body{
       </div>
     </a>
 
-    <!-- Berlin -->
     <a class="city-card" href="./cities/berlin/" style="--city-accent:var(--purple);--city-tint:rgba(124,58,237,.28);">
-      <div class="city-photo" style="background-image:url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&q=80');background-color:#706890;"></div>
+      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?berlin,germany');background-color:#706890;"></div>
       <div class="city-tint"></div>
       <div class="city-grad"></div>
-      <!-- Brandenburger Tor SVG -->
       <div class="city-ilu">
         <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".52">
-          <!-- Brandenburg Gate columns -->
           <rect x="18" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
           <rect x="30" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
           <rect x="42" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
@@ -564,16 +577,11 @@ body{
           <rect x="66" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
           <rect x="78" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
           <rect x="90" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <!-- entablature -->
           <rect x="14" y="26" width="86" height="6" rx="1" fill="rgba(255,255,255,0.8)"/>
-          <!-- attic -->
           <rect x="20" y="18" width="74" height="10" rx="2" fill="rgba(255,255,255,0.65)"/>
-          <!-- Quadriga (simplified) -->
           <rect x="50" y="10" width="14" height="2" rx="1" fill="rgba(255,255,255,0.9)"/>
           <ellipse cx="57" cy="10" rx="5" ry="4" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
-          <!-- ground -->
           <rect x="0" y="66" width="120" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-          <!-- TV Tower hint -->
           <rect x="108" y="15" width="3" height="50" fill="rgba(255,255,255,0.3)"/>
           <circle cx="109.5" cy="22" r="5" fill="rgba(255,255,255,0.25)"/>
         </svg>
@@ -588,7 +596,6 @@ body{
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="page-footer">
   <div class="footer-logo">NIHON <span>GATEWAY</span></div>
   <div class="footer-copy">© 2026 Nihon Gateway · 日本とドイツをつなぐ</div>

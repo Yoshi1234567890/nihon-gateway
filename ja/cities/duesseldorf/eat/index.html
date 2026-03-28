@@ -172,8 +172,7 @@
 
   <script>
     const PAGE_CONFIG = {
-      city: "duesseldorf",
-      language: "ja"
+      city: "duesseldorf"
     };
 
     const GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec";
@@ -216,6 +215,16 @@
       return Number.isFinite(n) ? n : null;
     }
 
+    function normalizeCityKey(v){
+      return String(v ?? "")
+        .trim()
+        .toLowerCase()
+        .replaceAll("ä","ae")
+        .replaceAll("ö","oe")
+        .replaceAll("ü","ue")
+        .replaceAll("ß","ss");
+    }
+
     function formatScore(score){
       if(score === null || score === undefined || Number.isNaN(score)) return "";
       return Number(score).toFixed(1);
@@ -230,10 +239,14 @@
       const nameJa = normalizeText(item.name_ja);
       const nameEn = normalizeText(item.name_en || item.title);
       const description = normalizeText(item.description_ja || item.description_en || item.description || item.desc);
+
       const tagList = [
         ...normalizeTags(item.tags),
         ...normalizeTags(item.category2),
-        ...normalizeTags(item.category3)
+        ...normalizeTags(item.category3),
+        ...normalizeTags(item["categories/0"]),
+        ...normalizeTags(item["categories/1"]),
+        ...normalizeTags(item["categories/2"])
       ];
 
       return {
@@ -246,9 +259,9 @@
         category1: normalizeText(item.category1),
         category2: normalizeText(item.category2),
         category3: normalizeText(item.category3),
-        city: normalizeText(item.city).toLowerCase(),
+        city: normalizeCityKey(item.city),
         address: normalizeText(item.address || item.street),
-        postcode: normalizeText(item.postcode || item.postalCode),
+        postcode: normalizeText(item.postcode || item.postalCode || item["Postal Code"]),
         website: normalizeText(item.website),
         mapUrl: normalizeText(item.map_url || item.mapUrl || item.url),
         openingHours: normalizeText(item.opening_hours || item.openingHours),
@@ -262,34 +275,18 @@
     }
 
     function buildApiCandidates(){
-      const candidates = [];
-
-      const q1 = new URLSearchParams({
-        sheet: "eat",
-        city: PAGE_CONFIG.city,
-        status: "active"
-      });
-      candidates.push(`${GAS_BASE_URL}?${q1.toString()}`);
-
-      const q2 = new URLSearchParams({
-        sheet: "restaurants",
-        city: PAGE_CONFIG.city,
-        status: "active"
-      });
-      candidates.push(`${GAS_BASE_URL}?${q2.toString()}`);
-
-      return candidates;
+      return [`${GAS_BASE_URL}?sheet=eat`];
     }
 
     function isVisibleStatus(status){
       if(!status) return true;
-      return ["active","published","public"].includes(status);
+      return !["hidden","draft","private","inactive"].includes(status);
     }
 
     function extractRows(json){
       if(Array.isArray(json)) return json;
-      if(Array.isArray(json.items)) return json.items;
       if(Array.isArray(json.data)) return json.data;
+      if(Array.isArray(json.items)) return json.items;
       if(Array.isArray(json.rows)) return json.rows;
       return [];
     }
@@ -398,7 +395,7 @@
           if(!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = await res.json();
           const rows = extractRows(json);
-          if(Array.isArray(rows) && rows.length) return rows;
+          if(Array.isArray(rows)) return rows;
         }catch(err){
           lastErr = err;
         }
@@ -415,7 +412,7 @@
         allItems = rows
           .map(normalizeItem)
           .filter(item => item.name)
-          .filter(item => !item.city || item.city === PAGE_CONFIG.city)
+          .filter(item => !item.city || item.city === normalizeCityKey(PAGE_CONFIG.city))
           .filter(item => isVisibleStatus(item.status))
           .sort((a,b) => {
             const scoreA = a.totalScore ?? -1;

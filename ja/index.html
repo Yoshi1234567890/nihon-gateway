@@ -1,609 +1,91 @@
-<!DOCTYPE html>
+from pathlib import Path
+import zipfile, os, textwrap, json, re
+
+base = Path('/mnt/data/nihon_gateway_bundle')
+if base.exists():
+    import shutil
+    shutil.rmtree(base)
+(base / 'ja' / 'cities' / 'duesseldorf').mkdir(parents=True, exist_ok=True)
+
+cats = [
+    ("events","Events","デュッセルドルフのイベント","🎉"),
+    ("eat","Eat","デュッセルドルフのレストラン・カフェ","🍜"),
+    ("shop","Shop","デュッセルドルフの買い物・ショップ","🛍️"),
+    ("services","Services","デュッセルドルフのサービス","🧾"),
+    ("living","Living","デュッセルドルフの生活情報","🏠"),
+    ("jobs","Jobs","デュッセルドルフの求人・仕事","💼"),
+    ("community","Community","デュッセルドルフのコミュニティ","🤝"),
+    ("healthcare","Healthcare","デュッセルドルフの医療情報","🏥"),
+    ("sports","Sports","デュッセルドルフのスポーツ・運動","⚽"),
+    ("tourism","Tourism","デュッセルドルフの観光","📍"),
+    ("transport","Transport","デュッセルドルフの交通情報","🚆"),
+    ("emergency","Emergency","デュッセルドルフの緊急時情報","🚨"),
+]
+
+index_html = """<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本語トップ | Nihon Gateway</title>
-<meta name="description" content="ドイツ在住日本人向け生活情報ポータル。都市別情報、生活ガイド、イベント、医療情報。">
+<title>デュッセルドルフ | Nihon Gateway</title>
+<meta name="description" content="デュッセルドルフ在住・訪問者向けの生活情報ポータル。イベント、食、買い物、住まい、医療、交通、緊急時情報をカテゴリ別に整理。">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/">
+<link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/cities/duesseldorf/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --red:#e8002d;
-  --orange:#ff6b2b;
-  --yellow:#ffc93c;
-  --teal:#00b4a6;
-  --blue:#2f6df5;
-  --purple:#7c3aed;
-  --pink:#f472b6;
-  --cream:#fdf8f2;
-  --ink:#1a1014;
-  --muted:#6b5e68;
-  --border:#ede5e0;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Outfit','Noto Sans JP',sans-serif;
-  background:var(--cream);color:var(--ink);min-height:100vh;
-}
-
-/* ===================== TOP RIBBON ===================== */
-.top-ribbon{
-  background:linear-gradient(90deg,#1a0d14 0%,#2a1420 50%,#1a0d14 100%);
-  display:flex;align-items:stretch;
-  overflow-x:auto;scrollbar-width:none;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.top-ribbon::-webkit-scrollbar{display:none;}
-.ribbon-left{
-  display:flex;align-items:center;gap:6px;
-  padding:0 20px;border-right:1px solid rgba(255,255,255,0.08);
-  flex-shrink:0;
-}
-.ribbon-site-name{
-  font-size:12px;font-weight:900;letter-spacing:.1em;color:#fff;white-space:nowrap;
-}
-.ribbon-site-name span{color:var(--red);}
-.ribbon-items{display:flex;align-items:stretch;flex:1;}
-.ri{
-  display:flex;align-items:center;gap:6px;
-  padding:9px 16px;
-  text-decoration:none;
-  border-right:1px solid rgba(255,255,255,0.06);
-  position:relative;overflow:hidden;
-  transition:background .18s;
-  white-space:nowrap;
-}
-.ri::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:var(--ri-color,var(--red));
-  transform:scaleX(0);transform-origin:left;transition:transform .2s;
-}
-.ri:hover{background:rgba(255,255,255,0.05);}
-.ri:hover::after{transform:scaleX(1);}
-.ri-icon{font-size:13px;line-height:1;}
-.ri-label{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(255,255,255,0.55);transition:color .18s;
-}
-.ri:hover .ri-label{color:#fff;}
-.ribbon-right{
-  margin-left:auto;display:flex;align-items:center;
-  padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);
-  flex-shrink:0;
-}
-.ribbon-back{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(255,255,255,0.35);text-decoration:none;transition:color .18s;
-}
-.ribbon-back:hover{color:#fff;}
-
-/* ===================== NAV ===================== */
-.nav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(253,248,242,0.94);
-  backdrop-filter:blur(16px);
-  border-bottom:1.5px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;height:54px;
-}
-.nav-logo{
-  font-size:15px;font-weight:900;letter-spacing:.07em;
-  text-decoration:none;color:var(--ink);
-}
-.nav-logo span{color:var(--red);}
-.nav-bc{font-size:12px;color:#aaa;}
-.nav-bc strong{color:#555;font-weight:700;}
-
-/* ===================== HERO ===================== */
-.hero{
-  position:relative;overflow:hidden;
-  padding:24px 32px 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:6px;flex-wrap:nowrap;
-  background:#fff;border-bottom:1.5px solid var(--border);
-}
-.hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 65% 80% at 95% -10%,rgba(232,0,45,.13) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 60% at 5% 110%,rgba(0,180,166,.10) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 50% at 55% 50%,rgba(47,109,245,.06) 0%,transparent 55%);
-}
-.hero::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:repeating-linear-gradient(
-    -45deg,transparent 0px,transparent 18px,
-    rgba(232,0,45,.025) 18px,rgba(232,0,45,.025) 19px
-  );
-}
-.hero-text{
-  flex:1 1 64%;
-  min-width:0;
-  max-width:620px;
-  position:relative;z-index:2;
-}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  background:#fff;border:1.5px solid #ffc3c8;
-  border-radius:99px;padding:3px 12px;margin-bottom:10px;
-  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);
-}
-.hero-pill-dot{
-  width:6px;height:6px;border-radius:50%;background:var(--red);
-  box-shadow:0 0 0 3px rgba(232,0,45,.18);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(232,0,45,.18);}50%{box-shadow:0 0 0 6px rgba(232,0,45,.06);}}
-.hero h1{
-  font-size:clamp(1.35rem,3vw,2rem);
-  font-weight:900;line-height:1.06;letter-spacing:-.025em;
-  margin-bottom:7px;color:var(--ink);
-}
-.hero h1 .c-red{color:var(--red);}
-.hero h1 .c-teal{color:var(--teal);}
-.hero-desc{
-  font-size:.77rem;color:var(--muted);line-height:1.58;
-  max-width:470px;margin-bottom:10px;
-}
-.hero-stats{display:flex;gap:6px;flex-wrap:wrap;}
-.stat-chip{
-  display:flex;align-items:center;gap:6px;
-  background:var(--cream);border:1.5px solid var(--border);
-  border-radius:99px;padding:4px 10px;
-}
-.stat-chip .sn{font-size:.86rem;font-weight:900;color:var(--ink);}
-.stat-chip .sl{font-size:9px;color:var(--muted);letter-spacing:.06em;}
-.hero-ilu{
-  flex:0 0 180px;
-  min-width:180px;max-width:180px;
-  margin-left:-8px;
-  position:relative;z-index:2;
-  animation:floatY 5s ease-in-out infinite;
-}
-@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-
-/* ===================== PAGE BODY ===================== */
-.page-body{max-width:1080px;margin:0 auto;padding:0 24px 52px;}
-.sec-head{
-  display:flex;align-items:center;gap:12px;
-  padding:24px 0 14px;
-}
-.sec-head-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border) 0%,transparent 100%);}
-.sec-tag{
-  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-  color:#fff;padding:4px 12px;border-radius:99px;
-  background:var(--tag-bg,var(--red));
-}
-.sec-head-label{font-size:13px;font-weight:700;color:var(--muted);}
-
-/* ===================== CATEGORY GRID ===================== */
-.cat-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-@media(max-width:640px){
-  .cat-grid{grid-template-columns:repeat(2,1fr);}
-}
-
-.cat-card{
-  position:relative;overflow:hidden;
-  border-radius:20px;padding:22px 20px 18px;
-  text-decoration:none;
-  display:flex;flex-direction:column;gap:9px;
-  border:2px solid transparent;
-  background:#fff;
-  transition:transform .2s,box-shadow .2s,border-color .2s;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-  min-height:158px;
-}
-.cat-card::before{
-  content:'';position:absolute;inset:0;border-radius:18px;
-  background:var(--card-glow,rgba(232,0,45,.06));
-  opacity:0;transition:opacity .25s;pointer-events:none;
-}
-.cat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.11);border-color:var(--card-accent,var(--red));}
-.cat-card:hover::before{opacity:1;}
-.cat-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--card-accent,var(--red)),var(--card-accent2,var(--orange)));
-  border-radius:20px 20px 0 0;opacity:0;transition:opacity .25s;
-}
-.cat-card:hover::after{opacity:1;}
-.cat-icon-wrap{
-  width:52px;height:52px;border-radius:15px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;background:var(--icon-bg,rgba(232,0,45,.08));
-  transition:transform .2s;
-}
-.cat-card:hover .cat-icon-wrap{transform:scale(1.1) rotate(-5deg);}
-.cat-title{font-size:1.05rem;font-weight:800;color:var(--ink);}
-.cat-sub{font-size:12px;color:var(--muted);line-height:1.55;}
-
-.cc-guides  {--card-accent:#e8002d;--card-accent2:#ff6b2b;--icon-bg:rgba(232,0,45,.08); --card-glow:rgba(232,0,45,.05);}
-.cc-jobs    {--card-accent:#2f6df5;--card-accent2:#7c3aed;--icon-bg:rgba(47,109,245,.08);--card-glow:rgba(47,109,245,.05);}
-.cc-comm    {--card-accent:#00b4a6;--card-accent2:#2f6df5;--icon-bg:rgba(0,180,166,.08); --card-glow:rgba(0,180,166,.05);}
-.cc-life    {--card-accent:#f472b6;--card-accent2:#ffc93c;--icon-bg:rgba(244,114,182,.08);--card-glow:rgba(244,114,182,.05);}
-.cc-german  {--card-accent:#ffc93c;--card-accent2:#ff6b2b;--icon-bg:rgba(255,201,60,.10);--card-glow:rgba(255,201,60,.05);}
-.cc-news    {--card-accent:#ff6b2b;--card-accent2:#ffc93c;--icon-bg:rgba(255,107,43,.08);--card-glow:rgba(255,107,43,.05);}
-
-/* ===================== CITY CARDS ===================== */
-.city-strip{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-@media(max-width:700px){
-  .city-strip{grid-template-columns:repeat(2,1fr);}
-}
-.city-card{
-  position:relative;height:190px;border-radius:18px;overflow:hidden;
-  text-decoration:none;display:block;
-  box-shadow:0 4px 18px rgba(0,0,0,.10);
-  transition:transform .22s,box-shadow .22s;
-}
-.city-card:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 14px 40px rgba(0,0,0,.18);}
-.city-photo{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  transition:transform .4s;
-}
-.city-card:hover .city-photo{transform:scale(1.08);}
-.city-tint{
-  position:absolute;inset:0;
-  background:var(--city-tint,rgba(232,0,45,.25));
-  mix-blend-mode:multiply;
-  transition:opacity .3s;
-}
-.city-card:hover .city-tint{opacity:.6;}
-.city-grad{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.80) 0%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.0) 100%);
-}
-.city-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:4;
-  background:var(--city-accent,var(--red));
-}
-.city-ilu{
-  position:absolute;top:0;left:0;right:0;
-  height:52%;z-index:2;
-  display:flex;align-items:center;justify-content:center;
-  pointer-events:none;
-}
-.city-info{
-  position:absolute;bottom:0;left:0;right:0;z-index:3;
-  padding:12px 14px;
-}
-.city-flag-tag{
-  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;
-  background:var(--city-accent,var(--red));color:#fff;
-  border-radius:99px;padding:2px 9px;margin-bottom:5px;
-}
-.city-name{font-size:1rem;font-weight:900;color:#fff;line-height:1.2;}
-.city-sub{font-size:10px;color:rgba(255,255,255,.65);margin-top:2px;}
-
-/* ===================== FOOTER ===================== */
-.page-footer{
-  background:var(--ink);color:rgba(255,255,255,.5);
-  padding:18px 28px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-}
-.footer-logo{font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff;}
-.footer-logo span{color:var(--red);}
-.footer-copy{font-size:11px;}
-
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.hero-text      {animation:fadeUp .6s ease both;}
-.hero-ilu       {animation:fadeUp .6s .12s ease both;}
-.cat-card:nth-child(1){animation:fadeUp .5s .18s ease both;}
-.cat-card:nth-child(2){animation:fadeUp .5s .24s ease both;}
-.cat-card:nth-child(3){animation:fadeUp .5s .30s ease both;}
-.cat-card:nth-child(4){animation:fadeUp .5s .36s ease both;}
-.cat-card:nth-child(5){animation:fadeUp .5s .42s ease both;}
-.cat-card:nth-child(6){animation:fadeUp .5s .48s ease both;}
-.city-card:nth-child(1){animation:fadeUp .5s .22s ease both;}
-.city-card:nth-child(2){animation:fadeUp .5s .28s ease both;}
-.city-card:nth-child(3){animation:fadeUp .5s .34s ease both;}
-.city-card:nth-child(4){animation:fadeUp .5s .40s ease both;}
-
-/* ===================== RESPONSIVE ===================== */
-@media(max-width:900px){
-  .hero{
-    flex-wrap:wrap;
-    gap:12px;
-    padding:24px 24px 20px;
-  }
-  .hero-text{
-    flex:1 1 100%;
-    max-width:100%;
-  }
-  .hero-desc{max-width:100%;}
-  .hero-ilu{
-    flex:0 0 170px;
-    min-width:170px;max-width:170px;
-    margin-left:0;
-  }
-}
-@media(max-width:640px){
-  .nav{padding:0 16px;}
-  .page-body{padding:0 16px 44px;}
-  .hero{
-    padding:20px 16px 16px;
-  }
-  .hero h1{
-    font-size:1.5rem;
-  }
-  .hero-ilu{
-    flex:0 0 150px;
-    min-width:150px;max-width:150px;
-  }
-  .cat-card{
-    min-height:146px;
-    padding:18px 16px 16px;
-  }
-  .cat-title{font-size:.98rem;}
-  .cat-sub{font-size:11px;}
-}
-    .hero{gap:0;}
-  .hero-ilu{margin-left:-18px;}
-  .cat-card{min-height:148px;}
+:root{--red:#e8002d;--orange:#ff6b2b;--yellow:#ffc93c;--teal:#00b4a6;--blue:#2f6df5;--purple:#7c3aed;--pink:#f472b6;--cream:#fdf8f2;--ink:#1a1014;--muted:#6b5e68;--border:#ede5e0;}
+*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth}
+body{font-family:'Outfit','Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+.top-ribbon{background:linear-gradient(90deg,#1a0d14 0%,#2a1420 50%,#1a0d14 100%);display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.06)}
+.top-ribbon::-webkit-scrollbar{display:none}.ribbon-left{display:flex;align-items:center;gap:6px;padding:0 20px;border-right:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.ribbon-site-name{font-size:12px;font-weight:900;letter-spacing:.1em;color:#fff;white-space:nowrap}.ribbon-site-name span{color:var(--red)}
+.ribbon-items{display:flex;align-items:stretch;flex:1}.ri{display:flex;align-items:center;gap:6px;padding:9px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,.06);position:relative;white-space:nowrap}
+.ri-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.ribbon-right{margin-left:auto;display:flex;align-items:center;padding:0 16px;border-left:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.ribbon-back{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none}
+.nav{position:sticky;top:0;z-index:200;background:rgba(253,248,242,.94);backdrop-filter:blur(16px);border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px}
+.nav-logo{font-size:15px;font-weight:900;letter-spacing:.07em;text-decoration:none;color:var(--ink)}.nav-logo span{color:var(--red)} .nav-bc{font-size:12px;color:#aaa}.nav-bc strong{color:#555}
+.hero{position:relative;overflow:hidden;padding:28px 32px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:#fff;border-bottom:1.5px solid var(--border)}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 80% at 95% -10%,rgba(232,0,45,.13) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 5% 110%,rgba(0,180,166,.10) 0%,transparent 55%),radial-gradient(ellipse 40% 50% at 55% 50%,rgba(47,109,245,.06) 0%,transparent 55%)}
+.hero-text{position:relative;z-index:2;max-width:650px}.hero-pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #ffc3c8;border-radius:99px;padding:3px 12px;margin-bottom:10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(232,0,45,.18)}
+.hero h1{font-size:clamp(1.45rem,3vw,2.2rem);font-weight:900;line-height:1.06;letter-spacing:-.025em;margin-bottom:8px;color:var(--ink)} .hero h1 .c-red{color:var(--red)} .hero h1 .c-teal{color:var(--teal)}
+.hero-desc{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:560px;margin-bottom:12px}.hero-stats{display:flex;gap:8px;flex-wrap:wrap}
+.stat-chip{display:flex;align-items:center;gap:6px;background:var(--cream);border:1.5px solid var(--border);border-radius:99px;padding:4px 10px}.stat-chip .sn{font-size:.86rem;font-weight:900;color:var(--ink)}.stat-chip .sl{font-size:9px;color:var(--muted);letter-spacing:.06em}
+.page-body{max-width:1120px;margin:0 auto;padding:0 24px 52px}.sec-head{display:flex;align-items:center;gap:12px;padding:24px 0 14px}.sec-head-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border) 0%,transparent 100%)}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#fff;padding:4px 12px;border-radius:99px;background:var(--red)}.sec-head-label{font-size:13px;font-weight:700;color:var(--muted)}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:860px){.cat-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.cat-grid{grid-template-columns:1fr}}
+.cat-card{position:relative;overflow:hidden;border-radius:20px;padding:22px 20px 18px;text-decoration:none;display:flex;flex-direction:column;gap:9px;border:2px solid transparent;background:#fff;transition:transform .2s,box-shadow .2s,border-color .2s;box-shadow:0 2px 12px rgba(0,0,0,.06);min-height:164px}
+.cat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.11);border-color:var(--card-accent,var(--red))}
+.cat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--card-accent,var(--red)),var(--card-accent2,var(--orange)));border-radius:20px 20px 0 0}
+.cat-icon-wrap{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--icon-bg,rgba(232,0,45,.08))}
+.cat-title{font-size:1.02rem;font-weight:800;color:var(--ink)}.cat-sub{font-size:12px;color:var(--muted);line-height:1.55}.cat-path{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--card-accent,var(--red))}
+.cc-events{--card-accent:#e8002d;--card-accent2:#ff6b2b;--icon-bg:rgba(232,0,45,.08)}.cc-eat{--card-accent:#ff6b2b;--card-accent2:#ffc93c;--icon-bg:rgba(255,107,43,.08)}.cc-shop{--card-accent:#ffc93c;--card-accent2:#f472b6;--icon-bg:rgba(255,201,60,.12)}.cc-services{--card-accent:#00b4a6;--card-accent2:#2f6df5;--icon-bg:rgba(0,180,166,.08)}.cc-living{--card-accent:#2f6df5;--card-accent2:#7c3aed;--icon-bg:rgba(47,109,245,.08)}.cc-jobs{--card-accent:#7c3aed;--card-accent2:#f472b6;--icon-bg:rgba(124,58,237,.08)}.cc-community{--card-accent:#f472b6;--card-accent2:#e8002d;--icon-bg:rgba(244,114,182,.08)}.cc-healthcare{--card-accent:#00b4a6;--card-accent2:#ffc93c;--icon-bg:rgba(0,180,166,.08)}.cc-sports{--card-accent:#2f6df5;--card-accent2:#00b4a6;--icon-bg:rgba(47,109,245,.08)}.cc-tourism{--card-accent:#ff6b2b;--card-accent2:#2f6df5;--icon-bg:rgba(255,107,43,.08)}.cc-transport{--card-accent:#7c3aed;--card-accent2:#2f6df5;--icon-bg:rgba(124,58,237,.08)}.cc-emergency{--card-accent:#e8002d;--card-accent2:#7c3aed;--icon-bg:rgba(232,0,45,.08)}
+.page-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}.footer-logo{font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}.footer-logo span{color:var(--red)}.footer-copy{font-size:11px}
+@media(max-width:640px){.nav{padding:0 16px}.hero{padding:20px 16px 18px}.page-body{padding:0 16px 44px}}
 </style>
 </head>
 <body>
+<div class="top-ribbon"><div class="ribbon-left"><span class="ribbon-site-name">NIHON <span>GATEWAY</span></span></div><div class="ribbon-items"><a class="ri" href="../../about/"><span class="ri-label">About</span></a><a class="ri" href="../../contact/"><span class="ri-label">Contact</span></a><a class="ri" href="../../partners/"><span class="ri-label">Partners</span></a><a class="ri" href="../../terms/"><span class="ri-label">Terms</span></a><a class="ri" href="../../privacy/"><span class="ri-label">Privacy</span></a></div><div class="ribbon-right"><a class="ribbon-back" href="../../index.html">← 日本語トップへ</a></div></div>
+<nav class="nav"><a class="nav-logo" href="../../index.html">NIHON <span>GATEWAY</span></a><div class="nav-bc">トップ › 都市 › <strong>デュッセルドルフ</strong></div></nav>
+<div class="hero"><div class="hero-text"><div class="hero-pill"><span class="hero-pill-dot"></span> Düsseldorf City Guide</div><h1><span class="c-red">デュッセルドルフ</span>の情報を、<br><span class="c-teal">カテゴリ別</span>にまとめて探す。</h1><p class="hero-desc">イベント、レストラン、買い物、生活インフラ、医療、交通、緊急時対応まで。デュッセルドルフで必要になる情報を、見つけやすいカード形式で整理しました。</p><div class="hero-stats"><div class="stat-chip"><span class="sn">12</span><span class="sl">カテゴリ</span></div><div class="stat-chip"><span class="sn">NRW</span><span class="sl">主要都市</span></div><div class="stat-chip"><span class="sn">日本語</span><span class="sl">ポータル</span></div></div></div></div>
+<div class="page-body"><div class="sec-head"><div class="sec-tag">カテゴリ</div><span class="sec-head-label">デュッセルドルフ内の情報を選ぶ</span><div class="sec-head-line"></div></div><div class="cat-grid">
+""" + "\n".join([
+f'''<a class="cat-card cc-{slug}" href="./{slug}/"><div class="cat-icon-wrap">{icon}</div><div class="cat-title">{label}</div><div class="cat-sub">{title}をカード一覧・検索付きで探せます。</div><div class="cat-path">/{slug}/</div></a>'''
+for slug,label,title,icon in cats
+]) + """
+</div></div><footer class="page-footer"><div class="footer-logo">NIHON <span>GATEWAY</span></div><div class="footer-copy">© 2026 Nihon Gateway · Düsseldorf City Guide</div></footer></body></html>
+"""
 
-<div class="top-ribbon">
-  <div class="ribbon-left">
-    <span class="ribbon-site-name">NIHON <span>GATEWAY</span></span>
-  </div>
-  <div class="ribbon-items">
-    <a class="ri" href="./about/" style="--ri-color:var(--red);">
-      <span class="ri-icon">ℹ️</span><span class="ri-label">About</span>
-    </a>
-    <a class="ri" href="./contact/" style="--ri-color:var(--blue);">
-      <span class="ri-icon">✉️</span><span class="ri-label">Contact</span>
-    </a>
-    <a class="ri" href="./partners/" style="--ri-color:var(--teal);">
-      <span class="ri-icon">🌐</span><span class="ri-label">Partners</span>
-    </a>
-    <a class="ri" href="./terms/" style="--ri-color:var(--purple);">
-      <span class="ri-icon">📄</span><span class="ri-label">Terms</span>
-    </a>
-    <a class="ri" href="./privacy/" style="--ri-color:var(--teal);">
-      <span class="ri-icon">🔒</span><span class="ri-label">Privacy</span>
-    </a>
-  </div>
-  <div class="ribbon-right">
-    <a class="ribbon-back" href="../index.html">← トップへ</a>
-  </div>
-</div>
+(base / 'ja' / 'cities' / 'duesseldorf' / 'index.html').write_text(index_html, encoding='utf-8')
 
-<nav class="nav">
-  <a class="nav-logo" href="../index.html">NIHON <span>GATEWAY</span></a>
-  <div class="nav-bc">トップ › <strong>日本語</strong></div>
-</nav>
+zip_path = Path('/mnt/data/nihon_gateway_duesseldorf_bundle_with_index.zip')
+if zip_path.exists():
+    zip_path.unlink()
+with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as z:
+    for p in base.rglob('*'):
+        if p.is_file():
+            z.write(p, p.relative_to(base))
 
-<div class="hero">
-  <div class="hero-text">
-    <div class="hero-pill">
-      <span class="hero-pill-dot"></span>
-      在独日本人向け情報ポータル
-    </div>
-    <h1>ドイツ生活を<br><span class="c-red">もっとかんたん</span>に、<br><span class="c-teal">もっと楽しく</span>。</h1>
-    <p class="hero-desc">住まい・手続き・医療・仕事・コミュニティまで、ドイツ在住日本人のためのあらゆる情報をまとめています。</p>
-    <div class="hero-stats">
-      <div class="stat-chip"><span class="sn">20+</span><span class="sl">都市</span></div>
-      <div class="stat-chip"><span class="sn">100+</span><span class="sl">ガイド</span></div>
-      <div class="stat-chip"><span class="sn">無料</span><span class="sl">情報</span></div>
-    </div>
-  </div>
-
-  <div class="hero-ilu">
-    <svg viewBox="0 0 300 220" width="100%" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="220" rx="20" fill="#e6f4ff"/>
-      <circle cx="248" cy="50" r="26" fill="#ffe87a" opacity=".9"/>
-      <circle cx="248" cy="50" r="19" fill="#ffd700"/>
-      <g stroke="#ffe87a" stroke-width="2" opacity=".5">
-        <line x1="248" y1="16" x2="248" y2="8"/><line x1="248" y1="84" x2="248" y2="92"/>
-        <line x1="214" y1="50" x2="206" y2="50"/><line x1="282" y1="50" x2="290" y2="50"/>
-        <line x1="220" y1="22" x2="214" y2="16"/><line x1="276" y1="22" x2="282" y2="16"/>
-        <line x1="220" y1="78" x2="214" y2="84"/><line x1="276" y1="78" x2="282" y2="84"/>
-      </g>
-      <ellipse cx="52" cy="42" rx="32" ry="14" fill="#fff" opacity=".92"/>
-      <ellipse cx="74" cy="36" rx="22" ry="12" fill="#fff" opacity=".9"/>
-      <ellipse cx="175" cy="30" rx="26" ry="11" fill="#fff" opacity=".8"/>
-      <ellipse cx="195" cy="25" rx="18" ry="9" fill="#fff" opacity=".8"/>
-      <polygon points="148,38 202,130 94,130" fill="#ccdcee"/>
-      <polygon points="148,38 167,80 129,80" fill="#fff" opacity=".88"/>
-      <ellipse cx="148" cy="130" rx="62" ry="9" fill="#a8c890" opacity=".65"/>
-      <rect x="0" y="123" width="300" height="97" fill="#b8dc8a"/>
-      <rect x="135" y="133" width="26" height="4" rx="2" fill="#e8501a"/>
-      <rect x="133" y="125" width="30" height="4" rx="2" fill="#e8501a"/>
-      <rect x="137" y="129" width="5" height="28" fill="#e8501a"/>
-      <rect x="154" y="129" width="5" height="28" fill="#e8501a"/>
-      <rect x="80" y="150" width="38" height="24" rx="2" fill="#fff" opacity=".88"/>
-      <polygon points="80,150 99,136 118,150" fill="#e8501a" opacity=".9"/>
-      <rect x="180" y="152" width="36" height="22" rx="2" fill="#fff" opacity=".88"/>
-      <polygon points="180,152 198,139 216,152" fill="#c84010" opacity=".88"/>
-      <rect x="26" y="98" width="7" height="38" fill="#8c5c30"/>
-      <ellipse cx="29" cy="88" rx="22" ry="17" fill="#ffb7c5" opacity=".92"/>
-      <ellipse cx="17" cy="95" rx="13" ry="11" fill="#ffc8d0" opacity=".88"/>
-      <ellipse cx="42" cy="93" rx="13" ry="11" fill="#ffa8b8" opacity=".88"/>
-      <rect x="264" y="100" width="7" height="36" fill="#8c5c30"/>
-      <ellipse cx="267" cy="90" rx="20" ry="16" fill="#ffb7c5" opacity=".92"/>
-      <ellipse cx="255" cy="97" rx="12" ry="10" fill="#ffc8d0" opacity=".88"/>
-      <ellipse cx="279" cy="95" rx="12" ry="10" fill="#ffa8b8" opacity=".88"/>
-      <ellipse cx="72" cy="68" rx="3.5" ry="2" fill="#ffb7c5" opacity=".72" transform="rotate(-18,72,68)"/>
-      <ellipse cx="108" cy="55" rx="3" ry="2" fill="#ffc8d0" opacity=".65" transform="rotate(22,108,55)"/>
-      <ellipse cx="190" cy="60" rx="3.5" ry="2" fill="#ffb7c5" opacity=".72" transform="rotate(-8,190,60)"/>
-      <ellipse cx="224" cy="75" rx="3" ry="2" fill="#ffa8b8" opacity=".62" transform="rotate(14,224,75)"/>
-    </svg>
-  </div>
-</div>
-
-<div class="page-body">
-
-  <div class="sec-head">
-    <div class="sec-tag" style="--tag-bg:var(--red);">カテゴリ</div>
-    <span class="sec-head-label">生活情報を探す</span>
-    <div class="sec-head-line"></div>
-  </div>
-
-  <div class="cat-grid">
-    <a class="cat-card cc-guides" href="./guides/">
-      <div class="cat-icon-wrap">📋</div>
-      <div class="cat-title">Guides</div>
-      <div class="cat-sub">Anmeldung・保険・ビザなど手続き全般</div>
-    </a>
-    <a class="cat-card cc-jobs" href="./jobs/">
-      <div class="cat-icon-wrap">💼</div>
-      <div class="cat-title">Jobs</div>
-      <div class="cat-sub">求人・転職・フリーランス情報</div>
-    </a>
-    <a class="cat-card cc-comm" href="./community/">
-      <div class="cat-icon-wrap">🤝</div>
-      <div class="cat-title">Community</div>
-      <div class="cat-sub">掲示板・交流・イベント・情報交換</div>
-    </a>
-    <a class="cat-card cc-life" href="./lifestyle/">
-      <div class="cat-icon-wrap">🏡</div>
-      <div class="cat-title">Lifestyle</div>
-      <div class="cat-sub">買い物・子育て・日常生活のヒント</div>
-    </a>
-    <a class="cat-card cc-german" href="./learn-german/">
-      <div class="cat-icon-wrap">📘</div>
-      <div class="cat-title">Learn German</div>
-      <div class="cat-sub">生活・仕事で使うドイツ語学習</div>
-    </a>
-    <a class="cat-card cc-news" href="./news/">
-      <div class="cat-icon-wrap">📰</div>
-      <div class="cat-title">News</div>
-      <div class="cat-sub">ドイツ・日本関連の最新ニュース</div>
-    </a>
-  </div>
-
-  <div class="sec-head">
-    <div class="sec-tag" style="--tag-bg:var(--teal);">都市別</div>
-    <span class="sec-head-label">あなたの街を選ぶ</span>
-    <div class="sec-head-line"></div>
-  </div>
-
-  <div class="city-strip">
-
-    <a class="city-card" href="./cities/duesseldorf/" style="--city-accent:var(--red);--city-tint:rgba(232,0,45,.3);">
-      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?dusseldorf,city');background-color:#b89090;"></div>
-      <div class="city-tint"></div>
-      <div class="city-grad"></div>
-      <div class="city-ilu">
-        <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".55">
-          <rect x="55" y="8" width="10" height="55" rx="3" fill="#fff"/>
-          <ellipse cx="60" cy="20" rx="14" ry="9" fill="none" stroke="#fff" stroke-width="2"/>
-          <ellipse cx="60" cy="20" rx="7" ry="4" fill="#fff" opacity=".6"/>
-          <rect x="59" y="2" width="2" height="8" fill="#fff"/>
-          <path d="M0,65 Q20,58 40,65 Q60,72 80,65 Q100,58 120,65 L120,80 L0,80 Z" fill="rgba(100,180,255,0.45)"/>
-          <rect x="10" y="60" width="100" height="4" rx="2" fill="rgba(255,255,255,0.5)"/>
-          <rect x="25" y="52" width="3" height="10" fill="rgba(255,255,255,0.4)"/>
-          <rect x="55" y="52" width="3" height="10" fill="rgba(255,255,255,0.4)"/>
-          <rect x="85" y="52" width="3" height="10" fill="rgba(255,255,255,0.4)"/>
-        </svg>
-      </div>
-      <div class="city-info">
-        <div class="city-flag-tag">🇩🇪 NRW</div>
-        <div class="city-name">デュッセルドルフ</div>
-        <div class="city-sub">最大の日本人コミュニティ</div>
-      </div>
-    </a>
-
-    <a class="city-card" href="./cities/frankfurt/" style="--city-accent:var(--orange);--city-tint:rgba(255,107,43,.28);">
-      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?frankfurt,germany,skyline');background-color:#b0a070;"></div>
-      <div class="city-tint"></div>
-      <div class="city-grad"></div>
-      <div class="city-ilu">
-        <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".5">
-          <rect x="52" y="10" width="9" height="52" rx="2" fill="#fff"/>
-          <polygon points="52,10 56.5,4 61,10" fill="#fff"/>
-          <rect x="30" y="22" width="8" height="40" rx="2" fill="rgba(255,255,255,0.7)"/>
-          <rect x="32" y="16" width="4" height="8" rx="1" fill="rgba(255,255,255,0.7)"/>
-          <rect x="72" y="28" width="7" height="34" rx="2" fill="rgba(255,255,255,0.65)"/>
-          <rect x="82" y="34" width="6" height="28" rx="2" fill="rgba(255,255,255,0.55)"/>
-          <rect x="18" y="30" width="8" height="32" rx="2" fill="rgba(255,255,255,0.55)"/>
-          <rect x="0" y="62" width="120" height="4" rx="2" fill="rgba(255,255,255,0.35)"/>
-          <path d="M0,68 Q30,63 60,68 Q90,73 120,68 L120,80 L0,80 Z" fill="rgba(100,180,255,0.4)"/>
-        </svg>
-      </div>
-      <div class="city-info">
-        <div class="city-flag-tag">🇩🇪 Hessen</div>
-        <div class="city-name">フランクフルト</div>
-        <div class="city-sub">金融・交通のハブ</div>
-      </div>
-    </a>
-
-    <a class="city-card" href="./cities/muenchen/" style="--city-accent:var(--blue);--city-tint:rgba(47,109,245,.28);">
-      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?munich,germany');background-color:#7888b8;"></div>
-      <div class="city-tint"></div>
-      <div class="city-grad"></div>
-      <div class="city-ilu">
-        <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".52">
-          <rect x="28" y="18" width="16" height="48" rx="2" fill="rgba(255,255,255,0.7)"/>
-          <ellipse cx="36" cy="18" rx="8" ry="12" fill="rgba(255,255,255,0.7)"/>
-          <ellipse cx="36" cy="12" rx="4" ry="6" fill="rgba(255,255,255,0.9)"/>
-          <rect x="76" y="18" width="16" height="48" rx="2" fill="rgba(255,255,255,0.7)"/>
-          <ellipse cx="84" cy="18" rx="8" ry="12" fill="rgba(255,255,255,0.7)"/>
-          <ellipse cx="84" cy="12" rx="4" ry="6" fill="rgba(255,255,255,0.9)"/>
-          <rect x="38" y="32" width="44" height="34" rx="2" fill="rgba(255,255,255,0.5)"/>
-          <polygon points="0,60 25,30 50,60" fill="rgba(255,255,255,0.12)"/>
-          <polygon points="70,60 95,28 120,60" fill="rgba(255,255,255,0.12)"/>
-          <rect x="0" y="66" width="120" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-        </svg>
-      </div>
-      <div class="city-info">
-        <div class="city-flag-tag">🇩🇪 Bayern</div>
-        <div class="city-name">ミュンヘン</div>
-        <div class="city-sub">南ドイツの中心都市</div>
-      </div>
-    </a>
-
-    <a class="city-card" href="./cities/berlin/" style="--city-accent:var(--purple);--city-tint:rgba(124,58,237,.28);">
-      <div class="city-photo" style="background-image:url('https://source.unsplash.com/800x600/?berlin,germany');background-color:#706890;"></div>
-      <div class="city-tint"></div>
-      <div class="city-grad"></div>
-      <div class="city-ilu">
-        <svg viewBox="0 0 120 80" width="110" xmlns="http://www.w3.org/2000/svg" opacity=".52">
-          <rect x="18" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="30" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="42" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="54" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="66" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="78" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="90" y="30" width="6" height="36" rx="1" fill="rgba(255,255,255,0.75)"/>
-          <rect x="14" y="26" width="86" height="6" rx="1" fill="rgba(255,255,255,0.8)"/>
-          <rect x="20" y="18" width="74" height="10" rx="2" fill="rgba(255,255,255,0.65)"/>
-          <rect x="50" y="10" width="14" height="2" rx="1" fill="rgba(255,255,255,0.9)"/>
-          <ellipse cx="57" cy="10" rx="5" ry="4" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
-          <rect x="0" y="66" width="120" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-          <rect x="108" y="15" width="3" height="50" fill="rgba(255,255,255,0.3)"/>
-          <circle cx="109.5" cy="22" r="5" fill="rgba(255,255,255,0.25)"/>
-        </svg>
-      </div>
-      <div class="city-info">
-        <div class="city-flag-tag">🇩🇪 Berlin</div>
-        <div class="city-name">ベルリン</div>
-        <div class="city-sub">首都・文化・アートの街</div>
-      </div>
-    </a>
-
-  </div>
-</div>
-
-<footer class="page-footer">
-  <div class="footer-logo">NIHON <span>GATEWAY</span></div>
-  <div class="footer-copy">© 2026 Nihon Gateway · 日本とドイツをつなぐ</div>
-</footer>
-
-<script src="../assets/js/main.js"></script>
-</body>
-</html>
+print(zip_path)

@@ -265,7 +265,7 @@
         website: normalizeText(item.website),
         mapUrl: normalizeText(item.map_url || item.mapUrl || item.url),
         openingHours: normalizeText(item.opening_hours || item.openingHours),
-        priceRange: normalizeText(item.price_range || item.priceRange || item.price),
+        priceRange: normalizeText(item.price || item.priceRange || item.price),
         totalScore: normalizeNumber(item.totalScore),
         reviewsCount: normalizeNumber(item.reviewsCount),
         status: normalizeText(item.status).toLowerCase(),

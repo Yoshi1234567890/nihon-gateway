@@ -265,7 +265,7 @@
         website: normalizeText(item.website),
         mapUrl: normalizeText(item.map_url || item.mapUrl || item.url),
         openingHours: normalizeText(item.opening_hours || item.openingHours),
-        priceRange: normalizeText(item.price || item.price || item.priceRange),
+        price: normalizeText(item.price || item.price || item.price),
         totalScore: normalizeNumber(item.totalScore),
         reviewsCount: normalizeNumber(item.reviewsCount),
         priority: Number.isFinite(Number(item.priority)) ? Number(item.priority) : 9999,
@@ -347,7 +347,7 @@
           item.category1 ? `<span class="pill">${escapeHtml(item.category1)}</span>` : "",
           item.category2 ? `<span class="pill">${escapeHtml(item.category2)}</span>` : "",
           item.category3 ? `<span class="pill">${escapeHtml(item.category3)}</span>` : "",
-          item.priceRange ? `<span class="pill">${escapeHtml(item.priceRange)}</span>` : ""
+          item.price ? `<span class="pill">${escapeHtml(item.price)}</span>` : ""
         ].join("");
 
         const ratingHtml = (item.totalScore !== null || item.reviewsCount !== null)
@@ -375,7 +375,7 @@
               ${item.description ? `<p class="item-desc">${escapeHtml(item.description)}</p>` : ""}
               <div class="item-info">
                 ${item.category1 ? `<div><strong>カテゴリ</strong><span>${escapeHtml(item.category1)}</span></div>` : ""}
-                ${item.priceRange ? `<div><strong>価格帯</strong><span>${escapeHtml(item.priceRange)}</span></div>` : ""}
+                ${item.price ? `<div><strong>価格帯</strong><span>${escapeHtml(item.price)}</span></div>` : ""}
                 ${(item.address || item.postcode) ? `<div><strong>住所</strong><span>${escapeHtml(item.address || "")}${item.address && item.postcode ? " " : ""}${escapeHtml(item.postcode || "")}</span></div>` : ""}
                 ${item.openingHours ? `<div><strong>営業時間</strong><span>${escapeHtml(item.openingHours)}</span></div>` : ""}
               </div>

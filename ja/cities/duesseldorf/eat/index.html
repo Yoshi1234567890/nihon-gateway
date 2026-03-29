@@ -265,7 +265,7 @@
         website: normalizeText(item.website),
         mapUrl: normalizeText(item.map_url || item.mapUrl || item.url),
         openingHours: normalizeText(item.opening_hours || item.openingHours),
-        priceRange: normalizeText(item.price || item.priceRange || item.price),
+        priceRange: normalizeText(item.price_range || item.price || item.priceRange),
         totalScore: normalizeNumber(item.totalScore),
         reviewsCount: normalizeNumber(item.reviewsCount),
         status: normalizeText(item.status).toLowerCase(),
@@ -318,6 +318,7 @@
           item.category2,
           item.category3,
           item.address,
+          item.postcode,
           item.tags.join(" ")
         ].join(" ").toLowerCase();
 
@@ -372,9 +373,10 @@
               ${ratingHtml}
               ${item.description ? `<p class="item-desc">${escapeHtml(item.description)}</p>` : ""}
               <div class="item-info">
-                ${item.address ? `<div><strong>住所</strong><span>${escapeHtml(item.address)}</span></div>` : ""}
-                ${item.openingHours ? `<div><strong>営業時間</strong><span>${escapeHtml(item.openingHours)}</span></div>` : ""}
+                ${item.category1 ? `<div><strong>カテゴリ</strong><span>${escapeHtml(item.category1)}</span></div>` : ""}
                 ${item.priceRange ? `<div><strong>価格帯</strong><span>${escapeHtml(item.priceRange)}</span></div>` : ""}
+                ${(item.address || item.postcode) ? `<div><strong>住所</strong><span>${escapeHtml(item.address || "")}${item.address && item.postcode ? " " : ""}${escapeHtml(item.postcode || "")}</span></div>` : ""}
+                ${item.openingHours ? `<div><strong>営業時間</strong><span>${escapeHtml(item.openingHours)}</span></div>` : ""}
               </div>
               <div class="item-actions">${websiteBtn}${mapBtn}</div>
             </div>

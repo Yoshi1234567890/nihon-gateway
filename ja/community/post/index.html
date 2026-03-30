@@ -182,9 +182,10 @@
         return;
       }
 
-      if (data.ok) {
-        location.href = './thanks/';
-      } else {
+if (data.ok) {
+  alert('投稿を受け付けました。管理者承認後に公開されます。');
+  location.href = '../';
+} else {
         alert('送信に失敗しました\n\n' + (data.error || 'unknown error'));
       }
     } catch (err) {

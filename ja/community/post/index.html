@@ -1,63 +1,160 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>投稿フォーム</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>投稿フォーム | Nihon Gateway Germany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 880px;
-      margin: auto;
-      padding: 20px;
-      background: #fdf8f2
-    }
-
-    form {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      padding: 18px
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 10px
-    }
-
-    button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 10px;
-      background: #111;
-      color: #fff
-    }
+    :root{--teal:#00b4a6;--blue:#2f6df5;--cream:#fdf8f2;--ink:#1a1014;--muted:#6b5e68;--border:#ede5e0;--shadow:0 10px 30px rgba(0,0,0,.07);--radius:22px}
+    *{box-sizing:border-box} body{margin:0;font-family:'Outfit','Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink)}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    .panel{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    h1{margin:0 0 16px;font-size:2rem} p{color:var(--muted);line-height:1.8}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .full{grid-column:1/-1}
+    input,select,textarea{width:100%;border:1.5px solid var(--border);background:#fff;border-radius:14px;padding:12px 13px;font:inherit;color:var(--ink);outline:none}
+    textarea{min-height:150px;resize:vertical} input:focus,select:focus,textarea:focus{border-color:var(--teal)}
+    .btn{border:none;border-radius:14px;min-height:46px;padding:0 18px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff}
+    .subtle{font-size:.84rem;color:var(--muted)}
+    .nav{margin-bottom:18px} .nav a{color:inherit}
+    @media (max-width:760px){.form-grid{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
-  <h1>投稿フォーム</h1>
-  <form id="postForm" enctype="multipart/form-data"><input name="action" type="hidden"
-      value="submitPost"><label>カテゴリ1</label><select name="category1" id="category1"
-      required></select><label>カテゴリ2</label><select name="category2" id="category2"
-      required></select><label>タイトル</label><input name="title" required><label>本文</label><textarea name="body"
-      required></textarea><label>国</label><input name="country" value="Germany"><label>地域</label><input
-      name="region"><label>都市</label><input name="city" required><label>ニックネーム</label><input name="nickname"
-      required><label>非公開メールアドレス</label><input name="contact_email_private" type="email"
-      required><label>非公開電話番号</label><input name="contact_phone_private"><label>希望連絡方法</label><input
-      name="preferred_contact_method"><label>価格</label><input name="price"><label>イベント日</label><input name="event_date"
-      type="date"><label>利用可能日</label><input name="availability_date" type="date"><label>画像1</label><input name="image1"
-      type="file" accept=".jpg,.jpeg,.png,.webp"><label>画像2</label><input name="image2" type="file"
-      accept=".jpg,.jpeg,.png,.webp"><label>画像3</label><input name="image3" type="file"
-      accept=".jpg,.jpeg,.png,.webp"><label><input type="checkbox" required> 利用ルールに同意します</label><button
-      type="submit">送信する</button></form>
-  <script>const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec'; async function fetchJson(url, opt = {}) { const r = await fetch(url, opt); if (!r.ok) throw new Error('Network'); return await r.json(); } let categoryMap = {}; async function loadCategories() { const d = await fetchJson(GAS_URL + '?action=getCategories'); const rows = d.categories || []; categoryMap = rows.reduce((a, r) => { if (!a[r.category1]) a[r.category1] = []; a[r.category1].push(r.category2); return a; }, {}); const c1 = document.getElementById('category1'); c1.innerHTML = '<option value="">選択してください</option>' + Object.keys(categoryMap).map(v => `<option value="${v}">${v}</option>`).join(''); } function updateCategory2() { const c1 = document.getElementById('category1').value, c2 = document.getElementById('category2'); const list = categoryMap[c1] || []; c2.innerHTML = '<option value="">選択してください</option>' + list.map(v => `<option value="${v}">${v}</option>`).join(''); } document.getElementById('category1').addEventListener('change', updateCategory2); document.getElementById('postForm').addEventListener('submit', async e => { e.preventDefault(); const fd = new FormData(e.target); const r = await fetch(GAS_URL, { method: 'POST', body: fd }); const d = await r.json(); if (d.ok) location.href = './thanks.html'; else alert('送信に失敗しました'); }); loadCategories();</script>
-</body>
+  <div class="wrap">
+    <div class="nav"><a href="./index.html">← 掲示板一覧へ戻る</a></div>
+    <div class="panel">
+      <h1>投稿フォーム</h1>
+      <p>投稿は送信後に管理者確認となります。メールアドレスや電話番号は掲示板に表示されません。</p>
+      <form id="postForm" class="form-grid" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="submitPost">
+        <div>
+          <label>カテゴリ1</label>
+          <select name="category1" id="category1" required></select>
+        </div>
+        <div>
+          <label>カテゴリ2</label>
+          <select name="category2" id="category2" required></select>
+        </div>
+        <div class="full">
+          <label>タイトル</label>
+          <input name="title" required placeholder="例：デュッセルドルフでソファ売ります">
+        </div>
+        <div class="full">
+          <label>本文</label>
+          <textarea name="body" required placeholder="内容、条件、受け渡し方法などを記載してください"></textarea>
+        </div>
+        <div>
+          <label>国</label>
+          <input name="country" value="Germany">
+        </div>
+        <div>
+          <label>地域</label>
+          <input name="region" placeholder="NRW, Berlin など">
+        </div>
+        <div>
+          <label>都市</label>
+          <input name="city" required placeholder="Düsseldorf">
+        </div>
+        <div>
+          <label>ニックネーム</label>
+          <input name="nickname" required>
+        </div>
+        <div>
+          <label>非公開メールアドレス</label>
+          <input name="contact_email_private" type="email" required>
+        </div>
+        <div>
+          <label>非公開電話番号（任意）</label>
+          <input name="contact_phone_private">
+        </div>
+        <div>
+          <label>希望連絡方法</label>
+          <input name="preferred_contact_method" placeholder="サイト経由メッセージ優先 など">
+        </div>
+        <div>
+          <label>価格（必要な場合）</label>
+          <input name="price" placeholder="€50">
+        </div>
+        <div>
+          <label>イベント日（イベント投稿のみ）</label>
+          <input name="event_date" type="date">
+        </div>
+        <div>
+          <label>利用可能日（物件など）</label>
+          <input name="availability_date" type="date">
+        </div>
+        <div>
+          <label>画像1</label>
+          <input name="image1" type="file" accept=".jpg,.jpeg,.png,.webp">
+        </div>
+        <div>
+          <label>画像2</label>
+          <input name="image2" type="file" accept=".jpg,.jpeg,.png,.webp">
+        </div>
+        <div class="full">
+          <label>画像3</label>
+          <input name="image3" type="file" accept=".jpg,.jpeg,.png,.webp">
+        </div>
+        <div class="full">
+          <label><input type="checkbox" required> 利用ルールに同意します</label>
+        </div>
+        <div class="full">
+          <button class="btn" type="submit">投稿を送信する</button>
+        </div>
+      </form>
+      <p class="subtle">送信後、投稿者メール宛に削除リンクが送られます。</p>
+    </div>
+  </div>
 
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
+
+    async function fetchJson(url, options = {}) {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error('Network error');
+      return await res.json();
+    }
+
+    let categoryMap = {};
+
+    async function loadCategories() {
+      const data = await fetchJson(GAS_URL + '?action=getCategories');
+      const rows = data.categories || [];
+      categoryMap = rows.reduce((acc, row) => {
+        if (!acc[row.category1]) acc[row.category1] = [];
+        acc[row.category1].push(row.category2);
+        return acc;
+      }, {});
+      const cat1 = document.getElementById('category1');
+      cat1.innerHTML = '<option value="">選択してください</option>' + Object.keys(categoryMap).map(v => `<option value="${v}">${v}</option>`).join('');
+    }
+
+    function updateCategory2() {
+      const cat1 = document.getElementById('category1').value;
+      const cat2 = document.getElementById('category2');
+      const list = categoryMap[cat1] || [];
+      cat2.innerHTML = '<option value="">選択してください</option>' + list.map(v => `<option value="${v}">${v}</option>`).join('');
+    }
+
+    document.getElementById('category1').addEventListener('change', updateCategory2);
+
+    document.getElementById('postForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      try {
+        const res = await fetch(GAS_URL, { method:'POST', body: formData });
+        const data = await res.json();
+        if (data.ok) location.href = './thanks.html';
+        else alert('送信に失敗しました');
+      } catch (e) {
+        alert('送信に失敗しました');
+      }
+    });
+
+    loadCategories();
+  </script>
+</body>
 </html>

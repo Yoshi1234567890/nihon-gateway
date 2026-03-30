@@ -1,50 +1,405 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Community</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交流掲示板 | Nihon Gateway Germany</title>
+  <meta name="description" content="ドイツ在住日本人向けの交流掲示板。公開閲覧 + 投稿フォーム + 管理者承認型。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
-      background: #fdf8f2
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px
-    }
-
-    .badge {
-      display: inline-block;
-      background: #eef;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-right: 6px;
-      font-size: 12px
-    }
-
-    img {
-      max-width: 180px;
-      border-radius: 10px;
-      margin-right: 8px;
-      margin-top: 8px
-    }
+    :root{--red:#e8002d;--orange:#ff6b2b;--yellow:#ffc93c;--teal:#00b4a6;--blue:#2f6df5;--purple:#7c3aed;--pink:#f472b6;--cream:#fdf8f2;--ink:#1a1014;--muted:#6b5e68;--border:#ede5e0;--header-bg:#e6e0db;--header-border:#d8d1cb;--card:#ffffff;--shadow:0 10px 30px rgba(0,0,0,.07);--radius:22px;}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Outfit','Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink)}
+    a{color:inherit}
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(230,224,219,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--header-border)}
+    .header-inner{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .brand{text-decoration:none;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+    .brand-logo{font-size:14px;font-weight:900;letter-spacing:.08em}
+    .brand-tag{font-size:12px;color:#7a7278}
+    .header-nav{display:flex;gap:16px;flex-wrap:wrap}
+    .header-nav a{text-decoration:none;font-size:13px;color:#2a2226}
+    .header-nav a.active{font-weight:800}
+    .hero{background:radial-gradient(ellipse 60% 75% at 100% 0%,rgba(0,180,166,.14) 0%,transparent 56%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(124,58,237,.12) 0%,transparent 55%),#fff;border-bottom:1px solid var(--border)}
+    .hero-inner{max-width:1180px;margin:0 auto;padding:34px 20px 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;border:1.5px solid #bde9e4;background:#fff;color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+    h1{margin:0 0 12px;font-size:clamp(2rem,4vw,3.35rem);line-height:1.02;letter-spacing:-.03em}
+    .hero p{margin:0;max-width:720px;color:var(--muted);line-height:1.8;font-size:.97rem}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{border:none;border-radius:14px;min-height:46px;padding:0 18px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;box-shadow:0 8px 20px rgba(47,109,245,.18)}
+    .btn-secondary{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
+    .hero-side{background:linear-gradient(180deg,#fff,#fbf8f6);border:1.5px solid var(--border);border-radius:26px;padding:18px;box-shadow:var(--shadow)}
+    .hero-side h2{margin:0 0 12px;font-size:1rem}
+    .quick-list{display:grid;gap:10px}
+    .quick{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px}
+    .quick-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(0,180,166,.08);font-size:21px;flex:0 0 42px}
+    .quick strong{display:block;margin-bottom:3px;font-size:.94rem}
+    .quick span{display:block;color:var(--muted);font-size:.82rem;line-height:1.55}
+    .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 68px}
+    .section-head{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+    .section-tag{padding:5px 12px;border-radius:999px;background:var(--teal);color:#fff;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .section-head h2{margin:0;font-size:1.2rem}
+    .section-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border),transparent)}
+    .panel,.post-card,.stat-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .panel{padding:18px}
+    .intro{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:28px}
+    .intro-copy{padding:22px}
+    .intro-copy p{margin:0;color:var(--muted);line-height:1.85}
+    .notice{padding:20px;background:linear-gradient(180deg,#fff8ec,#fff);border:1.5px solid #ffe0b2;border-radius:24px}
+    .notice h3{margin:0 0 8px;font-size:1rem}
+    .notice ul{margin:0;padding-left:18px;color:#6c5c4f;display:grid;gap:8px;line-height:1.65;font-size:.9rem}
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+    .category-card{padding:18px;min-height:145px;display:flex;flex-direction:column;gap:10px;transition:.18s ease;cursor:pointer}
+    .category-card:hover{transform:translateY(-3px);border-color:var(--teal)}
+    .category-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:rgba(0,180,166,.08);font-size:24px}
+    .category-card h3{margin:0;font-size:1rem}
+    .category-card p{margin:0;color:var(--muted);line-height:1.6;font-size:.84rem}
+    .board-layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
+    .sidebar,.main-col{display:grid;gap:18px}
+    .search-box{display:grid;gap:10px}
+    input,select,textarea{width:100%;border:1.5px solid var(--border);background:#fff;border-radius:14px;padding:12px 13px;font:inherit;color:var(--ink);outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--teal)}
+    .chip-list{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px;font-size:.82rem;cursor:pointer;transition:.15s ease}
+    .chip.active,.chip:hover{border-color:var(--teal);color:var(--teal)}
+    .rule-list{margin:0;padding-left:18px;display:grid;gap:8px}
+    .rule-list li{color:var(--muted);line-height:1.7;font-size:.88rem}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+    .stat-card{padding:16px}
+    .stat-label{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+    .stat-value{font-size:1.45rem;font-weight:900}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .muted{color:var(--muted)}
+    .posts{display:grid;gap:14px}
+    .post-card{padding:18px}
+    .post-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .b-teal{background:rgba(0,180,166,.12);color:var(--teal)}
+    .b-blue{background:rgba(47,109,245,.12);color:var(--blue)}
+    .b-pink{background:rgba(244,114,182,.12);color:#c54890}
+    .b-orange{background:rgba(255,107,43,.12);color:#d75b22}
+    .post-date{font-size:.78rem;color:#8a7f87}
+    .post-card h3{margin:0 0 8px;font-size:1.07rem;line-height:1.4}
+    .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:#7a6c76;margin-bottom:10px}
+    .post-card p{margin:0;color:var(--muted);line-height:1.78;font-size:.93rem}
+    .post-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .mini-btn{border:none;border-radius:12px;min-height:38px;padding:0 14px;font:inherit;font-weight:700;cursor:pointer;background:#fff;border:1.5px solid var(--border);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    .mini-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .mini-btn.danger{background:#fff3f4;color:#b7283a;border-color:#ffd0d6}
+    .empty{padding:24px;text-align:center;color:var(--muted)}
+    .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .thumbs img{width:110px;height:110px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
+    .footer{background:var(--ink);color:rgba(255,255,255,.58);padding:18px 22px}
+    .footer-inner{max-width:1180px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .footer strong{color:#fff;letter-spacing:.08em;font-size:13px}
+    @media (max-width:980px){.hero-inner,.intro,.board-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:760px){.header-inner{padding:10px 16px}.hero-inner,.wrap{padding-left:16px;padding-right:16px}}
+    @media (max-width:620px){.category-grid,.stats{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
-  <p><a href="./post/">投稿</a> | <a href="./guidelines/">利用ルール</a></p>
-  <h1>コミュニティ掲示板</h1>
-  <div id="posts">読み込み中...</div>
-  <script>const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec'; async function fetchJson(url, opt = {}) { const r = await fetch(url, opt); if (!r.ok) throw new Error('Network'); return await r.json(); } async function loadPosts() { const c = document.getElementById('posts'); try { const d = await fetchJson(GAS_URL + '?action=getPosts'); const posts = d.posts || []; if (!posts.length) { c.innerHTML = '<div class="card">現在表示できる投稿はありません。</div>'; return; } c.innerHTML = posts.map(p => `<div class="card"><div><span class="badge">${p.category1}</span><span class="badge">${p.category2}</span></div><h3>${p.title}</h3><div>${p.city || ''} ${p.region || ''}</div><p>${(p.body || '').replace(/\n/g, '<br>')}</p><div>${p.image_url_1 ? `<img src="${p.image_url_1}">` : ''}${p.image_url_2 ? `<img src="${p.image_url_2}">` : ''}${p.image_url_3 ? `<img src="${p.image_url_3}">` : ''}</div><p><a href="./contact/?post_id=${encodeURIComponent(p.post_id)}">この投稿者に連絡する</a> | <a href="./report/?post_id=${encodeURIComponent(p.post_id)}">通報する</a></p></div>`).join(''); } catch (e) { c.innerHTML = '<div class="card">読み込みに失敗しました。</div>'; } } loadPosts();</script>
-</body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-logo">NIHON GATEWAY GERMANY</span>
+        <span class="brand-tag">ドイツ在住日本人向け 交流掲示板</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#board" class="active">Board</a>
+        <a href="./post.html">Post</a>
+        <a href="./guidelines.html">Rules</a>
+      </nav>
+    </div>
+  </header>
 
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Community Board</div>
+        <h1>交流掲示板で<br>つながる・探す・相談する</h1>
+        <p>売ります・買います、住まい・物件、レッスン、イベント、仲間募集、サービス、仕事、質問・相談まで。投稿はフォーム送信後に管理者承認されてから公開されます。連絡先は掲示板に公開されず、サイト経由で安全にやり取りできます。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="./post.html">投稿する</a>
+          <a class="btn btn-secondary" href="#board">募集を見る</a>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <h2>このページでできること</h2>
+        <div class="quick-list">
+          <div class="quick"><div class="quick-icon">📝</div><div><strong>投稿を探す</strong><span>カテゴリ・地域・キーワードで一覧から探せます。</span></div></div>
+          <div class="quick"><div class="quick-icon">📮</div><div><strong>連絡する</strong><span>メールや電話を公開せず、投稿者へ安全に連絡できます。</span></div></div>
+          <div class="quick"><div class="quick-icon">🖼️</div><div><strong>画像付き投稿</strong><span>売買や住まい投稿で最大3枚の画像を掲載できます。</span></div></div>
+          <div class="quick"><div class="quick-icon">🛡️</div><div><strong>承認制</strong><span>投稿は管理者確認後に公開。通報機能にも対応しています。</span></div></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="intro">
+      <div class="panel intro-copy">
+        <div class="section-head"><span class="section-tag">Start</span><h2>使い方</h2><div class="section-line"></div></div>
+        <p>一覧は誰でも閲覧できます。投稿する場合は専用フォームから送信してください。投稿は一度保留になり、管理者承認後に掲示板へ公開されます。各投稿の連絡先は非公開で、閲覧者は「この投稿者に連絡する」ボタンから連絡できます。</p>
+      </div>
+      <aside class="notice" id="rules">
+        <h3>利用ルール</h3>
+        <ul>
+          <li>個人情報の出しすぎに注意してください。</li>
+          <li>営業、勧誘、誹謗中傷、違法行為に関する投稿は禁止です。</li>
+          <li>初対面で会う場合は昼間の公共の場所を推奨します。</li>
+          <li>高額商品の売買や送金は自己責任で慎重に行ってください。</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-tag">Category</span><h2>カテゴリ</h2><div class="section-line"></div></div>
+      <div class="category-grid" id="categoryCards">
+        <div class="panel category-card" data-category="売ります・買います"><div class="category-icon">🛒</div><h3>売ります・買います</h3><p>家具、家電、PC・スマホ、車、チケットなど。</p></div>
+        <div class="panel category-card" data-category="住まい・物件"><div class="category-icon">🏠</div><h3>住まい・物件</h3><p>部屋探し、賃貸、サブレット、シェアハウス。</p></div>
+        <div class="panel category-card" data-category="イベント・交流"><div class="category-icon">🎉</div><h3>イベント・交流</h3><p>交流会、飲み会、勉強会、ワークショップなど。</p></div>
+        <div class="panel category-card" data-category="仲間募集"><div class="category-icon">🤝</div><h3>仲間募集</h3><p>友達、ママ友、スポーツ仲間、言語交換。</p></div>
+      </div>
+    </section>
+
+    <section id="board">
+      <div class="section-head"><span class="section-tag">Board</span><h2>投稿一覧</h2><div class="section-line"></div></div>
+
+      <div class="stats">
+        <div class="stat-card"><div class="stat-label">総投稿数</div><div class="stat-value" id="statTotal">0</div></div>
+        <div class="stat-card"><div class="stat-label">表示中</div><div class="stat-value" id="statVisible">0</div></div>
+        <div class="stat-card"><div class="stat-label">カテゴリ数</div><div class="stat-value" id="statCategories">0</div></div>
+        <div class="stat-card"><div class="stat-label">地域数</div><div class="stat-value" id="statRegions">0</div></div>
+      </div>
+
+      <div class="board-layout">
+        <aside class="sidebar">
+          <div class="panel">
+            <h3>検索・絞り込み</h3>
+            <div class="search-box">
+              <input id="searchInput" type="text" placeholder="キーワードで検索（例：デュッセルドルフ、ソファ、サブレット）">
+              <select id="filterCategory"><option value="">すべてのカテゴリ</option></select>
+              <select id="filterRegion"><option value="">すべての地域</option></select>
+              <button class="btn btn-secondary" id="resetFilters" type="button">絞り込みをリセット</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>カテゴリクイック選択</h3>
+            <div class="chip-list" id="tagChips"></div>
+          </div>
+
+          <div class="panel">
+            <h3>安全な使い方</h3>
+            <ul class="rule-list">
+              <li>連絡先は公開されず、フォーム経由でのみ届きます。</li>
+              <li>古い投稿は有効期限で自動的に非表示になります。</li>
+              <li>問題のある投稿は通報してください。</li>
+              <li>投稿削除は投稿者専用リンクから行えます。</li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="main-col">
+          <div class="toolbar">
+            <div class="muted" id="resultText">投稿を読み込み中...</div>
+            <a class="btn btn-secondary" href="./post.html">新しく投稿する</a>
+          </div>
+          <div class="posts" id="posts"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <strong>NIHON GATEWAY GERMANY</strong>
+      <span>公開閲覧 + 投稿フォーム + 管理者承認型コミュニティ掲示板</span>
+    </div>
+  </footer>
+
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
+    let posts = [];
+    let activeCategory = '';
+
+    const els = {
+      posts: document.getElementById('posts'),
+      resultText: document.getElementById('resultText'),
+      searchInput: document.getElementById('searchInput'),
+      filterCategory: document.getElementById('filterCategory'),
+      filterRegion: document.getElementById('filterRegion'),
+      resetFilters: document.getElementById('resetFilters'),
+      statTotal: document.getElementById('statTotal'),
+      statVisible: document.getElementById('statVisible'),
+      statCategories: document.getElementById('statCategories'),
+      statRegions: document.getElementById('statRegions'),
+      tagChips: document.getElementById('tagChips')
+    };
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+
+    function badgeClass(category) {
+      if (category === '売ります・買います') return 'b-teal';
+      if (category === '住まい・物件') return 'b-blue';
+      if (category === 'イベント・交流') return 'b-pink';
+      return 'b-orange';
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return '';
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    async function fetchJson(url, options = {}) {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error('Network error');
+      return await res.json();
+    }
+
+    function uniqueRegions() {
+      return [...new Set(posts.map(p => p.region).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    }
+
+    function uniqueCategories() {
+      return [...new Set(posts.map(p => p.category1).filter(Boolean))];
+    }
+
+    function renderFilters() {
+      const categories = uniqueCategories();
+      const regions = uniqueRegions();
+      const currentCategory = els.filterCategory.value;
+      const currentRegion = els.filterRegion.value;
+
+      els.filterCategory.innerHTML = '<option value="">すべてのカテゴリ</option>' + categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+      els.filterRegion.innerHTML = '<option value="">すべての地域</option>' + regions.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join('');
+
+      if (categories.includes(currentCategory)) els.filterCategory.value = currentCategory;
+      if (regions.includes(currentRegion)) els.filterRegion.value = currentRegion;
+
+      els.tagChips.innerHTML = categories.map(c => `<button class="chip ${activeCategory===c?'active':''}" type="button" data-category="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
+      els.tagChips.querySelectorAll('[data-category]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = activeCategory === btn.dataset.category ? '' : btn.dataset.category;
+          renderAll();
+        });
+      });
+    }
+
+    function filteredPosts() {
+      const q = els.searchInput.value.trim().toLowerCase();
+      const category = els.filterCategory.value;
+      const region = els.filterRegion.value;
+
+      return [...posts]
+        .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+        .filter(post => {
+          const searchable = [
+            post.title, post.category1, post.category2, post.region, post.city,
+            post.nickname, post.body, post.price
+          ].join(' ').toLowerCase();
+
+          const matchesQuery = !q || searchable.includes(q);
+          const matchesCategory = !category || post.category1 === category;
+          const matchesRegion = !region || post.region === region;
+          const matchesQuick = !activeCategory || post.category1 === activeCategory;
+          return matchesQuery && matchesCategory && matchesRegion && matchesQuick;
+        });
+    }
+
+    function renderPosts() {
+      const list = filteredPosts();
+      els.statTotal.textContent = posts.length;
+      els.statVisible.textContent = list.length;
+      els.statCategories.textContent = uniqueCategories().length;
+      els.statRegions.textContent = uniqueRegions().length;
+      els.resultText.textContent = `全 ${posts.length} 件中 ${list.length} 件を表示`;
+
+      if (!list.length) {
+        els.posts.innerHTML = '<div class="panel empty">現在、条件に一致する投稿はありません。</div>';
+        return;
+      }
+
+      els.posts.innerHTML = list.map(post => `
+        <article class="post-card">
+          <div class="post-top">
+            <div class="badges">
+              <span class="badge ${badgeClass(post.category1)}">${escapeHtml(post.category1)}</span>
+              <span class="badge b-blue">${escapeHtml(post.category2)}</span>
+              <span class="badge b-orange">${escapeHtml(post.city || post.region || '')}</span>
+            </div>
+            <div class="post-date">${formatDate(post.created_at)}</div>
+          </div>
+          <h3>${escapeHtml(post.title)}</h3>
+          <div class="meta">
+            <span>投稿者: ${escapeHtml(post.nickname || '匿名')}</span>
+            <span>地域: ${escapeHtml([post.city, post.region].filter(Boolean).join(' / ') || '未設定')}</span>
+            <span>価格: ${escapeHtml(post.price || '未設定')}</span>
+          </div>
+          <p>${escapeHtml(post.body).replaceAll('\n','<br>')}</p>
+          <div class="thumbs">
+            ${post.image_url_1 ? `<img src="${escapeHtml(post.image_url_1)}" alt="">` : ''}
+            ${post.image_url_2 ? `<img src="${escapeHtml(post.image_url_2)}" alt="">` : ''}
+            ${post.image_url_3 ? `<img src="${escapeHtml(post.image_url_3)}" alt="">` : ''}
+          </div>
+          <div class="post-actions">
+            <a class="mini-btn primary" href="./contact.html?post_id=${encodeURIComponent(post.post_id)}">この投稿者に連絡する</a>
+            <a class="mini-btn danger" href="./report.html?post_id=${encodeURIComponent(post.post_id)}">通報する</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderAll() {
+      renderFilters();
+      renderPosts();
+    }
+
+    async function loadPosts() {
+      try {
+        const data = await fetchJson(GAS_URL + '?action=getPosts');
+        posts = data.posts || [];
+        renderAll();
+      } catch (e) {
+        els.resultText.textContent = '読み込みに失敗しました';
+        els.posts.innerHTML = '<div class="panel empty">投稿の読み込みに失敗しました。GASの公開設定とURLを確認してください。</div>';
+      }
+    }
+
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', () => {
+        activeCategory = card.dataset.category || '';
+        renderAll();
+        location.hash = '#board';
+      });
+    });
+
+    [els.searchInput, els.filterCategory, els.filterRegion].forEach(el => {
+      el.addEventListener('input', renderPosts);
+      el.addEventListener('change', renderPosts);
+    });
+
+    els.resetFilters.addEventListener('click', () => {
+      els.searchInput.value = '';
+      els.filterCategory.value = '';
+      els.filterRegion.value = '';
+      activeCategory = '';
+      renderAll();
+    });
+
+    loadPosts();
+  </script>
+</body>
 </html>

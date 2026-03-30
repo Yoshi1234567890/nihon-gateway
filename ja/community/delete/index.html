@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>削除</title>
+</head>
+
+<body style="font-family:Arial,sans-serif;max-width:760px;margin:auto;padding:40px;background:#fdf8f2">
+  <h1>投稿削除</h1>
+  <p id="msg">処理中...</p>
+  <script>const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec'; async function fetchJson(url, opt = {}) { const r = await fetch(url, opt); if (!r.ok) throw new Error('Network'); return await r.json(); } (async function () { const token = new URLSearchParams(location.search).get('token') || '', el = document.getElementById('msg'); if (!token) { el.textContent = '無効なリンクです。'; return; } try { const d = await fetchJson(GAS_URL + '?action=deletePostByToken&token=' + encodeURIComponent(token)); el.textContent = d.ok ? '投稿を削除しました。' : '削除に失敗しました。'; } catch (e) { el.textContent = '削除に失敗しました。'; } })();</script>
+</body>
+
+</html>

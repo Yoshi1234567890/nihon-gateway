@@ -1,59 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>通報する</title>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>通報する | Nihon Gateway Germany</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 760px;
-      margin: auto;
-      padding: 20px;
-      background: #fdf8f2
-    }
-
-    form {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      padding: 18px
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 10px
-    }
-
-    button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 10px;
-      background: #111;
-      color: #fff
-    }
+    body{font-family:Arial,sans-serif;max-width:760px;margin:auto;padding:24px;background:#fdf8f2}
+    form{background:#fff;border:1px solid #ddd;border-radius:16px;padding:18px}
+    input,textarea,select{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:10px}
+    button{padding:12px 18px;border:none;border-radius:10px;background:#111;color:#fff}
   </style>
 </head>
-
 <body>
+  <p><a href="./index.html">← 掲示板へ戻る</a></p>
   <h1>投稿を通報する</h1>
-  <form id="reportForm"><input name="action" type="hidden" value="submitReport"><input name="post_id" id="post_id"
-      type="hidden"><label>理由</label><select name="reason" required>
+  <form id="reportForm">
+    <input name="action" type="hidden" value="submitReport">
+    <input name="post_id" id="post_id" type="hidden">
+    <label>理由</label>
+    <select name="reason" required>
       <option value="">選択してください</option>
       <option>スパム</option>
       <option>不適切な内容</option>
       <option>詐欺の疑い</option>
       <option>重複投稿</option>
       <option>その他</option>
-    </select><label>詳細</label><textarea name="detail"></textarea><label>あなたのメール（任意）</label><input name="reporter_email"
-      type="email"><button type="submit">送信する</button></form>
-  <script>const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec'; async function fetchJson(url, opt = {}) { const r = await fetch(url, opt); if (!r.ok) throw new Error('Network'); return await r.json(); } document.getElementById('post_id').value = new URLSearchParams(location.search).get('post_id') || ''; document.getElementById('reportForm').addEventListener('submit', async e => { e.preventDefault(); const fd = new FormData(e.target); const r = await fetch(GAS_URL, { method: 'POST', body: fd }); const d = await r.json(); if (d.ok) location.href = './thanks.html'; else alert('送信に失敗しました'); });</script>
+    </select>
+    <label>詳細</label><textarea name="detail"></textarea>
+    <label>あなたのメール（任意）</label><input name="reporter_email" type="email">
+    <button type="submit">送信する</button>
+  </form>
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
+    document.getElementById('post_id').value = new URLSearchParams(location.search).get('post_id') || '';
+    document.getElementById('reportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const res = await fetch(GAS_URL, { method:'POST', body: fd });
+      const data = await res.json();
+      if (data.ok) location.href = './thanks.html';
+      else alert('送信に失敗しました');
+    });
+  </script>
 </body>
-
 </html>

@@ -1,40 +1,839 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>コミュニティ | Nihon Gateway</title>
-  <meta name="description" content="在独日本人コミュニティ情報をまとめています。">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/community/">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交流掲示板 | Nihon Gateway Germany</title>
+  <meta name="description" content="ドイツ在住日本人向けの1ページ完結型交流掲示板。投稿、検索、絞り込み、編集、削除がブラウザ内で使えます。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --yellow:#ffc93c;
+      --teal:#00b4a6;
+      --blue:#2f6df5;
+      --purple:#7c3aed;
+      --pink:#f472b6;
+      --cream:#fdf8f2;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --header-bg:#e6e0db;
+      --header-border:#d8d1cb;
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(0,0,0,.07);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Outfit','Noto Sans JP',sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+    }
+    a{color:inherit}
+    .site-header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(230,224,219,.92);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid var(--header-border);
+    }
+    .header-inner{
+      max-width:1180px; margin:0 auto; padding:12px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+    }
+    .brand{
+      text-decoration:none; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+    }
+    .brand-logo{font-size:14px; font-weight:900; letter-spacing:.08em}
+    .brand-tag{font-size:12px; color:#7a7278}
+    .header-nav{display:flex; gap:16px; flex-wrap:wrap}
+    .header-nav a{text-decoration:none; font-size:13px; color:#2a2226}
+    .header-nav a.active{font-weight:800}
 
+    .hero{
+      background:
+        radial-gradient(ellipse 60% 75% at 100% 0%,rgba(0,180,166,.14) 0%,transparent 56%),
+        radial-gradient(ellipse 50% 60% at 0% 100%,rgba(124,58,237,.12) 0%,transparent 55%),
+        #fff;
+      border-bottom:1px solid var(--border);
+    }
+    .hero-inner{
+      max-width:1180px; margin:0 auto; padding:34px 20px 28px;
+      display:grid; grid-template-columns:1.15fr .85fr; gap:24px; align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:5px 12px; border-radius:999px;
+      border:1.5px solid #bde9e4; background:#fff;
+      color:var(--teal); font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .dot{width:7px; height:7px; border-radius:50%; background:var(--teal)}
+    h1{
+      margin:0 0 12px;
+      font-size:clamp(2rem,4vw,3.35rem);
+      line-height:1.02; letter-spacing:-.03em;
+    }
+    .hero p{
+      margin:0; max-width:720px;
+      color:var(--muted); line-height:1.8; font-size:.97rem;
+    }
+    .hero-actions{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;
+    }
+    .btn{
+      border:none; border-radius:14px; min-height:46px; padding:0 18px;
+      font:inherit; font-weight:800; cursor:pointer; text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg,var(--teal),var(--blue)); color:#fff; box-shadow:0 8px 20px rgba(47,109,245,.18)}
+    .btn-secondary{background:#fff; color:var(--ink); border:1.5px solid var(--border)}
+    .hero-side{
+      background:linear-gradient(180deg,#fff,#fbf8f6);
+      border:1.5px solid var(--border);
+      border-radius:26px; padding:18px; box-shadow:var(--shadow);
+    }
+    .hero-side h2{margin:0 0 12px; font-size:1rem}
+    .quick-list{display:grid; gap:10px}
+    .quick{
+      display:flex; gap:12px; align-items:flex-start;
+      background:#fff; border:1px solid var(--border); border-radius:16px; padding:12px;
+    }
+    .quick-icon{
+      width:42px; height:42px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,180,166,.08); font-size:21px; flex:0 0 42px;
+    }
+    .quick strong{display:block; margin-bottom:3px; font-size:.94rem}
+    .quick span{display:block; color:var(--muted); font-size:.82rem; line-height:1.55}
+
+    .wrap{max-width:1180px; margin:0 auto; padding:26px 20px 68px}
+    .section-head{
+      display:flex; align-items:center; gap:12px; margin:0 0 16px;
+    }
+    .section-tag{
+      padding:5px 12px; border-radius:999px; background:var(--teal);
+      color:#fff; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+    }
+    .section-head h2{margin:0; font-size:1.2rem}
+    .section-line{flex:1; height:1.5px; background:linear-gradient(90deg,var(--border),transparent)}
+    .panel, .post-card, .stat-card{
+      background:#fff; border:1.5px solid var(--border);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .panel{padding:18px}
+    .intro{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:18px;
+      margin-bottom:28px;
+    }
+    .intro-copy{padding:22px}
+    .intro-copy p{margin:0; color:var(--muted); line-height:1.85}
+    .notice{
+      padding:20px;
+      background:linear-gradient(180deg,#fff8ec,#fff);
+      border:1.5px solid #ffe0b2;
+      border-radius:24px;
+    }
+    .notice h3{margin:0 0 8px; font-size:1rem}
+    .notice ul{margin:0; padding-left:18px; color:#6c5c4f; display:grid; gap:8px; line-height:1.65; font-size:.9rem}
+
+    .category-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:30px;
+    }
+    .category-card{
+      padding:18px; min-height:145px;
+      display:flex; flex-direction:column; gap:10px;
+      transition:.18s ease;
+      cursor:pointer;
+    }
+    .category-card:hover{transform:translateY(-3px); border-color:var(--teal)}
+    .category-icon{
+      width:52px; height:52px; border-radius:15px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,180,166,.08); font-size:24px;
+    }
+    .category-card h3{margin:0; font-size:1rem}
+    .category-card p{margin:0; color:var(--muted); line-height:1.6; font-size:.84rem}
+
+    .board-layout{
+      display:grid; grid-template-columns:320px 1fr; gap:18px; align-items:start;
+    }
+    .sidebar, .main-col{display:grid; gap:18px}
+    .search-box, .form-grid{display:grid; gap:10px}
+    input, select, textarea{
+      width:100%;
+      border:1.5px solid var(--border);
+      background:#fff;
+      border-radius:14px;
+      padding:12px 13px;
+      font:inherit; color:var(--ink);
+      outline:none;
+    }
+    input:focus, select:focus, textarea:focus{border-color:var(--teal)}
+    textarea{resize:vertical; min-height:135px}
+    .chip-list{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:.82rem;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .chip.active, .chip:hover{border-color:var(--teal); color:var(--teal)}
+    .rule-list{margin:0; padding-left:18px; display:grid; gap:8px}
+    .rule-list li{color:var(--muted); line-height:1.7; font-size:.88rem}
+
+    .stats{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px;
+    }
+    .stat-card{padding:16px}
+    .stat-label{font-size:.8rem; color:var(--muted); margin-bottom:6px}
+    .stat-value{font-size:1.45rem; font-weight:900}
+
+    .toolbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .muted{color:var(--muted)}
+    .posts{display:grid; gap:14px}
+    .post-card{padding:18px}
+    .post-top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; flex-wrap:wrap;
+    }
+    .badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      border-radius:999px; padding:5px 10px;
+      font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    }
+    .b-teal{background:rgba(0,180,166,.12); color:var(--teal)}
+    .b-blue{background:rgba(47,109,245,.12); color:var(--blue)}
+    .b-pink{background:rgba(244,114,182,.12); color:#c54890}
+    .b-orange{background:rgba(255,107,43,.12); color:#d75b22}
+    .post-date{font-size:.78rem; color:#8a7f87}
+    .post-card h3{margin:0 0 8px; font-size:1.07rem; line-height:1.4}
+    .meta{
+      display:flex; gap:14px; flex-wrap:wrap;
+      font-size:.82rem; color:#7a6c76; margin-bottom:10px;
+    }
+    .post-card p{margin:0; color:var(--muted); line-height:1.78; font-size:.93rem}
+    .post-actions{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
+    }
+    .mini-btn{
+      border:none; border-radius:12px; min-height:38px; padding:0 14px;
+      font:inherit; font-weight:700; cursor:pointer;
+      background:#fff; border:1.5px solid var(--border);
+    }
+    .mini-btn.primary{background:var(--ink); color:#fff; border-color:var(--ink)}
+    .mini-btn.danger{background:#fff3f4; color:#b7283a; border-color:#ffd0d6}
+    .empty{
+      padding:24px; text-align:center; color:var(--muted);
+    }
+
+    .form-grid{
+      grid-template-columns:repeat(2,1fr);
+    }
+    .full{grid-column:1 / -1}
+    .helper{font-size:.82rem; color:#8a7f87; line-height:1.65}
+
+    .footer{
+      background:var(--ink);
+      color:rgba(255,255,255,.58);
+      padding:18px 22px;
+    }
+    .footer-inner{
+      max-width:1180px; margin:0 auto;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    }
+    .footer strong{color:#fff; letter-spacing:.08em; font-size:13px}
+
+    @media (max-width:980px){
+      .hero-inner, .intro, .board-layout{grid-template-columns:1fr}
+      .category-grid{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:760px){
+      .form-grid{grid-template-columns:1fr}
+      .header-inner{padding:10px 16px}
+      .hero-inner, .wrap{padding-left:16px; padding-right:16px}
+    }
+    @media (max-width:620px){
+      .category-grid, .stats{grid-template-columns:1fr}
+    }
+  </style>
+</head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <h1>コミュニティ</h1>
-      <p>在独日本人コミュニティ情報をまとめています。</p>
+    <div class="header-inner">
+      <a class="brand" href="#">
+        <span class="brand-logo">NIHON GATEWAY GERMANY</span>
+        <span class="brand-tag">ドイツ在住日本人向け 交流掲示板</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#board" class="active">Board</a>
+        <a href="#post">Post</a>
+        <a href="#rules">Rules</a>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <div class="content-box">
-      <p>このページのコンテンツは準備中です。</p>
-      <ul class="nav-links">
-        <li><a href="../index.html">日本語トップへ戻る</a></li>
-      </ul>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Community Board</div>
+        <h1>1ページ完結の<br>交流掲示板</h1>
+        <p>このHTMLファイル1つだけで、投稿・検索・カテゴリ絞り込み・編集・削除・ローカル保存まで使える掲示板です。投稿内容はブラウザの LocalStorage に保存されるため、同じブラウザなら再読み込み後も残ります。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#post">投稿する</a>
+          <a class="btn btn-secondary" href="#board">募集を見る</a>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <h2>このページでできること</h2>
+        <div class="quick-list">
+          <div class="quick">
+            <div class="quick-icon">✍️</div>
+            <div><strong>新規投稿</strong><span>タイトル、カテゴリ、地域、本文、タグを入力してその場で追加。</span></div>
+          </div>
+          <div class="quick">
+            <div class="quick-icon">🔎</div>
+            <div><strong>検索と絞り込み</strong><span>キーワード、カテゴリ、地域で見たい投稿だけ表示。</span></div>
+          </div>
+          <div class="quick">
+            <div class="quick-icon">🛠️</div>
+            <div><strong>編集と削除</strong><span>各投稿カードからそのまま修正や削除が可能。</span></div>
+          </div>
+          <div class="quick">
+            <div class="quick-icon">💾</div>
+            <div><strong>ローカル保存</strong><span>外部DBなしでもブラウザ内に保存されます。</span></div>
+          </div>
+        </div>
+      </aside>
     </div>
+  </section>
+
+  <main class="wrap">
+    <section class="intro">
+      <div class="panel intro-copy">
+        <div class="section-head">
+          <span class="section-tag">Start</span>
+          <h2>使い方</h2>
+          <div class="section-line"></div>
+        </div>
+        <p>まず下のフォームから投稿を作成します。投稿はすぐ一覧に表示され、キーワード検索やカテゴリ絞り込みで探せます。編集・削除は投稿ごとのボタンから操作できます。管理画面なしで動くため、まずは試作品や暫定公開に向いています。</p>
+      </div>
+      <aside class="notice" id="rules">
+        <h3>利用ルール</h3>
+        <ul>
+          <li>個人情報の出しすぎに注意してください。</li>
+          <li>営業、勧誘、誹謗中傷、違法行為に関する投稿は禁止です。</li>
+          <li>初対面で会う場合は昼間の公共の場所を推奨します。</li>
+          <li>高額商品の売買や送金は自己責任で慎重に行ってください。</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="section-tag">Category</span>
+        <h2>カテゴリ</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="category-grid" id="categoryCards">
+        <div class="panel category-card" data-category="友達募集"><div class="category-icon">👫</div><h3>友達募集</h3><p>同じ街の知り合いづくり、ごはん、カフェ、雑談仲間。</p></div>
+        <div class="panel category-card" data-category="ママ友・家族"><div class="category-icon">👶</div><h3>ママ友・家族</h3><p>親子交流、育児情報交換、家族ぐるみのつながり。</p></div>
+        <div class="panel category-card" data-category="言語交換"><div class="category-icon">🗣️</div><h3>言語交換</h3><p>日本語、ドイツ語、英語の会話相手や勉強仲間。</p></div>
+        <div class="panel category-card" data-category="スポーツ仲間"><div class="category-icon">⚽</div><h3>スポーツ仲間</h3><p>ランニング、テニス、ジム、サッカー、ヨガなど。</p></div>
+      </div>
+    </section>
+
+    <section id="board">
+      <div class="section-head">
+        <span class="section-tag">Board</span>
+        <h2>投稿一覧</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">総投稿数</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">表示中</div>
+          <div class="stat-value" id="statVisible">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">カテゴリ数</div>
+          <div class="stat-value" id="statCategories">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">地域数</div>
+          <div class="stat-value" id="statRegions">0</div>
+        </div>
+      </div>
+
+      <div class="board-layout">
+        <aside class="sidebar">
+          <div class="panel">
+            <h3>検索・絞り込み</h3>
+            <div class="search-box">
+              <input id="searchInput" type="text" placeholder="キーワードで検索（例：デュッセルドルフ、ママ友、テニス）">
+              <select id="filterCategory">
+                <option value="">すべてのカテゴリ</option>
+                <option>友達募集</option>
+                <option>ママ友・家族</option>
+                <option>言語交換</option>
+                <option>スポーツ仲間</option>
+                <option>イベント参加者募集</option>
+                <option>勉強・キャリア</option>
+                <option>売ります・譲ります</option>
+              </select>
+              <select id="filterRegion">
+                <option value="">すべての地域</option>
+              </select>
+              <button class="btn btn-secondary" id="resetFilters" type="button">絞り込みをリセット</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>人気タグ</h3>
+            <div class="chip-list" id="tagChips"></div>
+          </div>
+
+          <div class="panel">
+            <h3>掲示板ルール</h3>
+            <ul class="rule-list">
+              <li>過度な個人情報は書かない。</li>
+              <li>営業、MLM、スパム投稿は禁止。</li>
+              <li>売買投稿は状態や受け渡し方法を明記。</li>
+              <li>不快な投稿は削除対象です。</li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="main-col">
+          <div class="toolbar">
+            <div class="muted" id="resultText">投稿を読み込み中...</div>
+            <button class="btn btn-secondary" type="button" id="seedButton">サンプル投稿を再投入</button>
+          </div>
+          <div class="posts" id="posts"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="post" style="margin-top:30px;">
+      <div class="section-head">
+        <span class="section-tag">Post</span>
+        <h2>投稿フォーム</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="panel">
+        <form id="postForm" class="form-grid">
+          <input class="full" id="title" type="text" placeholder="タイトル" required>
+          <select id="category" required>
+            <option value="">カテゴリを選択</option>
+            <option>友達募集</option>
+            <option>ママ友・家族</option>
+            <option>言語交換</option>
+            <option>スポーツ仲間</option>
+            <option>イベント参加者募集</option>
+            <option>勉強・キャリア</option>
+            <option>売ります・譲ります</option>
+          </select>
+          <input id="region" type="text" placeholder="地域・都市名（例：Düsseldorf）" required>
+          <input id="nickname" type="text" placeholder="ニックネーム" required>
+          <input id="contact" type="text" placeholder="連絡方法（例：DM希望、メール交換希望）">
+          <input id="tags" type="text" placeholder="タグ（カンマ区切り。例：初心者歓迎,オンライン可）">
+          <textarea class="full" id="body" placeholder="募集内容・自己紹介・日時・条件など" required></textarea>
+          <input id="meetingType" type="text" placeholder="形式（例：対面、オンライン、どちらでも）">
+          <div class="full" style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" type="submit" id="submitButton">投稿を追加</button>
+            <button class="btn btn-secondary" type="button" id="cancelEdit" style="display:none;">編集をキャンセル</button>
+          </div>
+        </form>
+        <p class="helper" style="margin-top:12px;">この版はブラウザ内保存です。公開サイトで共有型の本物の掲示板にする場合は、次の段階で GAS + Spreadsheet や Firebase などに接続します。</p>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Nihon Gateway</p>
+  <footer class="footer">
+    <div class="footer-inner">
+      <strong>NIHON GATEWAY GERMANY</strong>
+      <span>1ファイル完結の交流掲示板HTML</span>
     </div>
   </footer>
 
-  <script src="../../assets/js/main.js"></script>
-</body>
+  <script>
+    const STORAGE_KEY = 'nihon_gateway_community_board_v1';
 
+    const samplePosts = [
+      {
+        id: crypto.randomUUID(),
+        title: 'デュッセルドルフで平日夜にごはん友達募集',
+        category: '友達募集',
+        region: 'Düsseldorf',
+        nickname: 'Y.M.',
+        contact: 'DM希望',
+        tags: ['初心者歓迎','平日夜','カフェ'],
+        body: '30代前半です。仕事帰りに気軽にごはんやカフェに行ける方を探しています。まずは軽く自己紹介からできるとうれしいです。',
+        meetingType: '対面',
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: crypto.randomUUID(),
+        title: '日本語 × ドイツ語の言語交換相手を探しています',
+        category: '言語交換',
+        region: 'Berlin',
+        nickname: 'T.H.',
+        contact: 'メール交換希望',
+        tags: ['オンライン可','ドイツ語学習','会話練習'],
+        body: '週1回くらいで会話練習できる方を探しています。日常会話や仕事で使う表現を一緒に学びたいです。',
+        meetingType: 'オンライン / 対面',
+        createdAt: new Date(Date.now() - 86400000).toISOString()
+      },
+      {
+        id: crypto.randomUUID(),
+        title: '週末ランニング仲間募集 5〜10kmくらい',
+        category: 'スポーツ仲間',
+        region: 'München',
+        nickname: 'R.N.',
+        contact: 'DM希望',
+        tags: ['初心者歓迎','朝ラン','健康'],
+        body: '健康のために走り始めたばかりです。速さより継続重視で、週末朝に軽く走れる方を探しています。',
+        meetingType: '対面',
+        createdAt: new Date(Date.now() - 2*86400000).toISOString()
+      }
+    ];
+
+    let posts = [];
+    let editingId = null;
+    let activeTag = '';
+
+    const els = {
+      posts: document.getElementById('posts'),
+      resultText: document.getElementById('resultText'),
+      searchInput: document.getElementById('searchInput'),
+      filterCategory: document.getElementById('filterCategory'),
+      filterRegion: document.getElementById('filterRegion'),
+      resetFilters: document.getElementById('resetFilters'),
+      postForm: document.getElementById('postForm'),
+      title: document.getElementById('title'),
+      category: document.getElementById('category'),
+      region: document.getElementById('region'),
+      nickname: document.getElementById('nickname'),
+      contact: document.getElementById('contact'),
+      tags: document.getElementById('tags'),
+      body: document.getElementById('body'),
+      meetingType: document.getElementById('meetingType'),
+      submitButton: document.getElementById('submitButton'),
+      cancelEdit: document.getElementById('cancelEdit'),
+      statTotal: document.getElementById('statTotal'),
+      statVisible: document.getElementById('statVisible'),
+      statCategories: document.getElementById('statCategories'),
+      statRegions: document.getElementById('statRegions'),
+      tagChips: document.getElementById('tagChips'),
+      seedButton: document.getElementById('seedButton')
+    };
+
+    function loadPosts(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw){
+        posts = [...samplePosts];
+        savePosts();
+        return;
+      }
+      try{
+        posts = JSON.parse(raw);
+      }catch(e){
+        posts = [...samplePosts];
+        savePosts();
+      }
+    }
+
+    function savePosts(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    }
+
+    function formatDate(iso){
+      const d = new Date(iso);
+      if(Number.isNaN(d.getTime())) return '';
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function badgeClass(category){
+      if(category === '友達募集') return 'b-teal';
+      if(category === '言語交換') return 'b-orange';
+      if(category === 'ママ友・家族') return 'b-pink';
+      return 'b-blue';
+    }
+
+    function uniqueRegions(){
+      return [...new Set(posts.map(p => p.region).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    }
+
+    function uniqueCategories(){
+      return [...new Set(posts.map(p => p.category).filter(Boolean))];
+    }
+
+    function allTags(){
+      const counts = {};
+      posts.forEach(p => (p.tags || []).forEach(tag => {
+        const t = String(tag).trim();
+        if(!t) return;
+        counts[t] = (counts[t] || 0) + 1;
+      }));
+      return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,12);
+    }
+
+    function renderRegions(){
+      const current = els.filterRegion.value;
+      const regions = uniqueRegions();
+      els.filterRegion.innerHTML = '<option value="">すべての地域</option>' +
+        regions.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join('');
+      if(regions.includes(current)) els.filterRegion.value = current;
+    }
+
+    function renderTags(){
+      const tags = allTags();
+      if(tags.length === 0){
+        els.tagChips.innerHTML = '<span class="muted">タグはまだありません。</span>';
+        return;
+      }
+      els.tagChips.innerHTML = tags.map(([tag, count]) => `
+        <button class="chip ${activeTag === tag ? 'active' : ''}" type="button" data-tag="${escapeHtml(tag)}"># ${escapeHtml(tag)} (${count})</button>
+      `).join('');
+      els.tagChips.querySelectorAll('[data-tag]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTag = activeTag === btn.dataset.tag ? '' : btn.dataset.tag;
+          renderAll();
+        });
+      });
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function filteredPosts(){
+      const q = els.searchInput.value.trim().toLowerCase();
+      const category = els.filterCategory.value;
+      const region = els.filterRegion.value;
+
+      return [...posts]
+        .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .filter(post => {
+          const searchable = [
+            post.title, post.category, post.region, post.nickname,
+            post.contact, post.body, post.meetingType, ...(post.tags || [])
+          ].join(' ').toLowerCase();
+
+          const matchesQuery = !q || searchable.includes(q);
+          const matchesCategory = !category || post.category === category;
+          const matchesRegion = !region || post.region === region;
+          const matchesTag = !activeTag || (post.tags || []).includes(activeTag);
+          return matchesQuery && matchesCategory && matchesRegion && matchesTag;
+        });
+    }
+
+    function renderPosts(){
+      const list = filteredPosts();
+
+      els.statTotal.textContent = posts.length;
+      els.statVisible.textContent = list.length;
+      els.statCategories.textContent = uniqueCategories().length;
+      els.statRegions.textContent = uniqueRegions().length;
+      els.resultText.textContent = `全 ${posts.length} 件中 ${list.length} 件を表示`;
+
+      if(list.length === 0){
+        els.posts.innerHTML = '<div class="panel empty">条件に一致する投稿はありません。</div>';
+        return;
+      }
+
+      els.posts.innerHTML = list.map(post => `
+        <article class="post-card">
+          <div class="post-top">
+            <div class="badges">
+              <span class="badge ${badgeClass(post.category)}">${escapeHtml(post.category)}</span>
+              <span class="badge b-blue">${escapeHtml(post.region)}</span>
+            </div>
+            <div class="post-date">${formatDate(post.createdAt)}</div>
+          </div>
+          <h3>${escapeHtml(post.title)}</h3>
+          <div class="meta">
+            <span>投稿者: ${escapeHtml(post.nickname)}</span>
+            <span>形式: ${escapeHtml(post.meetingType || '未設定')}</span>
+            <span>連絡: ${escapeHtml(post.contact || '未設定')}</span>
+          </div>
+          <p>${escapeHtml(post.body).replaceAll('\n','<br>')}</p>
+          ${(post.tags || []).length ? `<div class="chip-list" style="margin-top:12px;">${post.tags.map(tag => `<button class="chip ${activeTag === tag ? 'active' : ''}" type="button" data-inline-tag="${escapeHtml(tag)}"># ${escapeHtml(tag)}</button>`).join('')}</div>` : ''}
+          <div class="post-actions">
+            <button class="mini-btn primary" type="button" data-edit="${post.id}">編集</button>
+            <button class="mini-btn danger" type="button" data-delete="${post.id}">削除</button>
+          </div>
+        </article>
+      `).join('');
+
+      els.posts.querySelectorAll('[data-delete]').forEach(btn => {
+        btn.addEventListener('click', () => removePost(btn.dataset.delete));
+      });
+
+      els.posts.querySelectorAll('[data-edit]').forEach(btn => {
+        btn.addEventListener('click', () => startEdit(btn.dataset.edit));
+      });
+
+      els.posts.querySelectorAll('[data-inline-tag]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTag = btn.dataset.inlineTag;
+          renderAll();
+        });
+      });
+    }
+
+    function renderAll(){
+      renderRegions();
+      renderTags();
+      renderPosts();
+    }
+
+    function resetForm(){
+      els.postForm.reset();
+      editingId = null;
+      els.submitButton.textContent = '投稿を追加';
+      els.cancelEdit.style.display = 'none';
+    }
+
+    function parseTags(value){
+      return value.split(',')
+        .map(v => v.trim())
+        .filter(Boolean)
+        .filter((v, i, arr) => arr.indexOf(v) === i);
+    }
+
+    function handleSubmit(e){
+      e.preventDefault();
+
+      const data = {
+        title: els.title.value.trim(),
+        category: els.category.value,
+        region: els.region.value.trim(),
+        nickname: els.nickname.value.trim(),
+        contact: els.contact.value.trim(),
+        tags: parseTags(els.tags.value),
+        body: els.body.value.trim(),
+        meetingType: els.meetingType.value.trim(),
+      };
+
+      if(!data.title || !data.category || !data.region || !data.nickname || !data.body){
+        alert('必須項目を入力してください。');
+        return;
+      }
+
+      if(editingId){
+        posts = posts.map(post => post.id === editingId ? { ...post, ...data } : post);
+      }else{
+        posts.push({
+          id: crypto.randomUUID(),
+          ...data,
+          createdAt: new Date().toISOString()
+        });
+      }
+
+      savePosts();
+      resetForm();
+      renderAll();
+      location.hash = '#board';
+    }
+
+    function startEdit(id){
+      const post = posts.find(p => p.id === id);
+      if(!post) return;
+
+      editingId = id;
+      els.title.value = post.title || '';
+      els.category.value = post.category || '';
+      els.region.value = post.region || '';
+      els.nickname.value = post.nickname || '';
+      els.contact.value = post.contact || '';
+      els.tags.value = (post.tags || []).join(', ');
+      els.body.value = post.body || '';
+      els.meetingType.value = post.meetingType || '';
+      els.submitButton.textContent = '編集を保存';
+      els.cancelEdit.style.display = 'inline-flex';
+      location.hash = '#post';
+    }
+
+    function removePost(id){
+      const ok = confirm('この投稿を削除しますか？');
+      if(!ok) return;
+      posts = posts.filter(post => post.id !== id);
+      savePosts();
+      if(editingId === id) resetForm();
+      renderAll();
+    }
+
+    function attachEvents(){
+      els.postForm.addEventListener('submit', handleSubmit);
+      els.cancelEdit.addEventListener('click', resetForm);
+
+      [els.searchInput, els.filterCategory, els.filterRegion].forEach(el => {
+        el.addEventListener('input', renderAll);
+        el.addEventListener('change', renderAll);
+      });
+
+      els.resetFilters.addEventListener('click', () => {
+        els.searchInput.value = '';
+        els.filterCategory.value = '';
+        els.filterRegion.value = '';
+        activeTag = '';
+        renderAll();
+      });
+
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+          els.filterCategory.value = card.dataset.category || '';
+          location.hash = '#board';
+          renderAll();
+        });
+      });
+
+      els.seedButton.addEventListener('click', () => {
+        const ok = confirm('サンプル投稿を再投入します。現在の投稿も残したまま追加されます。');
+        if(!ok) return;
+        posts = [...posts, ...samplePosts.map(p => ({...p, id: crypto.randomUUID(), createdAt: new Date().toISOString()}))];
+        savePosts();
+        renderAll();
+      });
+    }
+
+    loadPosts();
+    attachEvents();
+    renderAll();
+  </script>
+</body>
 </html>
+'''
+
+path = Path('/mnt/data/community_board_onepage.html')
+path.write_text(html, encoding='utf-8')
+print(f"Saved to {path}")

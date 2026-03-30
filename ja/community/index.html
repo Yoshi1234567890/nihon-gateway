@@ -104,14 +104,14 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="./index.html">
+      <a class="brand" href="./">
         <span class="brand-logo">NIHON GATEWAY GERMANY</span>
         <span class="brand-tag">ドイツ在住日本人向け 交流掲示板</span>
       </a>
       <nav class="header-nav" aria-label="Primary navigation">
         <a href="#board" class="active">Board</a>
-        <a href="./post.html">Post</a>
-        <a href="./guidelines.html">Rules</a>
+        <a href="./post/">Post</a>
+        <a href="./guidelines/">Rules</a>
       </nav>
     </div>
   </header>
@@ -355,8 +355,8 @@
             ${post.image_url_3 ? `<img src="${escapeHtml(post.image_url_3)}" alt="">` : ''}
           </div>
           <div class="post-actions">
-            <a class="mini-btn primary" href="./contact.html?post_id=${encodeURIComponent(post.post_id)}">この投稿者に連絡する</a>
-            <a class="mini-btn danger" href="./report.html?post_id=${encodeURIComponent(post.post_id)}">通報する</a>
+            <a class="mini-btn primary" href="./contact/?post_id=${encodeURIComponent(post.post_id)}">この投稿者に連絡する</a>
+            <a class="mini-btn danger" href="./report/?post_id=${encodeURIComponent(post.post_id)}">通報する</a>
           </div>
         </article>
       `).join('');

@@ -1,1 +1,50 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Community</title><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:auto;padding:20px;background:#fdf8f2} .card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:16px;margin-bottom:14px} .badge{display:inline-block;background:#eef;padding:4px 10px;border-radius:999px;margin-right:6px;font-size:12px} img{max-width:180px;border-radius:10px;margin-right:8px;margin-top:8px}</style></head><body><p><a href="./post/">投稿</a> | <a href="./guidelines/">利用ルール</a></p><h1>コミュニティ掲示板</h1><div id="posts">読み込み中...</div><script>const GAS_URL='PASTE_YOUR_GAS_WEB_APP_URL_HERE';async function fetchJson(url,opt={}){const r=await fetch(url,opt);if(!r.ok)throw new Error('Network');return await r.json();}async function loadPosts(){const c=document.getElementById('posts');try{const d=await fetchJson(GAS_URL+'?action=getPosts');const posts=d.posts||[];if(!posts.length){c.innerHTML='<div class="card">現在表示できる投稿はありません。</div>';return;}c.innerHTML=posts.map(p=>`<div class="card"><div><span class="badge">${p.category1}</span><span class="badge">${p.category2}</span></div><h3>${p.title}</h3><div>${p.city||''} ${p.region||''}</div><p>${(p.body||'').replace(/\n/g,'<br>')}</p><div>${p.image_url_1?`<img src="${p.image_url_1}">`:''}${p.image_url_2?`<img src="${p.image_url_2}">`:''}${p.image_url_3?`<img src="${p.image_url_3}">`:''}</div><p><a href="./contact/?post_id=${encodeURIComponent(p.post_id)}">この投稿者に連絡する</a> | <a href="./report/?post_id=${encodeURIComponent(p.post_id)}">通報する</a></p></div>`).join('');}catch(e){c.innerHTML='<div class="card">読み込みに失敗しました。</div>';}}loadPosts();</script></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      background: #fdf8f2
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eef;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-right: 6px;
+      font-size: 12px
+    }
+
+    img {
+      max-width: 180px;
+      border-radius: 10px;
+      margin-right: 8px;
+      margin-top: 8px
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="./post/">投稿</a> | <a href="./guidelines/">利用ルール</a></p>
+  <h1>コミュニティ掲示板</h1>
+  <div id="posts">読み込み中...</div>
+  <script>const GAS_URL = 'PASTE_YOUR_GAS_WEB_APP_URL_HERE'; async function fetchJson(url, opt = {}) { const r = await fetch(url, opt); if (!r.ok) throw new Error('Network'); return await r.json(); } async function loadPosts() { const c = document.getElementById('posts'); try { const d = await fetchJson(GAS_URL + '?action=getPosts'); const posts = d.posts || []; if (!posts.length) { c.innerHTML = '<div class="card">現在表示できる投稿はありません。</div>'; return; } c.innerHTML = posts.map(p => `<div class="card"><div><span class="badge">${p.category1}</span><span class="badge">${p.category2}</span></div><h3>${p.title}</h3><div>${p.city || ''} ${p.region || ''}</div><p>${(p.body || '').replace(/\n/g, '<br>')}</p><div>${p.image_url_1 ? `<img src="${p.image_url_1}">` : ''}${p.image_url_2 ? `<img src="${p.image_url_2}">` : ''}${p.image_url_3 ? `<img src="${p.image_url_3}">` : ''}</div><p><a href="./contact/?post_id=${encodeURIComponent(p.post_id)}">この投稿者に連絡する</a> | <a href="./report/?post_id=${encodeURIComponent(p.post_id)}">通報する</a></p></div>`).join(''); } catch (e) { c.innerHTML = '<div class="card">読み込みに失敗しました。</div>'; } } loadPosts();</script>
+</body>
+
+</html>

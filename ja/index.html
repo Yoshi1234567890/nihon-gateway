@@ -1,35 +1,921 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>日本語トップ | Nihon Gateway Germany</title>
-  <meta name="description" content="ドイツ在住日本人向け生活情報ポータル。手続き、住まい、仕事、医療、食、買い物、掲示板、イベント、ドイツ語学習、ニュースまで幅広く掲載。">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/">
-  <link rel="icon" type="image/png" href="/nihon-gateway-germany/assets/images/brand/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本語トップ | Nihon Gateway Germany</title>
+<meta name="description" content="ドイツ在住日本人向け生活情報ポータル。手続き、住まい、仕事、医療、食、買い物、掲示板、イベント、ドイツ語学習、ニュースまで幅広く掲載。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/">
+<link rel="icon" type="image/jpeg" href="../assets/images/brand/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/nihon-gateway-germany/assets/css/common.css">
-  <link rel="stylesheet" href="/nihon-gateway-germany/assets/css/ja-home.css">
+<style>
+:root{
+  --bg:#f7f8fa;
+  --surface:#ffffff;
+  --surface:#fbfcfd;
+  --line:#e6eaf0;
+  --line-strong:#d9e0e8;
+  --text:#16202a;
+  --muted:#5f6b76;
+  --muted-2:#7d8893;
+  --brand:#d84b6a;
+  --brand-dark:#bc3856;
+  --hover-pink:#f3c8d4;
+  --hover-pink-bg:#fff4f7;
+  --accent:#2f80ed;
+  --shadow:0 12px 32px rgba(19,35,58,.12);
+  --shadow-hover:0 18px 42px rgba(19,35,58,.12);
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0300YC5NF8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-0300YC5NF8');
-  </script>
+  --cat-guides:#f59e0b;
+  --cat-living:#10b981;
+  --cat-jobs:#3b82f6;
+  --cat-medical:#06b6d4;
+  --cat-eat:#f97316;
+  --cat-shopping:#8b5cf6;
+  --cat-board:#ec4899;
+  --cat-events:#14b8a6;
+  --cat-german:#eab308;
+  --cat-news:#64748b;
+
+  --container:1220px;
+  --hero-overlay-a:.42;
+  --hero-overlay-b:.32;
+  --hero-overlay-c:.18;
+  --hero-overlay-d:.08;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter','Noto Sans JP',sans-serif;
+  color:var(--text);
+  line-height:1.6;
+  background:
+    linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+    url('../assets/images/brand/site-bg.jpg') center top / cover fixed no-repeat,
+    var(--bg);
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button,input,select{font:inherit;}
+
+.container{
+  width:min(var(--container), calc(100% - 32px));
+  margin:0 auto;
+}
+
+/* Header */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:200;
+  background:rgba(255,255,255,.84);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(230,234,240,.92);
+}
+.header-inner{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  min-width:0;
+}
+.brand-logo{
+  width:120px;
+  height:70px;
+  border-radius:14px;
+  object-fit:contain;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+}
+.brand-copy{min-width:0;}
+.brand-title{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.08em;
+  line-height:1.1;
+}
+.brand-sub{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.header-search{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-city,
+.header-category,
+.header-language{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--muted);
+  font-size:13px;
+  transition:all .18s ease;
+}
+.header-category:hover,
+.header-language:hover{
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+.header-category-menu{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+.header-category-menu::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:100%;
+  width:100%;
+  height:12px;
+}
+
+.header-category-trigger{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-category-menu::after{
+  content:"▾";
+  font-size:24px;
+  line-height:1;
+  color:var(--muted);
+  margin-top:1px;
+  pointer-events:none;
+}
+.category-dropdown{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 16px 30px rgba(19,35,58,.14);
+  padding:8px;
+  display:none;
+  z-index:20;
+}
+.header-category-menu:hover .category-dropdown,
+.header-category-menu:focus-within .category-dropdown{
+  display:grid;
+  gap:2px;
+}
+.category-dropdown a{
+  text-decoration:none;
+  font-size:13px;
+  color:#2f3e4c;
+  padding:8px 10px;
+  border-radius:10px;
+}
+.category-dropdown a:hover{
+  background:var(--hover-pink-bg);
+  border:1px solid var(--hover-pink);
+  color:var(--brand);
+  transform:translateY(-1px);
+}
+.header-city select,
+.header-category select,
+.header-language select{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  font-weight:700;
+  outline:none;
+}
+.header-search .search-box{
+  min-width:220px;
+  height:42px;
+  border-radius:999px;
+  padding:0 12px;
+}
+.header-search .search-box span{font-size:19px;}
+.header-search .search-box input{font-size:13px;}
+.header-search .search-btn{
+    display:flex;
+  align-items:center;
+  justify-content:center;
+  height:42px;
+  border-radius:999px;
+  padding:0 14px;
+  font-size:24px;
+  line-height:1;
+  color:#1f5fbf;
+  background:rgba(47,128,237,.20);
+  border:1px solid rgba(47,128,237,.32);
+}
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.header-nav a{
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  color:#34414d;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid #dce4ee;
+  background:rgba(255,255,255,.74);
+  transition:all .18s ease;
+}
+.header-nav a.active,
+.header-nav a:hover{
+  color:var(--brand);
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+
+/* Main */
+.main{
+  padding:22px 0 60px;
+}
+
+/* Hero */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(210,218,228,.95);
+  border-radius:28px;
+  box-shadow:
+    0 14px 34px rgba(19,35,58,.12),
+    0 0 0 1px rgba(255,255,255,.5) inset;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,var(--hero-overlay-a)) 0%, rgba(255,255,255,var(--hero-overlay-b)) 42%, rgba(255,255,255,var(--hero-overlay-c)) 60%, rgba(255,255,255,var(--hero-overlay-d)) 100%),
+    url('../assets/images/hero/top-hero.jpg') center center / cover no-repeat,
+    #fff;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.05));
+}
+.hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  align-items:stretch;
+  min-height:320px;
+  padding:30px;
+}
+.hero-main{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.hero-title{
+  font-size:clamp(2rem, 4vw, 3.2rem);
+  line-height:1.08;
+  letter-spacing:-.03em;
+  font-weight:800;
+  max-width:none;
+}
+.hero-title .brand-word{
+  color:var(--brand);
+  white-space:nowrap;
+}
+.hero-desc{
+  max-width:200ch;
+  color:#485664;
+  font-size:15px;
+  line-height:1.8;
+}
+.search-box{
+  flex:1 1 340px;
+  min-width:220px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:54px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:0 14px;
+}
+.search-box span{
+  color:var(--muted-2);
+  font-size:18px;
+}
+.search-box input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-size:15px;
+}
+.search-btn{
+  height:54px;
+  border:none;
+  border-radius:14px;
+  padding:0 18px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.search-btn:hover{filter:brightness(.96);}
+
+.hero-side{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  justify-content:flex-start;
+}
+.info-panel{
+  background:rgba(255,255,255,0);
+  border:1.5px solid rgba(205,215,226,.95);
+  border-radius:20px;
+  padding:18px;
+  backdrop-filter:blur(6px);
+}
+.info-panel h2{
+  font-size:15px;
+  line-height:1.4;
+  margin-bottom:0;
+}
+.info-panel p{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
+.city-switch{
+  display:grid;
+  gap:12px;
+}
+.current-city{
+  display:inline-flex;
+  width:max-content;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#eef1f4;
+  border:1px solid #d8dee6;
+  color:var(--text);
+  font-size:13px;
+  font-weight:700;
+}
+.city-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.city-pill{
+  appearance:none;
+  border:1px solid var(--line-strong);
+  background:#fff;
+  color:#24313d;
+  border-radius:999px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:700;
+  transition:all .18s ease;
+}
+.city-pill:hover{
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+.city-pill.is-active{
+  background:var(--brand);
+  border-color:var(--brand);
+  color:#fff;
+}
+.utility-list{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:10px;
+}
+.utility-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  color:#556270;
+  font-size:14px;
+  border:1px solid rgba(156, 156, 156, 0.5);
+  border-radius:14px;
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(4px);
+  padding:12px;
+}
+.utility-item strong{
+  display:block;
+  font-size:14px;
+}
+.utility-item span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+/* Section head */
+.section{
+  margin-top:24px;
+}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+.section-title-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.section-kicker{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:var(--brand);
+  text-transform:uppercase;
+}
+.section-title{
+  font-size:24px;
+  line-height:1.2;
+  font-weight:800;
+}
+.section-desc{
+  font-size:14px;
+  color:var(--muted);
+}
+.section-meta{
+  font-size:13px;
+  color:var(--muted-2);
+}
+
+/* Category grid */
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+}
+.cat-card{
+  position:relative;
+  overflow:hidden;
+  grid-column:span 4;
+  min-height:232px;
+  border-radius:22px;
+  text-decoration:none;
+  color:#fff;
+  box-shadow:var(--shadow);
+  background:#44515e center center / cover no-repeat;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.cat-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 24px 48px rgba(var(--cat-rgb), .30);
+}
+.cat-card.featured{
+  grid-column:span 6;
+  min-height:248px;
+}
+.cat-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(18,23,31,.10) 0%, rgba(18,23,31,.20) 35%, rgba(var(--cat-rgb), .58) 100%);
+}
+.cat-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-top:4px solid var(--cat-color, #fff);
+  opacity:.95;
+}
+.cat-card-body{
+  position:relative;
+  z-index:1;
+  height:100%;
+  padding:18px;
+}
+
+.cat-top{
+  position:absolute;
+  top:18px;
+  left:18px;
+  right:18px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  z-index:2;
+}
+.cat-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  flex-shrink:0;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(4px);
+}
+.cat-badges{display:flex;}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(4px);
+}
+.badge.city{
+  display:none;
+  color:rgba(var(--cat-dark-rgb), .95);
+  background:rgba(255,255,255,.66);
+  border-color:rgba(var(--cat-dark-rgb), .28);
+}
+.cat-card.city-dependent .badge.city{display:inline-flex;}
+.cat-card:not(.city-dependent) .cat-badges{display:none;}
+
+.cat-content{
+  position:absolute;
+  top:50%;
+  left:18px;
+  right:18px;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  z-index:1;
+}
+
+.cat-kicker{
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--cat-heading, rgba(var(--cat-dark-rgb), .98));
+  text-shadow:0 1px 1px rgba(255,255,255,.36), 0 0 0.5px rgba(255,255,255,.45);
+  margin-bottom:8px;
+  text-align:center;
+}
+.cat-title{
+  font-size:36px;
+  line-height:1.15;
+  font-weight:800;
+  font-family:'Noto Sans JP','Inter',sans-serif;
+  letter-spacing:.01em;
+  margin-bottom:10px;
+  color:var(--cat-heading, rgba(var(--cat-dark-rgb), .98));
+  text-shadow:0 2px 3px rgba(255,255,255,.46), 0 0 1px rgba(255,255,255,.52);
+  text-align:center;
+}
+.cat-desc{
+  color:rgba(var(--cat-dark-rgb), .95);
+  font-size:14px;
+  line-height:1.7;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  width:100%;
+}
+.cat-foot{
+  display:none;
+}
+.cat-link{
+  font-size:14px;
+  font-weight:700;
+}
+.cat-arrow{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  font-size:17px;
+  border:1px solid rgba(255,255,255,.18);
+}
+
+/* card bg paths */
+.cat-guides{
+  --cat-heading:#7a4507;
+}
+.cat-living{
+  --cat-heading:#065f46;
+}
+.cat-jobs{
+  --cat-heading:#1e40af;
+}
+.cat-medical{
+  --cat-heading:#0c4a6e;
+}
+.cat-eat{
+  --cat-heading:#7c2d12;
+}
+.cat-shopping{
+  --cat-heading:#4c1d95;
+}
+.cat-board{
+  --cat-heading:#831843;
+}
+.cat-events{
+  --cat-heading:#115e59;
+}
+.cat-german{
+  --cat-heading:#713f12;
+}
+.cat-news{
+  --cat-heading:#1e293b;
+}
+
+.cat-guides{
+  --cat-color:var(--cat-guides);
+  --cat-rgb:245, 158, 11;
+  --cat-dark-rgb:122, 69, 7;
+  background-image:url('../assets/images/cards/guides.jpg');
+}
+.cat-living{
+  --cat-color:var(--cat-living);
+  --cat-rgb:16, 185, 129;
+  --cat-dark-rgb:6, 94, 66;
+  background-image:url('../assets/images/cards/living.jpg');
+}
+.cat-jobs{
+  --cat-color:var(--cat-jobs);
+  --cat-rgb:59, 130, 246;
+  --cat-dark-rgb:30, 64, 175;
+  background-image:url('../assets/images/cards/jobs.jpg');
+}
+.cat-medical{
+  --cat-color:var(--cat-medical);
+  --cat-rgb:6, 182, 212;
+  --cat-dark-rgb:12, 74, 110;
+  background-image:url('../assets/images/cards/medical.jpg');
+}
+.cat-eat{
+  --cat-color:var(--cat-eat);
+  --cat-rgb:249, 115, 22;
+  --cat-dark-rgb:124, 45, 18;
+  background-image:url('../assets/images/cards/eat.jpg');
+}
+.cat-shopping{
+  --cat-color:var(--cat-shopping);
+  --cat-rgb:139, 92, 246;
+  --cat-dark-rgb:76, 29, 149;
+  background-image:url('../assets/images/cards/shopping.jpg');
+}
+.cat-board{
+  --cat-color:var(--cat-board);
+  --cat-rgb:236, 72, 153;
+  --cat-dark-rgb:131, 24, 67;
+  background-image:url('../assets/images/cards/community.jpg');
+}
+.cat-events{
+  --cat-color:var(--cat-events);
+  --cat-rgb:20, 184, 166;
+  --cat-dark-rgb:17, 94, 89;
+  background-image:url('../assets/images/cards/events.jpg');
+}
+.cat-german{
+  --cat-color:var(--cat-german);
+  --cat-rgb:234, 179, 8;
+  --cat-dark-rgb:113, 63, 18;
+  background-image:url('../assets/images/cards/german.jpg');
+}
+.cat-news{
+  --cat-color:var(--cat-news);
+  --cat-rgb:100, 116, 139;
+  --cat-dark-rgb:30, 41, 59;
+  background-image:url('../assets/images/cards/news.jpg');
+}
+
+/* Footer */
+.page-footer{
+  margin-top:34px;
+  padding:14px 20px 18px;
+  background:linear-gradient(135deg, rgba(248,250,252,.72) 0%, rgba(238,243,249,.68) 100%);
+  border:1px solid #e1e8f0;
+  border-radius:24px;
+  box-shadow:0 12px 24px rgba(19,35,58,.06);
+  backdrop-filter:blur(6px);
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:nowrap;
+}
+.footer-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:0 1 auto;
+  min-width:0;
+  padding-left:0;
+}
+.footer-copy{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.footer-logo{
+  display:block;
+  width:auto;
+  height:68px;
+  max-width:none;
+  object-fit:contain;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  border-radius:0;
+  flex-shrink:0;
+}
+.footer-title{
+  font-size:14px;
+  font-weight:800;
+}
+.footer-sub,
+.footer-meta{
+  font-size:12px;
+  color:var(--muted);
+}
+.footer-links{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:8px;
+  flex:1 1 auto;
+  justify-content:flex-end;
+  align-items:center;
+  min-width:0;
+  white-space:nowrap;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.footer-links a{
+  font-size:12px;
+  color:#34414d;
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  border:1px solid #e2e8f0;
+  transition:all .18s ease;
+}
+.footer-links a:hover{
+  color:var(--brand);
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+
+.city-switch-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+/* Responsive */
+@media (max-width:1100px){
+  .hero-grid{grid-template-columns:1fr;}
+  .category-grid .cat-card{grid-column:span 6;}
+  .utility-list{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:780px){
+  .container{width:min(var(--container), calc(100% - 24px));}
+  .header-inner{
+    min-height:auto;
+    padding:14px 0;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .header-actions{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .header-search{
+    width:100%;
+  }
+  .header-search .search-box{
+    flex:1 1 auto;
+  }
+  .header-actions .header-category,
+  .header-actions .header-language{
+    width:max-content;
+  }
+  .hero-grid{
+    min-height:auto;
+    padding:22px;
+  }
+  .section-title{font-size:21px;}
+  .category-grid .cat-card,
+  .category-grid .cat-card.featured{
+    grid-column:span 12;
+    min-height:220px;
+  }
+  .page-footer{padding:16px;}
+  .footer-inner{
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .footer-left,
+  .footer-links{
+    width:100%;
+  }
+  .footer-links{
+    justify-content:flex-start;
+  }
+}
+@media (max-width:560px){
+  body{
+    background:
+      linear-gradient(rgba(247,248,250,.96), rgba(247,248,250,.98)),
+      url('../assets/images/brand/site-bg.jpg') center top / cover no-repeat,
+      var(--bg);
+  }
+  .hero{
+    background-position:64% center;
+  }
+  .city-pill-row{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:4px;
+  }
+  .utility-list{grid-template-columns:1fr;}
+  .cat-title{font-size:30px;}
+  .cat-desc{max-width:30ch;}
+}
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0300YC5NF8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-0300YC5NF8');
+</script>
 </head>
 
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/nihon-gateway-germany/ja/" aria-label="Nihon Gateway Germany ホーム">
-      <img class="brand-logo" src="/nihon-gateway-germany/assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
+    <a class="brand" href="./" aria-label="Nihon Gateway Germany ホーム">
+      <img class="brand-logo" src="../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
       <span class="brand-copy">
         <span class="brand-title">NIHON GATEWAY GERMANY</span>
         <span class="brand-sub">ドイツ在住日本人のための生活ポータル</span>
@@ -38,27 +924,27 @@
 
     <div class="header-actions">
       <nav class="header-nav" aria-label="メインナビゲーション">
-        <a href="/nihon-gateway-germany/ja/" class="active">ホーム</a>
-        <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
+        <a href="./" class="active">ホーム</a>
+        <a href="./about/">このサイトについて</a>
       </nav>
 
       <div class="header-category header-category-menu" aria-label="カテゴリ選択">
         <button type="button" class="header-category-trigger">カテゴリ</button>
         <div class="category-dropdown">
-          <a href="/nihon-gateway-germany/ja/guides/">手続き・制度</a>
-          <a href="/nihon-gateway-germany/ja/lifestyle/">住まい・生活</a>
-          <a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a>
-          <a href="/nihon-gateway-germany/ja/healthcare/">医療・緊急</a>
-          <a href="/nihon-gateway-germany/ja/eat/">食べる</a>
-          <a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a>
-          <a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a>
-          <a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a>
-          <a href="/nihon-gateway-germany/ja/learn-german/">ドイツ語・学び</a>
-          <a href="/nihon-gateway-germany/ja/news/">ニュース・読みもの</a>
+          <a href="./guides/">手続き・制度</a>
+          <a href="./lifestyle/">住まい・生活</a>
+          <a href="./cities/duesseldorf/jobs/" data-base="jobs">仕事・求人</a>
+          <a href="./cities/duesseldorf/healthcare/" data-base="healthcare">医療・緊急</a>
+          <a href="./cities/duesseldorf/eat/" data-base="eat">食べる</a>
+          <a href="./cities/duesseldorf/shopping/" data-base="shopping">買い物・サービス</a>
+          <a href="./cities/duesseldorf/community/" data-base="community">交流・掲示板</a>
+          <a href="./cities/duesseldorf/events/" data-base="events">おでかけ・イベント</a>
+          <a href="./learn-german/">ドイツ語・学び</a>
+          <a href="./news/">ニュース・読みもの</a>
         </div>
       </div>
 
-      <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
+      <form class="header-search" action="./search/" method="get" role="search">
         <label class="search-box" aria-label="サイト内検索">
           <span>⌕</span>
           <input type="search" name="q" placeholder="検索">
@@ -69,12 +955,12 @@
       <label class="header-language" aria-label="言語切り替え">
         <span>Language</span>
         <select id="languageSelect">
-          <option value="/nihon-gateway-germany/ja/">日本語</option>
-          <option value="/nihon-gateway-germany/">English</option>
-          <option value="/nihon-gateway-germany/de/">Deutsch</option>
-          <option value="/nihon-gateway-germany/zh/">中文</option>
-          <option value="/nihon-gateway-germany/ko/">한국어</option>
-          <option value="/nihon-gateway-germany/es/">Espanol</option>
+          <option value="./">日本語</option>
+          <option value="../">English</option>
+          <option value="../de/">Deutsch</option>
+          <option value="../zh/">中文</option>
+          <option value="../ko/">한국어</option>
+          <option value="../es/">Espanol</option>
         </select>
       </label>
     </div>
@@ -93,34 +979,44 @@
           </h1>
 
           <p class="hero-desc">
-            食、仕事、交流、学びまで。ドイツ生活に必要な情報を、目的別に迷わず探せます。
+  　食、仕事、交流、学びまで。ドイツ生活に必要な情報を、都市別・目的別に迷わず探せます。
           </p>
+
         </div>
 
         <aside class="hero-side">
+          <section class="info-panel city-switch" aria-label="都市切替">
+  <div class="city-switch-head">
+    <h2>表示都市を切り替える</h2>
+    <div class="current-city" id="currentCityBadge">現在の都市：デュッセルドルフ</div>
+  </div>
+            <p>
+              仕事・求人、医療・緊急、食べる、買い物・サービス、交流・掲示板、おでかけ・イベントは、
+              選択した都市に合わせてリンク先が切り替わります。
+            </p>
+
+            <div class="city-pill-row" role="tablist" aria-label="都市選択">
+              <button class="city-pill is-active" type="button" data-city="duesseldorf">デュッセルドルフ</button>
+              <button class="city-pill" type="button" data-city="frankfurt">フランクフルト</button>
+              <button class="city-pill" type="button" data-city="muenchen">ミュンヘン</button>
+              <button class="city-pill" type="button" data-city="berlin">ベルリン</button>
+            </div>
+          </section>
+
           <section class="info-panel">
             <h2>このサイトでできること</h2>
             <div class="utility-list">
               <div class="utility-item">
-                <div>📚</div>
-                <div>
-                  <strong>生活情報をまとめて探せる</strong>
-                  <span>ジャンル別に必要な情報へすぐアクセス</span>
-                </div>
+                <div>📍</div>
+                <div><strong>都市ごとに探せる</strong><span>ローカル情報を都市別に切り替え</span></div>
               </div>
               <div class="utility-item">
                 <div>🧭</div>
-                <div>
-                  <strong>目的別に迷わず探せる</strong>
-                  <span>生活の場面ごとにカテゴリ整理</span>
-                </div>
+                <div><strong>目的別に迷わず探せる</strong><span>生活の場面ごとにカテゴリ整理</span></div>
               </div>
               <div class="utility-item">
                 <div>📱</div>
-                <div>
-                  <strong>スマホでも見やすい</strong>
-                  <span>日常利用を前提にしたシンプル設計</span>
-                </div>
+                <div><strong>スマホでも見やすい</strong><span>日常利用を前提にしたシンプル設計</span></div>
               </div>
             </div>
           </section>
@@ -138,11 +1034,13 @@
       </div>
 
       <div class="category-grid">
-        <a class="cat-card featured cat-eat" href="/nihon-gateway-germany/ja/eat/">
+        <a class="cat-card featured cat-eat city-dependent" href="./cities/duesseldorf/eat/" data-base="eat">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🍜</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Eat</div>
@@ -152,11 +1050,13 @@
           </div>
         </a>
 
-        <a class="cat-card featured cat-board" href="/nihon-gateway-germany/ja/community/">
+        <a class="cat-card featured cat-board city-dependent" href="./cities/duesseldorf/community/" data-base="community">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🤝</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Board</div>
@@ -165,12 +1065,13 @@
             </div>
           </div>
         </a>
-
-        <a class="cat-card featured cat-german" href="/nihon-gateway-germany/ja/learn-german/">
+        
+        <a class="cat-card featured cat-german" href="./learn-german/">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">📘</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Learn</div>
@@ -180,11 +1081,13 @@
           </div>
         </a>
 
-        <a class="cat-card featured cat-jobs" href="/nihon-gateway-germany/ja/jobs/">
+        <a class="cat-card featured cat-jobs city-dependent" href="./cities/duesseldorf/jobs/" data-base="jobs">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">💼</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Jobs</div>
@@ -194,86 +1097,96 @@
           </div>
         </a>
 
-        <a class="cat-card cat-shopping" href="/nihon-gateway-germany/ja/shopping/">
+        <a class="cat-card cat-shopping city-dependent" href="./cities/duesseldorf/shopping/" data-base="shopping">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🛍️</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Shopping</div>
               <div class="cat-title">買い物・サービス</div>
-              <div class="cat-desc">スーパー、アジアショップ、薬局、生活サービスを探す。</div>
+              <div class="cat-desc">スーパー、アジアショップ、薬局、<br>  生活サービスを探す。</div>
             </div>
           </div>
         </a>
-
-        <a class="cat-card cat-guides" href="/nihon-gateway-germany/ja/guides/">
+        
+        <a class="cat-card cat-guides" href="./guides/">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">📋</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Guides</div>
               <div class="cat-title">手続き・制度</div>
-              <div class="cat-desc">Anmeldung、ビザ、保険、税金、契約など生活に必要な制度と手続きを確認。</div>
+              <div class="cat-desc">Anmeldung、ビザ、保険、税金、契約など、<br>生活立ち上げや継続に必要な制度と手続きを確認。</div>
             </div>
           </div>
         </a>
 
-        <a class="cat-card cat-living" href="/nihon-gateway-germany/ja/lifestyle/">
+        <a class="cat-card cat-living" href="./lifestyle/">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🏡</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Living</div>
               <div class="cat-title">住まい・生活</div>
-              <div class="cat-desc">住まい探し、交通、生活の立ち上げ、日用品、暮らしの基礎情報を確認。</div>
+              <div class="cat-desc">住まい探し、交通、生活の立ち上げ、日用品、<br>暮らしの基礎情報をまとめて確認。</div>
             </div>
           </div>
         </a>
 
-        <a class="cat-card cat-medical" href="/nihon-gateway-germany/ja/healthcare/">
+
+        <a class="cat-card cat-medical city-dependent" href="./cities/duesseldorf/healthcare/" data-base="healthcare">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🏥</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Medical</div>
               <div class="cat-title">医療・緊急</div>
-              <div class="cat-desc">病院、歯科、薬局、緊急時の対応先や受診時に必要な情報を確認。</div>
+              <div class="cat-desc">病院、歯科、薬局、緊急時の<br>対応先や受診時に必要な情報を確認。</div>
             </div>
           </div>
         </a>
 
-        <a class="cat-card cat-events" href="/nihon-gateway-germany/ja/events/">
+        <a class="cat-card cat-events city-dependent" href="./cities/duesseldorf/events/" data-base="events">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">🎉</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+                <span class="badge city">デュッセルドルフ</span>
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">Events</div>
               <div class="cat-title">おでかけ・イベント</div>
-              <div class="cat-desc">イベント、観光、週末のおでかけ先、季節イベントや地域情報を探す。</div>
+              <div class="cat-desc">イベント、観光、週末のおでかけ先、<br>季節イベントや地域情報を探す。</div>
             </div>
           </div>
         </a>
 
-        <a class="cat-card cat-news" href="/nihon-gateway-germany/ja/news/">
+        <a class="cat-card cat-news" href="./news/">
           <div class="cat-card-body">
             <div class="cat-top">
               <div class="cat-icon">📰</div>
-              <div class="cat-badges"></div>
+              <div class="cat-badges">
+              </div>
             </div>
             <div class="cat-content">
               <div class="cat-kicker">News</div>
               <div class="cat-title">ニュース・読みもの</div>
-              <div class="cat-desc">制度変更、生活関連トピック、現地ニュース、日本関連情報や読みものを確認。</div>
+              <div class="cat-desc">制度変更、生活関連トピック、現地ニュース、<br>日本関連情報や読みものを確認。</div>
             </div>
           </div>
         </a>
@@ -281,9 +1194,9 @@
     </section>
 
     <footer class="page-footer">
-      <div class="container footer-inner">
+      <div class="footer-inner">
         <div class="footer-left">
-          <img class="footer-logo" src="/nihon-gateway-germany/assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+<img class="footer-logo" src="../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
           <div class="footer-copy">
             <div class="footer-title">NIHON GATEWAY GERMANY</div>
             <div class="footer-sub">ドイツ在住日本人のための生活ポータル</div>
@@ -292,11 +1205,11 @@
         </div>
 
         <div class="footer-links">
-          <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
-          <a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a>
-          <a href="/nihon-gateway-germany/ja/terms/">利用規約</a>
-          <a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a>
-          <a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a>
+          <a href="./about/">このサイトについて</a>
+          <a href="./contact/">お問い合わせ</a>
+          <a href="./terms/">利用規約</a>
+          <a href="./privacy/">プライバシー</a>
+          <a href="./impressum/">運営者情報</a>
         </div>
       </div>
     </footer>
@@ -304,6 +1217,111 @@
   </div>
 </main>
 
-<script src="/nihon-gateway-germany/assets/js/common.js"></script>
+<script>
+const cityConfig = {
+  duesseldorf: {
+    name: 'デュッセルドルフ',
+    paths: {
+      jobs: './cities/duesseldorf/jobs/',
+      healthcare: './cities/duesseldorf/healthcare/',
+      eat: './cities/duesseldorf/eat/',
+      shopping: './cities/duesseldorf/shopping/',
+      community: './community/',
+      events: './cities/duesseldorf/events/'
+    }
+  },
+  frankfurt: {
+    name: 'フランクフルト',
+    paths: {
+      jobs: './cities/frankfurt/jobs/',
+      healthcare: './cities/frankfurt/healthcare/',
+      eat: './cities/frankfurt/eat/',
+      shopping: './cities/frankfurt/shopping/',
+      community: './cities/frankfurt/community/',
+      events: './cities/frankfurt/events/'
+    }
+  },
+  muenchen: {
+    name: 'ミュンヘン',
+    paths: {
+      jobs: './cities/muenchen/jobs/',
+      healthcare: './cities/muenchen/healthcare/',
+      eat: './cities/muenchen/eat/',
+      shopping: './cities/muenchen/shopping/',
+      community: './cities/muenchen/community/',
+      events: './cities/muenchen/events/'
+    }
+  },
+  berlin: {
+    name: 'ベルリン',
+    paths: {
+      jobs: './cities/berlin/jobs/',
+      healthcare: './cities/berlin/healthcare/',
+      eat: './cities/berlin/eat/',
+      shopping: './cities/berlin/shopping/',
+      community: './cities/berlin/community/',
+      events: './cities/berlin/events/'
+    }
+  }
+};
+
+const cityButtons = document.querySelectorAll('.city-pill');
+const cityBadge = document.getElementById('currentCityBadge');
+const cityDependentCards = document.querySelectorAll('.cat-card.city-dependent');
+const headerCategoryLinks = document.querySelectorAll('.category-dropdown a[data-base]');
+const languageSelect = document.getElementById('languageSelect');
+
+function applyCity(cityKey){
+  const selected = cityConfig[cityKey];
+  if(!selected) return;
+
+  cityBadge.textContent = `現在の都市：${selected.name}`;
+
+  cityButtons.forEach(btn => {
+    const active = btn.dataset.city === cityKey;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  cityDependentCards.forEach(card => {
+    const base = card.dataset.base;
+    const nextHref = selected.paths[base];
+    const cityBadgeEl = card.querySelector('.badge.city');
+    if(nextHref) card.setAttribute('href', nextHref);
+    if(cityBadgeEl) cityBadgeEl.textContent = selected.name;
+  });
+  
+  headerCategoryLinks.forEach(link => {
+    const base = link.dataset.base;
+    const nextHref = selected.paths[base];
+    if(nextHref) link.setAttribute('href', nextHref);
+  });
+
+  try{
+    localStorage.setItem('ngg_selected_city', cityKey);
+  }catch(e){}
+}
+
+cityButtons.forEach(btn => {
+  btn.addEventListener('click', () => applyCity(btn.dataset.city));
+});
+
+if(languageSelect){
+  languageSelect.addEventListener('change', (e) => {
+    const url = e.target.value;
+    if(url) window.location.href = url;
+  });
+}
+
+let initialCity = 'duesseldorf';
+try{
+  const saved = localStorage.getItem('ngg_selected_city');
+  if(saved && cityConfig[saved]) initialCity = saved;
+}catch(e){}
+
+applyCity(initialCity);
+</script>
+
+<script src="../assets/js/main.js"></script>
 </body>
 </html>

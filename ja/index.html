@@ -23,7 +23,8 @@
   --muted-2:#7d8893;
   --brand:#d84b6a;
   --brand-dark:#bc3856;
-  --hover-pink:#f7d6df;
+  --hover-pink:#f3c8d4;
+  --hover-pink-bg:#fff4f7;
   --accent:#2f80ed;
   --shadow:0 8px 28px rgba(19,35,58,.08);
   --shadow-hover:0 18px 42px rgba(19,35,58,.12);
@@ -130,11 +131,12 @@ button,input,select{font:inherit;}
   background:#fff;
   color:var(--muted);
   font-size:13px;
+  transition:all .18s ease;
 }
 .header-category:hover,
 .header-language:hover{
   border-color:var(--hover-pink);
-  background:#fff4f7;
+  background:var(--hover-pink-bg);
   transform:translateY(-1px);
 }
 .header-category-menu{
@@ -149,14 +151,6 @@ button,input,select{font:inherit;}
   display:flex;
   align-items:center;
   gap:6px;
-}
-.header-nav a,
-.header-category,
-.header-language,
-.city-pill,
-.footer-links a,
-.category-dropdown a{
-  transition:border-color .18s ease, background-color .18s ease, transform .18s ease, color .18s ease;
 }
 .header-category-menu::after{
   content:"▾";
@@ -187,11 +181,10 @@ button,input,select{font:inherit;}
   color:#2f3e4c;
   padding:8px 10px;
   border-radius:10px;
-  border:1px solid transparent;
 }
 .category-dropdown a:hover{
-  background:#fff4f7;
-  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  border:1px solid var(--hover-pink);
   color:var(--brand);
   transform:translateY(-1px);
 }
@@ -235,14 +228,15 @@ button,input,select{font:inherit;}
   color:#34414d;
   padding:8px 12px;
   border-radius:999px;
-  border:1px solid var(--line);
-  background:#fff;
+  border:1px solid #dce4ee;
+  background:rgba(255,255,255,.74);
+  transition:all .18s ease;
 }
 .header-nav a.active,
 .header-nav a:hover{
   color:var(--brand);
   border-color:var(--hover-pink);
-  background:#fff4f7;
+  background:var(--hover-pink-bg);
   transform:translateY(-1px);
 }
 
@@ -293,7 +287,10 @@ button,input,select{font:inherit;}
   font-weight:800;
   max-width:none;
 }
-.hero-title .brand-word{color:var(--brand);white-space:nowrap;}
+.hero-title .brand-word{
+  color:var(--brand);
+  white-space:nowrap;
+}
 .hero-desc{
   max-width:58ch;
   color:#485664;
@@ -343,7 +340,7 @@ button,input,select{font:inherit;}
   justify-content:flex-start;
 }
 .info-panel{
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.72);
   border:1px solid rgba(230,234,240,.95);
   border-radius:20px;
   padding:18px;
@@ -391,10 +388,11 @@ button,input,select{font:inherit;}
   cursor:pointer;
   font-size:14px;
   font-weight:700;
+  transition:all .18s ease;
 }
 .city-pill:hover{
   border-color:var(--hover-pink);
-  background:#fff4f7;
+  background:var(--hover-pink-bg);
   transform:translateY(-1px);
 }
 .city-pill.is-active{
@@ -549,7 +547,12 @@ button,input,select{font:inherit;}
   background:rgba(255,255,255,.12);
   backdrop-filter:blur(4px);
 }
-.badge.city{display:none;}
+.badge.city{
+  display:none;
+  color:rgba(var(--cat-dark-rgb), .95);
+  background:rgba(255,255,255,.66);
+  border-color:rgba(var(--cat-dark-rgb), .28);
+}
 .cat-card.city-dependent .badge.city{display:inline-flex;}
 .cat-card:not(.city-dependent) .cat-badges{display:none;}
 
@@ -586,11 +589,11 @@ button,input,select{font:inherit;}
   text-align:center;
 }
 .cat-desc{
-  color:rgba(255,255,255,.92);
+  color:rgba(var(--cat-dark-rgb), .95);
   font-size:14px;
   line-height:1.7;
   max-width:34ch;
-  text-shadow:0 1px 4px rgba(0,0,0,.18);
+  text-shadow:none;
   text-align:center;
 }
 .cat-foot{
@@ -622,51 +625,61 @@ button,input,select{font:inherit;}
 .cat-guides{
   --cat-color:var(--cat-guides);
   --cat-rgb:245, 158, 11;
+  --cat-dark-rgb:122, 69, 7;
   background-image:url('../assets/images/cards/guides.jpg');
 }
 .cat-living{
   --cat-color:var(--cat-living);
   --cat-rgb:16, 185, 129;
+  --cat-dark-rgb:6, 94, 66;
   background-image:url('../assets/images/cards/living.jpg');
 }
 .cat-jobs{
   --cat-color:var(--cat-jobs);
   --cat-rgb:59, 130, 246;
+  --cat-dark-rgb:30, 64, 175;
   background-image:url('../assets/images/cards/jobs.jpg');
 }
 .cat-medical{
   --cat-color:var(--cat-medical);
   --cat-rgb:6, 182, 212;
+  --cat-dark-rgb:12, 74, 110;
   background-image:url('../assets/images/cards/medical.jpg');
 }
 .cat-eat{
   --cat-color:var(--cat-eat);
   --cat-rgb:249, 115, 22;
+  --cat-dark-rgb:124, 45, 18;
   background-image:url('../assets/images/cards/eat.jpg');
 }
 .cat-shopping{
   --cat-color:var(--cat-shopping);
   --cat-rgb:139, 92, 246;
+  --cat-dark-rgb:76, 29, 149;
   background-image:url('../assets/images/cards/shopping.jpg');
 }
 .cat-board{
   --cat-color:var(--cat-board);
   --cat-rgb:236, 72, 153;
+  --cat-dark-rgb:131, 24, 67;
   background-image:url('../assets/images/cards/community.jpg');
 }
 .cat-events{
   --cat-color:var(--cat-events);
   --cat-rgb:20, 184, 166;
+  --cat-dark-rgb:17, 94, 89;
   background-image:url('../assets/images/cards/events.jpg');
 }
 .cat-german{
   --cat-color:var(--cat-german);
   --cat-rgb:234, 179, 8;
+  --cat-dark-rgb:113, 63, 18;
   background-image:url('../assets/images/cards/german.jpg');
 }
 .cat-news{
   --cat-color:var(--cat-news);
   --cat-rgb:100, 116, 139;
+  --cat-dark-rgb:30, 41, 59;
   background-image:url('../assets/images/cards/news.jpg');
 }
 
@@ -674,10 +687,11 @@ button,input,select{font:inherit;}
 .page-footer{
   margin-top:34px;
   padding:28px 0 40px;
-  background:linear-gradient(135deg, #f8fafc 0%, #eef3f9 100%);
+  background:linear-gradient(135deg, rgba(248,250,252,.72) 0%, rgba(238,243,249,.68) 100%);
   border:1px solid #e1e8f0;
   border-radius:24px;
   box-shadow:0 12px 24px rgba(19,35,58,.06);
+  backdrop-filter:blur(6px);
 }
 .footer-inner{
   display:flex;
@@ -718,11 +732,12 @@ button,input,select{font:inherit;}
   border-radius:999px;
   background:rgba(255,255,255,.72);
   border:1px solid #e2e8f0;
+  transition:all .18s ease;
 }
-.footer-links a:hover{color:var(--brand);}
 .footer-links a:hover{
+  color:var(--brand);
   border-color:var(--hover-pink);
-  background:#fff4f7;
+  background:var(--hover-pink-bg);
   transform:translateY(-1px);
 }
 
@@ -821,7 +836,7 @@ gtag('config', 'G-0300YC5NF8');
           <a href="./lifestyle/">住まい・生活</a>
           <a href="./cities/duesseldorf/jobs/" data-base="jobs">仕事・求人</a>
           <a href="./cities/duesseldorf/healthcare/" data-base="healthcare">医療・緊急</a>
-          <a href="./cities/duesseldorf/eat/" data-base="eat">グルメ・飲食</a>
+          <a href="./cities/duesseldorf/eat/" data-base="eat">食べる</a>
           <a href="./cities/duesseldorf/shopping/" data-base="shopping">買い物・サービス</a>
           <a href="./cities/duesseldorf/community/" data-base="community">交流・掲示板</a>
           <a href="./cities/duesseldorf/events/" data-base="events">おでかけ・イベント</a>
@@ -861,7 +876,7 @@ gtag('config', 'G-0300YC5NF8');
         <div class="hero-main">
           <h1 class="hero-title">
             ドイツの生活を<br>
-            <span class="brand-word">もっと楽しく、 もっと簡単に</span>
+            <span class="brand-word">もっと楽しく、&nbsp;もっと簡単に</span>
           </h1>
 
           <p class="hero-desc">
@@ -876,7 +891,7 @@ gtag('config', 'G-0300YC5NF8');
             <h2>表示都市を切り替える</h2>
             <div class="current-city" id="currentCityBadge">現在の都市：デュッセルドルフ</div>
             <p>
-              仕事・求人、医療・緊急、グルメ・飲食、買い物・サービス、交流・掲示板、おでかけ・イベントは、
+              仕事・求人、医療・緊急、食べる、買い物・サービス、交流・掲示板、おでかけ・イベントは、
               選択した都市に合わせてリンク先が切り替わります。
             </p>
 

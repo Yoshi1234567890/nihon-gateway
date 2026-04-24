@@ -417,16 +417,6 @@
       color:#9b8f99;
       cursor:not-allowed;
     }
-    .filter-help{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:14px;
-      background:#fff7eb;
-      border:1px solid #f5e0b7;
-      color:#6a4b08;
-      font-size:13px;
-    }
-
     .toolbar{
       display:flex;
       justify-content:space-between;
@@ -768,7 +758,7 @@
             <a href="/nihon-gateway-germany/ja/living/">住まい・生活</a>
             <a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a>
             <a href="/nihon-gateway-germany/ja/medical/">医療・緊急</a>
-            <a href="/nihon-gateway-germany/ja/eat/">グルメ・飲食</a>
+            <a href="/nihon-gateway-germany/ja/eat/">食べる</a>
             <a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a>
             <a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a>
             <a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a>
@@ -864,9 +854,6 @@
           </select>
         </div>
 
-        <div class="filter-help">
-          カテゴリを選ぶと、詳細カテゴリの候補が自動で絞り込まれます。地図表示では、カードクリックで地図が連動します。
-        </div>
       </div>
     </aside>
 
@@ -1323,38 +1310,32 @@ function buildAddress(item) {
       }
     }
 
+function hydrateCoordinatesFromMapUrl(items) {
+  items.forEach(item => {
+    if (hasCoordinates(item)) return;
+    const mapUrl = getField(item, "url", "map_url");
+    const fromUrl = extractLatLngFromMapUrl(mapUrl);
+    if (fromUrl) {
+      item.__lat = fromUrl.lat;
+      item.__lng = fromUrl.lng;
+    }
+  });
+}
+
 async function enrichCoordinates(items) {
   const runToken = ++geocodeRunToken;
 
   for (const item of items) {
     if (hasCoordinates(item)) continue;
 
-    const mapUrl = getField(item, "url", "map_url");
-    const fromUrl = extractLatLngFromMapUrl(mapUrl);
-    console.log("mapUrl:", mapUrl);
-    console.log("fromUrl:", fromUrl);
-
-    if (fromUrl) {
-      item.__lat = fromUrl.lat;
-      item.__lng = fromUrl.lng;
-      console.log("URLから座標取得:", item.__id, item.__lat, item.__lng);
-      continue;
-    }
-
     const address = buildAddress(item) || `${getField(item, "title", "name_ja")} Germany`;
-    console.log("geocode address:", address);
-
     const geo = await geocodeAddress(address);
-    console.log("geocode result:", geo);
 
     if (runToken !== geocodeRunToken) return;
 
     if (geo) {
       item.__lat = geo.lat;
       item.__lng = geo.lng;
-      console.log("住所から座標取得:", item.__id, item.__lat, item.__lng);
-    } else {
-      console.warn("座標取得失敗:", item.__id, address);
     }
   }
 }
@@ -1415,8 +1396,6 @@ function initMapIfNeeded() {
     }
 
 function renderMapMarkers() {
-  console.log("filteredItems:", filteredItems);
-console.log("items with coordinates:", filteredItems.filter(hasCoordinates));
   if (!mapInitialized || !markerLayer) return;
 
   markerLayer.clearLayers();
@@ -1457,8 +1436,10 @@ console.log("items with coordinates:", filteredItems.filter(hasCoordinates));
 async function syncMapAfterFilter() {
   initMapIfNeeded();
 
-  await enrichCoordinates(filteredItems);
+  hydrateCoordinatesFromMapUrl(filteredItems);
   renderCards();
+  renderMapMarkers();
+  await enrichCoordinates(filteredItems);
   renderMapMarkers();
 
   requestAnimationFrame(() => {

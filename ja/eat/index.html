@@ -14,6 +14,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/eat/" />
   <meta property="og:locale" content="ja_JP" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <link
     rel="stylesheet"
@@ -43,11 +46,19 @@
       --radius-sm:10px;
       --max:1280px;
       --map-height:calc(100vh - 120px);
+      --line:#e6eaf0;
+      --text:#16202a;
+      --muted-2:#7d8893;
+      --brand:#d84b6a;
+      --hover-pink:#f3c8d4;
+      --hover-pink-bg:#fff4f7;
+      --line-strong:#d9e0e8;
+      --accent:#2f80ed;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      font-family:'Inter','Noto Sans JP',sans-serif;
       background:
         linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
         url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
@@ -58,108 +69,196 @@
     a{text-decoration:none;color:inherit}
     button,input,select{font:inherit}
 
-    .top-ribbon{
-      background:linear-gradient(90deg,#1a0d14 0%,#2a1420 50%,#1a0d14 100%);
-      color:#fff;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .top-ribbon-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      display:flex;
-      gap:18px;
-      align-items:center;
-      padding:10px 20px;
-      overflow-x:auto;
-      scrollbar-width:none;
-    }
-    .top-ribbon-inner::-webkit-scrollbar{display:none}
-    .top-ribbon a{
-      font-size:13px;
-      white-space:nowrap;
-      opacity:.92;
-    }
-
     .site-header{
       position:sticky;
       top:0;
-      z-index:1000;
-      backdrop-filter:blur(14px);
-      background:rgba(253,248,242,.88);
-      border-bottom:1px solid rgba(237,229,224,.9);
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
     }
-    .site-header-inner{
+    .header-inner{
       max-width:var(--max);
       margin:0 auto;
+      min-height:72px;
       display:flex;
+      align-items:center;
       justify-content:space-between;
       align-items:center;
       gap:20px;
-      padding:16px 20px;
+      padding:0 20px;
     }
 
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
+      text-decoration:none;
       min-width:0;
     }
-    .brand-mark{
-      width:42px;
-      height:42px;
+    .brand-logo{
+      width:120px;
+      height:70px;
       border-radius:14px;
-      background:linear-gradient(135deg,var(--red),var(--orange),var(--yellow));
-      box-shadow:0 10px 20px rgba(232,0,45,.16);
-      flex:0 0 auto;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
     }
-    .brand-kicker{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--muted);
-      display:block;
-      line-height:1.1;
-      margin-bottom:2px;
-    }
+    .brand-copy{min-width:0;}
     .brand-title{
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:.01em;
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
       line-height:1.1;
+    }
+    .brand-sub{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
 
     .header-nav{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:18px;
       flex-wrap:wrap;
-      justify-content:flex-end;
     }
     .header-nav a{
-      padding:10px 14px;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:600;
+      color:#34414d;
+      padding:8px 12px;
       border-radius:999px;
-      font-weight:700;
-      color:var(--muted);
+      border:1px solid #dce4ee;
+      background:rgba(255,255,255,.74);
+      transition:all .18s ease;
     }
-    .header-nav a:hover{background:#fff;color:var(--ink)}
-    .header-nav a.active{background:var(--ink);color:#fff}
+    .header-nav a.active,
+    .header-nav a:hover{
+      color:var(--brand);
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
+      transform:translateY(-1px);
+    }
+    .header-category,
+    .header-language{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      transition:all .18s ease;
+    }
+    .header-category:hover,
+    .header-language:hover{
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
+      transform:translateY(-1px);
+    }
+    .header-category-menu{
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
+    .header-category-menu::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:100%;
+      width:100%;
+      height:12px;
+    }
+    .header-category-trigger{
+      border:none;
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .header-category-menu::after{
+      content:"▾";
+      font-size:24px;
+      line-height:1;
+      color:var(--muted);
+      margin-top:1px;
+      pointer-events:none;
+    }
+    .category-dropdown{
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      min-width:220px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      box-shadow:0 16px 30px rgba(19,35,58,.14);
+      padding:8px;
+      display:none;
+      z-index:20;
+    }
+    .header-category-menu:hover .category-dropdown,
+    .header-category-menu:focus-within .category-dropdown{
+      display:grid;
+      gap:2px;
+    }
+    .category-dropdown a{
+      text-decoration:none;
+      font-size:13px;
+      color:#2f3e4c;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .category-dropdown a:hover{
+      background:var(--hover-pink-bg);
+      border:1px solid var(--hover-pink);
+      color:var(--brand);
+      transform:translateY(-1px);
+    }
+    .header-language select{
+      border:none;
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
+      outline:none;
+    }
 
     .hero{
       max-width:var(--max);
       margin:0 auto;
       padding:36px 20px 20px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(210,218,228,.95);
+      border-radius:28px;
+      box-shadow:0 14px 34px rgba(19,35,58,.12), 0 0 0 1px rgba(255,255,255,.5) inset;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.32) 42%, rgba(255,255,255,.18) 60%, rgba(255,255,255,.08) 100%),
+        url('../../assets/images/hero/top-hero.jpg') center center / cover no-repeat,
+        #fff;
+      padding:30px;
     }
     .hero-box{
       position:relative;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at top right, rgba(255,201,60,.42), transparent 28%),
-        radial-gradient(circle at left bottom, rgba(124,58,237,.13), transparent 28%),
-        linear-gradient(135deg,#fffdfb 0%,#fff4eb 100%);
-      border:1px solid var(--border);
-      border-radius:34px;
-      padding:32px 28px 26px;
-      box-shadow:var(--card-shadow);
+      z-index:1;
+      padding:0;
     }
     .eyebrow{
       display:inline-flex;
@@ -352,7 +451,7 @@
 
     .cards{
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:18px;
     }
 
@@ -517,16 +616,62 @@
       color:#433744;
     }
 
-    .footer{
-      border-top:1px solid var(--border);
-      background:#fffaf5;
+    .page-footer{
+      border:1px solid #dbe4ee;
+      border-radius:24px;
+      background:linear-gradient(180deg,#ffffff 0%,#f9fbff 100%);
+      padding:20px;
+      margin-top:26px;
     }
     .footer-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:26px 20px 34px;
-      color:var(--muted);
-      font-size:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .footer-left{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .footer-logo{
+      width:120px;
+      height:70px;
+      border-radius:12px;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+    }
+    .footer-title{
+      font-size:13px;
+      letter-spacing:.08em;
+      font-weight:800;
+      color:#233240;
+    }
+    .footer-sub{
+      font-size:12px;
+      color:#607080;
+      margin-top:2px;
+    }
+    .footer-meta{
+      font-size:11px;
+      color:#7a8794;
+      margin-top:4px;
+    }
+    .footer-links{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      font-size:13px;
+    }
+    .footer-links a{
+      color:#4e5d6b;
+      text-decoration:none;
+    }
+    .footer-links a:hover{
+      color:var(--brand);
     }
 
     @media (max-width: 1240px){
@@ -553,9 +698,11 @@
     }
 
     @media (max-width: 760px){
-      .site-header-inner{align-items:flex-start;flex-direction:column}
-      .header-nav{width:100%;justify-content:flex-start}
-      .hero-box{padding:26px 20px 22px}
+      .header-inner{align-items:flex-start;flex-direction:column;padding:12px 20px}
+      .header-actions{width:100%;justify-content:flex-start}
+      .header-actions .header-category,
+      .header-actions .header-language{padding:8px 10px}
+      .hero{padding:24px 20px}
       .cards{grid-template-columns:1fr}
       .meta-item{grid-template-columns:1fr;gap:3px}
       .view-toggle-wrap{
@@ -580,32 +727,51 @@
   </script>
 </head>
 <body>
-  <div class="top-ribbon">
-    <div class="top-ribbon-inner">
-      <a href="/nihon-gateway-germany/ja/">ホーム</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">都市ページ</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/eat/">食べる</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/shopping/">買い物</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/services/">サービス</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/living/">暮らし</a>
-    </div>
-  </div>
-
   <header class="site-header">
-    <div class="site-header-inner">
-      <a class="brand" href="/nihon-gateway-germany/ja/">
-        <div class="brand-mark"></div>
-        <div>
-          <span class="brand-kicker">Japan Life in Germany</span>
-          <div class="brand-title">Nihon Gateway Germany</div>
-        </div>
+    <div class="header-inner">
+      <a class="brand" href="../" aria-label="Nihon Gateway Germany ホーム">
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
+        <span class="brand-copy">
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
+        </span>
       </a>
-      <nav class="header-nav">
-        <a href="/nihon-gateway-germany/ja/">トップ</a>
-        <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">都市ページ</a>
-        <a class="active" href="/nihon-gateway-germany/ja/cities/duesseldorf/eat/">飲食</a>
-        <a href="/nihon-gateway-germany/ja/cities/duesseldorf/shopping/">Shopping</a>
-      </nav>
+
+      <div class="header-actions">
+        <nav class="header-nav" aria-label="メインナビゲーション">
+          <a href="../">ホーム</a>
+          <a href="../about/">このサイトについて</a>
+          <a href="./" class="active">食べる</a>
+        </nav>
+
+        <div class="header-category header-category-menu" aria-label="カテゴリ選択">
+          <button type="button" class="header-category-trigger">カテゴリ</button>
+          <div class="category-dropdown">
+            <a href="../guides/">手続き・制度</a>
+            <a href="../living/">住まい・生活</a>
+            <a href="../jobs/">仕事・求人</a>
+            <a href="../medical/">医療・緊急</a>
+            <a href="./">食べる</a>
+            <a href="../shopping/">買い物・サービス</a>
+            <a href="../community/">交流・掲示板</a>
+            <a href="../events/">おでかけ・イベント</a>
+            <a href="../learn-german/">ドイツ語・学び</a>
+            <a href="../news/">ニュース・読みもの</a>
+          </div>
+        </div>
+
+        <label class="header-language" aria-label="言語切り替え">
+          <span>Language</span>
+          <select id="languageSelect">
+            <option value="../">日本語</option>
+            <option value="../../">English</option>
+            <option value="../../de/">Deutsch</option>
+            <option value="../../zh/">中文</option>
+            <option value="../../ko/">한국어</option>
+            <option value="../../es/">Espanol</option>
+          </select>
+        </label>
+      </div>
     </div>
   </header>
 
@@ -702,9 +868,24 @@
     </aside>
   </main>
 
-  <footer class="footer">
+  <footer class="page-footer">
     <div class="footer-inner">
-      Nihon Gateway Germany © 2026 · 飲食情報を日本語で整理
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+        <div class="footer-copy">
+          <div class="footer-title">NIHON GATEWAY GERMANY</div>
+          <div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div>
+          <div class="footer-meta">© 2026 Nihon Gateway Germany</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="../about/">このサイトについて</a>
+        <a href="../contact/">お問い合わせ</a>
+        <a href="../terms/">利用規約</a>
+        <a href="../privacy/">プライバシー</a>
+        <a href="../impressum/">運営者情報</a>
+      </div>
     </div>
   </footer>
 
@@ -1333,6 +1514,10 @@ rawItems.forEach(preloadCoordinatesFromFields);
 
     els.cardViewBtn.addEventListener("click", () => setViewMode("card"));
     els.mapViewBtn.addEventListener("click", () => setViewMode("map"));
+    document.getElementById("languageSelect")?.addEventListener("change", (event) => {
+      const next = event.target.value;
+      if (next) window.location.href = next;
+    });
 
     loadData();
   </script>

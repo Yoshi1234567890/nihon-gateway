@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eat | デュッセルドルフのレストラン・カフェ | Nihon Gateway Germany</title>
-  <meta name="description" content="デュッセルドルフのレストラン、ラーメン、カフェ情報を日本語で一覧化。カテゴリ、評価、価格帯、住所、地図リンクをまとめて確認できます。" />
+  <title>Eat | グルメ・飲食 | Nihon Gateway Germany</title>
+  <meta name="description" content="レストラン・ラーメン・カフェの情報を日本語で見やすく整理。カテゴリ、評価、価格帯、地図リンクをまとめて確認できます。" />
   <meta name="theme-color" content="#f7f3ee" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/eat/" />
 
-  <meta property="og:title" content="Eat | デュッセルドルフのレストラン・カフェ | Nihon Gateway Germany" />
-  <meta property="og:description" content="デュッセルドルフのレストラン、ラーメン、カフェ情報を日本語で一覧化。" />
+  <meta property="og:title" content="Eat | グルメ・飲食 | Nihon Gateway Germany" />
+  <meta property="og:description" content="レストラン・ラーメン・カフェ情報を日本語で見やすく一覧化。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/eat/" />
   <meta property="og:locale" content="ja_JP" />
@@ -48,7 +48,10 @@
     html{scroll-behavior:smooth}
     body{
       font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
-      background:var(--cream);
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
       color:var(--ink);
       line-height:1.6;
     }
@@ -186,24 +189,6 @@
       max-width:860px;
       font-size:16px;
       color:var(--muted);
-    }
-    .hero-badges{
-      margin-top:22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:10px 14px;
-      font-size:13px;
-      font-weight:800;
-      color:#3f3340;
     }
 
     .view-toggle-wrap{
@@ -402,39 +387,6 @@
       box-shadow:0 0 0 3px rgba(47,109,245,.14), var(--card-shadow);
     }
 
-    .card-visual{
-      position:relative;
-      min-height:132px;
-      background:
-        radial-gradient(circle at top right, rgba(255,201,60,.52), transparent 28%),
-        radial-gradient(circle at left bottom, rgba(0,180,166,.16), transparent 24%),
-        linear-gradient(135deg,#fff3ee 0%,#fffefa 100%);
-      border-bottom:1px solid var(--border);
-      padding:18px 18px 16px;
-    }
-    .card-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:12px;
-      font-weight:900;
-      line-height:1;
-      border:1px solid rgba(0,0,0,.06);
-      background:#fff;
-      color:#4b404a;
-    }
-    .badge.category1{background:#fff1f2;color:#a70f2b}
-    .badge.category2{background:#eef7ff;color:#1b5dbf}
-    .badge.score{background:#f8f6ff;color:#5a31c4}
-    .badge.reviews{background:#f5fff8;color:#1b7c42}
-    .badge.price{background:#fff8ef;color:#b15c00}
-    .badge.geo{background:#eefcf8;color:#0b7a5a}
 
     .card-body{
       padding:18px;
@@ -631,7 +583,7 @@
   <div class="top-ribbon">
     <div class="top-ribbon-inner">
       <a href="/nihon-gateway-germany/ja/">ホーム</a>
-      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">デュッセルドルフ</a>
+      <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">都市ページ</a>
       <a href="/nihon-gateway-germany/ja/cities/duesseldorf/eat/">食べる</a>
       <a href="/nihon-gateway-germany/ja/cities/duesseldorf/shopping/">買い物</a>
       <a href="/nihon-gateway-germany/ja/cities/duesseldorf/services/">サービス</a>
@@ -650,8 +602,8 @@
       </a>
       <nav class="header-nav">
         <a href="/nihon-gateway-germany/ja/">トップ</a>
-        <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">Düsseldorf</a>
-        <a class="active" href="/nihon-gateway-germany/ja/cities/duesseldorf/eat/">Eat</a>
+        <a href="/nihon-gateway-germany/ja/cities/duesseldorf/">都市ページ</a>
+        <a class="active" href="/nihon-gateway-germany/ja/cities/duesseldorf/eat/">飲食</a>
         <a href="/nihon-gateway-germany/ja/cities/duesseldorf/shopping/">Shopping</a>
       </nav>
     </div>
@@ -659,19 +611,12 @@
 
   <section class="hero">
     <div class="hero-box">
-      <div class="eyebrow"><span class="eyebrow-dot"></span>Düsseldorf Eat Guide</div>
-      <h1>デュッセルドルフの<br>レストラン・カフェを、<br>日本語で整理。</h1>
+      <div class="eyebrow"><span class="eyebrow-dot"></span>グルメ・飲食ガイド</div>
+      <h1>レストラン・カフェ情報を、<br>日本語でわかりやすく整理。</h1>
       <p>
-        Google Mapsベースの店舗データをもとに、レストラン・ラーメン・カフェ情報を見やすく一覧化。
-        カテゴリ、評価、価格帯、住所、地図リンクをまとめて確認できます。
+        Google Mapsをもとに収集した店舗データから、レストラン・ラーメン・カフェ情報を見やすく一覧化。
+        カテゴリ、評価、価格帯、地図リンクをまとめて確認できます。
       </p>
-      <div class="hero-badges">
-        <span class="hero-badge">レストラン</span>
-        <span class="hero-badge">ラーメン</span>
-        <span class="hero-badge">カフェ</span>
-        <span class="hero-badge">アジア料理</span>
-        <span class="hero-badge">地図リンク付き</span>
-      </div>
     </div>
   </section>
 
@@ -740,8 +685,8 @@
     <section class="content">
       <div class="toolbar">
         <div class="results-meta">
-          <h2 class="results-title">Eat</h2>
-          <div class="results-sub" id="resultsSummary">読み込み中...</div>
+          <h2 class="results-title">飲食</h2>
+          <div class="results-sub" id="resultsSummary">360件を表示中 / 全360件</div>
         </div>
         <div class="chips" id="activeChips"></div>
       </div>
@@ -759,7 +704,7 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      Nihon Gateway Germany © 2026 · Düsseldorf の飲食情報を日本語で整理
+      Nihon Gateway Germany © 2026 · 飲食情報を日本語で整理
     </div>
   </footer>
 
@@ -861,7 +806,7 @@
 function buildAddress(item) {
   const street = getField(item, "street", "address");
   const postal = getField(item, "postalCode", "Postal Code", "postcode");
-  const city = getField(item, "city") || "Düsseldorf";
+  const city = getField(item, "city") || "";
   const country = getField(item, "countryCode") === "DE" ? "Germany" : "Germany";
   return [street, postal, city, country].filter(Boolean).join(", ");
 }
@@ -1053,42 +998,26 @@ function buildAddress(item) {
 
       els.statusBox.style.display = "none";
 
-      els.cards.innerHTML = filteredItems.map((item, idx) => {
+      els.cards.innerHTML = filteredItems.map((item) => {
         const titleHtml = getDisplayNameHtml(item);
         const category1 = getCategory1(item);
         const category2 = getCategory2(item);
-        const score = formatScore(getField(item, "totalScore"));
-        const reviews = formatReviews(getField(item, "reviewsCount"));
         const website = getField(item, "website");
         const mapUrl = getField(item, "url", "map_url");
-        const address = buildAddress(item);
         const price = getField(item, "price_range", "price");
-        const categoryName = getField(item, "categoryName");
         const description = getField(item, "description_ja", "description");
 
         return `
           <article class="card ${activeItemId === item.__id ? "active-map-item" : ""}" data-item-id="${escapeHtml(item.__id)}">
-            <div class="card-visual">
-              <div class="card-badges">
-                ${category1 ? `<span class="badge category1">${escapeHtml(category1)}</span>` : ""}
-                ${category2 ? `<span class="badge category2">${escapeHtml(category2)}</span>` : ""}
-                ${price ? `<span class="badge price">${escapeHtml(price)}</span>` : ""}
-                ${score ? `<span class="badge score">★ ${escapeHtml(score)}</span>` : ""}
-                ${reviews ? `<span class="badge reviews">${escapeHtml(reviews)}</span>` : ""}
-                ${hasCoordinates(item) ? `<span class="badge geo">地図OK</span>` : ""}
-              </div>
-            </div>
             <div class="card-body">
               <div>
                 <h3 class="card-title">${titleHtml}</h3>
-                ${categoryName ? `<div class="card-subtitle">${escapeHtml(categoryName)}</div>` : ""}
               </div>
 
               <div class="meta-list">
                 ${category1 ? `<div class="meta-item"><div class="meta-label">カテゴリ</div><div class="meta-value">${escapeHtml(category1)}</div></div>` : ""}
                 ${category2 ? `<div class="meta-item"><div class="meta-label">詳細カテゴリ</div><div class="meta-value">${escapeHtml(category2)}</div></div>` : ""}
                 ${price ? `<div class="meta-item"><div class="meta-label">価格</div><div class="meta-value">${escapeHtml(price)}</div></div>` : ""}
-                ${address ? `<div class="meta-item"><div class="meta-label">住所</div><div class="meta-value">${escapeHtml(address)}</div></div>` : ""}
                 ${description ? `<div class="meta-item"><div class="meta-label">説明</div><div class="meta-value">${escapeHtml(description)}</div></div>` : ""}
               </div>
 
@@ -1201,7 +1130,7 @@ async function enrichCoordinates(items) {
       continue;
     }
 
-    const address = buildAddress(item) || `${getField(item, "title", "name_ja")} Düsseldorf`;
+    const address = buildAddress(item) || `${getField(item, "title", "name_ja")} Germany`;
     console.log("geocode address:", address);
 
     const geo = await geocodeAddress(address);
@@ -1224,7 +1153,7 @@ function initMapIfNeeded() {
 
   map = L.map("map", {
     scrollWheelZoom: true
-  }).setView([51.2277, 6.7735], 13); // Düsseldorf中心
+  }).setView([51.2277, 6.7735], 13); // 地図中心
 
   L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
     subdomains: "abcd",
@@ -1412,10 +1341,10 @@ rawItems.forEach(preloadCoordinatesFromFields);
   {
     "@context":"https://schema.org",
     "@type":"CollectionPage",
-    "name":"Düsseldorf Eat Guide | Nihon Gateway Germany",
+    "name":"Eat Guide | Nihon Gateway Germany",
     "url":"https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/eat/",
     "inLanguage":"ja",
-    "about":"Düsseldorf restaurant and cafe information for Japanese residents and visitors"
+    "about":"Restaurant and cafe information for Japanese residents and visitors"
   }
   </script>
 </body>

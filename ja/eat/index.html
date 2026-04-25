@@ -549,6 +549,58 @@
       line-height:1.12;
       word-break:break-word;
     }
+    .card-title-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .card-title-wrap{
+      min-width:0;
+      flex:1;
+    }
+    .card-rating{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#5f6368;
+      font-size:15px;
+      font-weight:700;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .card-rating-score{
+      color:#3c4043;
+      font-size:14px;
+      font-weight:800;
+    }
+    .star-rating{
+      position:relative;
+      display:inline-block;
+      line-height:1;
+      font-size:19px;
+      letter-spacing:.04em;
+      color:#dadce0;
+    }
+    .star-rating::before{
+      content:"★★★★★";
+    }
+    .star-rating-fill{
+      position:absolute;
+      left:0;
+      top:0;
+      overflow:hidden;
+      color:#fbbc04;
+      pointer-events:none;
+    }
+    .star-rating-fill::before{
+      content:"★★★★★";
+    }
+    .card-rating-reviews{
+      color:#5f6368;
+      font-weight:600;
+      font-size:14px;
+    }
     .card-subtitle{
       margin-top:4px;
       color:var(--muted);
@@ -771,6 +823,10 @@
       .header-nav{width:100%;justify-content:flex-start}
       .hero-box{padding:26px 20px 22px}
       .cards{grid-template-columns:1fr}
+      .card-title-row{
+        flex-direction:column;
+        align-items:flex-start;
+      }
       .meta-item{grid-template-columns:1fr;gap:3px}
       .view-toggle-wrap{
         padding-bottom:14px;
@@ -1061,6 +1117,17 @@
       return Number.isFinite(n) ? n.toLocaleString("ja-JP") + "件" : "";
     }
 
+    function getStarFillPercent(score) {
+      const n = parseFloat(score);
+      if (!Number.isFinite(n)) return 0;
+      return Math.max(0, Math.min(100, (n / 5) * 100));
+    }
+
+    function formatReviewCountInParens(value) {
+      const n = parseNumber(value);
+      return Number.isFinite(n) ? `(${n.toLocaleString("en-US")})` : "";
+    }
+
     function preloadCoordinatesFromFields(item) {
   const lat = parseFloat(getField(item, "location/lat", "lat", "latitude"));
   const lng = parseFloat(getField(item, "location/lng", "lng", "lon", "longitude", "long"));
@@ -1280,7 +1347,10 @@ function buildAddress(item) {
       els.statusBox.style.display = "none";
 
       els.cards.innerHTML = filteredItems.map((item) => {
-        const titleHtml = getDisplayNameHtml(item);
+        const nameParts = getDisplayNameParts(item);
+        const score = formatScore(getField(item, "totalScore"));
+        const reviewsCountText = formatReviewCountInParens(getField(item, "reviewsCount"));
+        const starFillPercent = getStarFillPercent(getField(item, "totalScore"));
         const category1 = getCategory1(item);
         const category2 = getCategory2(item);
         const website = getField(item, "website");
@@ -1291,8 +1361,22 @@ function buildAddress(item) {
         return `
           <article class="card ${activeItemId === item.__id ? "active-map-item" : ""}" data-item-id="${escapeHtml(item.__id)}">
             <div class="card-body">
-              <div>
-                <h3 class="card-title">${titleHtml}</h3>
+              <div class="card-title-wrap">
+                <div class="card-title-row">
+                  <h3 class="card-title">${escapeHtml(nameParts.title)}</h3>
+                  ${score || reviewsCountText ? `
+                    <div class="card-rating" aria-label="Googleマップ評価 ${escapeHtml(score || "-")} ${escapeHtml(reviewsCountText)}">
+                      ${score ? `<span class="card-rating-score">${escapeHtml(score)}</span>` : ""}
+                      ${score ? `
+                        <span class="star-rating" aria-hidden="true">
+                          <span class="star-rating-fill" style="width:${starFillPercent}%"></span>
+                        </span>
+                      ` : ""}
+                      ${reviewsCountText ? `<span class="card-rating-reviews">${escapeHtml(reviewsCountText)}</span>` : ""}
+                    </div>
+                  ` : ""}
+                </div>
+                ${nameParts.subtitle ? `<div class="card-subtitle">${escapeHtml(nameParts.subtitle)}</div>` : ""}
               </div>
 
               <div class="meta-list">

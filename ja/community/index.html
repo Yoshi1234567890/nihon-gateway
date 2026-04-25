@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>交流掲示板 | Nihon Gateway Germany</title>
   <meta name="description" content="ドイツ在住日本人向けの交流掲示板。公開閲覧 + 投稿フォーム + 管理者承認型。" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
   <style>
@@ -27,6 +28,9 @@
       --radius-md:14px;
       --radius-sm:10px;
       --max:1280px;
+      --brand:#d84b6a;
+--hover-pink:#f3c8d4;
+--hover-pink-bg:#fff4f7;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -52,35 +56,35 @@
     }
     .container{width:min(var(--max), calc(100% - 32px));margin:0 auto;}
     .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
     .brand-logo{width:120px;height:70px;border-radius:14px;object-fit:contain;background:transparent;border:none;box-shadow:none;}
     .brand-copy{min-width:0;}
     .brand-title{display:block;font-size:14px;font-weight:800;letter-spacing:.08em;line-height:1.1;}
     .brand-sub{display:block;margin-top:4px;font-size:12px;color:var(--muted);}
-    .header-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end;}
-    .header-city,.header-category,.header-language{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid #e6eaf0;background:#fff;color:var(--muted);font-size:13px;transition:all .18s ease;}
-    .header-category:hover,.header-language:hover{border-color:#f3c8d4;background:#fff4f7;transform:translateY(-1px);}
-    .header-category-menu{position:relative;display:flex;align-items:center;}
-    .header-category-menu::before{content:"";position:absolute;left:0;top:100%;width:100%;height:12px;}
-    .header-category-trigger{border:none;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
-    .header-category-menu::after{content:"▾";font-size:24px;line-height:1;color:var(--muted);margin-top:1px;pointer-events:none;}
-    .category-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 16px 30px rgba(19,35,58,.14);padding:8px;display:none;z-index:20;}
-    .header-category-menu:hover .category-dropdown,.header-category-menu:focus-within .category-dropdown{display:grid;gap:2px;}
-    .category-dropdown a{text-decoration:none;font-size:13px;color:#2f3e4c;padding:8px 10px;border-radius:10px;}
-    .category-dropdown a:hover{background:#fff4f7;border:1px solid #f3c8d4;color:#d84b6a;transform:translateY(-1px);}
-    .header-search{display:flex;align-items:center;gap:8px;}
-    .search-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.96);border:1px solid #d9e0e8;border-radius:14px;padding:0 14px;}
-    .search-box span{color:#7d8893;font-size:18px;}
-    .search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--ink);}
-    .header-search .search-box{min-width:220px;height:42px;border-radius:999px;padding:0 12px;}
-    .header-search .search-box span{font-size:19px;}
-    .header-search .search-box input{font-size:13px;}
-    .header-search .search-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:999px;padding:0 14px;font-size:24px;line-height:1;color:#1f5fbf;background:rgba(47,128,237,.20);border:1px solid rgba(47,128,237,.32);cursor:pointer;}
-    .header-city select,.header-category select,.header-language select{border:none;background:transparent;color:var(--ink);font-weight:700;outline:none;}
-    .header-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-    .header-nav a{text-decoration:none;font-size:14px;font-weight:600;color:#34414d;padding:8px 12px;border-radius:999px;border:1px solid #dce4ee;background:rgba(255,255,255,.74);transition:all .18s ease;}
-    .header-nav a.active{color:#34414d;border-color:#dce4ee;background:rgba(255,255,255,.74);}
-    .header-nav a:hover{border-color:#f3c8d4;background:#fff4f7;transform:translateY(-1px);}
+    .header-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+    .header-city,.header-category,.header-language{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid #e6eaf0;background:#fff;color:var(--muted);font-size:13px;transition:all .18s ease}
+    .header-category:hover,.header-language:hover{border-color:#f3c8d4;background:#fff4f7;transform:translateY(-1px)}
+    .header-category-menu{position:relative;display:flex;align-items:center}
+    .header-category-menu::before{content:"";position:absolute;left:0;top:100%;width:100%;height:12px}
+    .header-category-trigger{border:none;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+    .header-category-menu::after{content:"▾";font-size:24px;line-height:1;color:var(--muted);margin-top:1px;pointer-events:none}
+    .category-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 16px 30px rgba(19,35,58,.14);padding:8px;display:none;z-index:20}
+    .header-category-menu:hover .category-dropdown,.header-category-menu:focus-within .category-dropdown{display:grid;gap:2px}
+    .category-dropdown a{text-decoration:none;font-size:13px;color:#2f3e4c;padding:8px 10px;border-radius:10px}
+    .category-dropdown a:hover{background:#fff4f7;border:1px solid #f3c8d4;color:#d84b6a;transform:translateY(-1px)}
+    .header-search{display:flex;align-items:center;gap:8px}
+    .search-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.96);border:1px solid #d9e0e8;border-radius:14px;padding:0 14px}
+    .search-box span{color:#7d8893;font-size:18px}
+    .search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--ink)}
+    .header-search .search-box{min-width:220px;height:42px;border-radius:999px;padding:0 12px}
+    .header-search .search-box span{font-size:19px}
+    .header-search .search-box input{font-size:13px}
+    .header-search .search-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:999px;padding:0 14px;font-size:24px;line-height:1;color:#1f5fbf;background:rgba(47,128,237,.20);border:1px solid rgba(47,128,237,.32);cursor:pointer}
+    .header-city select,.header-category select,.header-language select{border:none;background:transparent;color:var(--ink);font-weight:700;outline:none}
+    .header-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .header-nav a{text-decoration:none;font-size:14px;font-weight:600;color:#34414d;padding:8px 12px;border-radius:999px;border:1px solid #dce4ee;background:rgba(255,255,255,.74);transition:all .18s ease}
+    .header-nav a.active{color:#34414d;border-color:#dce4ee;background:rgba(255,255,255,.74);transform:none}
+    .header-nav a:hover{color:#d84b6a;border-color:#f3c8d4;background:#fff4f7;transform:translateY(-1px)}
 
     .hero{max-width:var(--max);margin:0 auto;padding:36px 20px 20px;}
     .hero-box{
@@ -122,6 +126,7 @@
     .intro{margin-bottom:20px}
     .intro-copy p{color:var(--muted);line-height:1.85}
     .section-head{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+    .section-tag{padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,#2f6df5,#00b4a6);color:#fff;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     .section-line{flex:1;height:1px;background:linear-gradient(90deg,#dce4ee,transparent)}
 
     .board-layout{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
@@ -153,25 +158,51 @@
     .mini-btn.primary{background:#1f2d3d;color:#fff;border-color:#1f2d3d}
     .empty{padding:24px;text-align:center;color:var(--muted)}
 
-    .page-footer{margin-top:30px;background:rgba(255,255,255,.9);border-top:1px solid #e2e8f0;padding:20px 0}
-    .footer-inner{width:min(var(--max), calc(100% - 32px));margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-    .footer-left{display:flex;align-items:center;gap:12px;min-width:0}
-    .footer-logo{width:120px;height:44px;object-fit:contain;}
+    .page-footer{margin-top:24px;border:1px solid #dce4ee;border-radius:20px;background:linear-gradient(135deg,#fbfdff,#f6f9fc);box-shadow:0 16px 34px rgba(19,35,58,.10);padding:24px}
+    .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}
+    .footer-left{display:flex;gap:16px;align-items:flex-start;min-width:280px}
+    .footer-logo{width:112px;height:112px;object-fit:contain;border-radius:14px;background:transparent;border:none;box-shadow:none}
     .footer-title{font-size:14px;font-weight:800;letter-spacing:.08em}
-    .footer-copy{display:grid;gap:2px}
     .footer-sub,.footer-meta{color:var(--muted);font-size:13px}
-    .footer-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
-    .footer-links a{font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
-    .footer-links a:hover{color:#d84b6a;border-color:#d84b6a}
+.footer-links{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  overflow-y:visible;
+  padding:4px 0;
+}
 
+.footer-links a{
+  font-size:12px;
+  color:#34414d;
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  border:1px solid #e2e8f0;
+  transition:all .18s ease;
+}
+.footer-links a:hover{
+  color:var(--brand);
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
     @media (max-width:980px){
       .hero-box,.board-layout{grid-template-columns:1fr}
     }
     @media (max-width:760px){
-      .header-inner{padding:8px 0}
+      .header-inner{min-height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}
+      .header-actions{width:100%;justify-content:flex-start}
+      .header-search{width:100%}
+      .header-search .search-box{flex:1 1 auto}
+      .header-actions .header-category,.header-actions .header-language{width:max-content}
+      .header-nav{width:100%;justify-content:flex-start}
       .hero{padding:24px 16px 12px}
       .hero-box{padding:24px 18px}
-      .wrap,.footer-inner{width:calc(100% - 24px)}
+      .wrap{width:calc(100% - 24px)}
     }
   </style>
 </head>
@@ -179,7 +210,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/nihon-gateway-germany/ja/" aria-label="Nihon Gateway Germany ホーム">
-        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ" />
         <span class="brand-copy">
           <span class="brand-title">NIHON GATEWAY GERMANY</span>
           <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
@@ -188,7 +219,7 @@
 
       <div class="header-actions">
         <nav class="header-nav" aria-label="メインナビゲーション">
-          <a href="/nihon-gateway-germany/ja/" class="active">ホーム</a>
+          <a href="/nihon-gateway-germany/ja/">ホーム</a>
           <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
         </nav>
 
@@ -211,7 +242,7 @@
         <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
           <label class="search-box" aria-label="サイト内検索">
             <span>⌕</span>
-            <input type="search" name="q" placeholder="検索">
+            <input type="search" name="q" placeholder="検索" />
           </label>
           <button class="search-btn" type="submit" aria-label="検索">⌕</button>
         </form>
@@ -233,7 +264,7 @@
       <div>
         <div class="eyebrow"><span class="eyebrow-dot"></span> Community Board</div>
         <h1>交流掲示板で<br>つながる・探す・相談する</h1>
-        <p>売ります・買います、住まい・物件、レッスン、イベント、仲間募集、サービス、仕事、質問・相談まで。投稿はフォーム送信後に管理者承認されてから公開されます。</p>
+        <p>売ります・買います、住まい・物件、レッスン、イベント、仲間募集、サービス、仕事、質問・相談まで。投稿はフォーム送信後に管理者承認されてから公開されます。連絡先は掲示板に公開されず、サイト経由で安全にやり取りできます。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="./post/">投稿する</a>
           <a class="btn btn-secondary" href="#board">募集を見る</a>
@@ -255,11 +286,12 @@
     <section class="intro">
       <div class="panel intro-copy">
         <div class="section-head"><h2>使い方・利用上の注意</h2><div class="section-line"></div></div>
-        <p>一覧は誰でも閲覧できます。投稿する場合は専用フォームから送信し、内容は管理者確認後に公開されます。個人情報（氏名、住所、電話番号、口座情報、身分証情報など）の記載や送信は避け、取引・面会・金銭授受は詐欺やトラブルのリスクを理解したうえで、十分に確認して自己責任で行ってください。不審な連絡や不自然な送金依頼がある場合は、やり取りを中止してください。取引や連絡はご自身の判断と責任で行ってください。</p>
+        <p>一覧は誰でも閲覧できます。投稿する場合は専用フォームから送信し、投稿は一度保留となった後、管理者承認後に掲示板へ公開されます。連絡先は掲示板上に直接表示されず、閲覧者は「この投稿者に連絡する」ボタンから連絡できます。やり取り時は個人情報（氏名・住所・電話番号・口座情報など）の取り扱いに十分注意し、詐欺やなりすまし、不審な送金依頼には応じないでください。取引や連絡はご自身の判断と責任で行ってください。</p>
       </div>
     </section>
 
     <section id="board">
+
       <div class="board-layout">
         <aside class="sidebar">
           <div class="panel">
@@ -287,7 +319,7 @@
   <footer class="page-footer">
     <div class="footer-inner">
       <div class="footer-left">
-        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ" />
         <div class="footer-copy">
           <div class="footer-title">NIHON GATEWAY GERMANY</div>
           <div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div>
@@ -307,14 +339,6 @@
 
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
-
-    const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) {
-      languageSelect.addEventListener('change', (event) => {
-        const target = event.target.value;
-        if (target) window.location.href = target;
-      });
-    }
     let posts = [];
 
     const els = {
@@ -323,7 +347,7 @@
       searchInput: document.getElementById('searchInput'),
       filterCategory: document.getElementById('filterCategory'),
       filterRegion: document.getElementById('filterRegion'),
-      resetFilters: document.getElementById('resetFilters'),
+      resetFilters: document.getElementById('resetFilters')
     };
 
     function escapeHtml(str) {
@@ -457,6 +481,14 @@
       els.filterRegion.value = '';
       renderAll();
     });
+
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+      languageSelect.addEventListener('change', (event) => {
+        const target = event.target.value;
+        if (target) window.location.href = target;
+      });
+    }
 
     loadPosts();
   </script>

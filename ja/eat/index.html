@@ -9,6 +9,8 @@
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/eat/" />
   <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <meta property="og:title" content="Eat | グルメ・飲食 | Nihon Gateway Germany" />
   <meta property="og:description" content="レストラン・ラーメン・カフェ情報を日本語で見やすく一覧化。" />
@@ -35,7 +37,13 @@
       --cream:#fdf8f2;
       --paper:#fffdf9;
       --ink:#1a1014;
+      --text:#16202a;
       --muted:#6b5e68;
+      --line:#e6eaf0;
+      --line-strong:#d9e0e8;
+      --brand:#d84b6a;
+      --hover-pink:#f3c8d4;
+      --hover-pink-bg:#fff4f7;
       --border:#ede5e0;
       --card-shadow:0 10px 30px rgba(26,16,20,.07);
       --radius-xl:28px;
@@ -48,7 +56,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      font-family:'Inter','Noto Sans JP',sans-serif;
       background:
         linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
         url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
@@ -122,7 +130,7 @@
       gap:8px;
       padding:8px 12px;
       border-radius:999px;
-      border:1px solid #e6eaf0;
+      border:1px solid var(--line);
       background:#fff;
       color:var(--muted);
       font-size:13px;
@@ -130,8 +138,8 @@
     }
     .header-category:hover,
     .header-language:hover{
-      border-color:#f3c8d4;
-      background:#fff4f7;
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
       transform:translateY(-1px);
     }
     .header-category-menu{
@@ -150,7 +158,7 @@
     .header-category-trigger{
       border:none;
       background:transparent;
-      color:var(--ink);
+      color:var(--text);
       font-weight:700;
       cursor:pointer;
       display:flex;
@@ -171,7 +179,7 @@
       left:0;
       min-width:220px;
       background:#fff;
-      border:1px solid #e6eaf0;
+      border:1px solid var(--line);
       border-radius:14px;
       box-shadow:0 16px 30px rgba(19,35,58,.14);
       padding:8px;
@@ -191,9 +199,9 @@
       border-radius:10px;
     }
     .category-dropdown a:hover{
-      background:#fff4f7;
-      border:1px solid #f3c8d4;
-      color:#d84b6a;
+      background:var(--hover-pink-bg);
+      border:1px solid var(--hover-pink);
+      color:var(--brand);
       transform:translateY(-1px);
     }
     .header-search{
@@ -206,7 +214,7 @@
       align-items:center;
       gap:10px;
       background:rgba(255,255,255,.96);
-      border:1px solid #d9e0e8;
+      border:1px solid var(--line-strong);
       border-radius:14px;
       padding:0 14px;
     }
@@ -219,7 +227,7 @@
       border:none;
       outline:none;
       background:transparent;
-      color:var(--ink);
+      color:var(--text);
     }
     .header-search .search-box{
       min-width:220px;
@@ -248,7 +256,7 @@
     .header-language select{
       border:none;
       background:transparent;
-      color:var(--ink);
+      color:var(--text);
       font-weight:700;
       outline:none;
     }
@@ -271,9 +279,9 @@
     }
     .header-nav a.active,
     .header-nav a:hover{
-      color:#d84b6a;
-      border-color:#f3c8d4;
-      background:#fff4f7;
+      color:var(--brand);
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
       transform:translateY(-1px);
     }
 

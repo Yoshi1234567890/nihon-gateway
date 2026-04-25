@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Jobs | 仕事・求人 | Nihon Gateway Germany</title>
   <meta name="description" content="ドイツで働く日本語話者向けの求人情報を、会社名・給与・都市・職務概要で見やすく整理。カード選択で詳細もすぐ確認できます。" />
   <meta name="theme-color" content="#f7f3ee" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/jobs/" />
-  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
+  <link rel="icon" type="image/png" href="../../assets/images/brand/favicon.png" />
 
   <meta property="og:title" content="Jobs | 仕事・求人 | Nihon Gateway Germany" />
   <meta property="og:description" content="企業掲載型の求人を日本語で見やすく一覧化。カードを選ぶと職務詳細・要件・連絡先を確認できます。" />
@@ -18,142 +19,815 @@
 
   <style>
     :root{
-      --red:#e8002d;--orange:#ff6b2b;--cream:#fdf8f2;--paper:#fffdf9;--ink:#1a1014;--muted:#6b5e68;
-      --border:#ede5e0;--blue:#2f6df5;--card-shadow:0 10px 30px rgba(26,16,20,.07);--radius-xl:28px;--max:1280px;
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --cream:#fdf8f2;
+      --paper:#fffdf9;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --blue:#2f6df5;
+      --card-shadow:0 10px 30px rgba(26,16,20,.07);
+      --radius-xl:28px;
+      --max:1280px;
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;background:linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,var(--cream);color:var(--ink);line-height:1.6}
-    a{text-decoration:none;color:inherit}button,input,select{font:inherit}
-    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto}
-    .site-header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.84);backdrop-filter:blur(12px);border-bottom:1px solid rgba(230,234,240,.92)}
-    .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:12px}.brand-logo{width:120px;height:70px;object-fit:contain}.brand-title{display:block;font-size:14px;font-weight:800;letter-spacing:.08em}.brand-sub{display:block;margin-top:4px;font-size:12px;color:var(--muted)}
-    .header-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
-    .header-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .header-nav a,.header-category,.header-language{font-size:13px;padding:8px 12px;border-radius:999px;border:1px solid #dce4ee;background:rgba(255,255,255,.74)}
-    .header-category-menu{position:relative;display:flex;align-items:center}.header-category-trigger{border:none;background:transparent;font-weight:700;cursor:pointer}
-    .category-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 16px 30px rgba(19,35,58,.14);padding:8px;display:none;z-index:20}
-    .header-category-menu:hover .category-dropdown,.header-category-menu:focus-within .category-dropdown{display:grid;gap:2px}
-    .category-dropdown a{font-size:13px;color:#2f3e4c;padding:8px 10px;border-radius:10px}.category-dropdown a:hover{background:#fff4f7}
-    .header-search{display:flex;align-items:center;gap:8px}.search-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.96);border:1px solid #d9e0e8;border-radius:999px;padding:0 12px;height:42px;min-width:220px}.search-box input{border:none;outline:none;background:transparent}
-    .search-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:999px;padding:0 14px;font-size:24px;color:#1f5fbf;background:rgba(47,128,237,.20);border:1px solid rgba(47,128,237,.32);cursor:pointer}
-    .header-language select{border:none;background:transparent;outline:none}
 
-    .hero{max-width:var(--max);margin:0 auto;padding:36px 20px 18px}
-    .hero-box{position:relative;overflow:hidden;background:linear-gradient(90deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.32) 42%, rgba(255,255,255,.12) 100%),url("../../assets/images/hero/top-hero.jpg") center center / cover no-repeat,#fff;border:1px solid #d9e0e8;border-radius:34px;padding:32px 28px 26px;box-shadow:var(--card-shadow)}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
-    .eyebrow-dot{width:9px;height:9px;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--orange))}
-    .hero h1{font-size:clamp(30px,4vw,54px);line-height:1.05;font-weight:950;letter-spacing:-.03em;max-width:900px}
-    .hero p{margin-top:12px;max-width:880px;font-size:16px;color:var(--muted)}
+    body{
+      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
 
-    .layout{max-width:var(--max);margin:0 auto;padding:12px 20px 80px;display:grid;grid-template-columns:320px minmax(0,1fr) 420px;gap:22px;align-items:start}
-    .panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--card-shadow)}
-    .filters{position:sticky;top:92px;padding:20px}.field{margin-bottom:14px}.label{display:block;font-size:13px;font-weight:800;color:#4c404c;margin-bottom:8px}
-    .input,.select{width:100%;border:1px solid var(--border);border-radius:14px;background:#fff;padding:13px 14px;outline:none}
-    .reset-btn{border:none;background:transparent;color:var(--blue);font-weight:800;cursor:pointer}
-    .panel-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.panel-title{font-size:18px;font-weight:900}
-    .content{min-width:0}
-    .toolbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-    .results-title{font-size:24px;font-weight:900;letter-spacing:-.02em}.results-sub{margin-top:6px;color:var(--muted);font-size:14px}
-    .card-lang-toggle{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px}
-    .card-lang-btn{border:none;background:transparent;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:900;color:#4e424e;cursor:pointer}
-    .card-lang-btn.active{background:#1f5fbf;color:#fff}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#4e424e}
-    .cards{display:grid;gap:14px}
-    .card{background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--card-shadow);padding:18px;cursor:pointer;transition:.18s}
-    .card:hover{transform:translateY(-2px)} .card.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,109,245,.14),var(--card-shadow)}
-    .card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .company{font-size:20px;font-weight:950;line-height:1.15}.position{font-size:14px;color:var(--muted);margin-top:4px}
-    .badge{font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;background:#fff4f7;color:#b83355;border:1px solid #f2c8d4;white-space:nowrap}
-    .meta{margin-top:14px;display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px 10px;font-size:14px}.meta dt{font-weight:900;color:#433744}.meta dd{color:#564a55}
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
 
-    .detail{position:sticky;top:92px;padding:20px}
-    .detail h3{font-size:26px;font-weight:950;line-height:1.15}
-    .detail .sub{margin-top:4px;color:var(--muted);font-weight:700}
-    .detail-grid{margin-top:16px;display:grid;gap:10px}
-    .detail-item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:8px;font-size:14px}
-    .detail-item .k{font-weight:900;color:#433744}
-    .detail-sec{margin-top:16px}
-    .detail-sec h4{font-size:14px;font-weight:900;margin-bottom:6px}
-    .detail-sec p,.detail-sec li{font-size:14px;color:#4f4350}
-    .detail ul{padding-left:18px;display:grid;gap:4px}
-    .empty-box{padding:22px;border-radius:24px;border:1px dashed #d8ccc7;background:#fffdfa;color:var(--muted)}
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
 
-    .page-footer{max-width:var(--max);margin:0 auto 40px;border:1px solid #dce4ee;border-radius:20px;background:linear-gradient(135deg,#fbfdff,#f6f9fc);box-shadow:0 16px 34px rgba(19,35,58,.10);padding:24px}
-    .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}
-    .footer-left{display:flex;gap:16px;align-items:flex-start}.footer-logo{width:112px;height:112px;object-fit:contain}.footer-title{font-size:14px;font-weight:800;letter-spacing:.08em}.footer-sub,.footer-meta{color:var(--muted);font-size:13px}
-    .footer-links{display:flex;flex-wrap:wrap;gap:8px}.footer-links a{font-size:13px;color:#3f4d5a;border:1px solid #dce4ee;background:#fff;border-radius:999px;padding:8px 12px}
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
+    }
 
-    @media (max-width:1100px){.layout{grid-template-columns:300px minmax(0,1fr)}.detail-wrap{grid-column:1/-1}.detail{position:static}}
-    @media (max-width:780px){.header-inner{padding:14px 0;align-items:flex-start;flex-direction:column}.header-actions{width:100%;justify-content:flex-start}.header-search{width:100%}.search-box{flex:1 1 auto}.layout{grid-template-columns:1fr}.filters{position:static}.meta,.detail-item{grid-template-columns:1fr}}
+    .header-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-logo{
+      width:120px;
+      height:70px;
+      object-fit:contain;
+    }
+
+    .brand-title{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
+    .brand-sub{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .header-nav{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .header-nav a,
+    .header-category,
+    .header-language{
+      font-size:13px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #dce4ee;
+      background:rgba(255,255,255,.74);
+    }
+
+    .header-nav a:hover,
+    .footer-links a:hover{
+      border-color:#b8c7dc;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(19,35,58,.08);
+    }
+
+    .header-category-menu{
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
+
+    .header-category-trigger{
+      border:none;
+      background:transparent;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .category-dropdown{
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      min-width:220px;
+      background:#fff;
+      border:1px solid #e6eaf0;
+      border-radius:14px;
+      box-shadow:0 16px 30px rgba(19,35,58,.14);
+      padding:8px;
+      display:none;
+      z-index:20;
+    }
+
+    .header-category-menu:hover .category-dropdown,
+    .header-category-menu:focus-within .category-dropdown{
+      display:grid;
+      gap:2px;
+    }
+
+    .category-dropdown a{
+      font-size:13px;
+      color:#2f3e4c;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+
+    .category-dropdown a:hover{
+      background:#fff4f7;
+    }
+
+    .header-search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(255,255,255,.96);
+      border:1px solid #d9e0e8;
+      border-radius:999px;
+      padding:0 12px;
+      height:42px;
+      min-width:220px;
+    }
+
+    .search-box input{
+      border:none;
+      outline:none;
+      background:transparent;
+    }
+
+    .search-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:42px;
+      border-radius:999px;
+      padding:0 14px;
+      font-size:24px;
+      color:#1f5fbf;
+      background:rgba(47,128,237,.20);
+      border:1px solid rgba(47,128,237,.32);
+      cursor:pointer;
+    }
+
+    .header-language select{
+      border:none;
+      background:transparent;
+      outline:none;
+    }
+
+    .hero{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:36px 20px 18px;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.32) 42%, rgba(255,255,255,.12) 100%),
+        url("../../assets/images/hero/top-hero.jpg") center center / cover no-repeat,
+        #fff;
+      border:1px solid #d9e0e8;
+      border-radius:34px;
+      padding:32px 28px 26px;
+      box-shadow:var(--card-shadow);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--red);
+      margin-bottom:14px;
+    }
+
+    .eyebrow-dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+    }
+
+    .hero h1{
+      font-size:clamp(30px,4vw,54px);
+      line-height:1.05;
+      font-weight:950;
+      letter-spacing:-.03em;
+      max-width:900px;
+    }
+
+    .hero p{
+      margin-top:12px;
+      max-width:880px;
+      font-size:16px;
+      color:var(--muted);
+    }
+
+    .layout{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:12px 20px 80px;
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr) 420px;
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel{
+      background:var(--paper);
+      border:1px solid var(--border);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--card-shadow);
+    }
+
+    .filters{
+      position:sticky;
+      top:92px;
+      padding:20px;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .label{
+      display:block;
+      font-size:13px;
+      font-weight:800;
+      color:#4c404c;
+      margin-bottom:8px;
+    }
+
+    .input,
+    .select{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      padding:13px 14px;
+      outline:none;
+    }
+
+    .reset-btn{
+      border:none;
+      background:transparent;
+      color:var(--blue);
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .panel-title-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+
+    .panel-title{
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .content{
+      min-width:0;
+    }
+
+    .toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .results-title{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
+
+    .results-sub{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .card-lang-toggle{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:6px;
+    }
+
+    .card-lang-btn{
+      border:none;
+      background:transparent;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:900;
+      color:#4e424e;
+      cursor:pointer;
+    }
+
+    .card-lang-btn.active{
+      background:#1f5fbf;
+      color:#fff;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      font-weight:800;
+      color:#4e424e;
+    }
+
+    .cards{
+      display:grid;
+      gap:14px;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow:var(--card-shadow);
+      padding:18px;
+      cursor:pointer;
+      transition:.18s;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+    }
+
+    .card.active{
+      border-color:var(--blue);
+      box-shadow:0 0 0 3px rgba(47,109,245,.14),var(--card-shadow);
+    }
+
+    .card-head{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .company{
+      font-size:20px;
+      font-weight:950;
+      line-height:1.15;
+    }
+
+    .position{
+      font-size:14px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#fff4f7;
+      color:#b83355;
+      border:1px solid #f2c8d4;
+      white-space:nowrap;
+    }
+
+    .meta{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:86px minmax(0,1fr);
+      gap:8px 10px;
+      font-size:14px;
+    }
+
+    .meta dt{
+      font-weight:900;
+      color:#433744;
+    }
+
+    .meta dd{
+      color:#564a55;
+    }
+
+    .detail{
+      position:sticky;
+      top:92px;
+      padding:20px;
+    }
+
+    .detail h3{
+      font-size:26px;
+      font-weight:950;
+      line-height:1.15;
+    }
+
+    .detail .sub{
+      margin-top:4px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .detail-grid{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .detail-item{
+      display:grid;
+      grid-template-columns:100px minmax(0,1fr);
+      gap:8px;
+      font-size:14px;
+    }
+
+    .detail-item .k{
+      font-weight:900;
+      color:#433744;
+    }
+
+    .detail-sec{
+      margin-top:16px;
+    }
+
+    .detail-sec h4{
+      font-size:14px;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+
+    .detail-sec p,
+    .detail-sec li{
+      font-size:14px;
+      color:#4f4350;
+    }
+
+    .detail ul{
+      padding-left:18px;
+      display:grid;
+      gap:4px;
+    }
+
+    .empty-box{
+      padding:22px;
+      border-radius:24px;
+      border:1px dashed #d8ccc7;
+      background:#fffdfa;
+      color:var(--muted);
+    }
+
+    .page-footer{
+      max-width:var(--max);
+      margin:0 auto 40px;
+      border:1px solid #dce4ee;
+      border-radius:20px;
+      background:linear-gradient(135deg,#fbfdff,#f6f9fc);
+      box-shadow:0 16px 34px rgba(19,35,58,.10);
+      padding:24px;
+    }
+
+    .footer-inner{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:22px;
+      flex-wrap:wrap;
+    }
+
+    .footer-left{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+    }
+
+    .footer-logo{
+      width:112px;
+      height:112px;
+      object-fit:contain;
+    }
+
+    .footer-title{
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
+    .footer-sub,
+    .footer-meta{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .footer-links a{
+      font-size:13px;
+      color:#3f4d5a;
+      border:1px solid #dce4ee;
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      transition:.18s;
+    }
+
+    @media (max-width:1100px){
+      .layout{
+        grid-template-columns:300px minmax(0,1fr);
+      }
+
+      .detail-wrap{
+        grid-column:1/-1;
+      }
+
+      .detail{
+        position:static;
+      }
+    }
+
+    @media (max-width:780px){
+      .header-inner{
+        padding:14px 0;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .header-actions{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .header-search{
+        width:100%;
+      }
+
+      .search-box{
+        flex:1 1 auto;
+      }
+
+      .layout{
+        grid-template-columns:1fr;
+      }
+
+      .filters{
+        position:static;
+      }
+
+      .meta,
+      .detail-item{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0300YC5NF8"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-0300YC5NF8');
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0300YC5NF8');
   </script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/nihon-gateway-germany/ja/" aria-label="Nihon Gateway Germany ホーム">
         <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
-        <span class="brand-copy"><span class="brand-title">NIHON GATEWAY GERMANY</span><span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span></span>
+        <span class="brand-copy">
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
+        </span>
       </a>
+
       <div class="header-actions">
-        <nav class="header-nav" aria-label="メインナビゲーション"><a href="/nihon-gateway-germany/ja/">ホーム</a><a href="/nihon-gateway-germany/ja/about/">このサイトについて</a></nav>
+        <nav class="header-nav" aria-label="メインナビゲーション">
+          <a href="/nihon-gateway-germany/ja/">ホーム</a>
+          <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
+        </nav>
+
         <div class="header-category header-category-menu" aria-label="カテゴリ選択">
           <button type="button" class="header-category-trigger">カテゴリ</button>
           <div class="category-dropdown">
-            <a href="/nihon-gateway-germany/ja/guides/">手続き・制度</a><a href="/nihon-gateway-germany/ja/living/">住まい・生活</a><a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a><a href="/nihon-gateway-germany/ja/medical/">医療・緊急</a><a href="/nihon-gateway-germany/ja/eat/">食べる</a><a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a><a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a><a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a><a href="/nihon-gateway-germany/ja/learn-german/">ドイツ語・学び</a><a href="/nihon-gateway-germany/ja/news/">ニュース・読みもの</a>
+            <a href="/nihon-gateway-germany/ja/guides/">手続き・制度</a>
+            <a href="/nihon-gateway-germany/ja/living/">住まい・生活</a>
+            <a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a>
+            <a href="/nihon-gateway-germany/ja/medical/">医療・緊急</a>
+            <a href="/nihon-gateway-germany/ja/eat/">食べる</a>
+            <a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a>
+            <a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a>
+            <a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a>
+            <a href="/nihon-gateway-germany/ja/learn-german/">ドイツ語・学び</a>
+            <a href="/nihon-gateway-germany/ja/news/">ニュース・読みもの</a>
           </div>
         </div>
-        <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search"><label class="search-box" aria-label="サイト内検索"><span>⌕</span><input type="search" name="q" placeholder="検索"></label><button class="search-btn" type="submit" aria-label="検索">⌕</button></form>
-        <label class="header-language" aria-label="言語切り替え"><span>Language</span><select id="languageSelect"><option value="/nihon-gateway-germany/ja/">日本語</option><option value="/nihon-gateway-germany/">English</option><option value="/nihon-gateway-germany/de/">Deutsch</option></select></label>
+
+        <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
+          <label class="search-box" aria-label="サイト内検索">
+            <span>⌕</span>
+            <input type="search" name="q" placeholder="検索">
+          </label>
+          <button class="search-btn" type="submit" aria-label="検索">⌕</button>
+        </form>
+
+        <label class="header-language" aria-label="言語切り替え">
+          <span>Language</span>
+          <select id="languageSelect">
+            <option value="/nihon-gateway-germany/ja/">日本語</option>
+            <option value="/nihon-gateway-germany/">English</option>
+            <option value="/nihon-gateway-germany/de/">Deutsch</option>
+          </select>
+        </label>
       </div>
     </div>
   </header>
 
-  <section class="hero"><div class="hero-box"><div class="eyebrow"><span class="eyebrow-dot"></span>仕事・求人ガイド</div><h1>日本語で探せる、<br>企業掲載型のドイツ求人</h1><p>会社名・ポジション・給与・都市で絞り込み可能。カードをクリックすると右側（モバイルは下側）に職務詳細、必要要件、連絡先メールを表示します。</p></div></section>
+  <section class="hero">
+    <div class="hero-box">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        仕事・求人ガイド
+      </div>
+      <h1>日本語で探せる、<br>企業掲載型のドイツ求人</h1>
+      <p>会社名・ポジション・給与・都市で絞り込み可能。カードをクリックすると右側（モバイルは下側）に職務詳細、必要要件、連絡先メールを表示します。</p>
+    </div>
+  </section>
 
   <main class="layout">
     <aside class="panel filters">
-      <div class="panel-title-row"><h2 class="panel-title">検索フィルター</h2><button class="reset-btn" id="resetBtn" type="button">リセット</button></div>
-      <div class="field"><label class="label" for="keywordInput">キーワード</label><input id="keywordInput" class="input" type="text" placeholder="会社名・職種・概要・都市" /></div>
-      <div class="field"><label class="label" for="citySelect">都市</label><select id="citySelect" class="select"><option value="">すべて</option></select></div>
-      <div class="field"><label class="label" for="positionSelect">職種</label><select id="positionSelect" class="select"><option value="">すべて</option></select></div>
-      <div class="field"><label class="label" for="salarySelect">給与帯</label><select id="salarySelect" class="select"><option value="">すべて</option><option value="high">年収 65,000€ 以上</option><option value="mid">年収 50,000€ 以上</option><option value="entry">年収 40,000€ 以上</option></select></div>
-      <div class="field"><label class="label" for="visaSelect">ビザサポート</label><select id="visaSelect" class="select"><option value="">すべて</option><option value="yes">あり</option><option value="no">なし</option></select></div>
-      <div class="field"><label class="label" for="typeSelect">雇用形態</label><select id="typeSelect" class="select"><option value="">すべて</option></select></div>
+      <div class="panel-title-row">
+        <h2 class="panel-title">検索フィルター</h2>
+        <button class="reset-btn" id="resetBtn" type="button">リセット</button>
+      </div>
+
+      <div class="field">
+        <label class="label" for="keywordInput">キーワード</label>
+        <input id="keywordInput" class="input" type="text" placeholder="会社名・職種・概要・都市" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="citySelect">都市</label>
+        <select id="citySelect" class="select">
+          <option value="">すべて</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="positionSelect">職種</label>
+        <select id="positionSelect" class="select">
+          <option value="">すべて</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="salarySelect">給与帯</label>
+        <select id="salarySelect" class="select">
+          <option value="">すべて</option>
+          <option value="high">年収 65,000€ 以上</option>
+          <option value="mid">年収 50,000€ 以上</option>
+          <option value="entry">年収 40,000€ 以上</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="visaSelect">ビザサポート</label>
+        <select id="visaSelect" class="select">
+          <option value="">すべて</option>
+          <option value="yes">あり</option>
+          <option value="no">なし</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="typeSelect">雇用形態</label>
+        <select id="typeSelect" class="select">
+          <option value="">すべて</option>
+        </select>
+      </div>
     </aside>
 
     <section class="content">
       <div class="toolbar">
-        <div><h2 class="results-title">仕事・求人</h2><div class="results-sub" id="resultsSummary">読み込み中...</div></div>
+        <div>
+          <h2 class="results-title">仕事・求人</h2>
+          <div class="results-sub" id="resultsSummary">読み込み中...</div>
+        </div>
+
         <div class="card-lang-toggle" role="group" aria-label="カード表示言語">
           <button type="button" id="cardLangJa" class="card-lang-btn active">日本語</button>
           <button type="button" id="cardLangEn" class="card-lang-btn">English</button>
         </div>
+
         <div class="chips" id="chips"></div>
       </div>
+
       <div id="cards" class="cards" aria-live="polite"></div>
       <div id="emptyBox" class="empty-box" style="display:none;">条件に一致する求人が見つかりませんでした。条件を変更してください。</div>
     </section>
 
-    <aside class="detail-wrap"><div class="panel detail" id="detailPanel"></div></aside>
+    <aside class="detail-wrap">
+      <div class="panel detail" id="detailPanel">
+        <h3>読み込み中...</h3>
+        <p class="sub">Spreadsheetから求人データを取得しています。</p>
+      </div>
+    </aside>
   </main>
 
-  <footer class="page-footer"><div class="footer-inner"><div class="footer-left"><img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ"><div><div class="footer-title">NIHON GATEWAY GERMANY</div><div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div><div class="footer-meta">© 2026 Nihon Gateway Germany</div></div></div><div class="footer-links"><a href="/nihon-gateway-germany/ja/about/">このサイトについて</a><a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a><a href="/nihon-gateway-germany/ja/terms/">利用規約</a><a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a><a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a></div></div></footer>
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+        <div>
+          <div class="footer-title">NIHON GATEWAY GERMANY</div>
+          <div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div>
+          <div class="footer-meta">© 2026 Nihon Gateway Germany</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
+        <a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a>
+        <a href="/nihon-gateway-germany/ja/terms/">利用規約</a>
+        <a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a>
+        <a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    const jobs = [
-      {id:'job-001',status:'published',priority:1,company_name:'Sakura Mobility Europe GmbH',position_title_ja:'営業企画・日独法人担当',position_title_en:'Sales Planning / JP-DE Corporate Account',employment_type_ja:'正社員',employment_type_en:'Full-time',city_ja:'デュッセルドルフ',city_en:'Düsseldorf',salary_min_eur:62000,salary_max_eur:75000,salary_label_ja:'年収 62,000€〜75,000€',summary_ja:'日系メーカー向けに車載部品の提案営業を担当。既存顧客フォローと新規開拓をバランスよく実施。',summary_en:'Drive proposal sales for Japanese manufacturers in the automotive parts space, balancing account growth and new client outreach.',job_details_ja:'見積作成、受発注管理、四半期ごとの営業報告、展示会出展準備を担当。日本本社・欧州現地法人との調整が中心。',job_details_en:'Handle quotations, order management, quarterly sales reporting, and trade-fair preparation while coordinating with HQ in Japan and EU entities.',requirements_ja:'法人営業経験3年以上 / ビジネスレベル日本語・英語（ドイツ語歓迎） / Excel・PowerPointでの提案資料作成経験',requirements_en:'3+ years of B2B sales / Business-level Japanese and English (German preferred) / Proposal deck creation with Excel and PowerPoint',contact_email:'careers@sakura-mobility.eu',visa_support_ja:'あり',visa_support_en:'Available',free_comment_ja:'在宅勤務週2日可。試用期間終了後に語学学習補助あり。',free_comment_en:'Remote work up to 2 days per week. Language-learning support provided after probation.',updated_at:'2026-04-22',published_at:'2026-04-10',expires_at:'2026-06-30',company_logo_url:'../../assets/images/brand/logo_header.png'},
-      {id:'job-002',status:'published',priority:2,company_name:'Mizu Digital Solutions',position_title_ja:'日本語カスタマーサクセス（SaaS）',position_title_en:'Japanese Customer Success (SaaS)',employment_type_ja:'契約社員',employment_type_en:'Contract',city_ja:'ベルリン',city_en:'Berlin',salary_min_eur:52000,salary_max_eur:60000,salary_label_ja:'年収 52,000€〜60,000€',summary_ja:'日系顧客向けSaaS導入支援。オンボーディングと利用定着支援を担当。',summary_en:'Support Japanese clients during SaaS rollout, from onboarding to long-term adoption.',job_details_ja:'問い合わせ対応、導入トレーニング、利用状況分析、アップセル提案まで一気通貫で対応。',job_details_en:'Own inquiry handling, onboarding training, usage analytics, and upsell recommendations end-to-end.',requirements_ja:'B2BサポートまたはCS経験2年以上 / オンライン会議での進行力 / CRMツール使用経験',requirements_en:'2+ years in B2B support or customer success / Strong facilitation in online meetings / CRM tool experience',contact_email:'hr@mizu-digital.de',visa_support_ja:'なし',visa_support_en:'Not available',free_comment_ja:'1年更新の契約社員スタート。正社員登用制度あり。',free_comment_en:'Initial one-year contract with a possible conversion path to full-time employment.',updated_at:'2026-04-18',published_at:'2026-04-05',expires_at:'2026-05-31',company_logo_url:'../../assets/images/brand/logo_header.png'},
-      {id:'job-003',status:'published',priority:1,company_name:'Hinode Foods Deutschland',position_title_ja:'品質保証スペシャリスト',position_title_en:'Quality Assurance Specialist',employment_type_ja:'正社員',employment_type_en:'Full-time',city_ja:'フランクフルト',city_en:'Frankfurt',salary_min_eur:68000,salary_max_eur:82000,salary_label_ja:'年収 68,000€〜82,000€',summary_ja:'食品輸入・流通における品質保証、監査対応、ラベリング適合チェックを担当。',summary_en:'Lead QA operations for food import/distribution including audits and label compliance checks.',job_details_ja:'EU食品規制の確認、社内監査の実施、外部検査機関との連携、トレーサビリティ文書管理を行います。',job_details_en:'Review EU food regulations, execute internal audits, coordinate with external labs, and manage traceability documentation.',requirements_ja:'食品業界でのQA経験3年以上 / HACCP・IFS等の知識 / 日英いずれかで監査文書を作成可能',requirements_en:'3+ years of QA in food industry / HACCP or IFS knowledge / Ability to prepare audit documents in Japanese or English',contact_email:'recruit@hinode-foods.de',visa_support_ja:'あり',visa_support_en:'Available',free_comment_ja:'監査時は出張あり（月1〜2回程度）。',free_comment_en:'Business travel required during audit periods (about 1-2 trips per month).',updated_at:'2026-04-24',published_at:'2026-04-12',expires_at:'2026-07-15',company_logo_url:'../../assets/images/brand/logo_header.png'},
-      {id:'job-004',status:'published',priority:3,company_name:'Kumo Creative Studio',position_title_ja:'SNSマーケティング担当（日本市場）',position_title_en:'SNS Marketing Specialist (Japan Market)',employment_type_ja:'業務委託',employment_type_en:'Freelance',city_ja:'ミュンヘン',city_en:'Munich',salary_min_eur:45000,salary_max_eur:55000,salary_label_ja:'想定年収 45,000€〜55,000€（稼働量により変動）',summary_ja:'日本市場向けSNS運用とキャンペーン企画。クリエイティブチームとの連携あり。',summary_en:'Plan and operate social media campaigns for the Japan market in close collaboration with creatives.',job_details_ja:'投稿企画、コピー作成、効果分析、インフルエンサー候補調査を担当。週次でレポート提出。',job_details_en:'Handle post planning, copywriting, campaign analytics, and influencer research with weekly reporting.',requirements_ja:'SNS運用経験2年以上 / Canva・Adobe系ツールの使用経験 / 日本語ネイティブ、英語実務レベル',requirements_en:'2+ years of social media operations / Canva or Adobe toolkit skills / Native Japanese and practical English',contact_email:'join@kumo-creative.de',visa_support_ja:'なし',visa_support_en:'Not available',free_comment_ja:'稼働時間は柔軟に調整可能。',free_comment_en:'Working hours are flexible based on agreed deliverables.',updated_at:'2026-04-20',published_at:'2026-04-02',expires_at:'2026-05-25',company_logo_url:'../../assets/images/brand/logo_header.png'},
-      {id:'job-005',status:'published',priority:4,company_name:'Takumi Finance Partners',position_title_ja:'会計アシスタント（Japanese Desk）',position_title_en:'Accounting Assistant (Japanese Desk)',employment_type_ja:'インターン',employment_type_en:'Internship',city_ja:'ハンブルク',city_en:'Hamburg',salary_min_eur:41000,salary_max_eur:48000,salary_label_ja:'年収換算 41,000€〜48,000€（フルタイム換算）',summary_ja:'日系クライアント向けの会計補助、月次処理サポート、文書翻訳を担当。',summary_en:'Provide accounting support for Japanese clients including monthly routines and document translation.',job_details_ja:'仕訳入力補助、請求書整理、税務書類チェック、日独英の簡易翻訳などバックオフィス業務中心。',job_details_en:'Support journal entry input, invoice filing, tax document checks, and light JP/DE/EN translation tasks.',requirements_ja:'会計基礎知識（簿記2級相当） / 細かい確認作業が得意 / 週4日以上勤務可能',requirements_en:'Basic accounting knowledge (bookkeeping level 2 equivalent) / Strong attention to detail / Available 4+ days a week',contact_email:'internship@takumi-fp.de',visa_support_ja:'あり',visa_support_en:'Available',free_comment_ja:'学生・既卒どちらも応募可。',free_comment_en:'Open to both students and recent graduates.',updated_at:'2026-04-15',published_at:'2026-03-25',expires_at:'2026-06-20',company_logo_url:'../../assets/images/brand/logo_header.png'}
-    ];
+    const API_BASE = 'https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec';
+    const API_URL = `${API_BASE}?sheet=job&lang=ja&status=active`;
+
+    let jobs = [];
+    let filtered = [];
+    let selectedId = null;
+    let cardLang = 'ja';
 
     const els = {
       keywordInput: document.getElementById('keywordInput'),
@@ -173,23 +847,324 @@
     };
 
     const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) languageSelect.addEventListener('change', e => e.target.value && (window.location.href = e.target.value));
 
-    let cardLang = 'ja';
-    const getL10n = (job, key) => cardLang === 'en' ? (job[`${key}_en`] || job[`${key}_ja`] || '') : (job[`${key}_ja`] || job[`${key}_en`] || '');
+    if (languageSelect) {
+      languageSelect.addEventListener('change', e => {
+        if (e.target.value) window.location.href = e.target.value;
+      });
+    }
 
-    const citySet = [...new Set(jobs.map(j => j.city_ja))].sort((a,b)=>a.localeCompare(b,'ja'));
-    const positionSet = [...new Set(jobs.map(j => j.position_title_ja))].sort((a,b)=>a.localeCompare(b,'ja'));
-    const typeSet = [...new Set(jobs.map(j => j.employment_type_ja))].sort((a,b)=>a.localeCompare(b,'ja'));
-    els.citySelect.innerHTML += citySet.map(city => `<option value="${city}">${city}</option>`).join('');
-    els.positionSelect.innerHTML += positionSet.map(position => `<option value="${position}">${position}</option>`).join('');
-    els.typeSelect.innerHTML += typeSet.map(type => `<option value="${type}">${type}</option>`).join('');
+    function escapeHtml(value){
+      return String(value ?? '')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+    }
 
-    let filtered = [...jobs];
-    let selectedId = jobs[0]?.id || null;
+    function normalize(value){
+      return String(value ?? '').trim().toLowerCase();
+    }
 
-    function escapeHtml(value){return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-    function normalize(v){return String(v ?? '').trim().toLowerCase();}
+    function toNumber(value){
+      if (value === null || value === undefined || value === '') return 0;
+      const cleaned = String(value).replace(/[^\d.-]/g, '');
+      const n = Number(cleaned);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function clean(value){
+      return String(value ?? '').trim();
+    }
+
+    function pick(row, keys){
+      for (const key of keys) {
+        if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') {
+          return row[key];
+        }
+      }
+      return '';
+    }
+
+    function normalizeStatus(value){
+      return normalize(value);
+    }
+
+    function normalizeJob(row, index){
+      const salaryMin = toNumber(pick(row, ['salary_min_eur', 'salary_min', 'salary_from']));
+      const salaryMax = toNumber(pick(row, ['salary_max_eur', 'salary_max', 'salary_to']));
+
+      const employmentTypeJa = pick(row, [
+        'employment_type_ja',
+        'employment_typ_ja',
+        'employment_type',
+        'employment_typ',
+        'employment_type_jp'
+      ]);
+
+      const employmentTypeEn = pick(row, [
+        'employment_type_en',
+        'employment_typ_en',
+        'employment_type',
+        'employment_typ'
+      ]);
+
+      const positionJa = pick(row, [
+        'position_title_ja',
+        'position_title',
+        'title_ja',
+        'job_title_ja'
+      ]);
+
+      const positionEn = pick(row, [
+        'position_title_en',
+        'position_title',
+        'title_en',
+        'job_title_en'
+      ]);
+
+      const cityJa = pick(row, [
+        'city_ja',
+        'city',
+        'location_ja'
+      ]);
+
+      const cityEn = pick(row, [
+        'city_en',
+        'city',
+        'location_en'
+      ]);
+
+      const summaryJa = pick(row, [
+        'summary_ja',
+        'summary',
+        'description_ja'
+      ]);
+
+      const summaryEn = pick(row, [
+        'summary_en',
+        'summary',
+        'description_en'
+      ]);
+
+      const detailsJa = pick(row, [
+        'job_details_ja',
+        'details_ja',
+        'job_detail_ja',
+        'description_ja'
+      ]);
+
+      const detailsEn = pick(row, [
+        'job_details_en',
+        'details_en',
+        'job_detail_en',
+        'description_en'
+      ]);
+
+      const requirementsJa = pick(row, [
+        'requirements_ja',
+        'requirement_ja',
+        'requirements',
+        'skills_ja'
+      ]);
+
+      const requirementsEn = pick(row, [
+        'requirements_en',
+        'requirement_en',
+        'requirements',
+        'skills_en'
+      ]);
+
+      const freeCommentJa = pick(row, [
+        'free_comment_ja',
+        'comment_ja',
+        'notes_ja',
+        'free_comment'
+      ]);
+
+      const freeCommentEn = pick(row, [
+        'free_comment_en',
+        'comment_en',
+        'notes_en',
+        'free_comment'
+      ]);
+
+      const visaJa = pick(row, [
+        'visa_support_ja',
+        'visa_support',
+        'visa_ja'
+      ]);
+
+      const visaEn = pick(row, [
+        'visa_support_en',
+        'visa_support',
+        'visa_en'
+      ]);
+
+      return {
+        id: clean(pick(row, ['id', 'job_id', 'slug'])) || `job-${index + 1}`,
+        status: clean(pick(row, ['status'])) || 'active',
+        priority: toNumber(pick(row, ['priority'])) || 999,
+        company_name: clean(pick(row, ['company_name', 'company', 'name_ja', 'name_en'])),
+        position_title_ja: clean(positionJa),
+        position_title_en: clean(positionEn),
+        employment_type_ja: clean(employmentTypeJa),
+        employment_type_en: clean(employmentTypeEn),
+        city_ja: clean(cityJa),
+        city_en: clean(cityEn),
+        salary_min_eur: salaryMin,
+        salary_max_eur: salaryMax,
+        salary_label_ja: clean(pick(row, ['salary_label_ja', 'salary_label', 'salary'])),
+        salary_label_en: clean(pick(row, ['salary_label_en', 'salary_label', 'salary'])),
+        summary_ja: clean(summaryJa),
+        summary_en: clean(summaryEn),
+        job_details_ja: clean(detailsJa),
+        job_details_en: clean(detailsEn),
+        requirements_ja: clean(requirementsJa),
+        requirements_en: clean(requirementsEn),
+        contact_email: clean(pick(row, ['contact_email', 'email', 'contact'])),
+        free_comment_ja: clean(freeCommentJa),
+        free_comment_en: clean(freeCommentEn),
+        visa_support_ja: clean(visaJa),
+        visa_support_en: clean(visaEn),
+        updated_at: clean(pick(row, ['updated_at', 'updated', 'last_updated'])),
+        published_at: clean(pick(row, ['published_at', 'published'])),
+        expires_at: clean(pick(row, ['expires_at', 'expires'])),
+        company_logo_url: clean(pick(row, ['company_logo_url', 'logo_url']))
+      };
+    }
+
+    function getRowsFromApiResponse(data){
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data.items)) return data.items;
+      if (Array.isArray(data.rows)) return data.rows;
+      if (Array.isArray(data.data)) return data.data;
+      return [];
+    }
+
+    function getL10n(job, key){
+      if (cardLang === 'en') {
+        return job[`${key}_en`] || job[`${key}_ja`] || '';
+      }
+      return job[`${key}_ja`] || job[`${key}_en`] || '';
+    }
+
+    function getSalaryLabel(job){
+      const byLang = cardLang === 'en'
+        ? (job.salary_label_en || job.salary_label_ja)
+        : (job.salary_label_ja || job.salary_label_en);
+
+      if (byLang) return byLang;
+
+      if (job.salary_min_eur && job.salary_max_eur) {
+        return `年収 ${job.salary_min_eur.toLocaleString()}€〜${job.salary_max_eur.toLocaleString()}€`;
+      }
+
+      if (job.salary_min_eur) {
+        return `年収 ${job.salary_min_eur.toLocaleString()}€〜`;
+      }
+
+      return '';
+    }
+
+    function isVisaYes(job){
+      const value = normalize(`${job.visa_support_ja} ${job.visa_support_en}`);
+      return value.includes('あり') ||
+             value.includes('yes') ||
+             value.includes('available') ||
+             value.includes('有') ||
+             value === 'true';
+    }
+
+    function resetSelectOptions(selectEl){
+      selectEl.innerHTML = '<option value="">すべて</option>';
+    }
+
+    function initFilters(){
+      resetSelectOptions(els.citySelect);
+      resetSelectOptions(els.positionSelect);
+      resetSelectOptions(els.typeSelect);
+
+      const citySet = [...new Set(jobs.map(j => j.city_ja).filter(Boolean))]
+        .sort((a,b) => a.localeCompare(b,'ja'));
+
+      const positionSet = [...new Set(jobs.map(j => j.position_title_ja).filter(Boolean))]
+        .sort((a,b) => a.localeCompare(b,'ja'));
+
+      const typeSet = [...new Set(jobs.map(j => j.employment_type_ja).filter(Boolean))]
+        .sort((a,b) => a.localeCompare(b,'ja'));
+
+      els.citySelect.innerHTML += citySet
+        .map(city => `<option value="${escapeHtml(city)}">${escapeHtml(city)}</option>`)
+        .join('');
+
+      els.positionSelect.innerHTML += positionSet
+        .map(position => `<option value="${escapeHtml(position)}">${escapeHtml(position)}</option>`)
+        .join('');
+
+      els.typeSelect.innerHTML += typeSet
+        .map(type => `<option value="${escapeHtml(type)}">${escapeHtml(type)}</option>`)
+        .join('');
+    }
+
+    async function loadJobs(){
+      els.resultsSummary.textContent = '読み込み中...';
+      els.detailPanel.innerHTML = '<h3>読み込み中...</h3><p class="sub">Spreadsheetから求人データを取得しています。</p>';
+
+      try {
+        const res = await fetch(API_URL, { cache: 'no-store' });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        const rows = getRowsFromApiResponse(data);
+
+        jobs = rows
+          .map(normalizeJob)
+          .filter(job => {
+            const status = normalizeStatus(job.status);
+            return !status || status === 'active' || status === 'published';
+          })
+          .sort((a,b) => {
+            if (a.priority !== b.priority) return a.priority - b.priority;
+            return String(a.company_name).localeCompare(String(b.company_name), 'ja');
+          });
+
+        selectedId = jobs[0]?.id || null;
+
+        initFilters();
+        filterJobs();
+
+      } catch (error) {
+        console.error('求人データの読み込みに失敗しました:', error);
+
+        jobs = [];
+        filtered = [];
+        selectedId = null;
+
+        els.cards.innerHTML = '';
+        els.chips.innerHTML = '';
+        els.emptyBox.style.display = 'block';
+        els.emptyBox.textContent = '求人データを読み込めませんでした。GASの公開設定、API URL、sheet名を確認してください。';
+        els.resultsSummary.textContent = '読み込みエラー';
+        els.detailPanel.innerHTML = `
+          <h3>読み込みエラー</h3>
+          <p class="sub">Spreadsheet APIに接続できませんでした。</p>
+          <section class="detail-sec">
+            <h4>確認ポイント</h4>
+            <ul>
+              <li>GASのデプロイが「全員」に公開されているか</li>
+              <li>API URLのdeploy IDが正しいか</li>
+              <li>Spreadsheetのタブ名が「job」か</li>
+              <li>GAS側がJSONを返しているか</li>
+            </ul>
+          </section>
+        `;
+      }
+    }
 
     function filterJobs(){
       const keyword = normalize(els.keywordInput.value);
@@ -200,103 +1175,268 @@
       const typeJa = els.typeSelect.value;
 
       filtered = jobs.filter(job => {
-        const text = normalize([job.company_name, job.position_title_ja, job.position_title_en, job.summary_ja, job.summary_en, job.job_details_ja, job.job_details_en, job.city_ja, job.city_en, job.free_comment_ja, job.free_comment_en].join(' '));
+        const text = normalize([
+          job.company_name,
+          job.position_title_ja,
+          job.position_title_en,
+          job.summary_ja,
+          job.summary_en,
+          job.job_details_ja,
+          job.job_details_en,
+          job.city_ja,
+          job.city_en,
+          job.free_comment_ja,
+          job.free_comment_en,
+          job.employment_type_ja,
+          job.employment_type_en
+        ].join(' '));
+
         const matchKeyword = !keyword || text.includes(keyword);
         const matchCity = !cityJa || job.city_ja === cityJa;
         const matchPosition = !positionJa || job.position_title_ja === positionJa;
         const matchType = !typeJa || job.employment_type_ja === typeJa;
-        const matchVisa = !visa || (visa === 'yes' && job.visa_support_ja === 'あり') || (visa === 'no' && job.visa_support_ja !== 'あり');
-        const matchSalary = !salaryFilter || (salaryFilter === 'high' && job.salary_min_eur >= 65000) || (salaryFilter === 'mid' && job.salary_min_eur >= 50000) || (salaryFilter === 'entry' && job.salary_min_eur >= 40000);
+
+        const matchVisa =
+          !visa ||
+          (visa === 'yes' && isVisaYes(job)) ||
+          (visa === 'no' && !isVisaYes(job));
+
+        const matchSalary =
+          !salaryFilter ||
+          (salaryFilter === 'high' && job.salary_min_eur >= 65000) ||
+          (salaryFilter === 'mid' && job.salary_min_eur >= 50000) ||
+          (salaryFilter === 'entry' && job.salary_min_eur >= 40000);
+
         return matchKeyword && matchCity && matchPosition && matchType && matchVisa && matchSalary;
       });
 
-      if (!filtered.some(j => j.id === selectedId)) selectedId = filtered[0]?.id || null;
-      renderSummary(); renderChips(); renderCards(); renderDetail();
+      if (!filtered.some(j => j.id === selectedId)) {
+        selectedId = filtered[0]?.id || null;
+      }
+
+      renderSummary();
+      renderChips();
+      renderCards();
+      renderDetail();
     }
 
-    function renderSummary(){els.resultsSummary.textContent = `${filtered.length}件を表示中 / 全${jobs.length}件`;}
+    function renderSummary(){
+      els.resultsSummary.textContent = `${filtered.length}件を表示中 / 全${jobs.length}件`;
+    }
 
     function renderChips(){
       const chips = [];
-      if (els.keywordInput.value.trim()) chips.push(`キーワード: ${escapeHtml(els.keywordInput.value.trim())}`);
-      if (els.citySelect.value) chips.push(`都市: ${escapeHtml(els.citySelect.value)}`);
-      if (els.positionSelect.value) chips.push(`職種: ${escapeHtml(els.positionSelect.value)}`);
-      if (els.salarySelect.value) chips.push(`給与帯: ${escapeHtml(els.salarySelect.options[els.salarySelect.selectedIndex].text)}`);
-      if (els.visaSelect.value) chips.push(`ビザサポート: ${escapeHtml(els.visaSelect.options[els.visaSelect.selectedIndex].text)}`);
-      if (els.typeSelect.value) chips.push(`雇用形態: ${escapeHtml(els.typeSelect.value)}`);
-      els.chips.innerHTML = chips.map(c => `<span class="chip">${c}</span>`).join('');
+
+      if (els.keywordInput.value.trim()) {
+        chips.push(`キーワード: ${escapeHtml(els.keywordInput.value.trim())}`);
+      }
+
+      if (els.citySelect.value) {
+        chips.push(`都市: ${escapeHtml(els.citySelect.value)}`);
+      }
+
+      if (els.positionSelect.value) {
+        chips.push(`職種: ${escapeHtml(els.positionSelect.value)}`);
+      }
+
+      if (els.salarySelect.value) {
+        chips.push(`給与帯: ${escapeHtml(els.salarySelect.options[els.salarySelect.selectedIndex].text)}`);
+      }
+
+      if (els.visaSelect.value) {
+        chips.push(`ビザサポート: ${escapeHtml(els.visaSelect.options[els.visaSelect.selectedIndex].text)}`);
+      }
+
+      if (els.typeSelect.value) {
+        chips.push(`雇用形態: ${escapeHtml(els.typeSelect.value)}`);
+      }
+
+      els.chips.innerHTML = chips
+        .map(c => `<span class="chip">${c}</span>`)
+        .join('');
     }
 
     function renderCards(){
-      if (!filtered.length) { els.cards.innerHTML = ''; els.emptyBox.style.display = 'block'; return; }
-      els.emptyBox.style.display = 'none';
-      els.cards.innerHTML = filtered.map(job => `
-        <article class="card ${job.id === selectedId ? 'active' : ''}" data-id="${job.id}">
-          <div class="card-head"><div><h3 class="company">${escapeHtml(job.company_name)}</h3><p class="position">${escapeHtml(getL10n(job,'position_title'))}</p></div><span class="badge">${escapeHtml(getL10n(job,'employment_type'))}</span></div>
-          <dl class="meta"><dt>給与</dt><dd>${escapeHtml(job.salary_label_ja)}</dd><dt>都市</dt><dd>${escapeHtml(getL10n(job,'city'))}</dd><dt>職種</dt><dd>${escapeHtml(getL10n(job,'position_title'))}</dd><dt>概要</dt><dd>${escapeHtml(getL10n(job,'summary'))}</dd></dl>
-        </article>
-      `).join('');
+      if (!filtered.length) {
+        els.cards.innerHTML = '';
+        els.emptyBox.style.display = 'block';
+        els.emptyBox.textContent = '条件に一致する求人が見つかりませんでした。条件を変更してください。';
+        return;
+      }
 
-      els.cards.querySelectorAll('.card').forEach(card => card.addEventListener('click', () => { selectedId = card.dataset.id; renderCards(); renderDetail(); }));
+      els.emptyBox.style.display = 'none';
+
+      els.cards.innerHTML = filtered.map(job => {
+        const company = job.company_name || '会社名未設定';
+        const position = getL10n(job,'position_title') || '職種未設定';
+        const type = getL10n(job,'employment_type') || '雇用形態未設定';
+        const salary = getSalaryLabel(job) || '給与情報なし';
+        const city = getL10n(job,'city') || '勤務地未設定';
+        const summary = getL10n(job,'summary') || '概要は準備中です。';
+
+        return `
+          <article class="card ${job.id === selectedId ? 'active' : ''}" data-id="${escapeHtml(job.id)}">
+            <div class="card-head">
+              <div>
+                <h3 class="company">${escapeHtml(company)}</h3>
+                <p class="position">${escapeHtml(position)}</p>
+              </div>
+              <span class="badge">${escapeHtml(type)}</span>
+            </div>
+
+            <dl class="meta">
+              <dt>給与</dt>
+              <dd>${escapeHtml(salary)}</dd>
+
+              <dt>都市</dt>
+              <dd>${escapeHtml(city)}</dd>
+
+              <dt>職種</dt>
+              <dd>${escapeHtml(position)}</dd>
+
+              <dt>概要</dt>
+              <dd>${escapeHtml(summary)}</dd>
+            </dl>
+          </article>
+        `;
+      }).join('');
+
+      els.cards.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+          selectedId = card.dataset.id;
+          renderCards();
+          renderDetail();
+        });
+      });
+    }
+
+    function splitRequirements(value){
+      return String(value || '')
+        .split(/\/|、|,|;|；|\n/)
+        .map(v => v.trim())
+        .filter(Boolean);
     }
 
     function renderDetail(){
-      const job = filtered.find(j => j.id === selectedId);
+      const job = filtered.find(j => String(j.id) === String(selectedId));
+
       if (!job){
-        els.detailPanel.innerHTML = '<h3>求人を選択してください</h3><p class="sub">カードをクリックすると詳細を表示します。</p>';
+        els.detailPanel.innerHTML = `
+          <h3>求人を選択してください</h3>
+          <p class="sub">カードをクリックすると詳細を表示します。</p>
+        `;
         return;
       }
-      const requirements = getL10n(job,'requirements').split('/').map(r => r.trim()).filter(Boolean);
+
+      const company = job.company_name || '会社名未設定';
+      const position = getL10n(job,'position_title') || '職種未設定';
+      const type = getL10n(job,'employment_type') || '雇用形態未設定';
+      const salary = getSalaryLabel(job) || '給与情報なし';
+      const city = getL10n(job,'city') || '勤務地未設定';
+      const visa = getL10n(job,'visa_support') || '未記載';
+      const updated = job.updated_at || '未記載';
+      const email = job.contact_email || '';
+      const details = getL10n(job,'job_details') || getL10n(job,'summary') || '職務詳細は準備中です。';
+      const requirements = splitRequirements(getL10n(job,'requirements'));
+      const comment = getL10n(job,'free_comment') || '';
+
       els.detailPanel.innerHTML = `
-        <h3>${escapeHtml(job.company_name)}</h3>
-        <p class="sub">${escapeHtml(getL10n(job,'position_title'))}</p>
+        <h3>${escapeHtml(company)}</h3>
+        <p class="sub">${escapeHtml(position)}</p>
+
         <div class="detail-grid">
-          <div class="detail-item"><div class="k">雇用形態</div><div>${escapeHtml(getL10n(job,'employment_type'))}</div></div>
-          <div class="detail-item"><div class="k">給与</div><div>${escapeHtml(job.salary_label_ja || `${job.salary_min_eur}€ - ${job.salary_max_eur}€`)}</div></div>
-          <div class="detail-item"><div class="k">勤務地</div><div>${escapeHtml(getL10n(job,'city'))}</div></div>
-          <div class="detail-item"><div class="k">ビザ</div><div>${escapeHtml(getL10n(job,'visa_support'))}</div></div>
-          <div class="detail-item"><div class="k">更新日</div><div>${escapeHtml(job.updated_at)}</div></div>
-          <div class="detail-item"><div class="k">連絡先</div><div><a href="mailto:${escapeHtml(job.contact_email)}">${escapeHtml(job.contact_email)}</a></div></div>
+          <div class="detail-item">
+            <div class="k">雇用形態</div>
+            <div>${escapeHtml(type)}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="k">給与</div>
+            <div>${escapeHtml(salary)}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="k">勤務地</div>
+            <div>${escapeHtml(city)}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="k">ビザ</div>
+            <div>${escapeHtml(visa)}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="k">更新日</div>
+            <div>${escapeHtml(updated)}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="k">連絡先</div>
+            <div>
+              ${email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : '未記載'}
+            </div>
+          </div>
         </div>
-        <section class="detail-sec"><h4>職務詳細</h4><p>${escapeHtml(getL10n(job,'job_details'))}</p></section>
-        <section class="detail-sec"><h4>必要要件・経験</h4><ul>${requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></section>
-        <section class="detail-sec"><h4>自由コメント</h4><p>${escapeHtml(getL10n(job,'free_comment'))}</p></section>
+
+        <section class="detail-sec">
+          <h4>職務詳細</h4>
+          <p>${escapeHtml(details)}</p>
+        </section>
+
+        <section class="detail-sec">
+          <h4>必要要件・経験</h4>
+          ${
+            requirements.length
+              ? `<ul>${requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul>`
+              : '<p>未記載</p>'
+          }
+        </section>
+
+        ${
+          comment
+            ? `<section class="detail-sec"><h4>自由コメント</h4><p>${escapeHtml(comment)}</p></section>`
+            : ''
+        }
       `;
     }
 
-    ['input','change'].forEach(evt => {
-      els.keywordInput.addEventListener(evt, filterJobs);
-      els.citySelect.addEventListener(evt, filterJobs);
-      els.positionSelect.addEventListener(evt, filterJobs);
-      els.salarySelect.addEventListener(evt, filterJobs);
-      els.visaSelect.addEventListener(evt, filterJobs);
-      els.typeSelect.addEventListener(evt, filterJobs);
-    });
-    els.resetBtn.addEventListener('click', () => {
-      els.keywordInput.value='';
-      els.citySelect.value='';
-      els.positionSelect.value='';
-      els.salarySelect.value='';
-      els.visaSelect.value='';
-      els.typeSelect.value='';
-      filterJobs();
-    });
-    els.cardLangJa.addEventListener('click', () => {
-      cardLang = 'ja';
-      els.cardLangJa.classList.add('active');
-      els.cardLangEn.classList.remove('active');
-      renderCards();
-      renderDetail();
-    });
-    els.cardLangEn.addEventListener('click', () => {
-      cardLang = 'en';
-      els.cardLangEn.classList.add('active');
-      els.cardLangJa.classList.remove('active');
-      renderCards();
-      renderDetail();
-    });
+    function attachEvents(){
+      els.keywordInput.addEventListener('input', filterJobs);
+      els.citySelect.addEventListener('change', filterJobs);
+      els.positionSelect.addEventListener('change', filterJobs);
+      els.salarySelect.addEventListener('change', filterJobs);
+      els.visaSelect.addEventListener('change', filterJobs);
+      els.typeSelect.addEventListener('change', filterJobs);
 
-    filterJobs();
+      els.resetBtn.addEventListener('click', () => {
+        els.keywordInput.value = '';
+        els.citySelect.value = '';
+        els.positionSelect.value = '';
+        els.salarySelect.value = '';
+        els.visaSelect.value = '';
+        els.typeSelect.value = '';
+        filterJobs();
+      });
+
+      els.cardLangJa.addEventListener('click', () => {
+        cardLang = 'ja';
+        els.cardLangJa.classList.add('active');
+        els.cardLangEn.classList.remove('active');
+        renderCards();
+        renderDetail();
+      });
+
+      els.cardLangEn.addEventListener('click', () => {
+        cardLang = 'en';
+        els.cardLangEn.classList.add('active');
+        els.cardLangJa.classList.remove('active');
+        renderCards();
+        renderDetail();
+      });
+    }
+
+    attachEvents();
+    loadJobs();
   </script>
 </body>
 </html>

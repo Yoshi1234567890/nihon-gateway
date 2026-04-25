@@ -841,6 +841,17 @@
         </div>
 
         <div class="field">
+          <label class="label" for="citySelect">都市</label>
+          <select id="citySelect" class="select">
+            <option value="">すべて</option>
+            <option value="duesseldorf">デュッセルドルフ</option>
+            <option value="frankfurt">フランクフルト</option>
+            <option value="muenchen">ミュンヘン</option>
+            <option value="berlin">ベルリン</option>
+          </select>
+        </div>
+
+        <div class="field">
           <label class="label" for="category1Select">カテゴリ</label>
           <select id="category1Select" class="select">
             <option value="">すべて</option>
@@ -927,7 +938,7 @@
   ></script>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec?sheet=eat&lang=ja&city=duesseldorf&status=active";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec?sheet=eat&lang=ja&status=active";
 
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
@@ -948,6 +959,7 @@
 
     const els = {
       keywordInput: document.getElementById("keywordInput"),
+      citySelect: document.getElementById("citySelect"),
       category1Select: document.getElementById("category1Select"),
       category2Select: document.getElementById("category2Select"),
       ratingSelect: document.getElementById("ratingSelect"),
@@ -1062,6 +1074,17 @@ function buildAddress(item) {
       return getField(item, "category2");
     }
 
+    function normalizeCityKey(value) {
+      const normalized = normalize(value).replace(/\s+/g, "").replace(/[-_]/g, "");
+      if (!normalized) return "";
+
+      if (["duesseldorf", "dusseldorf", "düsseldorf"].includes(normalized)) return "duesseldorf";
+      if (["frankfurt", "frankfurtammain"].includes(normalized)) return "frankfurt";
+      if (["muenchen", "munchen", "münchen", "munich"].includes(normalized)) return "muenchen";
+      if (["berlin"].includes(normalized)) return "berlin";
+      return normalized;
+    }
+
     function buildSearchText(item) {
       const values = [
         getField(item, "title", "name", "name_en"),
@@ -1152,6 +1175,7 @@ function buildAddress(item) {
 
     function filterItems() {
       const keyword = normalize(els.keywordInput.value);
+      const city = els.citySelect.value;
       const category1 = els.category1Select.value;
       const category2 = els.category2Select.value;
       const minReviews = parseNumber(els.ratingSelect.value) || 0;
@@ -1159,13 +1183,14 @@ function buildAddress(item) {
 
       filteredItems = rawItems.filter(item => {
         const matchesKeyword = !keyword || buildSearchText(item).includes(keyword);
+        const matchesCity = !city || normalizeCityKey(getField(item, "city")) === city;
         const matchesCategory1 = !category1 || getCategory1(item) === category1;
         const matchesCategory2 = !category2 || getCategory2(item) === category2;
         const reviews = parseNumber(getField(item, "reviewsCount")) || 0;
         const matchesReviews = !minReviews || reviews >= minReviews;
         const score = parseFloat(getField(item, "totalScore")) || 0;
         const matchesStarRating = !minStarRating || score >= minStarRating;
-        return matchesKeyword && matchesCategory1 && matchesCategory2 && matchesReviews && matchesStarRating;
+        return matchesKeyword && matchesCity && matchesCategory1 && matchesCategory2 && matchesReviews && matchesStarRating;
       }).map((item, index) => ({
         ...item,
         __id: getItemId(item, index)
@@ -1184,6 +1209,7 @@ function buildAddress(item) {
     function renderActiveChips() {
       const chips = [];
       if (els.keywordInput.value.trim()) chips.push(`キーワード: ${escapeHtml(els.keywordInput.value.trim())}`);
+      if (els.citySelect.value) chips.push(`都市: ${escapeHtml(els.citySelect.options[els.citySelect.selectedIndex].text)}`);
       if (els.category1Select.value) chips.push(`カテゴリ: ${escapeHtml(els.category1Select.value)}`);
       if (els.category2Select.value) chips.push(`詳細カテゴリ: ${escapeHtml(els.category2Select.value)}`);
       if (els.ratingSelect.value) chips.push(`レビュー数: ${escapeHtml(els.ratingSelect.options[els.ratingSelect.selectedIndex].text)}`);
@@ -1274,6 +1300,7 @@ function buildAddress(item) {
 
     function resetFilters() {
       els.keywordInput.value = "";
+      els.citySelect.value = "";
       els.category1Select.value = "";
       els.category2Select.value = "";
       els.ratingSelect.value = "";
@@ -1538,6 +1565,7 @@ rawItems.forEach(preloadCoordinatesFromFields);
     }
 
     els.keywordInput.addEventListener("input", filterItems);
+    els.citySelect.addEventListener("change", filterItems);
     els.category1Select.addEventListener("change", () => { updateCategory2Options(); filterItems(); });
     els.category2Select.addEventListener("change", filterItems);
     els.ratingSelect.addEventListener("change", filterItems);
@@ -1546,6 +1574,15 @@ rawItems.forEach(preloadCoordinatesFromFields);
 
     els.cardViewBtn.addEventListener("click", () => setViewMode("card"));
     els.mapViewBtn.addEventListener("click", () => setViewMode("map"));
+
+    try {
+      const savedCity = localStorage.getItem("ngg_selected_city");
+      if (savedCity && els.citySelect.querySelector(`option[value="${savedCity}"]`)) {
+        els.citySelect.value = savedCity;
+      }
+    } catch (error) {
+      console.warn("failed to restore selected city", error);
+    }
 
     loadData();
   </script>

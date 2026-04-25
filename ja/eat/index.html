@@ -555,6 +555,56 @@
       font-size:14px;
       word-break:break-word;
     }
+    .card-title-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .card-title-block{
+      min-width:0;
+      flex:1;
+    }
+    .card-rating{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#4b5563;
+      font-size:14px;
+      line-height:1;
+      white-space:nowrap;
+      margin-top:2px;
+    }
+    .card-rating-score{
+      font-weight:800;
+      color:#374151;
+      min-width:2.3em;
+      text-align:right;
+    }
+    .card-rating-stars{
+      position:relative;
+      display:inline-block;
+      letter-spacing:1px;
+      font-size:15px;
+      line-height:1;
+    }
+    .card-rating-stars::before{
+      content:"★★★★★";
+      color:#d1d5db;
+    }
+    .card-rating-stars::after{
+      content:"★★★★★";
+      color:#f5b301;
+      position:absolute;
+      inset:0 auto 0 0;
+      width:var(--rating-fill, 0%);
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .card-rating-reviews{
+      color:#4b5563;
+      font-weight:600;
+    }
     .meta-list{display:grid;gap:10px}
     .meta-item{
       display:grid;
@@ -1094,12 +1144,29 @@ function buildAddress(item) {
       };
     }
 
-    function getDisplayNameHtml(item) {
-      const parts = getDisplayNameParts(item);
-      if (parts.subtitle) {
-        return `${escapeHtml(parts.title)}<br><span class="card-subtitle">${escapeHtml(parts.subtitle)}</span>`;
-      }
-      return escapeHtml(parts.title);
+    function getCardRatingHtml(item) {
+      const scoreNumber = parseFloat(getField(item, "totalScore"));
+      const hasScore = Number.isFinite(scoreNumber);
+      const reviewsNumber = parseNumber(getField(item, "reviewsCount"));
+      const hasReviews = Number.isFinite(reviewsNumber);
+
+      if (!hasScore && !hasReviews) return "";
+
+      const scoreText = hasScore ? scoreNumber.toFixed(1) : "-";
+      const clampedScore = Math.max(0, Math.min(hasScore ? scoreNumber : 0, 5));
+      const fillRate = ((clampedScore / 5) * 100).toFixed(1);
+      const reviewsText = hasReviews ? `(${reviewsNumber.toLocaleString("ja-JP")})` : "";
+      const ratingLabel = hasReviews
+        ? `評価 ${scoreText}、レビュー ${reviewsNumber.toLocaleString("ja-JP")}件`
+        : `評価 ${scoreText}`;
+
+      return `
+        <div class="card-rating" role="img" aria-label="${escapeHtml(ratingLabel)}">
+          <span class="card-rating-score">${escapeHtml(scoreText)}</span>
+          <span class="card-rating-stars" style="--rating-fill:${fillRate}%"></span>
+          ${reviewsText ? `<span class="card-rating-reviews">${escapeHtml(reviewsText)}</span>` : ""}
+        </div>
+      `;
     }
 
     function getCategory1(item) {
@@ -1280,7 +1347,8 @@ function buildAddress(item) {
       els.statusBox.style.display = "none";
 
       els.cards.innerHTML = filteredItems.map((item) => {
-        const titleHtml = getDisplayNameHtml(item);
+        const displayName = getDisplayNameParts(item);
+        const ratingHtml = getCardRatingHtml(item);
         const category1 = getCategory1(item);
         const category2 = getCategory2(item);
         const website = getField(item, "website");
@@ -1291,8 +1359,12 @@ function buildAddress(item) {
         return `
           <article class="card ${activeItemId === item.__id ? "active-map-item" : ""}" data-item-id="${escapeHtml(item.__id)}">
             <div class="card-body">
-              <div>
-                <h3 class="card-title">${titleHtml}</h3>
+              <div class="card-title-row">
+                <div class="card-title-block">
+                  <h3 class="card-title">${escapeHtml(displayName.title)}</h3>
+                  ${displayName.subtitle ? `<div class="card-subtitle">${escapeHtml(displayName.subtitle)}</div>` : ""}
+                </div>
+                ${ratingHtml}
               </div>
 
               <div class="meta-list">

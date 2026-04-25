@@ -824,6 +824,37 @@
     const API_BASE = 'https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec';
     const API_URL = `${API_BASE}?sheet=job&lang=ja&status=active`;
 
+    const JOB_HEADERS = [
+      'id',
+      'status',
+      'priority',
+      'company_name',
+      'position_title_ja',
+      'position_title_en',
+      'employment_type_ja',
+      'employment_type_en',
+      'city_ja',
+      'city_en',
+      'salary_min_eur',
+      'salary_max_eur',
+      'salary_label_ja',
+      'summary_ja',
+      'summary_en',
+      'job_details_ja',
+      'summary_en_duplicate',
+      'requirements_ja',
+      'requirements_en',
+      'contact_email',
+      'free_comment_ja',
+      'free_comment_en',
+      'visa_support_ja',
+      'visa_support_en',
+      'updated_at',
+      'published_at',
+      'expires_at',
+      'company_logo_url'
+    ];
+
     let jobs = [];
     let filtered = [];
     let selectedId = null;
@@ -867,6 +898,10 @@
       return String(value ?? '').trim().toLowerCase();
     }
 
+    function clean(value){
+      return String(value ?? '').trim();
+    }
+
     function toNumber(value){
       if (value === null || value === undefined || value === '') return 0;
       const cleaned = String(value).replace(/[^\d.-]/g, '');
@@ -874,188 +909,119 @@
       return Number.isFinite(n) ? n : 0;
     }
 
-    function clean(value){
-      return String(value ?? '').trim();
+    function rowArrayToObject(row){
+      const obj = {};
+      JOB_HEADERS.forEach((key, index) => {
+        obj[key] = row[index] ?? '';
+      });
+      return obj;
     }
 
-    function pick(row, keys){
-      for (const key of keys) {
-        if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') {
-          return row[key];
-        }
+    function normalizeRow(row){
+      if (Array.isArray(row)) {
+        return rowArrayToObject(row);
       }
-      return '';
-    }
 
-    function normalizeStatus(value){
-      return normalize(value);
-    }
+      if (row && typeof row === 'object') {
+        return row;
+      }
 
-    function normalizeJob(row, index){
-      const salaryMin = toNumber(pick(row, ['salary_min_eur', 'salary_min', 'salary_from']));
-      const salaryMax = toNumber(pick(row, ['salary_max_eur', 'salary_max', 'salary_to']));
-
-      const employmentTypeJa = pick(row, [
-        'employment_type_ja',
-        'employment_typ_ja',
-        'employment_type',
-        'employment_typ',
-        'employment_type_jp'
-      ]);
-
-      const employmentTypeEn = pick(row, [
-        'employment_type_en',
-        'employment_typ_en',
-        'employment_type',
-        'employment_typ'
-      ]);
-
-      const positionJa = pick(row, [
-        'position_title_ja',
-        'position_title',
-        'title_ja',
-        'job_title_ja'
-      ]);
-
-      const positionEn = pick(row, [
-        'position_title_en',
-        'position_title',
-        'title_en',
-        'job_title_en'
-      ]);
-
-      const cityJa = pick(row, [
-        'city_ja',
-        'city',
-        'location_ja'
-      ]);
-
-      const cityEn = pick(row, [
-        'city_en',
-        'city',
-        'location_en'
-      ]);
-
-      const summaryJa = pick(row, [
-        'summary_ja',
-        'summary',
-        'description_ja'
-      ]);
-
-      const summaryEn = pick(row, [
-        'summary_en',
-        'summary',
-        'description_en'
-      ]);
-
-      const detailsJa = pick(row, [
-        'job_details_ja',
-        'details_ja',
-        'job_detail_ja',
-        'description_ja'
-      ]);
-
-      const detailsEn = pick(row, [
-        'job_details_en',
-        'details_en',
-        'job_detail_en',
-        'description_en'
-      ]);
-
-      const requirementsJa = pick(row, [
-        'requirements_ja',
-        'requirement_ja',
-        'requirements',
-        'skills_ja'
-      ]);
-
-      const requirementsEn = pick(row, [
-        'requirements_en',
-        'requirement_en',
-        'requirements',
-        'skills_en'
-      ]);
-
-      const freeCommentJa = pick(row, [
-        'free_comment_ja',
-        'comment_ja',
-        'notes_ja',
-        'free_comment'
-      ]);
-
-      const freeCommentEn = pick(row, [
-        'free_comment_en',
-        'comment_en',
-        'notes_en',
-        'free_comment'
-      ]);
-
-      const visaJa = pick(row, [
-        'visa_support_ja',
-        'visa_support',
-        'visa_ja'
-      ]);
-
-      const visaEn = pick(row, [
-        'visa_support_en',
-        'visa_support',
-        'visa_en'
-      ]);
-
-      return {
-        id: clean(pick(row, ['id', 'job_id', 'slug'])) || `job-${index + 1}`,
-        status: clean(pick(row, ['status'])) || 'active',
-        priority: toNumber(pick(row, ['priority'])) || 999,
-        company_name: clean(pick(row, ['company_name', 'company', 'name_ja', 'name_en'])),
-        position_title_ja: clean(positionJa),
-        position_title_en: clean(positionEn),
-        employment_type_ja: clean(employmentTypeJa),
-        employment_type_en: clean(employmentTypeEn),
-        city_ja: clean(cityJa),
-        city_en: clean(cityEn),
-        salary_min_eur: salaryMin,
-        salary_max_eur: salaryMax,
-        salary_label_ja: clean(pick(row, ['salary_label_ja', 'salary_label', 'salary'])),
-        salary_label_en: clean(pick(row, ['salary_label_en', 'salary_label', 'salary'])),
-        summary_ja: clean(summaryJa),
-        summary_en: clean(summaryEn),
-        job_details_ja: clean(detailsJa),
-        job_details_en: clean(detailsEn),
-        requirements_ja: clean(requirementsJa),
-        requirements_en: clean(requirementsEn),
-        contact_email: clean(pick(row, ['contact_email', 'email', 'contact'])),
-        free_comment_ja: clean(freeCommentJa),
-        free_comment_en: clean(freeCommentEn),
-        visa_support_ja: clean(visaJa),
-        visa_support_en: clean(visaEn),
-        updated_at: clean(pick(row, ['updated_at', 'updated', 'last_updated'])),
-        published_at: clean(pick(row, ['published_at', 'published'])),
-        expires_at: clean(pick(row, ['expires_at', 'expires'])),
-        company_logo_url: clean(pick(row, ['company_logo_url', 'logo_url']))
-      };
+      return {};
     }
 
     function getRowsFromApiResponse(data){
-      if (Array.isArray(data)) return data;
-      if (Array.isArray(data.items)) return data.items;
-      if (Array.isArray(data.rows)) return data.rows;
-      if (Array.isArray(data.data)) return data.data;
-      return [];
+      let rows = [];
+
+      if (Array.isArray(data)) {
+        rows = data;
+      } else if (Array.isArray(data.items)) {
+        rows = data.items;
+      } else if (Array.isArray(data.rows)) {
+        rows = data.rows;
+      } else if (Array.isArray(data.data)) {
+        rows = data.data;
+      }
+
+      if (rows.length && Array.isArray(rows[0])) {
+        const firstRow = rows[0].map(v => normalize(v));
+        const looksLikeHeader =
+          firstRow.includes('id') &&
+          firstRow.includes('status') &&
+          firstRow.includes('company_name');
+
+        if (looksLikeHeader) {
+          rows = rows.slice(1);
+        }
+      }
+
+      return rows;
+    }
+
+    function getValue(row, key){
+      return clean(row[key]);
+    }
+
+    function normalizeJob(row, index){
+      const r = normalizeRow(row);
+
+      const summaryEn =
+        getValue(r, 'summary_en') ||
+        getValue(r, 'summary_en_duplicate');
+
+      return {
+        id: getValue(r, 'id') || `job-${index + 1}`,
+        status: getValue(r, 'status') || 'active',
+        priority: toNumber(getValue(r, 'priority')) || 999,
+
+        company_name: getValue(r, 'company_name'),
+
+        position_title_ja: getValue(r, 'position_title_ja'),
+        position_title_en: getValue(r, 'position_title_en'),
+
+        employment_type_ja: getValue(r, 'employment_type_ja'),
+        employment_type_en: getValue(r, 'employment_type_en'),
+
+        city_ja: getValue(r, 'city_ja'),
+        city_en: getValue(r, 'city_en'),
+
+        salary_min_eur: toNumber(getValue(r, 'salary_min_eur')),
+        salary_max_eur: toNumber(getValue(r, 'salary_max_eur')),
+        salary_label_ja: getValue(r, 'salary_label_ja'),
+
+        summary_ja: getValue(r, 'summary_ja'),
+        summary_en: summaryEn,
+
+        job_details_ja: getValue(r, 'job_details_ja'),
+        job_details_en: getValue(r, 'job_details_en'),
+
+        requirements_ja: getValue(r, 'requirements_ja'),
+        requirements_en: getValue(r, 'requirements_en'),
+
+        contact_email: getValue(r, 'contact_email'),
+
+        free_comment_ja: getValue(r, 'free_comment_ja'),
+        free_comment_en: getValue(r, 'free_comment_en'),
+
+        visa_support_ja: getValue(r, 'visa_support_ja'),
+        visa_support_en: getValue(r, 'visa_support_en'),
+
+        updated_at: getValue(r, 'updated_at'),
+        published_at: getValue(r, 'published_at'),
+        expires_at: getValue(r, 'expires_at'),
+        company_logo_url: getValue(r, 'company_logo_url')
+      };
     }
 
     function getL10n(job, key){
       if (cardLang === 'en') {
         return job[`${key}_en`] || job[`${key}_ja`] || '';
       }
+
       return job[`${key}_ja`] || job[`${key}_en`] || '';
     }
 
     function getSalaryLabel(job){
-      const byLang = cardLang === 'en'
-        ? (job.salary_label_en || job.salary_label_ja)
-        : (job.salary_label_ja || job.salary_label_en);
-
-      if (byLang) return byLang;
+      if (job.salary_label_ja) return job.salary_label_ja;
 
       if (job.salary_min_eur && job.salary_max_eur) {
         return `年収 ${job.salary_min_eur.toLocaleString()}€〜${job.salary_max_eur.toLocaleString()}€`;
@@ -1065,7 +1031,7 @@
         return `年収 ${job.salary_min_eur.toLocaleString()}€〜`;
       }
 
-      return '';
+      return '給与情報なし';
     }
 
     function isVisaYes(job){
@@ -1125,8 +1091,8 @@
         jobs = rows
           .map(normalizeJob)
           .filter(job => {
-            const status = normalizeStatus(job.status);
-            return !status || status === 'active' || status === 'published';
+            const status = normalize(job.status);
+            return status === 'active' || status === 'published';
           })
           .sort((a,b) => {
             if (a.priority !== b.priority) return a.priority - b.priority;
@@ -1150,6 +1116,7 @@
         els.emptyBox.style.display = 'block';
         els.emptyBox.textContent = '求人データを読み込めませんでした。GASの公開設定、API URL、sheet名を確認してください。';
         els.resultsSummary.textContent = '読み込みエラー';
+
         els.detailPanel.innerHTML = `
           <h3>読み込みエラー</h3>
           <p class="sub">Spreadsheet APIに接続できませんでした。</p>
@@ -1210,7 +1177,7 @@
         return matchKeyword && matchCity && matchPosition && matchType && matchVisa && matchSalary;
       });
 
-      if (!filtered.some(j => j.id === selectedId)) {
+      if (!filtered.some(j => String(j.id) === String(selectedId))) {
         selectedId = filtered[0]?.id || null;
       }
 
@@ -1270,12 +1237,12 @@
         const company = job.company_name || '会社名未設定';
         const position = getL10n(job,'position_title') || '職種未設定';
         const type = getL10n(job,'employment_type') || '雇用形態未設定';
-        const salary = getSalaryLabel(job) || '給与情報なし';
+        const salary = getSalaryLabel(job);
         const city = getL10n(job,'city') || '勤務地未設定';
         const summary = getL10n(job,'summary') || '概要は準備中です。';
 
         return `
-          <article class="card ${job.id === selectedId ? 'active' : ''}" data-id="${escapeHtml(job.id)}">
+          <article class="card ${String(job.id) === String(selectedId) ? 'active' : ''}" data-id="${escapeHtml(job.id)}">
             <div class="card-head">
               <div>
                 <h3 class="company">${escapeHtml(company)}</h3>
@@ -1331,7 +1298,7 @@
       const company = job.company_name || '会社名未設定';
       const position = getL10n(job,'position_title') || '職種未設定';
       const type = getL10n(job,'employment_type') || '雇用形態未設定';
-      const salary = getSalaryLabel(job) || '給与情報なし';
+      const salary = getSalaryLabel(job);
       const city = getL10n(job,'city') || '勤務地未設定';
       const visa = getL10n(job,'visa_support') || '未記載';
       const updated = job.updated_at || '未記載';

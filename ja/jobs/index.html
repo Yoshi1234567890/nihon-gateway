@@ -55,6 +55,9 @@
     .content{min-width:0}
     .toolbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
     .results-title{font-size:24px;font-weight:900;letter-spacing:-.02em}.results-sub{margin-top:6px;color:var(--muted);font-size:14px}
+    .card-lang-toggle{display:inline-flex;align-items:center;gap:6px;padding:6px;background:#fff;border:1px solid var(--border);border-radius:999px;box-shadow:var(--card-shadow)}
+    .card-lang-toggle button{border:none;background:transparent;color:#5e5260;font-weight:900;font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer}
+    .card-lang-toggle button.active{background:rgba(47,109,245,.14);color:#1f4eb9}
     .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#4e424e}
     .cards{display:grid;gap:14px}
     .card{background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--card-shadow);padding:18px;cursor:pointer;transition:.18s}
@@ -119,12 +122,14 @@
       <div class="panel-title-row"><h2 class="panel-title">検索フィルター</h2><button class="reset-btn" id="resetBtn" type="button">リセット</button></div>
       <div class="field"><label class="label" for="keywordInput">キーワード</label><input id="keywordInput" class="input" type="text" placeholder="会社名・職種・概要・都市" /></div>
       <div class="field"><label class="label" for="citySelect">都市</label><select id="citySelect" class="select"><option value="">すべて</option></select></div>
-      <div class="field"><label class="label" for="typeSelect">雇用形態</label><select id="typeSelect" class="select"><option value="">すべて</option><option>正社員</option><option>契約社員</option><option>インターン</option><option>業務委託</option></select></div>
+      <div class="field"><label class="label" for="positionSelect">職種</label><select id="positionSelect" class="select"><option value="">すべて</option></select></div>
       <div class="field"><label class="label" for="salarySelect">給与帯</label><select id="salarySelect" class="select"><option value="">すべて</option><option value="high">年収 65,000€ 以上</option><option value="mid">年収 50,000€ 以上</option><option value="entry">年収 40,000€ 以上</option></select></div>
+      <div class="field"><label class="label" for="visaSelect">ビザサポート</label><select id="visaSelect" class="select"><option value="">すべて</option></select></div>
+      <div class="field"><label class="label" for="typeSelect">雇用形態</label><select id="typeSelect" class="select"><option value="">すべて</option></select></div>
     </aside>
 
     <section class="content">
-      <div class="toolbar"><div><h2 class="results-title">仕事・求人</h2><div class="results-sub" id="resultsSummary">読み込み中...</div></div><div class="chips" id="chips"></div></div>
+      <div class="toolbar"><div><h2 class="results-title">仕事・求人</h2><div class="results-sub" id="resultsSummary">読み込み中...</div></div><div class="card-lang-toggle" id="cardLanguageToggle"><button type="button" data-lang="ja" class="active">日本語</button><button type="button" data-lang="en">English</button></div><div class="chips" id="chips"></div></div>
       <div id="cards" class="cards" aria-live="polite"></div>
       <div id="emptyBox" class="empty-box" style="display:none;">条件に一致する求人が見つかりませんでした。条件を変更してください。</div>
     </section>
@@ -135,43 +140,147 @@
   <footer class="page-footer"><div class="footer-inner"><div class="footer-left"><img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ"><div><div class="footer-title">NIHON GATEWAY GERMANY</div><div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div><div class="footer-meta">© 2026 Nihon Gateway Germany</div></div></div><div class="footer-links"><a href="/nihon-gateway-germany/ja/about/">このサイトについて</a><a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a><a href="/nihon-gateway-germany/ja/terms/">利用規約</a><a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a><a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a></div></div></footer>
 
   <script>
-    const jobs = [
-      {id:'job-001',company:'Sakura Mobility Europe GmbH',position:'営業企画・日独法人担当',city:'デュッセルドルフ',type:'正社員',salaryValue:62000,salaryLabel:'年収 62,000€〜75,000€',summary:'日系メーカー向けに車載部品の提案営業を担当。既存顧客フォローと新規開拓をバランスよく実施。',details:'見積作成、受発注管理、四半期ごとの営業報告、展示会出展準備を担当。日本本社・欧州現地法人との調整が中心。',requirements:['法人営業経験3年以上','ビジネスレベル日本語・英語（ドイツ語歓迎）','Excel/PowerPointでの提案資料作成経験'],email:'careers@sakura-mobility.eu',comment:'在宅勤務週2日可。試用期間終了後に語学学習補助あり。',updatedAt:'2026-04-22'},
-      {id:'job-002',company:'Mizu Digital Solutions',position:'日本語カスタマーサクセス（SaaS）',city:'ベルリン',type:'契約社員',salaryValue:52000,salaryLabel:'年収 52,000€〜60,000€',summary:'日系顧客向けSaaS導入支援。オンボーディングと利用定着支援を担当。',details:'問い合わせ対応、導入トレーニング、利用状況分析、アップセル提案まで一気通貫で対応。',requirements:['B2BサポートまたはCS経験2年以上','オンライン会議での進行力','CRMツール（HubSpot/Salesforce等）使用経験'],email:'hr@mizu-digital.de',comment:'1年更新の契約社員スタート。正社員登用制度あり。',updatedAt:'2026-04-18'},
-      {id:'job-003',company:'Hinode Foods Deutschland',position:'品質保証スペシャリスト',city:'フランクフルト',type:'正社員',salaryValue:68000,salaryLabel:'年収 68,000€〜82,000€',summary:'食品輸入・流通における品質保証、監査対応、ラベリング適合チェックを担当。',details:'EU食品規制の確認、社内監査の実施、外部検査機関との連携、トレーサビリティ文書管理を行います。',requirements:['食品業界でのQA経験3年以上','HACCP/IFS等の知識','日英いずれかで監査文書を作成できる方'],email:'recruit@hinode-foods.de',comment:'監査時は出張あり（月1〜2回程度）。',updatedAt:'2026-04-24'},
-      {id:'job-004',company:'Kumo Creative Studio',position:'SNSマーケティング担当（日本市場）',city:'ミュンヘン',type:'業務委託',salaryValue:45000,salaryLabel:'想定年収 45,000€〜55,000€（稼働量により変動）',summary:'日本市場向けSNS運用とキャンペーン企画。クリエイティブチームとの連携あり。',details:'投稿企画、コピー作成、効果分析、インフルエンサー候補調査を担当。週次でレポート提出。',requirements:['SNS運用経験2年以上','Canva/Adobe系ツールの使用経験','日本語ネイティブ、英語での実務コミュニケーション'],email:'join@kumo-creative.de',comment:'稼働時間は柔軟に調整可能。',updatedAt:'2026-04-20'},
-      {id:'job-005',company:'Takumi Finance Partners',position:'会計アシスタント（Japanese Desk）',city:'ハンブルク',type:'インターン',salaryValue:41000,salaryLabel:'年収換算 41,000€〜48,000€（フルタイム換算）',summary:'日系クライアント向けの会計補助、月次処理サポート、文書翻訳を担当。',details:'仕訳入力補助、請求書整理、税務書類チェック、日独英の簡易翻訳などバックオフィス業務中心。',requirements:['会計基礎知識（簿記2級相当）','細かい確認作業が得意な方','週4日以上勤務可能な方'],email:'internship@takumi-fp.de',comment:'学生・既卒どちらも応募可。',updatedAt:'2026-04-15'}
+    const spreadsheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1oX4Go3yqxZyFkyRTio-YSxE9wZaXy6mfwai42Zot4AU/export?format=csv&gid=1253259572';
+    const fallbackRows = [
+      {id:'job-001',status:'active',priority:'1',company_name:'Sakura Mobility Europe GmbH',position_title_ja:'営業企画・日独法人担当',position_title_en:'Sales Planning / JP-DE Corporate',employment_type_ja:'正社員',employment_type_en:'Full-time',city_ja:'デュッセルドルフ',city_en:'Düsseldorf',salary_min_eur:'62000',salary_max_eur:'75000',salary_label_ja:'年収 62,000€〜75,000€',summary_ja:'日系メーカー向けに車載部品の提案営業を担当。',summary_en:'Lead solution sales for Japanese manufacturers.',job_details_ja:'見積作成、受発注管理、営業報告、展示会準備を担当。',requirements_ja:'法人営業経験3年以上、ビジネスレベル日本語・英語',requirements_en:'3+ years B2B sales, business-level Japanese and English',contact_email:'careers@sakura-mobility.eu',visa_support_ja:'相談可',visa_support_en:'Negotiable',free_comment_ja:'在宅勤務週2日可。',free_comment_en:'Hybrid work available.',updated_at:'2026-04-22'},
+      {id:'job-002',status:'active',priority:'2',company_name:'Mizu Digital Solutions',position_title_ja:'日本語カスタマーサクセス（SaaS）',position_title_en:'Japanese Customer Success (SaaS)',employment_type_ja:'契約社員',employment_type_en:'Contract',city_ja:'ベルリン',city_en:'Berlin',salary_min_eur:'52000',salary_max_eur:'60000',salary_label_ja:'年収 52,000€〜60,000€',summary_ja:'日系顧客向けSaaS導入支援。',summary_en:'Support onboarding for Japanese SaaS customers.',job_details_ja:'問い合わせ対応、導入トレーニング、利用状況分析を担当。',requirements_ja:'CS経験2年以上、CRM利用経験',requirements_en:'2+ years CS experience, CRM knowledge',contact_email:'hr@mizu-digital.de',visa_support_ja:'なし',visa_support_en:'Not provided',free_comment_ja:'正社員登用制度あり。',free_comment_en:'Path to full-time available.',updated_at:'2026-04-18'}
     ];
 
     const els = {
-      keywordInput: document.getElementById('keywordInput'), citySelect: document.getElementById('citySelect'), typeSelect: document.getElementById('typeSelect'), salarySelect: document.getElementById('salarySelect'), resetBtn: document.getElementById('resetBtn'), cards: document.getElementById('cards'), detailPanel: document.getElementById('detailPanel'), chips: document.getElementById('chips'), resultsSummary: document.getElementById('resultsSummary'), emptyBox: document.getElementById('emptyBox')
+      keywordInput: document.getElementById('keywordInput'), citySelect: document.getElementById('citySelect'), positionSelect: document.getElementById('positionSelect'), typeSelect: document.getElementById('typeSelect'), salarySelect: document.getElementById('salarySelect'), visaSelect: document.getElementById('visaSelect'), resetBtn: document.getElementById('resetBtn'), cards: document.getElementById('cards'), detailPanel: document.getElementById('detailPanel'), chips: document.getElementById('chips'), resultsSummary: document.getElementById('resultsSummary'), emptyBox: document.getElementById('emptyBox'), cardLanguageToggle: document.getElementById('cardLanguageToggle')
     };
 
     const languageSelect = document.getElementById('languageSelect');
     if (languageSelect) languageSelect.addEventListener('change', e => e.target.value && (window.location.href = e.target.value));
 
-    const citySet = [...new Set(jobs.map(j => j.city))].sort((a,b)=>a.localeCompare(b,'ja'));
-    els.citySelect.innerHTML += citySet.map(city => `<option value="${city}">${city}</option>`).join('');
-
-    let filtered = [...jobs];
-    let selectedId = jobs[0]?.id || null;
+    let jobs = [];
+    let filtered = [];
+    let selectedId = null;
+    let cardLanguage = 'ja';
 
     function escapeHtml(value){return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
     function normalize(v){return String(v ?? '').trim().toLowerCase();}
+    function parseCsvLine(line){
+      const values = [];
+      let curr = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') {
+          if (inQuotes && line[i + 1] === '"') { curr += '"'; i++; }
+          else inQuotes = !inQuotes;
+        } else if (c === ',' && !inQuotes) {
+          values.push(curr); curr = '';
+        } else curr += c;
+      }
+      values.push(curr);
+      return values.map(v => v.trim());
+    }
+
+    function parseCsv(text){
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      if (!lines.length) return [];
+      const headers = parseCsvLine(lines[0]);
+      return lines.slice(1).map(line => {
+        const cols = parseCsvLine(line);
+        const obj = {};
+        headers.forEach((h, idx) => { obj[h] = cols[idx] ?? ''; });
+        return obj;
+      });
+    }
+
+    function mapJob(row){
+      const salaryMin = Number(row.salary_min_eur || 0) || 0;
+      const salaryMax = Number(row.salary_max_eur || 0) || 0;
+      const positionJa = row.position_title_ja || '';
+      const positionEn = row.position_title_en || positionJa;
+      const summaryJa = row.summary_ja || '';
+      const summaryEn = row.summary_en || summaryJa;
+      return {
+        id: row.id || `job-${Math.random().toString(36).slice(2,8)}`,
+        status: row.status || 'active',
+        priority: Number(row.priority || 999),
+        companyName: row.company_name || '',
+        positionJa,
+        positionEn,
+        typeJa: row.employment_type_ja || '',
+        typeEn: row.employment_type_en || row.employment_type_ja || '',
+        cityJa: row.city_ja || '',
+        cityEn: row.city_en || row.city_ja || '',
+        salaryMin,
+        salaryMax,
+        salaryLabelJa: row.salary_label_ja || (salaryMin && salaryMax ? `年収 ${salaryMin.toLocaleString('ja-JP')}€〜${salaryMax.toLocaleString('ja-JP')}€` : ''),
+        summaryJa,
+        summaryEn,
+        detailsJa: row.job_details_ja || summaryJa,
+        detailsEn: row.job_details_en || row.summary_en || summaryEn,
+        requirementsJa: row.requirements_ja || '',
+        requirementsEn: row.requirements_en || row.requirements_ja || '',
+        contactEmail: row.contact_email || '',
+        visaSupportJa: row.visa_support_ja || '',
+        visaSupportEn: row.visa_support_en || row.visa_support_ja || '',
+        commentJa: row.free_comment_ja || '',
+        commentEn: row.free_comment_en || row.free_comment_ja || '',
+        updatedAt: row.updated_at || '',
+        publishedAt: row.published_at || '',
+        expiresAt: row.expires_at || '',
+        companyLogoUrl: row.company_logo_url || ''
+      };
+    }
+
+    function getLocalized(job, key){
+      const v = cardLanguage === 'en' ? job[`${key}En`] : job[`${key}Ja`];
+      return v || job[`${key}Ja`] || job[`${key}En`] || '';
+    }
+
+    function renderFilterOptions(){
+      const lang = cardLanguage;
+      const citySet = [...new Set(jobs.map(j => lang === 'en' ? j.cityEn : j.cityJa).filter(Boolean))].sort((a,b)=>a.localeCompare(b, lang === 'en' ? 'en' : 'ja'));
+      const positionSet = [...new Set(jobs.map(j => getLocalized(j, 'position')).filter(Boolean))].sort((a,b)=>a.localeCompare(b, lang === 'en' ? 'en' : 'ja'));
+      const typeSet = [...new Set(jobs.map(j => getLocalized(j, 'type')).filter(Boolean))].sort((a,b)=>a.localeCompare(b, lang === 'en' ? 'en' : 'ja'));
+      const visaSet = [...new Set(jobs.map(j => getLocalized(j, 'visaSupport')).filter(Boolean))].sort((a,b)=>a.localeCompare(b, lang === 'en' ? 'en' : 'ja'));
+      const selectedCity = els.citySelect.value;
+      const selectedPosition = els.positionSelect.value;
+      const selectedType = els.typeSelect.value;
+      const selectedVisa = els.visaSelect.value;
+      els.citySelect.innerHTML = `<option value="">すべて</option>${citySet.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('')}`;
+      els.positionSelect.innerHTML = `<option value="">すべて</option>${positionSet.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('')}`;
+      els.typeSelect.innerHTML = `<option value="">すべて</option>${typeSet.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('')}`;
+      els.visaSelect.innerHTML = `<option value="">すべて</option>${visaSet.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('')}`;
+      els.citySelect.value = citySet.includes(selectedCity) ? selectedCity : '';
+      els.positionSelect.value = positionSet.includes(selectedPosition) ? selectedPosition : '';
+      els.typeSelect.value = typeSet.includes(selectedType) ? selectedType : '';
+      els.visaSelect.value = visaSet.includes(selectedVisa) ? selectedVisa : '';
+    }
+
+    function salaryLabel(job){
+      if (cardLanguage === 'ja') return job.salaryLabelJa || '';
+      if (job.salaryMin && job.salaryMax) return `€${job.salaryMin.toLocaleString('en-US')} - €${job.salaryMax.toLocaleString('en-US')}`;
+      if (job.salaryMin) return `From €${job.salaryMin.toLocaleString('en-US')}`;
+      return '';
+    }
+
+    function salaryMatches(job, salaryFilter){
+      return !salaryFilter || (salaryFilter === 'high' && job.salaryMin >= 65000) || (salaryFilter === 'mid' && job.salaryMin >= 50000) || (salaryFilter === 'entry' && job.salaryMin >= 40000);
+    }
 
     function filterJobs(){
       const keyword = normalize(els.keywordInput.value);
       const city = els.citySelect.value;
+      const position = els.positionSelect.value;
       const type = els.typeSelect.value;
+      const visa = els.visaSelect.value;
       const salaryFilter = els.salarySelect.value;
 
       filtered = jobs.filter(job => {
-        const text = normalize([job.company, job.position, job.summary, job.details, job.city, job.comment].join(' '));
+        const text = normalize([job.companyName, getLocalized(job, 'position'), getLocalized(job, 'summary'), getLocalized(job, 'details'), cardLanguage === 'en' ? job.cityEn : job.cityJa, getLocalized(job, 'comment')].join(' '));
         const matchKeyword = !keyword || text.includes(keyword);
-        const matchCity = !city || job.city === city;
-        const matchType = !type || job.type === type;
-        const matchSalary = !salaryFilter || (salaryFilter === 'high' && job.salaryValue >= 65000) || (salaryFilter === 'mid' && job.salaryValue >= 50000) || (salaryFilter === 'entry' && job.salaryValue >= 40000);
-        return matchKeyword && matchCity && matchType && matchSalary;
+        const matchCity = !city || (cardLanguage === 'en' ? job.cityEn : job.cityJa) === city;
+        const matchPosition = !position || getLocalized(job, 'position') === position;
+        const matchType = !type || getLocalized(job, 'type') === type;
+        const matchVisa = !visa || getLocalized(job, 'visaSupport') === visa;
+        const matchSalary = salaryMatches(job, salaryFilter);
+        return matchKeyword && matchCity && matchPosition && matchType && matchVisa && matchSalary;
       });
 
       if (!filtered.some(j => j.id === selectedId)) selectedId = filtered[0]?.id || null;
@@ -184,8 +293,10 @@
       const chips = [];
       if (els.keywordInput.value.trim()) chips.push(`キーワード: ${escapeHtml(els.keywordInput.value.trim())}`);
       if (els.citySelect.value) chips.push(`都市: ${escapeHtml(els.citySelect.value)}`);
-      if (els.typeSelect.value) chips.push(`雇用形態: ${escapeHtml(els.typeSelect.value)}`);
+      if (els.positionSelect.value) chips.push(`職種: ${escapeHtml(els.positionSelect.value)}`);
       if (els.salarySelect.value) chips.push(`給与帯: ${escapeHtml(els.salarySelect.options[els.salarySelect.selectedIndex].text)}`);
+      if (els.visaSelect.value) chips.push(`ビザサポート: ${escapeHtml(els.visaSelect.value)}`);
+      if (els.typeSelect.value) chips.push(`雇用形態: ${escapeHtml(els.typeSelect.value)}`);
       els.chips.innerHTML = chips.map(c => `<span class="chip">${c}</span>`).join('');
     }
 
@@ -194,12 +305,16 @@
       els.emptyBox.style.display = 'none';
       els.cards.innerHTML = filtered.map(job => `
         <article class="card ${job.id === selectedId ? 'active' : ''}" data-id="${job.id}">
-          <div class="card-head"><div><h3 class="company">${escapeHtml(job.company)}</h3><p class="position">${escapeHtml(job.position)}</p></div><span class="badge">${escapeHtml(job.type)}</span></div>
-          <dl class="meta"><dt>給与</dt><dd>${escapeHtml(job.salaryLabel)}</dd><dt>都市</dt><dd>${escapeHtml(job.city)}</dd><dt>概要</dt><dd>${escapeHtml(job.summary)}</dd></dl>
+          <div class="card-head"><div><h3 class="company">${escapeHtml(job.companyName)}</h3><p class="position">${escapeHtml(getLocalized(job, 'position'))}</p></div><span class="badge">${escapeHtml(getLocalized(job, 'type'))}</span></div>
+          <dl class="meta"><dt>給与</dt><dd>${escapeHtml(salaryLabel(job))}</dd><dt>都市</dt><dd>${escapeHtml(cardLanguage === 'en' ? job.cityEn : job.cityJa)}</dd><dt>職種</dt><dd>${escapeHtml(getLocalized(job, 'position'))}</dd><dt>概要</dt><dd>${escapeHtml(getLocalized(job, 'summary'))}</dd></dl>
         </article>
       `).join('');
 
       els.cards.querySelectorAll('.card').forEach(card => card.addEventListener('click', () => { selectedId = card.dataset.id; renderCards(); renderDetail(); }));
+    }
+
+    function splitRequirements(text){
+      return String(text || '').split(/[\n、,]/).map(v => v.trim()).filter(Boolean);
     }
 
     function renderDetail(){
@@ -208,28 +323,56 @@
         els.detailPanel.innerHTML = '<h3>求人を選択してください</h3><p class="sub">カードをクリックすると詳細を表示します。</p>';
         return;
       }
+      const requirements = splitRequirements(getLocalized(job, 'requirements'));
       els.detailPanel.innerHTML = `
-        <h3>${escapeHtml(job.company)}</h3>
-        <p class="sub">${escapeHtml(job.position)}</p>
+        <h3>${escapeHtml(job.companyName)}</h3>
+        <p class="sub">${escapeHtml(getLocalized(job, 'position'))}</p>
         <div class="detail-grid">
-          <div class="detail-item"><div class="k">雇用形態</div><div>${escapeHtml(job.type)}</div></div>
-          <div class="detail-item"><div class="k">給与</div><div>${escapeHtml(job.salaryLabel)}</div></div>
-          <div class="detail-item"><div class="k">勤務地</div><div>${escapeHtml(job.city)}</div></div>
+          <div class="detail-item"><div class="k">雇用形態</div><div>${escapeHtml(getLocalized(job, 'type'))}</div></div>
+          <div class="detail-item"><div class="k">給与</div><div>${escapeHtml(salaryLabel(job))}</div></div>
+          <div class="detail-item"><div class="k">勤務地</div><div>${escapeHtml(cardLanguage === 'en' ? job.cityEn : job.cityJa)}</div></div>
+          <div class="detail-item"><div class="k">ビザサポート</div><div>${escapeHtml(getLocalized(job, 'visaSupport'))}</div></div>
           <div class="detail-item"><div class="k">更新日</div><div>${escapeHtml(job.updatedAt)}</div></div>
-          <div class="detail-item"><div class="k">連絡先</div><div><a href="mailto:${escapeHtml(job.email)}">${escapeHtml(job.email)}</a></div></div>
+          <div class="detail-item"><div class="k">連絡先</div><div><a href="mailto:${escapeHtml(job.contactEmail)}">${escapeHtml(job.contactEmail)}</a></div></div>
         </div>
-        <section class="detail-sec"><h4>職務詳細</h4><p>${escapeHtml(job.details)}</p></section>
-        <section class="detail-sec"><h4>必要要件・経験</h4><ul>${job.requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></section>
-        <section class="detail-sec"><h4>自由コメント</h4><p>${escapeHtml(job.comment)}</p></section>
+        <section class="detail-sec"><h4>職務詳細</h4><p>${escapeHtml(getLocalized(job, 'details'))}</p></section>
+        <section class="detail-sec"><h4>必要要件・経験</h4><ul>${requirements.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></section>
+        <section class="detail-sec"><h4>自由コメント</h4><p>${escapeHtml(getLocalized(job, 'comment'))}</p></section>
       `;
     }
 
-    ['input','change'].forEach(evt => {
-      els.keywordInput.addEventListener(evt, filterJobs); els.citySelect.addEventListener(evt, filterJobs); els.typeSelect.addEventListener(evt, filterJobs); els.salarySelect.addEventListener(evt, filterJobs);
-    });
-    els.resetBtn.addEventListener('click', () => { els.keywordInput.value=''; els.citySelect.value=''; els.typeSelect.value=''; els.salarySelect.value=''; filterJobs(); });
+    function applyCardLanguage(lang){
+      cardLanguage = lang;
+      els.cardLanguageToggle.querySelectorAll('button').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+      renderFilterOptions();
+      filterJobs();
+    }
 
-    filterJobs();
+    async function loadJobs(){
+      try {
+        const response = await fetch(spreadsheetCsvUrl, {cache:'no-store'});
+        if (!response.ok) throw new Error(`Failed to fetch CSV: ${response.status}`);
+        const rawRows = parseCsv(await response.text());
+        jobs = rawRows.map(mapJob).filter(job => normalize(job.status) !== 'draft').sort((a,b)=>(a.priority-b.priority) || b.updatedAt.localeCompare(a.updatedAt));
+      } catch (error) {
+        console.error(error);
+        jobs = fallbackRows.map(mapJob).sort((a,b)=>(a.priority-b.priority) || b.updatedAt.localeCompare(a.updatedAt));
+      }
+      filtered = [...jobs];
+      selectedId = jobs[0]?.id || null;
+      renderFilterOptions();
+      filterJobs();
+    }
+
+    ['input','change'].forEach(evt => {
+      els.keywordInput.addEventListener(evt, filterJobs); els.citySelect.addEventListener(evt, filterJobs); els.positionSelect.addEventListener(evt, filterJobs); els.typeSelect.addEventListener(evt, filterJobs); els.salarySelect.addEventListener(evt, filterJobs); els.visaSelect.addEventListener(evt, filterJobs);
+    });
+    els.resetBtn.addEventListener('click', () => { els.keywordInput.value=''; els.citySelect.value=''; els.positionSelect.value=''; els.typeSelect.value=''; els.salarySelect.value=''; els.visaSelect.value=''; filterJobs(); });
+    if (els.cardLanguageToggle) {
+      els.cardLanguageToggle.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => applyCardLanguage(btn.dataset.lang || 'ja')));
+    }
+
+    loadJobs();
   </script>
 </body>
 </html>

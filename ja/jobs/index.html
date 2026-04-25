@@ -1,40 +1,482 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>仕事 | Nihon Gateway</title>
-  <meta name="description" content="求人・就職関連情報を掲載します。">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/jobs/">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jobs | 求人情報 | Nihon Gateway Germany</title>
+  <meta name="description" content="デュッセルドルフ周辺の日系・日本語対応求人を日本語で見やすく整理。会社名、給与、ポジション、都市、職務概要を一覧で比較し、詳細情報を確認できます。" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/jobs/" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
 
+  <meta property="og:title" content="Jobs | 求人情報 | Nihon Gateway Germany" />
+  <meta property="og:description" content="日系・日本語対応求人を見やすく一覧化。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/jobs/" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <style>
+    :root{
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --yellow:#ffc93c;
+      --teal:#00b4a6;
+      --blue:#2f6df5;
+      --purple:#7c3aed;
+      --pink:#f472b6;
+      --cream:#fdf8f2;
+      --paper:#fffdf9;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --card-shadow:0 10px 30px rgba(26,16,20,.07);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --radius-sm:10px;
+      --max:1280px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
+    }
+    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto;}
+    .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
+    .brand-logo{width:120px;height:70px;border-radius:14px;object-fit:contain;background:transparent;}
+    .brand-copy{min-width:0;}
+    .brand-title{display:block;font-size:14px;font-weight:800;letter-spacing:.08em;line-height:1.1;}
+    .brand-sub{display:block;margin-top:4px;font-size:12px;color:var(--muted);}
+    .header-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end;}
+    .header-city,.header-language{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid #e6eaf0;background:#fff;color:var(--muted);font-size:13px;}
+    .header-city select,.header-language select{border:none;background:transparent;color:var(--ink);font-weight:700;outline:none;}
+
+    .hero{padding:28px 0 16px;}
+    .hero-card{background:linear-gradient(145deg,#fff7f2,#fff);border:1px solid #f6ddd0;border-radius:var(--radius-xl);padding:22px;box-shadow:var(--card-shadow);}
+    .hero-title{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:900;}
+    .hero-copy{margin-top:6px;color:#5b4e57;font-size:14px;}
+
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 18px;}
+    .result-count{font-size:13px;color:#645863;font-weight:700;}
+
+    .layout{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr) minmax(320px,420px);gap:18px;align-items:start;padding-bottom:28px;}
+    .panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--card-shadow);}
+    .filter-panel{padding:18px;position:sticky;top:92px;}
+    .panel-title{font-size:14px;font-weight:900;margin-bottom:12px;}
+    .field{margin-bottom:12px;}
+    .label{display:block;font-size:12px;font-weight:800;color:#6d5f69;margin-bottom:6px;}
+    .input,.select{width:100%;height:40px;border-radius:11px;border:1px solid #e4dbe0;background:#fff;padding:0 11px;font-size:13px;}
+
+    .cards{display:grid;grid-template-columns:1fr;gap:12px;}
+    .card{border:1px solid #ece3df;border-radius:16px;background:#fff;padding:14px;box-shadow:0 10px 20px rgba(26,16,20,.06);cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+    .card:hover{transform:translateY(-2px);border-color:#d8c4ce;}
+    .card.active{border-color:#2f6df5;box-shadow:0 0 0 3px rgba(47,109,245,.14), var(--card-shadow);}
+    .card-top{display:flex;justify-content:space-between;gap:10px;align-items:start;}
+    .company{font-weight:900;font-size:16px;line-height:1.25;}
+    .position{font-size:13px;color:#5f525d;font-weight:700;margin-top:4px;}
+    .sponsored{font-size:11px;padding:4px 8px;border-radius:999px;background:#fff0f4;color:#bb2350;border:1px solid #ffc2d4;font-weight:800;white-space:nowrap;}
+    .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;}
+    .meta-item{font-size:12px;color:#5f545e;background:#fff9f6;border:1px solid #f2e3db;border-radius:10px;padding:7px 8px;}
+    .summary{margin-top:10px;font-size:13px;color:#4f444d;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+    .detail-panel{padding:20px;position:sticky;top:92px;}
+    .detail-empty{font-size:13px;color:#6d5f69;}
+    .detail-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px;}
+    .detail-company{font-size:22px;font-weight:900;line-height:1.2;}
+    .detail-position{font-size:14px;color:#5e525d;font-weight:700;margin-top:4px;}
+    .detail-section{margin-top:14px;}
+    .detail-label{font-size:12px;font-weight:900;color:#7b6b75;letter-spacing:.04em;margin-bottom:5px;}
+    .detail-text{font-size:13px;color:#453b43;white-space:pre-line;}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+    .chip{font-size:12px;border-radius:999px;padding:6px 10px;background:#f4f8ff;border:1px solid #d8e5ff;color:#2859ac;font-weight:700;}
+    .contact{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:#1d56b3;word-break:break-all;}
+
+    .footer-note{padding:2px 0 28px;font-size:12px;color:#756874;}
+
+    @media (max-width:1150px){
+      .layout{grid-template-columns:300px minmax(0,1fr);}
+      .detail-panel{grid-column:1 / -1;position:static;}
+    }
+    @media (max-width:900px){
+      .header-inner{padding:10px 0;align-items:flex-start;}
+      .layout{grid-template-columns:1fr;}
+      .filter-panel,.detail-panel{position:static;}
+      .meta{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <h1>仕事</h1>
-      <p>求人・就職関連情報を掲載します。</p>
+    <div class="container header-inner">
+      <a href="/nihon-gateway-germany/ja/" class="brand" aria-label="Nihon Gateway 日本語トップへ">
+        <img class="brand-logo" src="../../assets/images/brand/logo.png" alt="Nihon Gateway Germany ロゴ" />
+        <div class="brand-copy">
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">日本語生活情報ガイド</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <label class="header-city" aria-label="都市">
+          <span>📍</span>
+          <select aria-label="都市選択">
+            <option selected>Düsseldorf</option>
+          </select>
+        </label>
+        <label class="header-language">
+          <span>🌐</span>
+          <select id="languageSelect" aria-label="言語選択">
+            <option value="ja" selected>日本語</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </label>
+      </div>
     </div>
   </header>
 
   <main class="container">
-    <div class="content-box">
-      <p>このページのコンテンツは準備中です。</p>
-      <ul class="nav-links">
-        <li><a href="../index.html">日本語トップへ戻る</a></li>
-      </ul>
-    </div>
+    <section class="hero">
+      <div class="hero-card">
+        <h1 class="hero-title">求人・キャリア情報（掲載企業枠）</h1>
+        <p class="hero-copy">企業掲載型の求人一覧です。ユーザーの自由投稿ではなく、確認済みの掲載情報のみを表示しています。カードをクリックすると右側（モバイルは下部）に詳細が表示されます。</p>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="結果情報">
+      <p id="resultCount" class="result-count">0件表示</p>
+    </section>
+
+    <section class="layout">
+      <aside class="panel filter-panel" aria-label="求人フィルター">
+        <h2 class="panel-title">絞り込み</h2>
+        <div class="field">
+          <label class="label" for="searchInput">キーワード（会社名・職種・概要）</label>
+          <input id="searchInput" class="input" type="search" placeholder="例：営業、IT、経理" />
+        </div>
+        <div class="field">
+          <label class="label" for="citySelect">都市</label>
+          <select id="citySelect" class="select">
+            <option value="">すべて</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="employmentTypeSelect">雇用形態</label>
+          <select id="employmentTypeSelect" class="select">
+            <option value="">すべて</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="salarySelect">給与レンジ</label>
+          <select id="salarySelect" class="select">
+            <option value="">すべて</option>
+            <option value="lt40">€40,000 未満</option>
+            <option value="40to60">€40,000 - €60,000</option>
+            <option value="60to80">€60,000 - €80,000</option>
+            <option value="80plus">€80,000 以上</option>
+          </select>
+        </div>
+      </aside>
+
+      <section>
+        <div id="cards" class="cards" aria-live="polite"></div>
+      </section>
+
+      <aside class="panel detail-panel" aria-label="求人詳細">
+        <div id="detail"></div>
+      </aside>
+    </section>
+
+    <p class="footer-note">※ 掲載内容は企業提供情報に基づきます。応募前に雇用条件・待遇などを必ずご確認ください。</p>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Nihon Gateway</p>
-    </div>
-  </footer>
+  <script>
+    const JOBS = [
+      {
+        id: "job-001",
+        company: "Sakura Mobility Europe GmbH",
+        position: "日英バイリンガル営業（B2B）",
+        city: "Düsseldorf",
+        employmentType: "正社員",
+        salaryAnnualEur: 58000,
+        salaryText: "年収 €52,000 - €58,000（経験に応じて）",
+        summary: "ドイツ国内の法人顧客向けに、モビリティ関連サービスを提案・契約管理するポジション。",
+        responsibilities: "・既存顧客のフォローアップ\n・新規企業への提案営業\n・見積作成、契約交渉\n・日本本社との連携（週次レポート）",
+        requirements: "・法人営業経験2年以上\n・日本語ネイティブレベル、英語ビジネスレベル\n・基本的なExcel/PowerPointスキル",
+        contactEmail: "careers@sakura-mobility.eu",
+        comment: "即日〜2か月以内の入社を想定。ビザサポートは個別相談。",
+        tags: ["B2B", "営業", "日英"]
+      },
+      {
+        id: "job-002",
+        company: "Rhein Food Trading GmbH",
+        position: "購買・在庫管理スペシャリスト",
+        city: "Neuss",
+        employmentType: "正社員",
+        salaryAnnualEur: 46000,
+        salaryText: "年収 €42,000 - €46,000",
+        summary: "日本食材の輸入・在庫計画を担当し、欠品と過剰在庫の最適化を進めます。",
+        responsibilities: "・仕入先との発注調整\n・在庫回転率のモニタリング\n・物流チームとの納期連携",
+        requirements: "・サプライチェーンまたは購買実務経験\n・日本語ビジネスレベル\n・ERP利用経験があれば歓迎",
+        contactEmail: "hr@rheinfood.de",
+        comment: "試用期間6か月。週1日在宅勤務可。",
+        tags: ["購買", "食品", "在庫管理"]
+      },
+      {
+        id: "job-003",
+        company: "Kansai Tech Solutions GmbH",
+        position: "ITプロジェクトコーディネーター",
+        city: "Düsseldorf",
+        employmentType: "契約社員（12か月）",
+        salaryAnnualEur: 65000,
+        salaryText: "年収 €60,000 - €65,000",
+        summary: "日系製造業向けシステム導入案件で、要件整理と進行管理を担当します。",
+        responsibilities: "・プロジェクト計画の作成\n・会議ファシリテーション（日本語/英語）\n・ベンダー進捗管理",
+        requirements: "・IT導入プロジェクトの実務経験\n・日本語/英語での会議運営スキル\n・ドイツ語は尚可",
+        contactEmail: "jobs@kansai-tech.eu",
+        comment: "契約延長の可能性あり。月1回クライアント先出張あり。",
+        tags: ["IT", "PMO", "製造業"]
+      },
+      {
+        id: "job-004",
+        company: "Mirai Accounting & Advisory",
+        position: "経理アシスタント（パートタイム）",
+        city: "Köln",
+        employmentType: "パートタイム",
+        salaryAnnualEur: 36000,
+        salaryText: "時給 €20 - €24（想定年収 €30,000 - €36,000）",
+        summary: "日系中小企業クライアントの会計入力・請求処理を支援するポジションです。",
+        responsibilities: "・会計ソフトへの仕訳入力\n・請求書発行、入金確認\n・月次資料の作成補助",
+        requirements: "・会計/経理の基礎知識\n・正確な事務処理能力\n・日本語必須、ドイツ語B1以上歓迎",
+        contactEmail: "recruit@mirai-advisory.de",
+        comment: "勤務時間は週20〜28時間で調整可能。",
+        tags: ["経理", "パート", "会計"]
+      },
+      {
+        id: "job-005",
+        company: "Nippon Care Connect UG",
+        position: "カスタマーサポート（日本語窓口）",
+        city: "Düsseldorf",
+        employmentType: "正社員",
+        salaryAnnualEur: 43000,
+        salaryText: "年収 €39,000 - €43,000",
+        summary: "在独日本人向け生活サポートの問い合わせ対応を行うカスタマーサクセス職。",
+        responsibilities: "・メール・電話での問合せ対応\n・FAQ整備と業務改善提案\n・関連部門へのエスカレーション",
+        requirements: "・顧客対応経験1年以上\n・日本語ネイティブレベル\n・PC基本操作",
+        contactEmail: "talent@nipponcare.de",
+        comment: "土日祝休み。入社後2週間の研修あり。",
+        tags: ["カスタマーサポート", "日本語", "未経験相談可"]
+      }
+    ];
 
-  <script src="../../assets/js/main.js"></script>
+    const els = {
+      cards: document.getElementById("cards"),
+      detail: document.getElementById("detail"),
+      resultCount: document.getElementById("resultCount"),
+      searchInput: document.getElementById("searchInput"),
+      citySelect: document.getElementById("citySelect"),
+      employmentTypeSelect: document.getElementById("employmentTypeSelect"),
+      salarySelect: document.getElementById("salarySelect"),
+      languageSelect: document.getElementById("languageSelect")
+    };
+
+    let filteredItems = [...JOBS];
+    let activeJobId = JOBS[0]?.id || null;
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function renderSelectOptions() {
+      const cities = [...new Set(JOBS.map(item => item.city))].sort();
+      const types = [...new Set(JOBS.map(item => item.employmentType))].sort();
+
+      for (const city of cities) {
+        const option = document.createElement("option");
+        option.value = city;
+        option.textContent = city;
+        els.citySelect.append(option);
+      }
+      for (const type of types) {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        els.employmentTypeSelect.append(option);
+      }
+    }
+
+    function passSalaryFilter(item, salaryFilter) {
+      const salary = item.salaryAnnualEur || 0;
+      if (!salaryFilter) return true;
+      if (salaryFilter === "lt40") return salary < 40000;
+      if (salaryFilter === "40to60") return salary >= 40000 && salary < 60000;
+      if (salaryFilter === "60to80") return salary >= 60000 && salary < 80000;
+      if (salaryFilter === "80plus") return salary >= 80000;
+      return true;
+    }
+
+    function applyFilters() {
+      const keyword = els.searchInput.value.trim().toLowerCase();
+      const city = els.citySelect.value;
+      const type = els.employmentTypeSelect.value;
+      const salaryRange = els.salarySelect.value;
+
+      filteredItems = JOBS.filter(item => {
+        const searchable = [item.company, item.position, item.summary, item.responsibilities, item.requirements].join(" ").toLowerCase();
+        const keywordMatch = !keyword || searchable.includes(keyword);
+        const cityMatch = !city || item.city === city;
+        const typeMatch = !type || item.employmentType === type;
+        const salaryMatch = passSalaryFilter(item, salaryRange);
+        return keywordMatch && cityMatch && typeMatch && salaryMatch;
+      });
+
+      if (!filteredItems.some(item => item.id === activeJobId)) {
+        activeJobId = filteredItems[0]?.id || null;
+      }
+
+      renderCards();
+      renderDetail();
+      els.resultCount.textContent = `${filteredItems.length}件表示`;
+    }
+
+    function renderCards() {
+      if (!filteredItems.length) {
+        els.cards.innerHTML = '<article class="card"><p class="summary">条件に一致する求人が見つかりませんでした。条件を変更して再度お試しください。</p></article>';
+        return;
+      }
+
+      els.cards.innerHTML = filteredItems.map(item => `
+        <article class="card ${item.id === activeJobId ? "active" : ""}" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="${escapeHtml(item.company)} の詳細を表示">
+          <div class="card-top">
+            <div>
+              <h3 class="company">${escapeHtml(item.company)}</h3>
+              <p class="position">${escapeHtml(item.position)}</p>
+            </div>
+            <span class="sponsored">掲載企業</span>
+          </div>
+          <div class="meta">
+            <p class="meta-item">💶 ${escapeHtml(item.salaryText)}</p>
+            <p class="meta-item">🏙 ${escapeHtml(item.city)}</p>
+            <p class="meta-item">🕒 ${escapeHtml(item.employmentType)}</p>
+            <p class="meta-item">🧾 ID: ${escapeHtml(item.id)}</p>
+          </div>
+          <p class="summary">${escapeHtml(item.summary)}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderDetail() {
+      if (!activeJobId) {
+        els.detail.innerHTML = '<p class="detail-empty">求人カードを選択すると、ここに詳細が表示されます。</p>';
+        return;
+      }
+
+      const item = filteredItems.find(entry => entry.id === activeJobId);
+      if (!item) {
+        els.detail.innerHTML = '<p class="detail-empty">選択中の求人が見つかりません。</p>';
+        return;
+      }
+
+      els.detail.innerHTML = `
+        <div class="detail-head">
+          <div>
+            <h2 class="detail-company">${escapeHtml(item.company)}</h2>
+            <p class="detail-position">${escapeHtml(item.position)}</p>
+          </div>
+          <span class="sponsored">掲載企業</span>
+        </div>
+
+        <div class="chips">
+          <span class="chip">${escapeHtml(item.city)}</span>
+          <span class="chip">${escapeHtml(item.employmentType)}</span>
+          <span class="chip">${escapeHtml(item.salaryText)}</span>
+        </div>
+
+        <section class="detail-section">
+          <p class="detail-label">職務概要</p>
+          <p class="detail-text">${escapeHtml(item.summary)}</p>
+        </section>
+
+        <section class="detail-section">
+          <p class="detail-label">職務詳細</p>
+          <p class="detail-text">${escapeHtml(item.responsibilities)}</p>
+        </section>
+
+        <section class="detail-section">
+          <p class="detail-label">必要要件・経験</p>
+          <p class="detail-text">${escapeHtml(item.requirements)}</p>
+        </section>
+
+        <section class="detail-section">
+          <p class="detail-label">コンタクト先メール</p>
+          <a class="contact" href="mailto:${escapeHtml(item.contactEmail)}">${escapeHtml(item.contactEmail)}</a>
+        </section>
+
+        <section class="detail-section">
+          <p class="detail-label">自由コメント</p>
+          <p class="detail-text">${escapeHtml(item.comment)}</p>
+        </section>
+      `;
+    }
+
+    els.cards.addEventListener("click", event => {
+      const card = event.target.closest(".card[data-id]");
+      if (!card) return;
+      activeJobId = card.dataset.id;
+      renderCards();
+      renderDetail();
+    });
+
+    els.cards.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const card = event.target.closest(".card[data-id]");
+      if (!card) return;
+      event.preventDefault();
+      activeJobId = card.dataset.id;
+      renderCards();
+      renderDetail();
+    });
+
+    [els.searchInput, els.citySelect, els.employmentTypeSelect, els.salarySelect].forEach(el => {
+      el.addEventListener("input", applyFilters);
+      el.addEventListener("change", applyFilters);
+    });
+
+    els.languageSelect.addEventListener("change", event => {
+      const target = event.target.value;
+      if (target === "ja") return;
+      if (target === "en") {
+        window.location.href = "/nihon-gateway-germany/en/jobs/";
+      } else if (target === "de") {
+        window.location.href = "/nihon-gateway-germany/de/jobs/";
+      }
+    });
+
+    renderSelectOptions();
+    applyFilters();
+  </script>
 </body>
-
 </html>

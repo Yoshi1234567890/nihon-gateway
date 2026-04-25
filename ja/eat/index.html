@@ -594,6 +594,9 @@
       height:100%;
       min-height:500px;
     }
+    #map .leaflet-tile{
+      filter:brightness(0.82) contrast(1.38) saturate(1.15);
+    }
 
     .leaflet-popup-content-wrapper{
       border-radius:18px;
@@ -1347,7 +1350,7 @@ function initMapIfNeeded() {
     scrollWheelZoom: true
   }).setView([51.2277, 6.7735], 13); // 地図中心
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
     subdomains: "abcd",
     maxZoom: 20,
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'

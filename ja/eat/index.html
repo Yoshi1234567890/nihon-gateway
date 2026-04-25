@@ -364,7 +364,7 @@
       max-width:none;
       width:100%;
       padding:12px 20px 80px;
-      grid-template-columns:320px minmax(540px, 760px) minmax(0, 1fr);
+      grid-template-columns:320px minmax(360px, 520px) minmax(0, 1fr);
       gap:20px;
       align-items:start;
     }
@@ -476,19 +476,11 @@
     }
 
     .layout.map-mode .cards{
-      grid-template-columns:repeat(2, minmax(0,1fr));
+      grid-template-columns:1fr;
       gap:14px;
       max-height:calc(100vh - 210px);
       overflow:auto;
       padding-right:4px;
-    }
-    .layout.map-mode .card-body{
-      padding:16px;
-      gap:12px;
-    }
-    .layout.map-mode .meta-item{
-      grid-template-columns:74px minmax(0,1fr);
-      gap:8px;
     }
 
     .layout.map-mode .toolbar{
@@ -603,7 +595,7 @@
       min-height:500px;
     }
     #map .leaflet-tile{
-      filter:contrast(1.12) saturate(1.08);
+      filter:brightness(0.72) contrast(1.35) saturate(1.15);
     }
 
     .leaflet-popup-content-wrapper{
@@ -697,10 +689,7 @@
 
     @media (max-width: 1240px){
       .layout.map-mode{
-        grid-template-columns:290px minmax(460px, 620px) minmax(0,1fr);
-      }
-      .layout.map-mode .cards{
-        grid-template-columns:1fr;
+        grid-template-columns:290px minmax(320px, 460px) minmax(0,1fr);
       }
     }
 
@@ -1361,7 +1350,7 @@ function initMapIfNeeded() {
     scrollWheelZoom: true
   }).setView([51.2277, 6.7735], 13); // 地図中心
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
     subdomains: "abcd",
     maxZoom: 20,
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'

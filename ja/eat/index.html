@@ -541,6 +541,7 @@
       gap:14px;
       flex:1;
       min-width:0;
+      position:relative;
     }
     .card-title{
       font-size:22px;
@@ -555,55 +556,30 @@
       font-size:14px;
       word-break:break-word;
     }
-    .card-title-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-    }
     .card-title-block{
       min-width:0;
-      flex:1;
+      padding-right:92px;
     }
     .card-rating{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color:#4b5563;
-      font-size:14px;
-      line-height:1;
+      position:absolute;
+      top:18px;
+      right:18px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:4px;
       white-space:nowrap;
-      margin-top:2px;
+      line-height:1;
     }
     .card-rating-score{
-      font-weight:800;
+      font-size:16px;
+      font-weight:900;
       color:#374151;
-      min-width:2.3em;
-      text-align:right;
-    }
-    .card-rating-stars{
-      position:relative;
-      display:inline-block;
-      letter-spacing:1px;
-      font-size:15px;
-      line-height:1;
-    }
-    .card-rating-stars::before{
-      content:"★★★★★";
-      color:#d1d5db;
-    }
-    .card-rating-stars::after{
-      content:"★★★★★";
-      color:#f5b301;
-      position:absolute;
-      inset:0 auto 0 0;
-      width:var(--rating-fill, 0%);
-      overflow:hidden;
-      white-space:nowrap;
     }
     .card-rating-reviews{
+      font-size:12px;
       color:#4b5563;
-      font-weight:600;
+      font-weight:700;
     }
     .meta-list{display:grid;gap:10px}
     .meta-item{
@@ -1152,18 +1128,15 @@ function buildAddress(item) {
 
       if (!hasScore && !hasReviews) return "";
 
-      const scoreText = hasScore ? scoreNumber.toFixed(1) : "-";
-      const clampedScore = Math.max(0, Math.min(hasScore ? scoreNumber : 0, 5));
-      const fillRate = ((clampedScore / 5) * 100).toFixed(1);
-      const reviewsText = hasReviews ? `(${reviewsNumber.toLocaleString("ja-JP")})` : "";
+      const scoreText = hasScore ? `★${scoreNumber.toFixed(1)}` : "★-";
+      const reviewsText = hasReviews ? `${reviewsNumber.toLocaleString("ja-JP")}件` : "";
       const ratingLabel = hasReviews
-        ? `評価 ${scoreText}、レビュー ${reviewsNumber.toLocaleString("ja-JP")}件`
-        : `評価 ${scoreText}`;
+        ? `評価 ${scoreText.replace("★", "")}、レビュー ${reviewsText}`
+        : `評価 ${scoreText.replace("★", "")}`;
 
       return `
         <div class="card-rating" role="img" aria-label="${escapeHtml(ratingLabel)}">
           <span class="card-rating-score">${escapeHtml(scoreText)}</span>
-          <span class="card-rating-stars" style="--rating-fill:${fillRate}%"></span>
           ${reviewsText ? `<span class="card-rating-reviews">${escapeHtml(reviewsText)}</span>` : ""}
         </div>
       `;
@@ -1359,13 +1332,11 @@ function buildAddress(item) {
         return `
           <article class="card ${activeItemId === item.__id ? "active-map-item" : ""}" data-item-id="${escapeHtml(item.__id)}">
             <div class="card-body">
-              <div class="card-title-row">
-                <div class="card-title-block">
-                  <h3 class="card-title">${escapeHtml(displayName.title)}</h3>
-                  ${displayName.subtitle ? `<div class="card-subtitle">${escapeHtml(displayName.subtitle)}</div>` : ""}
-                </div>
-                ${ratingHtml}
+              <div class="card-title-block">
+                <h3 class="card-title">${escapeHtml(displayName.title)}</h3>
+                ${displayName.subtitle ? `<div class="card-subtitle">${escapeHtml(displayName.subtitle)}</div>` : ""}
               </div>
+              ${ratingHtml}
 
               <div class="meta-list">
                 ${category1 ? `<div class="meta-item"><div class="meta-label">カテゴリ</div><div class="meta-value">${escapeHtml(category1)}</div></div>` : ""}

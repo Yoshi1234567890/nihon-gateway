@@ -1,40 +1,676 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>仕事 | Nihon Gateway</title>
-  <meta name="description" content="求人・就職関連情報を掲載します。">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/jobs/">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jobs | 仕事・求人 | Nihon Gateway Germany</title>
+  <meta name="description" content="ドイツで働きたい日本語話者向けに、企業掲載型の求人情報を見やすく整理。会社名、給与、ポジション、都市、職務概要を比較して確認できます。" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/jobs/" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
 
+  <meta property="og:title" content="Jobs | 仕事・求人 | Nihon Gateway Germany" />
+  <meta property="og:description" content="企業掲載型の求人を日本語で見やすく一覧化。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/cities/duesseldorf/jobs/" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <style>
+    :root{
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --yellow:#ffc93c;
+      --teal:#00b4a6;
+      --blue:#2f6df5;
+      --purple:#7c3aed;
+      --pink:#f472b6;
+      --cream:#fdf8f2;
+      --paper:#fffdf9;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --card-shadow:0 10px 30px rgba(26,16,20,.07);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --radius-sm:10px;
+      --max:1280px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
+    }
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+    .header-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      min-width:0;
+    }
+    .brand-logo{
+      width:120px;
+      height:70px;
+      border-radius:14px;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+    }
+    .brand-copy{min-width:0;}
+    .brand-title{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
+      line-height:1.1;
+    }
+    .brand-sub{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .header-category,
+    .header-language{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #e6eaf0;
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      transition:all .18s ease;
+    }
+    .header-category:hover,
+    .header-language:hover{
+      border-color:#f3c8d4;
+      background:#fff4f7;
+      transform:translateY(-1px);
+    }
+    .header-category-menu{
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
+    .header-category-menu::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:100%;
+      width:100%;
+      height:12px;
+    }
+    .header-category-trigger{
+      border:none;
+      background:transparent;
+      color:var(--ink);
+      font-weight:700;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .header-category-menu::after{
+      content:"▾";
+      font-size:24px;
+      line-height:1;
+      color:var(--muted);
+      margin-top:1px;
+      pointer-events:none;
+    }
+    .category-dropdown{
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      min-width:220px;
+      background:#fff;
+      border:1px solid #e6eaf0;
+      border-radius:14px;
+      box-shadow:0 16px 30px rgba(19,35,58,.14);
+      padding:8px;
+      display:none;
+      z-index:20;
+    }
+    .header-category-menu:hover .category-dropdown,
+    .header-category-menu:focus-within .category-dropdown{
+      display:grid;
+      gap:2px;
+    }
+    .category-dropdown a{
+      font-size:13px;
+      color:#2f3e4c;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .category-dropdown a:hover{
+      background:#fff4f7;
+      border:1px solid #f3c8d4;
+      color:#d84b6a;
+      transform:translateY(-1px);
+    }
+    .header-search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .search-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(255,255,255,.96);
+      border:1px solid #d9e0e8;
+      border-radius:14px;
+      padding:0 14px;
+    }
+    .search-box span{color:#7d8893;font-size:18px}
+    .search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--ink)}
+    .header-search .search-box{min-width:220px;height:42px;border-radius:999px;padding:0 12px}
+    .header-search .search-box span{font-size:19px}
+    .header-search .search-box input{font-size:13px}
+    .header-search .search-btn{
+      display:flex;align-items:center;justify-content:center;height:42px;border-radius:999px;padding:0 14px;
+      font-size:24px;line-height:1;color:#1f5fbf;background:rgba(47,128,237,.20);border:1px solid rgba(47,128,237,.32);cursor:pointer;
+    }
+    .header-language select{border:none;background:transparent;color:var(--ink);font-weight:700;outline:none}
+    .header-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .header-nav a{text-decoration:none;font-size:14px;font-weight:600;color:#34414d;padding:8px 12px;border-radius:999px;border:1px solid #dce4ee;background:rgba(255,255,255,.74);transition:all .18s ease}
+    .header-nav a.active{color:#34414d;border-color:#dce4ee;background:rgba(255,255,255,.74);transform:none}
+    .header-nav a:hover{color:#e75f93;border-color:#f3c8d4;background:#fff4f7;transform:translateY(-1px)}
+
+    .hero{max-width:var(--max);margin:0 auto;padding:36px 20px 20px}
+    .hero-box{
+      position:relative;overflow:hidden;
+      background:linear-gradient(90deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.32) 42%, rgba(255,255,255,.18) 60%, rgba(255,255,255,.08) 100%),
+      url("../../assets/images/hero/top-hero.jpg") center center / cover no-repeat,#fff;
+      border:1px solid #d9e0e8;border-radius:34px;padding:32px 28px 26px;box-shadow:var(--card-shadow);
+    }
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+    .eyebrow-dot{width:9px;height:9px;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--orange));flex:0 0 auto}
+    .hero h1{font-size:clamp(32px,5vw,58px);line-height:1.04;font-weight:950;letter-spacing:-.03em;max-width:860px}
+    .hero p{margin-top:14px;max-width:860px;font-size:16px;color:var(--muted)}
+
+    .layout{max-width:var(--max);margin:0 auto;padding:12px 20px 80px;display:grid;grid-template-columns:300px minmax(0,1fr) 360px;gap:20px;align-items:start}
+    .filters,.detail-panel{position:sticky;top:92px}
+    .panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--card-shadow)}
+    .filter-panel{padding:20px}
+    .panel-title-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+    .panel-title{font-size:18px;font-weight:900;letter-spacing:-.01em}
+    .reset-btn{border:none;background:transparent;color:var(--blue);font-weight:800;cursor:pointer;padding:4px 0}
+    .field{margin-bottom:16px}
+    .label{display:block;font-size:13px;font-weight:800;color:#4c404c;margin-bottom:8px}
+    .input,.select{width:100%;border:1px solid var(--border);border-radius:14px;background:#fff;color:var(--ink);padding:13px 14px;outline:none;transition:.2s ease}
+    .input:focus,.select:focus{border-color:#d3c6f7;box-shadow:0 0 0 4px rgba(124,58,237,.08)}
+
+    .toolbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+    .results-title{font-size:24px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+    .results-sub{margin-top:6px;color:var(--muted);font-size:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:#fff;border-radius:999px;padding:9px 12px;font-size:13px;font-weight:800;color:#4e424e}
+
+    .status-box{padding:22px;border-radius:24px;border:1px dashed #d8ccc7;background:#fffdfa;color:var(--muted);margin-bottom:18px}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:24px;box-shadow:var(--card-shadow);padding:18px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:.18s ease}
+    .card:hover{transform:translateY(-2px)}
+    .card.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,109,245,.14), var(--card-shadow)}
+    .card-title{font-size:20px;font-weight:950;letter-spacing:-.02em;line-height:1.2}
+    .card-company{font-size:14px;color:var(--muted)}
+    .meta-list{display:grid;gap:7px}
+    .meta-item{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start;font-size:14px}
+    .meta-label{font-weight:900;color:#433744}
+    .meta-value{color:#564a55;word-break:break-word}
+    .card-summary{font-size:14px;color:#493f48}
+
+    .detail-inner{padding:20px}
+    .detail-head{padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:14px}
+    .detail-company{font-size:13px;color:var(--muted)}
+    .detail-title{font-size:24px;font-weight:950;letter-spacing:-.02em;line-height:1.2;margin-top:2px}
+    .detail-section{margin-top:14px}
+    .detail-label{font-size:12px;font-weight:900;letter-spacing:.08em;color:#6b5e68;text-transform:uppercase;margin-bottom:4px}
+    .detail-text{font-size:14px;color:#3f3340;white-space:pre-line}
+    .detail-contact{display:inline-flex;margin-top:8px;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid var(--border);font-weight:800;font-size:14px}
+
+    .page-footer{max-width:var(--max);margin:24px auto 0;border:1px solid #dce4ee;border-radius:20px;background:linear-gradient(135deg,#fbfdff,#f6f9fc);box-shadow:0 16px 34px rgba(19,35,58,.10);padding:24px}
+    .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}
+    .footer-left{display:flex;gap:16px;align-items:flex-start;min-width:280px}
+    .footer-logo{width:112px;height:112px;object-fit:contain;border-radius:14px;background:transparent;border:none;box-shadow:none}
+    .footer-title{font-size:14px;font-weight:800;letter-spacing:.08em}
+    .footer-sub,.footer-meta{color:var(--muted);font-size:13px}
+    .footer-links{display:flex;flex-wrap:nowrap;gap:8px;flex:1 1 auto;justify-content:flex-end;align-items:center;min-width:0;white-space:nowrap;overflow-x:auto;scrollbar-width:thin;padding:4px 0}
+    .footer-links a{font-size:13px;color:#3f4d5a;border:1px solid #dce4ee;background:#fff;border-radius:999px;padding:8px 12px}
+
+    @media (max-width: 1140px){
+      .layout{grid-template-columns:280px minmax(0,1fr)}
+      .detail-panel{grid-column:1/-1;position:static}
+    }
+    @media (max-width: 840px){
+      .header-inner{min-height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}
+      .header-actions{width:100%;justify-content:flex-start}
+      .header-search{width:100%}
+      .header-search .search-box{flex:1 1 auto}
+      .header-nav{width:100%;justify-content:flex-start}
+      .hero-box{padding:26px 20px 22px}
+      .layout{grid-template-columns:1fr}
+      .filters,.detail-panel{position:static}
+      .cards{grid-template-columns:1fr}
+      .meta-item{grid-template-columns:1fr;gap:3px}
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0300YC5NF8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-0300YC5NF8');
+  </script>
+</head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <h1>仕事</h1>
-      <p>求人・就職関連情報を掲載します。</p>
+    <div class="container header-inner">
+      <a class="brand" href="/nihon-gateway-germany/ja/" aria-label="Nihon Gateway Germany ホーム">
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
+        <span class="brand-copy">
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <nav class="header-nav" aria-label="メインナビゲーション">
+          <a href="/nihon-gateway-germany/ja/" class="active">ホーム</a>
+          <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
+        </nav>
+
+        <div class="header-category header-category-menu" aria-label="カテゴリ選択">
+          <button type="button" class="header-category-trigger">カテゴリ</button>
+          <div class="category-dropdown">
+            <a href="/nihon-gateway-germany/ja/guides/">手続き・制度</a>
+            <a href="/nihon-gateway-germany/ja/living/">住まい・生活</a>
+            <a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a>
+            <a href="/nihon-gateway-germany/ja/medical/">医療・緊急</a>
+            <a href="/nihon-gateway-germany/ja/eat/">食べる</a>
+            <a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a>
+            <a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a>
+            <a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a>
+            <a href="/nihon-gateway-germany/ja/learn-german/">ドイツ語・学び</a>
+            <a href="/nihon-gateway-germany/ja/news/">ニュース・読みもの</a>
+          </div>
+        </div>
+
+        <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
+          <label class="search-box" aria-label="サイト内検索">
+            <span>⌕</span>
+            <input type="search" name="q" placeholder="検索">
+          </label>
+          <button class="search-btn" type="submit" aria-label="検索">⌕</button>
+        </form>
+
+        <label class="header-language" aria-label="言語切り替え">
+          <span>Language</span>
+          <select id="languageSelect">
+            <option value="/nihon-gateway-germany/ja/">日本語</option>
+            <option value="/nihon-gateway-germany/">English</option>
+            <option value="/nihon-gateway-germany/de/">Deutsch</option>
+          </select>
+        </label>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <div class="content-box">
-      <p>このページのコンテンツは準備中です。</p>
-      <ul class="nav-links">
-        <li><a href="../index.html">日本語トップへ戻る</a></li>
-      </ul>
+  <section class="hero">
+    <div class="hero-box">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>仕事・求人ガイド</div>
+      <h1>掲載企業の求人を比較して<br>ドイツでの次のキャリアへ</h1>
+      <p>このページは企業掲載型の求人のみを掲載しています。自由投稿ではなく、審査済みの募集内容を確認できます。</p>
     </div>
+  </section>
+
+  <main class="layout" id="mainLayout">
+    <aside class="filters">
+      <div class="panel filter-panel">
+        <div class="panel-title-row">
+          <h2 class="panel-title">検索フィルター</h2>
+          <button class="reset-btn" id="resetFiltersBtn" type="button">リセット</button>
+        </div>
+
+        <div class="field">
+          <label class="label" for="keywordInput">キーワード</label>
+          <input id="keywordInput" class="input" type="text" placeholder="会社名・職種・スキルなど" />
+        </div>
+
+        <div class="field">
+          <label class="label" for="citySelect">都市</label>
+          <select id="citySelect" class="select">
+            <option value="">すべて</option>
+            <option value="デュッセルドルフ">デュッセルドルフ</option>
+            <option value="フランクフルト">フランクフルト</option>
+            <option value="ベルリン">ベルリン</option>
+            <option value="ミュンヘン">ミュンヘン</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="employmentSelect">雇用形態</label>
+          <select id="employmentSelect" class="select">
+            <option value="">すべて</option>
+            <option value="正社員">正社員</option>
+            <option value="契約社員">契約社員</option>
+            <option value="パートタイム">パートタイム</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="salarySelect">年収レンジ</label>
+          <select id="salarySelect" class="select">
+            <option value="">すべて</option>
+            <option value="50000">€50,000以上</option>
+            <option value="65000">€65,000以上</option>
+            <option value="80000">€80,000以上</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="toolbar">
+        <div class="results-meta">
+          <h2 class="results-title">仕事・求人</h2>
+          <div class="results-sub" id="resultsSummary">0件</div>
+        </div>
+        <div class="chips" id="activeChips"></div>
+      </div>
+
+      <div id="statusBox" class="status-box">掲載求人を表示しています。</div>
+      <div id="cards" class="cards" aria-live="polite"></div>
+    </section>
+
+    <aside class="panel detail-panel">
+      <div class="detail-inner" id="detailPanel"></div>
+    </aside>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Nihon Gateway</p>
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+        <div class="footer-copy">
+          <div class="footer-title">NIHON GATEWAY GERMANY</div>
+          <div class="footer-sub">ドイツと日本をつなぐ総合ポータル</div>
+          <div class="footer-meta">© 2026 Nihon Gateway Germany</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
+        <a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a>
+        <a href="/nihon-gateway-germany/ja/terms/">利用規約</a>
+        <a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a>
+        <a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a>
+      </div>
     </div>
   </footer>
 
-  <script src="../../assets/js/main.js"></script>
-</body>
+  <script>
+    const JOBS = [
+      {
+        id: 'job-1',
+        company: 'Sakura Mobility GmbH',
+        position: '日英バイリンガル セールスアカウントマネージャー',
+        city: 'デュッセルドルフ',
+        employmentType: '正社員',
+        salaryMin: 62000,
+        salaryMax: 76000,
+        summary: '日系製造業クライアント向けに、物流ソリューション提案と既存顧客フォローを担当。',
+        details: '・既存顧客70%、新規開拓30%\n・見積作成、契約交渉、納期調整\n・月1〜2回の国内出張あり',
+        requirements: '・B2B営業経験3年以上\n・日本語ネイティブレベル、英語ビジネスレベル\n・普通自動車免許',
+        contactEmail: 'recruit@sakura-mobility.de',
+        comment: 'ビザサポート相談可。入社後3か月のOJTあり。'
+      },
+      {
+        id: 'job-2',
+        company: 'Kizuna Digital Europe',
+        position: 'EC運用スペシャリスト（Amazon/Shopify）',
+        city: 'ベルリン',
+        employmentType: '契約社員',
+        salaryMin: 52000,
+        salaryMax: 64000,
+        summary: '日本ブランドのEC運用全般（商品登録、広告運用、在庫連携、レポーティング）を実施。',
+        details: '・商品ページ最適化\n・広告運用と週次改善\n・代理店/倉庫との調整',
+        requirements: '・EC運用経験2年以上\n・Google Sheetsでの集計スキル\n・ドイツ語日常会話レベル歓迎',
+        contactEmail: 'jobs@kizuna-digital.eu',
+        comment: 'ハイブリッド勤務。契約更新前提。'
+      },
+      {
+        id: 'job-3',
+        company: 'Hinode Care Services',
+        position: '医療通訳・患者サポートコーディネーター',
+        city: 'フランクフルト',
+        employmentType: 'パートタイム',
+        salaryMin: 38000,
+        salaryMax: 46000,
+        summary: '在独日本人患者向けに病院予約、通訳同行、書類サポートを提供。',
+        details: '・電話/メール問い合わせ対応\n・病院同行（月8〜10件）\n・医療関連書類の翻訳サポート',
+        requirements: '・医療通訳または関連経験\n・日本語/ドイツ語ビジネスレベル\n・土曜勤務（月1回）対応可能な方',
+        contactEmail: 'career@hinode-care.de',
+        comment: '短時間勤務から開始し、将来的に常勤化の可能性あり。'
+      },
+      {
+        id: 'job-4',
+        company: 'Takumi Robotics GmbH',
+        position: 'フィールドサービスエンジニア',
+        city: 'ミュンヘン',
+        employmentType: '正社員',
+        salaryMin: 70000,
+        salaryMax: 88000,
+        summary: '工場向けロボット設備の導入・保守・技術トレーニングを担当。',
+        details: '・新規導入時の立ち上げ\n・トラブルシューティング\n・顧客向け技術説明資料作成',
+        requirements: '・機械/電気エンジニア経験5年以上\n・PLCに関する基礎知識\n・英語での技術説明スキル',
+        contactEmail: 'engineer-hiring@takumi-robotics.de',
+        comment: '出張手当別途支給。試用期間6か月。'
+      }
+    ];
 
+    const els = {
+      languageSelect: document.getElementById('languageSelect'),
+      keywordInput: document.getElementById('keywordInput'),
+      citySelect: document.getElementById('citySelect'),
+      employmentSelect: document.getElementById('employmentSelect'),
+      salarySelect: document.getElementById('salarySelect'),
+      resetFiltersBtn: document.getElementById('resetFiltersBtn'),
+      resultsSummary: document.getElementById('resultsSummary'),
+      activeChips: document.getElementById('activeChips'),
+      statusBox: document.getElementById('statusBox'),
+      cards: document.getElementById('cards'),
+      detailPanel: document.getElementById('detailPanel')
+    };
+
+    const state = {
+      activeJobId: JOBS[0]?.id || null,
+      filters: { keyword: '', city: '', employmentType: '', minSalary: '' }
+    };
+
+    if (els.languageSelect) {
+      els.languageSelect.addEventListener('change', (event) => {
+        const target = event.target.value;
+        if (target) window.location.href = target;
+      });
+    }
+
+    function euroRange(min, max){
+      return `€${min.toLocaleString('de-DE')}〜€${max.toLocaleString('de-DE')}`;
+    }
+
+    function applyFilters(items){
+      const keyword = state.filters.keyword.trim().toLowerCase();
+      return items.filter((job) => {
+        if (state.filters.city && job.city !== state.filters.city) return false;
+        if (state.filters.employmentType && job.employmentType !== state.filters.employmentType) return false;
+        if (state.filters.minSalary && job.salaryMin < Number(state.filters.minSalary)) return false;
+        if (keyword) {
+          const target = `${job.company} ${job.position} ${job.summary} ${job.details} ${job.requirements}`.toLowerCase();
+          if (!target.includes(keyword)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderChips(){
+      const chips = [];
+      if (state.filters.keyword) chips.push(`キーワード: ${state.filters.keyword}`);
+      if (state.filters.city) chips.push(`都市: ${state.filters.city}`);
+      if (state.filters.employmentType) chips.push(`雇用形態: ${state.filters.employmentType}`);
+      if (state.filters.minSalary) chips.push(`年収: €${Number(state.filters.minSalary).toLocaleString('de-DE')}以上`);
+      els.activeChips.innerHTML = chips.map((chip) => `<span class="chip">${chip}</span>`).join('');
+    }
+
+    function renderDetail(job){
+      if (!job) {
+        els.detailPanel.innerHTML = '<p class="detail-text">求人を選択すると詳細が表示されます。</p>';
+        return;
+      }
+      els.detailPanel.innerHTML = `
+        <div class="detail-head">
+          <div class="detail-company">${job.company}</div>
+          <h3 class="detail-title">${job.position}</h3>
+        </div>
+        <div class="meta-list">
+          <div class="meta-item"><div class="meta-label">勤務地</div><div class="meta-value">${job.city}</div></div>
+          <div class="meta-item"><div class="meta-label">雇用形態</div><div class="meta-value">${job.employmentType}</div></div>
+          <div class="meta-item"><div class="meta-label">想定年収</div><div class="meta-value">${euroRange(job.salaryMin, job.salaryMax)}</div></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">職務詳細</div>
+          <div class="detail-text">${job.details}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">必要要件・経験</div>
+          <div class="detail-text">${job.requirements}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">コンタクト先</div>
+          <a class="detail-contact" href="mailto:${job.contactEmail}">${job.contactEmail}</a>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">自由コメント</div>
+          <div class="detail-text">${job.comment}</div>
+        </div>
+      `;
+    }
+
+    function renderCards(items){
+      if (!items.length) {
+        els.cards.innerHTML = '';
+        els.statusBox.textContent = '条件に合う求人がありません。フィルターを調整してください。';
+        renderDetail(null);
+        return;
+      }
+      els.statusBox.textContent = '掲載企業からの求人を表示しています。';
+      if (!items.some((job) => job.id === state.activeJobId)) state.activeJobId = items[0].id;
+
+      els.cards.innerHTML = items.map((job) => `
+        <article class="card ${job.id === state.activeJobId ? 'active' : ''}" data-job-id="${job.id}" role="button" tabindex="0" aria-label="${job.position} の詳細を表示">
+          <h3 class="card-title">${job.position}</h3>
+          <div class="card-company">${job.company}</div>
+          <div class="meta-list">
+            <div class="meta-item"><div class="meta-label">給与</div><div class="meta-value">${euroRange(job.salaryMin, job.salaryMax)}</div></div>
+            <div class="meta-item"><div class="meta-label">都市</div><div class="meta-value">${job.city}</div></div>
+            <div class="meta-item"><div class="meta-label">雇用</div><div class="meta-value">${job.employmentType}</div></div>
+          </div>
+          <p class="card-summary">${job.summary}</p>
+        </article>
+      `).join('');
+
+      renderDetail(items.find((job) => job.id === state.activeJobId));
+
+      els.cards.querySelectorAll('.card').forEach((card) => {
+        const activate = () => {
+          state.activeJobId = card.dataset.jobId;
+          render();
+        };
+        card.addEventListener('click', activate);
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate();
+          }
+        });
+      });
+    }
+
+    function render(){
+      const filtered = applyFilters(JOBS);
+      els.resultsSummary.textContent = `${filtered.length}件の掲載求人`;
+      renderChips();
+      renderCards(filtered);
+    }
+
+    function bind(){
+      els.keywordInput.addEventListener('input', (e) => {
+        state.filters.keyword = e.target.value;
+        render();
+      });
+      els.citySelect.addEventListener('change', (e) => {
+        state.filters.city = e.target.value;
+        render();
+      });
+      els.employmentSelect.addEventListener('change', (e) => {
+        state.filters.employmentType = e.target.value;
+        render();
+      });
+      els.salarySelect.addEventListener('change', (e) => {
+        state.filters.minSalary = e.target.value;
+        render();
+      });
+      els.resetFiltersBtn.addEventListener('click', () => {
+        state.filters = { keyword: '', city: '', employmentType: '', minSalary: '' };
+        els.keywordInput.value = '';
+        els.citySelect.value = '';
+        els.employmentSelect.value = '';
+        els.salarySelect.value = '';
+        render();
+      });
+    }
+
+    bind();
+    render();
+  </script>
+</body>
 </html>

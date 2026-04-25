@@ -4,77 +4,280 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>交流掲示板 | Nihon Gateway Germany</title>
-  <meta name="description" content="ドイツ在住日本人向けの交流掲示板。公開閲覧 + 投稿フォーム + 管理者承認型。" />
+  <meta name="description" content="ドイツ在住日本人向けの交流掲示板。売買相手探し、言語パートナー、レッスン募集、ママ友探しまで日本語でつながる場です。" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{--red:#e8002d;--orange:#ff6b2b;--yellow:#ffc93c;--teal:#00b4a6;--blue:#2f6df5;--purple:#7c3aed;--pink:#f472b6;--cream:#fdf8f2;--ink:#1a1014;--muted:#6b5e68;--border:#ede5e0;--header-bg:#e6e0db;--header-border:#d8d1cb;--card:#ffffff;--shadow:0 10px 30px rgba(0,0,0,.07);--radius:22px;}
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0;font-family:'Outfit','Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink)}
-    a{color:inherit}
-    .site-header{position:sticky;top:0;z-index:50;background:rgba(230,224,219,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--header-border)}
-    .header-inner{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-    .brand{text-decoration:none;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-    .brand-logo{font-size:14px;font-weight:900;letter-spacing:.08em}
-    .brand-tag{font-size:12px;color:#7a7278}
-    .header-nav{display:flex;gap:16px;flex-wrap:wrap}
-    .header-nav a{text-decoration:none;font-size:13px;color:#2a2226}
-    .header-nav a.active{font-weight:800}
-    .hero{background:radial-gradient(ellipse 60% 75% at 100% 0%,rgba(0,180,166,.14) 0%,transparent 56%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(124,58,237,.12) 0%,transparent 55%),#fff;border-bottom:1px solid var(--border)}
-    .hero-inner{max-width:1180px;margin:0 auto;padding:34px 20px 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;border:1.5px solid #bde9e4;background:#fff;color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-    .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
-    h1{margin:0 0 12px;font-size:clamp(2rem,4vw,3.35rem);line-height:1.02;letter-spacing:-.03em}
-    .hero p{margin:0;max-width:720px;color:var(--muted);line-height:1.8;font-size:.97rem}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .btn{border:none;border-radius:14px;min-height:46px;padding:0 18px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease}
+    :root{
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --yellow:#ffc93c;
+      --teal:#00b4a6;
+      --blue:#2f6df5;
+      --purple:#7c3aed;
+      --pink:#f472b6;
+      --cream:#fdf8f2;
+      --paper:#fffdf9;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --card-shadow:0 10px 30px rgba(26,16,20,.07);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --radius-sm:10px;
+      --max:1280px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
+    }
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+    .header-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      padding:8px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .brand-logo{
+      width:120px;
+      height:70px;
+      border-radius:14px;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+    }
+    .brand-copy{min-width:0}
+    .brand-title{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
+      line-height:1.1;
+    }
+    .brand-sub{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .header-nav{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .header-nav a{
+      font-size:14px;
+      font-weight:600;
+      color:#34414d;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #dce4ee;
+      background:rgba(255,255,255,.74);
+      transition:all .18s ease;
+    }
+    .header-nav a:hover{
+      border-color:#f3c8d4;
+      background:#fff4f7;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:36px 20px 20px;
+    }
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.34) 42%, rgba(255,255,255,.16) 100%),
+        url("../../assets/images/hero/top-hero.jpg") center center / cover no-repeat,
+        #fff;
+      border:1px solid #d9e0e8;
+      border-radius:34px;
+      padding:30px 28px;
+      box-shadow:var(--card-shadow);
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:22px;
+      align-items:start;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--red);
+      margin-bottom:14px;
+    }
+    .eyebrow-dot{
+      width:9px;height:9px;border-radius:999px;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+      flex:0 0 auto;
+    }
+    .hero h1{
+      font-size:clamp(30px,5vw,54px);
+      line-height:1.05;
+      font-weight:950;
+      letter-spacing:-.03em;
+      max-width:860px;
+    }
+    .hero p{
+      margin-top:14px;
+      max-width:850px;
+      font-size:16px;
+      color:var(--muted);
+    }
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border:none;
+      border-radius:14px;
+      min-height:46px;
+      padding:0 18px;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:.18s ease;
+    }
     .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;box-shadow:0 8px 20px rgba(47,109,245,.18)}
-    .btn-secondary{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
-    .hero-side{background:linear-gradient(180deg,#fff,#fbf8f6);border:1.5px solid var(--border);border-radius:26px;padding:18px;box-shadow:var(--shadow)}
-    .hero-side h2{margin:0 0 12px;font-size:1rem}
+    .btn-primary{background:var(--ink);color:#fff;box-shadow:0 8px 20px rgba(26,16,20,.18)}
+    .btn-secondary{background:#fff;color:#433744;border:1px solid var(--border)}
+
+    .hero-side{
+      background:rgba(255,255,255,.92);
+      border:1px solid #e2d8d2;
+      border-radius:24px;
+      box-shadow:var(--card-shadow);
+      padding:18px;
+    }
+    .hero-side h2{margin:0 0 10px;font-size:1rem}
     .quick-list{display:grid;gap:10px}
     .quick{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px}
     .quick-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(0,180,166,.08);font-size:21px;flex:0 0 42px}
     .quick strong{display:block;margin-bottom:3px;font-size:.94rem}
     .quick span{display:block;color:var(--muted);font-size:.82rem;line-height:1.55}
-    .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 68px}
-    .section-head{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:20px 20px 68px;
+      display:grid;
+      gap:24px;
+    }
+    .panel{
+      background:var(--paper);
+      border:1px solid var(--border);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--card-shadow);
+    }
+    .intro{display:grid;grid-template-columns:1fr;gap:18px}
+    .intro-copy{padding:22px}
+    .section-head{display:flex;align-items:center;gap:12px;margin:0 0 12px}
     .section-tag{padding:5px 12px;border-radius:999px;background:var(--teal);color:#fff;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     .section-head h2{margin:0;font-size:1.2rem}
     .section-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border),transparent)}
-    .panel,.post-card,.stat-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .panel{padding:18px}
-    .intro{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:28px}
-    .intro-copy{padding:22px}
     .intro-copy p{margin:0;color:var(--muted);line-height:1.85}
-    .notice{padding:20px;background:linear-gradient(180deg,#fff8ec,#fff);border:1.5px solid #ffe0b2;border-radius:24px}
-    .notice h3{margin:0 0 8px;font-size:1rem}
-    .notice ul{margin:0;padding-left:18px;color:#6c5c4f;display:grid;gap:8px;line-height:1.65;font-size:.9rem}
-    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
-    .category-card{padding:18px;min-height:145px;display:flex;flex-direction:column;gap:10px;transition:.18s ease;cursor:pointer}
+
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .category-card{
+      padding:18px;
+      min-height:145px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      transition:.18s ease;
+      cursor:pointer;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--card-shadow);
+    }
     .category-card:hover{transform:translateY(-3px);border-color:var(--teal)}
     .category-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:rgba(0,180,166,.08);font-size:24px}
     .category-card h3{margin:0;font-size:1rem}
     .category-card p{margin:0;color:var(--muted);line-height:1.6;font-size:.84rem}
-    .board-layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
-    .sidebar,.main-col{display:grid;gap:18px}
-    .search-box{display:grid;gap:10px}
-    input,select,textarea{width:100%;border:1.5px solid var(--border);background:#fff;border-radius:14px;padding:12px 13px;font:inherit;color:var(--ink);outline:none}
-    input:focus,select:focus,textarea:focus{border-color:var(--teal)}
-    .chip-list{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px;font-size:.82rem;cursor:pointer;transition:.15s ease}
-    .chip.active,.chip:hover{border-color:var(--teal);color:var(--teal)}
-    .rule-list{margin:0;padding-left:18px;display:grid;gap:8px}
-    .rule-list li{color:var(--muted);line-height:1.7;font-size:.88rem}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-    .stat-card{padding:16px}
+
+    .board-layout{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+    .sidebar,.main-col{display:grid;gap:16px}
+    .filter-panel{padding:20px}
+    .panel-title-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+    .panel-title{font-size:18px;font-weight:900;letter-spacing:-.01em}
+    .reset-btn{border:none;background:transparent;color:var(--blue);font-weight:800;cursor:pointer;padding:4px 0}
+    .field{margin-bottom:12px}
+    .field:last-child{margin-bottom:0}
+    .label{display:block;font-size:13px;font-weight:800;color:#4c404c;margin-bottom:8px}
+    .input,.select{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      color:var(--ink);
+      padding:13px 14px;
+      outline:none;
+      transition:.2s ease;
+    }
+    .input:focus,.select:focus{border-color:#d3c6f7;box-shadow:0 0 0 4px rgba(124,58,237,.08)}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .stat-card{padding:16px;background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--card-shadow)}
     .stat-label{font-size:.8rem;color:var(--muted);margin-bottom:6px}
     .stat-value{font-size:1.45rem;font-weight:900}
+
     .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
     .muted{color:var(--muted)}
     .posts{display:grid;gap:14px}
-    .post-card{padding:18px}
+    .post-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:26px;
+      box-shadow:var(--card-shadow);
+      padding:18px;
+      transition:.18s ease;
+    }
+    .post-card:hover{transform:translateY(-2px)}
     .post-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
     .badges{display:flex;gap:8px;flex-wrap:wrap}
     .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
@@ -83,33 +286,50 @@
     .b-pink{background:rgba(244,114,182,.12);color:#c54890}
     .b-orange{background:rgba(255,107,43,.12);color:#d75b22}
     .post-date{font-size:.78rem;color:#8a7f87}
-    .post-card h3{margin:0 0 8px;font-size:1.07rem;line-height:1.4}
+    .post-card h3{margin:0 0 8px;font-size:1.2rem;line-height:1.3;font-weight:900;letter-spacing:-.01em}
     .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:#7a6c76;margin-bottom:10px}
     .post-card p{margin:0;color:var(--muted);line-height:1.78;font-size:.93rem}
     .post-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .mini-btn{border:none;border-radius:12px;min-height:38px;padding:0 14px;font:inherit;font-weight:700;cursor:pointer;background:#fff;border:1.5px solid var(--border);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    .mini-btn{border:none;border-radius:12px;min-height:38px;padding:0 14px;font:inherit;font-weight:700;cursor:pointer;background:#fff;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center}
     .mini-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
     .mini-btn.danger{background:#fff3f4;color:#b7283a;border-color:#ffd0d6}
     .empty{padding:24px;text-align:center;color:var(--muted)}
     .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .thumbs img{width:110px;height:110px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
-    .footer{background:var(--ink);color:rgba(255,255,255,.58);padding:18px 22px}
-    .footer-inner{max-width:1180px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    .footer strong{color:#fff;letter-spacing:.08em;font-size:13px}
-    @media (max-width:980px){.hero-inner,.intro,.board-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:760px){.header-inner{padding:10px 16px}.hero-inner,.wrap{padding-left:16px;padding-right:16px}}
-    @media (max-width:620px){.category-grid,.stats{grid-template-columns:1fr}}
+
+    .footer{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);border-top:1px solid rgba(230,234,240,.92);padding:18px 22px}
+    .footer-inner{max-width:var(--max);margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .footer strong{color:var(--ink);letter-spacing:.08em;font-size:13px}
+    .footer span{color:var(--muted)}
+
+    @media (max-width:980px){
+      .hero-box{grid-template-columns:1fr}
+      .board-layout{grid-template-columns:1fr}
+      .category-grid{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:760px){
+      .container,.hero,.wrap{padding-left:16px;padding-right:16px}
+      .header-inner{padding:10px 0}
+    }
+    @media (max-width:620px){
+      .category-grid,.stats{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="./">
-        <span class="brand-logo">NIHON GATEWAY GERMANY</span>
-        <span class="brand-tag">ドイツ在住日本人向け 交流掲示板</span>
+    <div class="container header-inner">
+      <a class="brand" href="../">
+        <img class="brand-logo" src="../../assets/images/brand/logo-official.png" alt="Nihon Gateway Germany ロゴ" />
+        <span class="brand-copy">
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">ドイツ在住日本人向け 交流掲示板</span>
+        </span>
       </a>
       <nav class="header-nav" aria-label="Primary navigation">
-        <a href="#board" class="active">Board</a>
+        <a href="../">Home</a>
+        <a href="./" aria-current="page">Community</a>
         <a href="./post/">Post</a>
         <a href="./guidelines/">Rules</a>
       </nav>
@@ -117,23 +337,23 @@
   </header>
 
   <section class="hero">
-    <div class="hero-inner">
+    <div class="hero-box">
       <div>
-        <div class="eyebrow"><span class="dot"></span> Community Board</div>
-        <h1>交流掲示板で<br>つながる・探す・相談する</h1>
-        <p>売ります・買います、住まい・物件、レッスン、イベント、仲間募集、サービス、仕事、質問・相談まで。投稿はフォーム送信後に管理者承認されてから公開されます。連絡先は掲示板に公開されず、サイト経由で安全にやり取りできます。</p>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Community Board</div>
+        <h1>交流掲示板で<br>つながる・見つける・広げる</h1>
+        <p>家具や家電の売買相手探し、言語パートナー募集、個人レッスンの案内、ママ友や地域の仲間探しまで。ドイツで暮らす日本人同士が、暮らしに近いテーマで気軽につながれる掲示板です。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="./post/">投稿する</a>
           <a class="btn btn-secondary" href="#board">募集を見る</a>
         </div>
       </div>
       <aside class="hero-side">
-        <h2>このページでできること</h2>
+        <h2>この掲示板でできること</h2>
         <div class="quick-list">
-          <div class="quick"><div class="quick-icon">📝</div><div><strong>投稿を探す</strong><span>カテゴリ・地域・キーワードで一覧から探せます。</span></div></div>
-          <div class="quick"><div class="quick-icon">📮</div><div><strong>連絡する</strong><span>メールや電話を公開せず、投稿者へ安全に連絡できます。</span></div></div>
-          <div class="quick"><div class="quick-icon">🖼️</div><div><strong>画像付き投稿</strong><span>売買や住まい投稿で最大3枚の画像を掲載できます。</span></div></div>
-          <div class="quick"><div class="quick-icon">🛡️</div><div><strong>承認制</strong><span>投稿は管理者確認後に公開。通報機能にも対応しています。</span></div></div>
+          <div class="quick"><div class="quick-icon">🛍️</div><div><strong>売買相手を探す</strong><span>不要品を譲りたい人・欲しい人を、カテゴリや地域で見つけられます。</span></div></div>
+          <div class="quick"><div class="quick-icon">🗣️</div><div><strong>言語パートナー募集</strong><span>日本語×ドイツ語の会話練習や、語学交換の相手探しに使えます。</span></div></div>
+          <div class="quick"><div class="quick-icon">📚</div><div><strong>レッスン・学びをつなぐ</strong><span>個人レッスンや勉強仲間募集を掲載し、学びたい人と出会えます。</span></div></div>
+          <div class="quick"><div class="quick-icon">👩‍👧</div><div><strong>暮らしの仲間づくり</strong><span>ママ友・趣味仲間・地域のつながりづくりの投稿を探せます。</span></div></div>
         </div>
       </aside>
     </div>
@@ -145,30 +365,19 @@
         <div class="section-head"><span class="section-tag">Start</span><h2>使い方</h2><div class="section-line"></div></div>
         <p>一覧は誰でも閲覧できます。投稿する場合は専用フォームから送信してください。投稿は一度保留になり、管理者承認後に掲示板へ公開されます。各投稿の連絡先は非公開で、閲覧者は「この投稿者に連絡する」ボタンから連絡できます。</p>
       </div>
-      <aside class="notice" id="rules">
-        <h3>利用ルール</h3>
-        <ul>
-          <li>個人情報の出しすぎに注意してください。</li>
-          <li>営業、勧誘、誹謗中傷、違法行為に関する投稿は禁止です。</li>
-          <li>初対面で会う場合は昼間の公共の場所を推奨します。</li>
-          <li>高額商品の売買や送金は自己責任で慎重に行ってください。</li>
-        </ul>
-      </aside>
     </section>
 
     <section>
       <div class="section-head"><span class="section-tag">Category</span><h2>カテゴリ</h2><div class="section-line"></div></div>
       <div class="category-grid" id="categoryCards">
-        <div class="panel category-card" data-category="売ります・買います"><div class="category-icon">🛒</div><h3>売ります・買います</h3><p>家具、家電、PC・スマホ、車、チケットなど。</p></div>
-        <div class="panel category-card" data-category="住まい・物件"><div class="category-icon">🏠</div><h3>住まい・物件</h3><p>部屋探し、賃貸、サブレット、シェアハウス。</p></div>
-        <div class="panel category-card" data-category="イベント・交流"><div class="category-icon">🎉</div><h3>イベント・交流</h3><p>交流会、飲み会、勉強会、ワークショップなど。</p></div>
-        <div class="panel category-card" data-category="仲間募集"><div class="category-icon">🤝</div><h3>仲間募集</h3><p>友達、ママ友、スポーツ仲間、言語交換。</p></div>
+        <div class="category-card" data-category="売ります・買います"><div class="category-icon">🛒</div><h3>売ります・買います</h3><p>家具、家電、PC・スマホ、車、チケットなど。</p></div>
+        <div class="category-card" data-category="住まい・物件"><div class="category-icon">🏠</div><h3>住まい・物件</h3><p>部屋探し、賃貸、サブレット、シェアハウス。</p></div>
+        <div class="category-card" data-category="イベント・交流"><div class="category-icon">🎉</div><h3>イベント・交流</h3><p>交流会、飲み会、勉強会、ワークショップなど。</p></div>
+        <div class="category-card" data-category="仲間募集"><div class="category-icon">🤝</div><h3>仲間募集</h3><p>友達、ママ友、スポーツ仲間、言語交換。</p></div>
       </div>
     </section>
 
     <section id="board">
-      <div class="section-head"><span class="section-tag">Board</span><h2>投稿一覧</h2><div class="section-line"></div></div>
-
       <div class="stats">
         <div class="stat-card"><div class="stat-label">総投稿数</div><div class="stat-value" id="statTotal">0</div></div>
         <div class="stat-card"><div class="stat-label">表示中</div><div class="stat-value" id="statVisible">0</div></div>
@@ -178,29 +387,23 @@
 
       <div class="board-layout">
         <aside class="sidebar">
-          <div class="panel">
-            <h3>検索・絞り込み</h3>
-            <div class="search-box">
-              <input id="searchInput" type="text" placeholder="キーワードで検索（例：デュッセルドルフ、ソファ、サブレット）">
-              <select id="filterCategory"><option value="">すべてのカテゴリ</option></select>
-              <select id="filterRegion"><option value="">すべての地域</option></select>
-              <button class="btn btn-secondary" id="resetFilters" type="button">絞り込みをリセット</button>
+          <div class="panel filter-panel">
+            <div class="panel-title-row">
+              <h3 class="panel-title">検索・絞り込み</h3>
+              <button class="reset-btn" id="resetFilters" type="button">リセット</button>
             </div>
-          </div>
-
-          <div class="panel">
-            <h3>カテゴリクイック選択</h3>
-            <div class="chip-list" id="tagChips"></div>
-          </div>
-
-          <div class="panel">
-            <h3>安全な使い方</h3>
-            <ul class="rule-list">
-              <li>連絡先は公開されず、フォーム経由でのみ届きます。</li>
-              <li>古い投稿は有効期限で自動的に非表示になります。</li>
-              <li>問題のある投稿は通報してください。</li>
-              <li>投稿削除は投稿者専用リンクから行えます。</li>
-            </ul>
+            <div class="field">
+              <label class="label" for="searchInput">キーワード</label>
+              <input class="input" id="searchInput" type="text" placeholder="例：デュッセルドルフ、ソファ、サブレット" />
+            </div>
+            <div class="field">
+              <label class="label" for="filterCategory">カテゴリ</label>
+              <select class="select" id="filterCategory"><option value="">すべてのカテゴリ</option></select>
+            </div>
+            <div class="field">
+              <label class="label" for="filterRegion">地域</label>
+              <select class="select" id="filterRegion"><option value="">すべての地域</option></select>
+            </div>
           </div>
         </aside>
 
@@ -237,8 +440,7 @@
       statTotal: document.getElementById('statTotal'),
       statVisible: document.getElementById('statVisible'),
       statCategories: document.getElementById('statCategories'),
-      statRegions: document.getElementById('statRegions'),
-      tagChips: document.getElementById('tagChips')
+      statRegions: document.getElementById('statRegions')
     };
 
     function escapeHtml(str) {
@@ -247,7 +449,7 @@
         .replaceAll('<','&lt;')
         .replaceAll('>','&gt;')
         .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
+        .replaceAll("'",'&#39;');
     }
 
     function badgeClass(category) {
@@ -288,14 +490,6 @@
 
       if (categories.includes(currentCategory)) els.filterCategory.value = currentCategory;
       if (regions.includes(currentRegion)) els.filterRegion.value = currentRegion;
-
-      els.tagChips.innerHTML = categories.map(c => `<button class="chip ${activeCategory===c?'active':''}" type="button" data-category="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
-      els.tagChips.querySelectorAll('[data-category]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          activeCategory = activeCategory === btn.dataset.category ? '' : btn.dataset.category;
-          renderAll();
-        });
-      });
     }
 
     function filteredPosts() {

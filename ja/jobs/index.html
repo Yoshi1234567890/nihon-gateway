@@ -856,24 +856,14 @@
     const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${SHEET_GID}&tqx=out:json`;
 
     const JOB_HEADERS = [
-      'id',
-      'status',
-      'priority',
-      'company_name',
-      'position_title_ja',
-      'position_title_en',
-      'employment_type_ja',
-      'employment_type_en',
       'city_ja',
       'city_en',
       'salary_min_eur',
       'salary_max_eur',
-      'salary_label_ja',
-      'salary_label_en',
       'summary_ja',
       'summary_en',
       'job_details_ja',
-      'summary_en_duplicate',
+      'job_details_en',
       'requirements_ja',
       'requirements_en',
       'contact_email',
@@ -1067,9 +1057,9 @@
       if (rows.length && Array.isArray(rows[0])) {
         const firstRow = rows[0].map(v => normalize(v));
         const looksLikeHeader =
-          firstRow.includes('id') &&
-          firstRow.includes('status') &&
-          firstRow.includes('company_name');
+          firstRow.includes('city_ja') &&
+          firstRow.includes('city_en') &&
+          firstRow.includes('summary_ja');
 
         if (looksLikeHeader) {
           rows = rows.slice(1);
@@ -1103,16 +1093,14 @@
     function normalizeJob(row, index){
       const r = normalizeRow(row);
 
-      const summaryEn =
-        getValue(r, 'summary_en') ||
-        getValue(r, 'summary_en_duplicate');
+      const summaryEn = getValue(r, 'summary_en');
 
       return {
         id: getValue(r, 'id') || `job-${index + 1}`,
         status: getValue(r, 'status') || 'active',
         priority: toNumber(getValue(r, 'priority')) || 999,
 
-        company_name: getValue(r, 'company_name'),
+        company_name: getValue(r, 'company_name') || getValue(r, 'city_ja') || getValue(r, 'city_en'),
 
         position_title_ja: getValue(r, 'position_title_ja'),
         position_title_en: getValue(r, 'position_title_en'),
@@ -1150,6 +1138,10 @@
         expires_at: getValue(r, 'expires_at'),
         company_logo_url: getValue(r, 'company_logo_url')
       };
+    }
+
+    function getBaseL10n(job, key){
+      return job[`${key}_ja`] || job[`${key}_en`] || '';
     }
 
     function getL10n(job, key){
@@ -1197,18 +1189,18 @@
       resetSelectOptions(els.positionSelect);
       resetSelectOptions(els.typeSelect);
 
-      const citySet = [...new Set(jobs.map(j => j.city_ja).filter(Boolean))]
+      const citySet = [...new Set(jobs.map(j => getBaseL10n(j, 'city')).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
-      const positionSet = [...new Set(jobs.map(j => j.position_title_ja).filter(Boolean))]
+      const positionSet = [...new Set(jobs.map(j => getBaseL10n(j, 'position_title')).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
-      const typeSet = [...new Set(jobs.map(j => j.employment_type_ja).filter(Boolean))]
+      const typeSet = [...new Set(jobs.map(j => getBaseL10n(j, 'employment_type')).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
       els.citySelect.innerHTML += citySet
         .map(city => {
-          const job = jobs.find(j => j.city_ja === city);
+          const job = jobs.find(j => getBaseL10n(j, 'city') === city);
           const label = (cardLang === 'en' ? job?.city_en : job?.city_ja) || city;
           return `<option value="${escapeHtml(city)}">${escapeHtml(label)}</option>`;
         })
@@ -1216,7 +1208,7 @@
 
       els.positionSelect.innerHTML += positionSet
         .map(position => {
-          const job = jobs.find(j => j.position_title_ja === position);
+          const job = jobs.find(j => getBaseL10n(j, 'position_title') === position);
           const label = (cardLang === 'en' ? job?.position_title_en : job?.position_title_ja) || position;
           return `<option value="${escapeHtml(position)}">${escapeHtml(label)}</option>`;
         })
@@ -1224,7 +1216,7 @@
 
       els.typeSelect.innerHTML += typeSet
         .map(type => {
-          const job = jobs.find(j => j.employment_type_ja === type);
+          const job = jobs.find(j => getBaseL10n(j, 'employment_type') === type);
           const label = (cardLang === 'en' ? job?.employment_type_en : job?.employment_type_ja) || type;
           return `<option value="${escapeHtml(type)}">${escapeHtml(label)}</option>`;
         })
@@ -1247,10 +1239,14 @@
 
         jobs = rows
           .map(normalizeJob)
-          .filter(job => {
-            const status = normalize(job.status);
-            return status === 'active' || status === 'published';
-          })
+          .filter(job => normalize([
+            job.city_ja,
+            job.city_en,
+            job.summary_ja,
+            job.summary_en,
+            job.job_details_ja,
+            job.job_details_en
+          ].join('')).length > 0)
           .sort((a,b) => {
             if (a.priority !== b.priority) return a.priority - b.priority;
             return String(a.company_name).localeCompare(String(b.company_name), 'ja');
@@ -1318,9 +1314,9 @@
         ].join(' '));
 
         const matchKeyword = !keyword || text.includes(keyword);
-        const matchCity = !cityJa || job.city_ja === cityJa;
-        const matchPosition = !positionJa || job.position_title_ja === positionJa;
-        const matchType = !typeJa || job.employment_type_ja === typeJa;
+        const matchCity = !cityJa || getBaseL10n(job, 'city') === cityJa;
+        const matchPosition = !positionJa || getBaseL10n(job, 'position_title') === positionJa;
+        const matchType = !typeJa || getBaseL10n(job, 'employment_type') === typeJa;
 
         const matchVisa =
           !visa ||

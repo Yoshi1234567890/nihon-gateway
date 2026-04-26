@@ -1079,13 +1079,20 @@
       return rows;
     }
 
+    function normalizeHeaderKey(value){
+      return String(value ?? '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '_');
+    }
+
     function getRowsFromGvizResponse(rawText){
       const start = rawText.indexOf('{');
       const end = rawText.lastIndexOf('}');
       if (start < 0 || end < 0) return [];
       const json = JSON.parse(rawText.slice(start, end + 1));
       const table = json.table || {};
-      const headers = (table.cols || []).map(col => clean(col.label || col.id));
+      const headers = (table.cols || []).map(col => normalizeHeaderKey(col.label || col.id));
       return (table.rows || []).map(row => {
         const obj = {};
         headers.forEach((header, index) => {
@@ -1096,8 +1103,46 @@
       });
     }
 
+    const FIELD_ALIASES = {
+      id: ['id', 'job_id'],
+      status: ['status', 'state'],
+      priority: ['priority', 'sort_order'],
+      company_name: ['company_name', 'company', 'employer_name'],
+      position_title_ja: ['position_title_ja', 'title_ja', 'job_title_ja'],
+      position_title_en: ['position_title_en', 'title_en', 'job_title_en'],
+      employment_type_ja: ['employment_type_ja', 'job_type_ja'],
+      employment_type_en: ['employment_type_en', 'job_type_en'],
+      city_ja: ['city_ja'],
+      city_en: ['city_en'],
+      salary_min_eur: ['salary_min_eur', 'min_salary_eur'],
+      salary_max_eur: ['salary_max_eur', 'max_salary_eur'],
+      salary_label_ja: ['salary_label_ja'],
+      salary_label_en: ['salary_label_en'],
+      summary_ja: ['summary_ja'],
+      summary_en: ['summary_en'],
+      job_details_ja: ['job_details_ja', 'details_ja', 'description_ja'],
+      job_details_en: ['job_details_en', 'details_en', 'description_en'],
+      requirements_ja: ['requirements_ja'],
+      requirements_en: ['requirements_en'],
+      contact_email: ['contact_email', 'email'],
+      free_comment_ja: ['free_comment_ja', 'comment_ja'],
+      free_comment_en: ['free_comment_en', 'comment_en'],
+      visa_support_ja: ['visa_support_ja'],
+      visa_support_en: ['visa_support_en'],
+      updated_at: ['updated_at'],
+      published_at: ['published_at'],
+      expires_at: ['expires_at'],
+      company_logo_url: ['company_logo_url', 'logo_url']
+    };
+
     function getValue(row, key){
-      return clean(row[key]);
+      const aliases = FIELD_ALIASES[key] || [key];
+      for (const alias of aliases) {
+        const normalizedAlias = normalizeHeaderKey(alias);
+        const value = row[alias] ?? row[normalizedAlias];
+        if (clean(value)) return clean(value);
+      }
+      return '';
     }
 
     function normalizeJob(row, index){
@@ -1107,28 +1152,40 @@
         getValue(r, 'summary_en') ||
         getValue(r, 'summary_en_duplicate');
 
+      const publishedAt = getValue(r, 'published_at');
+      const updatedAt = getValue(r, 'updated_at');
+      const cityJa = getValue(r, 'city_ja');
+      const cityEn = getValue(r, 'city_en');
+      const summaryJa = getValue(r, 'summary_ja');
+      const positionJa = getValue(r, 'position_title_ja');
+      const positionEn = getValue(r, 'position_title_en');
+      const fallbackId = [
+        cityJa || cityEn,
+        publishedAt || updatedAt || index + 1
+      ].filter(Boolean).join('-') || `job-${index + 1}`;
+
       return {
-        id: getValue(r, 'id') || `job-${index + 1}`,
+        id: getValue(r, 'id') || fallbackId,
         status: getValue(r, 'status') || 'active',
         priority: toNumber(getValue(r, 'priority')) || 999,
 
         company_name: getValue(r, 'company_name'),
 
-        position_title_ja: getValue(r, 'position_title_ja'),
-        position_title_en: getValue(r, 'position_title_en'),
+        position_title_ja: positionJa || summaryJa,
+        position_title_en: positionEn || summaryEn,
 
         employment_type_ja: getValue(r, 'employment_type_ja'),
         employment_type_en: getValue(r, 'employment_type_en'),
 
-        city_ja: getValue(r, 'city_ja'),
-        city_en: getValue(r, 'city_en'),
+        city_ja: cityJa,
+        city_en: cityEn,
 
         salary_min_eur: toNumber(getValue(r, 'salary_min_eur')),
         salary_max_eur: toNumber(getValue(r, 'salary_max_eur')),
         salary_label_ja: getValue(r, 'salary_label_ja'),
         salary_label_en: getValue(r, 'salary_label_en'),
 
-        summary_ja: getValue(r, 'summary_ja'),
+        summary_ja: summaryJa,
         summary_en: summaryEn,
 
         job_details_ja: getValue(r, 'job_details_ja'),
@@ -1145,8 +1202,8 @@
         visa_support_ja: getValue(r, 'visa_support_ja'),
         visa_support_en: getValue(r, 'visa_support_en'),
 
-        updated_at: getValue(r, 'updated_at'),
-        published_at: getValue(r, 'published_at'),
+        updated_at: updatedAt,
+        published_at: publishedAt,
         expires_at: getValue(r, 'expires_at'),
         company_logo_url: getValue(r, 'company_logo_url')
       };
@@ -1197,18 +1254,18 @@
       resetSelectOptions(els.positionSelect);
       resetSelectOptions(els.typeSelect);
 
-      const citySet = [...new Set(jobs.map(j => j.city_ja).filter(Boolean))]
+      const citySet = [...new Set(jobs.map(j => j.city_ja || j.city_en).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
-      const positionSet = [...new Set(jobs.map(j => j.position_title_ja).filter(Boolean))]
+      const positionSet = [...new Set(jobs.map(j => j.position_title_ja || j.position_title_en).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
-      const typeSet = [...new Set(jobs.map(j => j.employment_type_ja).filter(Boolean))]
+      const typeSet = [...new Set(jobs.map(j => j.employment_type_ja || j.employment_type_en).filter(Boolean))]
         .sort((a,b) => a.localeCompare(b,'ja'));
 
       els.citySelect.innerHTML += citySet
         .map(city => {
-          const job = jobs.find(j => j.city_ja === city);
+          const job = jobs.find(j => (j.city_ja || j.city_en) === city);
           const label = (cardLang === 'en' ? job?.city_en : job?.city_ja) || city;
           return `<option value="${escapeHtml(city)}">${escapeHtml(label)}</option>`;
         })
@@ -1216,7 +1273,7 @@
 
       els.positionSelect.innerHTML += positionSet
         .map(position => {
-          const job = jobs.find(j => j.position_title_ja === position);
+          const job = jobs.find(j => (j.position_title_ja || j.position_title_en) === position);
           const label = (cardLang === 'en' ? job?.position_title_en : job?.position_title_ja) || position;
           return `<option value="${escapeHtml(position)}">${escapeHtml(label)}</option>`;
         })
@@ -1224,7 +1281,7 @@
 
       els.typeSelect.innerHTML += typeSet
         .map(type => {
-          const job = jobs.find(j => j.employment_type_ja === type);
+          const job = jobs.find(j => (j.employment_type_ja || j.employment_type_en) === type);
           const label = (cardLang === 'en' ? job?.employment_type_en : job?.employment_type_ja) || type;
           return `<option value="${escapeHtml(type)}">${escapeHtml(label)}</option>`;
         })
@@ -1318,9 +1375,9 @@
         ].join(' '));
 
         const matchKeyword = !keyword || text.includes(keyword);
-        const matchCity = !cityJa || job.city_ja === cityJa;
-        const matchPosition = !positionJa || job.position_title_ja === positionJa;
-        const matchType = !typeJa || job.employment_type_ja === typeJa;
+        const matchCity = !cityJa || (job.city_ja || job.city_en) === cityJa;
+        const matchPosition = !positionJa || (job.position_title_ja || job.position_title_en) === positionJa;
+        const matchType = !typeJa || (job.employment_type_ja || job.employment_type_en) === typeJa;
 
         const matchVisa =
           !visa ||

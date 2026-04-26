@@ -856,24 +856,14 @@
     const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${SHEET_GID}&tqx=out:json`;
 
     const JOB_HEADERS = [
-      'id',
-      'status',
-      'priority',
-      'company_name',
-      'position_title_ja',
-      'position_title_en',
-      'employment_type_ja',
-      'employment_type_en',
       'city_ja',
       'city_en',
       'salary_min_eur',
       'salary_max_eur',
-      'salary_label_ja',
-      'salary_label_en',
       'summary_ja',
       'summary_en',
       'job_details_ja',
-      'summary_en_duplicate',
+      'job_details_en',
       'requirements_ja',
       'requirements_en',
       'contact_email',
@@ -886,6 +876,22 @@
       'expires_at',
       'company_logo_url'
     ];
+
+    const COLUMN_ALIASES = {
+      id: ['job_id'],
+      status: ['publish_status'],
+      priority: ['sort_order'],
+      company_name: ['company', 'company_ja', 'company_en'],
+      position_title_ja: ['position_title', 'job_title_ja', 'title_ja'],
+      position_title_en: ['position_title', 'job_title_en', 'title_en'],
+      employment_type_ja: ['employment_type', 'employment_ja', 'job_type_ja'],
+      employment_type_en: ['employment_type', 'employment_en', 'job_type_en'],
+      city_ja: ['city'],
+      city_en: ['city'],
+      salary_label_ja: ['salary_ja'],
+      salary_label_en: ['salary_en'],
+      job_details_en: ['summary_en_duplicate']
+    };
 
     let jobs = [];
     let filtered = [];
@@ -1097,15 +1103,33 @@
     }
 
     function getValue(row, key){
-      return clean(row[key]);
+      if (!row || typeof row !== 'object') return '';
+      if (row[key] !== undefined && row[key] !== null) return clean(row[key]);
+
+      const aliases = COLUMN_ALIASES[key] || [];
+      for (const alias of aliases) {
+        if (row[alias] !== undefined && row[alias] !== null) return clean(row[alias]);
+      }
+
+      const normalizedKey = normalize(key).replace(/\s+/g, '_');
+      const normalizedAliases = [normalizedKey, ...aliases.map(a => normalize(a).replace(/\s+/g, '_'))];
+      const rowEntries = Object.entries(row);
+
+      for (const candidate of normalizedAliases) {
+        const found = rowEntries.find(([k]) => normalize(k).replace(/\s+/g, '_') === candidate);
+        if (found && found[1] !== undefined && found[1] !== null) {
+          return clean(found[1]);
+        }
+      }
+
+      return '';
     }
 
     function normalizeJob(row, index){
       const r = normalizeRow(row);
 
-      const summaryEn =
-        getValue(r, 'summary_en') ||
-        getValue(r, 'summary_en_duplicate');
+      const summaryEn = getValue(r, 'summary_en');
+      const summaryJa = getValue(r, 'summary_ja');
 
       return {
         id: getValue(r, 'id') || `job-${index + 1}`,
@@ -1114,25 +1138,25 @@
 
         company_name: getValue(r, 'company_name'),
 
-        position_title_ja: getValue(r, 'position_title_ja'),
-        position_title_en: getValue(r, 'position_title_en'),
+        position_title_ja: getValue(r, 'position_title_ja') || summaryJa,
+        position_title_en: getValue(r, 'position_title_en') || summaryEn || summaryJa,
 
         employment_type_ja: getValue(r, 'employment_type_ja'),
         employment_type_en: getValue(r, 'employment_type_en'),
 
         city_ja: getValue(r, 'city_ja'),
-        city_en: getValue(r, 'city_en'),
+        city_en: getValue(r, 'city_en') || getValue(r, 'city_ja'),
 
         salary_min_eur: toNumber(getValue(r, 'salary_min_eur')),
         salary_max_eur: toNumber(getValue(r, 'salary_max_eur')),
         salary_label_ja: getValue(r, 'salary_label_ja'),
         salary_label_en: getValue(r, 'salary_label_en'),
 
-        summary_ja: getValue(r, 'summary_ja'),
+        summary_ja: summaryJa,
         summary_en: summaryEn,
 
-        job_details_ja: getValue(r, 'job_details_ja'),
-        job_details_en: getValue(r, 'job_details_en'),
+        job_details_ja: getValue(r, 'job_details_ja') || summaryJa,
+        job_details_en: getValue(r, 'job_details_en') || summaryEn || getValue(r, 'job_details_ja'),
 
         requirements_ja: getValue(r, 'requirements_ja'),
         requirements_en: getValue(r, 'requirements_en'),

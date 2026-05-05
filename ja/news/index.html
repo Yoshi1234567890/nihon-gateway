@@ -1,43 +1,381 @@
-<section class="news-controls">
-  <input id="newsSearch" type="search" placeholder="キーワードで検索">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News | ニュース | Nihon Gateway Germany</title>
+  <meta name="description" content="ドイツ在住日本人向けに、生活・行政・交通・安全などのニュースを出典リンク付きで整理した一覧ページです。" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
 
-  <select id="countryFilter">
-    <option value="all">すべての国</option>
-    <option value="germany">ドイツ</option>
-    <option value="japan">日本</option>
-    <option value="eu">EU</option>
-  </select>
+  <style>
+    :root{
+      --red:#e8002d;
+      --orange:#ff6b2b;
+      --cream:#fdf8f2;
+      --paper:#fffdf9;
+      --ink:#1a1014;
+      --muted:#6b5e68;
+      --border:#ede5e0;
+      --card-shadow:0 10px 30px rgba(26,16,20,.07);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --radius-sm:10px;
+      --max:1280px;
+    }
 
-  <select id="cityFilter">
-    <option value="all">すべての都市</option>
-    <option value="duesseldorf">Düsseldorf</option>
-    <option value="nrw">NRW</option>
-    <option value="berlin">Berlin</option>
-    <option value="frankfurt">Frankfurt</option>
-    <option value="nationwide">全国</option>
-  </select>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      background:
+        linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+        url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
+        var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
 
-  <select id="categoryFilter">
-    <option value="all">すべてのカテゴリ</option>
-    <option value="life">生活</option>
-    <option value="transport">交通</option>
-    <option value="visa">ビザ・行政</option>
-    <option value="law">法律</option>
-    <option value="work">仕事・経済</option>
-    <option value="medical">医療</option>
-    <option value="travel">観光・イベント</option>
-    <option value="safety">災害・安全</option>
-  </select>
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto}
 
-  <select id="importanceFilter">
-    <option value="all">すべての重要度</option>
-    <option value="important">重要</option>
-    <option value="impact">生活影響あり</option>
-    <option value="check">要確認</option>
-    <option value="normal">通常</option>
-  </select>
-</section>
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:200;
+      background:rgba(255,255,255,.84);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(230,234,240,.92);
+    }
+    .header-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
 
-<section id="newsGrid" class="news-grid"></section>
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .brand-logo{
+      width:120px;
+      height:70px;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+    }
+    .brand-title{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.08em;
+      line-height:1.1;
+    }
+    .brand-sub{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
 
-<script src="../../assets/js/news.js"></script>
+    .header-nav{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .header-nav a{
+      font-size:14px;
+      font-weight:600;
+      color:#34414d;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #dce4ee;
+      background:rgba(255,255,255,.74);
+      transition:all .18s ease;
+    }
+    .header-nav a.active{
+      color:#34414d;
+      border-color:#dce4ee;
+      background:rgba(255,255,255,.74);
+      transform:none;
+    }
+    .header-nav a:hover{
+      color:#d84b6a;
+      border-color:#f3c8d4;
+      background:#fff4f7;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:36px 20px 20px;
+    }
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.32) 42%, rgba(255,255,255,.18) 60%, rgba(255,255,255,.08) 100%),
+        url("../../assets/images/hero/top-hero.jpg") center center / cover no-repeat,
+        #fff;
+      border:1px solid #d9e0e8;
+      border-radius:34px;
+      padding:32px 28px 26px;
+      box-shadow:var(--card-shadow);
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--red);
+      margin-bottom:14px;
+    }
+    .eyebrow-dot{
+      width:9px;height:9px;border-radius:999px;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+      flex:0 0 auto;
+    }
+    .hero h1{
+      font-size:clamp(32px,5vw,58px);
+      line-height:1.08;
+      margin-bottom:8px;
+      letter-spacing:.02em;
+    }
+    .hero p{
+      max-width:780px;
+      color:#4a3d46;
+      font-size:15px;
+    }
+
+    .news-section{padding:8px 0 60px}
+    .news-disclaimer{
+      margin:0 0 16px;
+      padding:14px 16px;
+      border-radius:14px;
+      background:#fff4f7;
+      border:1px solid #f3c8d4;
+      color:#6e3b4a;
+      font-size:13px;
+    }
+
+    .news-controls{
+      display:grid;
+      grid-template-columns:2fr repeat(4, minmax(130px,1fr));
+      gap:12px;
+      padding:20px;
+      background:rgba(255,255,255,.88);
+      border:1px solid #e5ebf2;
+      border-radius:22px;
+      box-shadow:var(--card-shadow);
+      margin-bottom:18px;
+    }
+    .news-controls input,
+    .news-controls select{
+      height:46px;
+      border-radius:14px;
+      border:1px solid #d9e0e8;
+      background:#fff;
+      padding:0 14px;
+      font-size:14px;
+      color:#2f3e4c;
+      outline:none;
+      transition:all .18s ease;
+    }
+    .news-controls input:focus,
+    .news-controls select:focus{
+      border-color:#f3c8d4;
+      box-shadow:0 0 0 3px rgba(243,200,212,.28);
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .news-card{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:18px;
+      background:rgba(255,255,255,.94);
+      border:1px solid #e5ebf2;
+      border-radius:18px;
+      box-shadow:var(--card-shadow);
+      transition:all .2s ease;
+    }
+    .news-card:hover{
+      transform:translateY(-3px);
+      border-color:#f3c8d4;
+      box-shadow:0 16px 30px rgba(216,75,106,.12);
+    }
+    .news-card h2{
+      font-size:20px;
+      line-height:1.35;
+    }
+    .news-card p{
+      color:#4f4450;
+      font-size:14px;
+    }
+    .news-card a{
+      align-self:flex-start;
+      color:#c83354;
+      font-weight:700;
+    }
+
+    .news-card__badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .news-card__badges span{
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:#fff4f7;
+      border:1px solid #f3c8d4;
+      color:#a93250;
+    }
+
+    .news-card__meta{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#6f6270;
+      border-top:1px dashed #eadce2;
+      padding-top:8px;
+    }
+
+    .news-error,
+    .news-empty{
+      grid-column:1 / -1;
+      padding:24px;
+      border-radius:16px;
+      text-align:center;
+      background:#fff;
+      border:1px solid #e5ebf2;
+      color:#6b5e68;
+    }
+
+    .site-footer{
+      border-top:1px solid #e6eaf0;
+      background:rgba(255,255,255,.8);
+      padding:24px 0;
+      color:#6b5e68;
+      font-size:13px;
+    }
+
+    @media (max-width:1080px){
+      .news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .news-controls{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:720px){
+      .header-inner{flex-direction:column;padding:10px 0}
+      .news-grid{grid-template-columns:1fr}
+      .news-controls{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../">
+        <img class="brand-logo" src="../../assets/images/brand/site-logo-main.png" alt="Nihon Gateway Germany" />
+        <span>
+          <span class="brand-title">NIHON GATEWAY GERMANY</span>
+          <span class="brand-sub">日本語生活ガイド</span>
+        </span>
+      </a>
+
+      <nav class="header-nav" aria-label="主要ナビゲーション">
+        <a href="../eat/">Eat</a>
+        <a href="../shopping/">Shopping</a>
+        <a href="../events/">Events</a>
+        <a class="active" href="./">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-box">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>News</span>
+        <h1>ドイツ生活ニュース一覧</h1>
+        <p>生活・行政・交通・安全に関するニュースを、出典元へのリンク付きで確認できます。</p>
+      </div>
+    </section>
+
+    <section class="news-section">
+      <div class="container">
+        <p class="news-disclaimer">
+          このページは外部ニュース・公式情報へのリンクをもとに、ドイツ在住日本人向けに整理したニュース一覧です。正確な内容は必ず各出典元をご確認ください。
+        </p>
+
+        <section class="news-controls">
+          <input id="newsSearch" type="search" placeholder="キーワードで検索" />
+
+          <select id="countryFilter">
+            <option value="all">すべての国</option>
+            <option value="germany">ドイツ</option>
+            <option value="japan">日本</option>
+            <option value="eu">EU</option>
+          </select>
+
+          <select id="cityFilter">
+            <option value="all">すべての都市</option>
+            <option value="duesseldorf">Düsseldorf</option>
+            <option value="nrw">NRW</option>
+            <option value="berlin">Berlin</option>
+            <option value="frankfurt">Frankfurt</option>
+            <option value="nationwide">全国</option>
+          </select>
+
+          <select id="categoryFilter">
+            <option value="all">すべてのカテゴリ</option>
+            <option value="life">生活</option>
+            <option value="transport">交通</option>
+            <option value="visa">ビザ・行政</option>
+            <option value="law">法律</option>
+            <option value="work">仕事・経済</option>
+            <option value="medical">医療</option>
+            <option value="travel">観光・イベント</option>
+            <option value="safety">災害・安全</option>
+          </select>
+
+          <select id="importanceFilter">
+            <option value="all">すべての重要度</option>
+            <option value="important">重要</option>
+            <option value="impact">生活影響あり</option>
+            <option value="check">要確認</option>
+            <option value="normal">通常</option>
+          </select>
+        </section>
+
+        <section id="newsGrid" class="news-grid"></section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© Nihon Gateway Germany</div>
+  </footer>
+
+  <script src="../../assets/js/news.js"></script>
+</body>
+</html>

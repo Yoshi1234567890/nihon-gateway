@@ -7,11 +7,28 @@
     "summary_ja": "発音、アルファベット、冠詞、基本語順、毎日15分の学習習慣まで、ゼロから始める人向けの学習順です。",
     "layer1": "roadmap",
     "layer2": "beginner",
-    "level": ["A0", "A1"],
-    "purpose": ["roadmap", "grammar", "daily-life"],
-    "scene": ["self-study"],
-    "skill": ["reading", "listening", "speaking", "writing"],
-    "format": ["article", "checklist"],
+    "level": [
+      "A0",
+      "A1"
+    ],
+    "purpose": [
+      "roadmap",
+      "grammar",
+      "daily-life"
+    ],
+    "scene": [
+      "self-study"
+    ],
+    "skill": [
+      "reading",
+      "listening",
+      "speaking",
+      "writing"
+    ],
+    "format": [
+      "article",
+      "checklist"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -27,11 +44,25 @@
     "summary_ja": "滞在許可やFiktionsbescheinigungの更新状況を丁寧に確認するメールテンプレートです。",
     "layer1": "daily",
     "layer2": "auslaenderbehoerde",
-    "level": ["A2", "B1"],
-    "purpose": ["daily-life", "visa"],
-    "scene": ["email", "immigration-office"],
-    "skill": ["writing"],
-    "format": ["template", "phrases"],
+    "level": [
+      "A2",
+      "B1"
+    ],
+    "purpose": [
+      "daily-life",
+      "visa"
+    ],
+    "scene": [
+      "email",
+      "immigration-office"
+    ],
+    "skill": [
+      "writing"
+    ],
+    "format": [
+      "template",
+      "phrases"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -47,11 +78,27 @@
     "summary_ja": "病院・小児科・専門医に電話で予約を取るための基本フレーズと会話例です。",
     "layer1": "daily",
     "layer2": "hospital",
-    "level": ["A1", "A2"],
-    "purpose": ["daily-life", "medical", "conversation"],
-    "scene": ["hospital", "phone"],
-    "skill": ["speaking", "listening"],
-    "format": ["phrases", "dialogue"],
+    "level": [
+      "A1",
+      "A2"
+    ],
+    "purpose": [
+      "daily-life",
+      "medical",
+      "conversation"
+    ],
+    "scene": [
+      "hospital",
+      "phone"
+    ],
+    "skill": [
+      "speaking",
+      "listening"
+    ],
+    "format": [
+      "phrases",
+      "dialogue"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -67,11 +114,25 @@
     "summary_ja": "依頼、確認、催促、謝罪、日程調整で使える職場向けドイツ語メール表現です。",
     "layer1": "business",
     "layer2": "email",
-    "level": ["B1", "B2"],
-    "purpose": ["work", "writing"],
-    "scene": ["email", "office"],
-    "skill": ["writing"],
-    "format": ["template", "phrases"],
+    "level": [
+      "B1",
+      "B2"
+    ],
+    "purpose": [
+      "work",
+      "writing"
+    ],
+    "scene": [
+      "email",
+      "office"
+    ],
+    "skill": [
+      "writing"
+    ],
+    "format": [
+      "template",
+      "phrases"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -87,11 +148,24 @@
     "summary_ja": "職場会議で賛成・反対・補足・確認を自然に伝える表現集です。",
     "layer1": "business",
     "layer2": "meeting",
-    "level": ["B2"],
-    "purpose": ["work", "conversation"],
-    "scene": ["meeting"],
-    "skill": ["speaking", "listening"],
-    "format": ["phrases", "dialogue"],
+    "level": [
+      "B2"
+    ],
+    "purpose": [
+      "work",
+      "conversation"
+    ],
+    "scene": [
+      "meeting"
+    ],
+    "skill": [
+      "speaking",
+      "listening"
+    ],
+    "format": [
+      "phrases",
+      "dialogue"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -107,11 +181,23 @@
     "summary_ja": "Goethe/telc/DTZのB1口頭試験に向けた自己紹介、意見表現、パートナー課題の練習です。",
     "layer1": "exam",
     "layer2": "b1",
-    "level": ["B1"],
-    "purpose": ["exam", "conversation"],
-    "scene": ["exam"],
-    "skill": ["speaking"],
-    "format": ["roleplay", "phrases"],
+    "level": [
+      "B1"
+    ],
+    "purpose": [
+      "exam",
+      "conversation"
+    ],
+    "scene": [
+      "exam"
+    ],
+    "skill": [
+      "speaking"
+    ],
+    "format": [
+      "roleplay",
+      "phrases"
+    ],
     "content_type": "original",
     "source_type": "nihon-gateway",
     "price": "free",
@@ -127,11 +213,28 @@
     "summary_ja": "A1からB1まで体系的に学べる無料の定番ドイツ語教材です。動画・単語・練習問題が揃っています。",
     "layer1": "media",
     "layer2": "dw",
-    "level": ["A1", "A2", "B1"],
-    "purpose": ["grammar", "listening", "daily-life"],
-    "scene": ["self-study", "video"],
-    "skill": ["listening", "reading"],
-    "format": ["video", "course"],
+    "level": [
+      "A1",
+      "A2",
+      "B1"
+    ],
+    "purpose": [
+      "grammar",
+      "listening",
+      "daily-life"
+    ],
+    "scene": [
+      "self-study",
+      "video"
+    ],
+    "skill": [
+      "listening",
+      "reading"
+    ],
+    "format": [
+      "video",
+      "course"
+    ],
     "content_type": "external",
     "source_type": "dw",
     "price": "free",
@@ -147,11 +250,24 @@
     "summary_ja": "ゲーム感覚で毎日続けやすい語学アプリです。習慣化には便利ですが、会話や作文は別教材との併用がおすすめです。",
     "layer1": "apps-ai",
     "layer2": "general-app",
-    "level": ["A1", "A2"],
-    "purpose": ["vocabulary", "habit"],
-    "scene": ["app"],
-    "skill": ["reading", "listening"],
-    "format": ["app"],
+    "level": [
+      "A1",
+      "A2"
+    ],
+    "purpose": [
+      "vocabulary",
+      "habit"
+    ],
+    "scene": [
+      "app"
+    ],
+    "skill": [
+      "reading",
+      "listening"
+    ],
+    "format": [
+      "app"
+    ],
     "content_type": "external",
     "source_type": "app",
     "price": "freemium",
@@ -167,11 +283,27 @@
     "summary_ja": "ドイツ語ネイティブと交流できる言語交換アプリです。短いチャットや音声メッセージ練習に向いています。",
     "layer1": "speaking",
     "layer2": "tandem",
-    "level": ["A2", "B1", "B2", "C1"],
-    "purpose": ["conversation", "community"],
-    "scene": ["language-exchange"],
-    "skill": ["speaking", "writing"],
-    "format": ["app", "community"],
+    "level": [
+      "A2",
+      "B1",
+      "B2",
+      "C1"
+    ],
+    "purpose": [
+      "conversation",
+      "community"
+    ],
+    "scene": [
+      "language-exchange"
+    ],
+    "skill": [
+      "speaking",
+      "writing"
+    ],
+    "format": [
+      "app",
+      "community"
+    ],
     "content_type": "external",
     "source_type": "app",
     "price": "freemium",
@@ -187,16 +319,150 @@
     "summary_ja": "日本語で質問しながら、ドイツ語メール・会話・試験作文を練習できるAIコーチです。",
     "layer1": "apps-ai",
     "layer2": "ai-correction",
-    "level": ["A1", "A2", "B1", "B2", "C1", "C2"],
-    "purpose": ["ai", "writing", "conversation"],
-    "scene": ["ai-practice"],
-    "skill": ["writing", "speaking"],
-    "format": ["ai", "prompt"],
+    "level": [
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+    ],
+    "purpose": [
+      "ai",
+      "writing",
+      "conversation"
+    ],
+    "scene": [
+      "ai-practice"
+    ],
+    "skill": [
+      "writing",
+      "speaking"
+    ],
+    "format": [
+      "ai",
+      "prompt"
+    ],
     "content_type": "ai_tool",
     "source_type": "nihon-gateway",
     "price": "free",
     "url": "#",
     "cta_label": "準備中",
     "recommended_use_ja": "添削・ロールプレイ・作文練習"
+  },
+  {
+    "id": "external-anki",
+    "status": "published",
+    "priority": "medium",
+    "title_ja": "Anki",
+    "summary_ja": "単語と例文をSRSで効率よく覚える暗記アプリ。日常・試験どちらにも強い基礎を作れます。",
+    "layer1": "apps-ai",
+    "layer2": "vocabulary",
+    "level": [
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1"
+    ],
+    "purpose": [
+      "vocabulary",
+      "exam",
+      "habit"
+    ],
+    "scene": [
+      "app",
+      "self-study"
+    ],
+    "skill": [
+      "reading",
+      "writing"
+    ],
+    "format": [
+      "app",
+      "flashcard"
+    ],
+    "content_type": "external",
+    "source_type": "app",
+    "price": "free",
+    "url": "https://apps.ankiweb.net/",
+    "cta_label": "公式サイトへ",
+    "recommended_use_ja": "単語暗記を継続したい人"
+  },
+  {
+    "id": "external-tandem",
+    "status": "published",
+    "priority": "medium",
+    "title_ja": "Tandem",
+    "summary_ja": "ドイツ語ネイティブと1対1で言語交換できるアプリ。短文チャットから音声通話まで対応。",
+    "layer1": "speaking",
+    "layer2": "tandem",
+    "level": [
+      "A2",
+      "B1",
+      "B2",
+      "C1"
+    ],
+    "purpose": [
+      "conversation",
+      "community"
+    ],
+    "scene": [
+      "language-exchange"
+    ],
+    "skill": [
+      "speaking",
+      "listening",
+      "writing"
+    ],
+    "format": [
+      "app",
+      "community"
+    ],
+    "content_type": "external",
+    "source_type": "app",
+    "price": "freemium",
+    "url": "https://www.tandem.net/",
+    "cta_label": "公式サイトへ",
+    "recommended_use_ja": "会話の実戦練習"
+  },
+  {
+    "id": "external-vhs",
+    "status": "published",
+    "priority": "medium",
+    "title_ja": "VHS（Volkshochschule）",
+    "summary_ja": "地域の公的語学学校。統合コースやレベル別クラスを比較的安価に受講できます。",
+    "layer1": "speaking",
+    "layer2": "vhs",
+    "level": [
+      "A1",
+      "A2",
+      "B1",
+      "B2"
+    ],
+    "purpose": [
+      "class",
+      "exam",
+      "daily-life"
+    ],
+    "scene": [
+      "classroom"
+    ],
+    "skill": [
+      "speaking",
+      "listening",
+      "reading",
+      "writing"
+    ],
+    "format": [
+      "class",
+      "course"
+    ],
+    "content_type": "teacher_class",
+    "source_type": "school",
+    "price": "paid",
+    "url": "https://www.volkshochschule.de/",
+    "cta_label": "公式サイトへ",
+    "recommended_use_ja": "体系的に学びたい人"
   }
 ]

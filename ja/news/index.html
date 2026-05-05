@@ -1,64 +1,41 @@
-<!DOCTYPE html>
-<html lang="ja">
+<section class="news-controls">
+  <input id="newsSearch" type="search" placeholder="キーワードで検索">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ニュース | Nihon Gateway</title>
-  <meta name="description" content="ドイツ生活に関連する最新情報を掲載します。">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway/ja/news/">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-<script>
-(function () {
-  var segments = location.pathname.split('/').filter(Boolean);
-  if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
+  <select id="countryFilter">
+    <option value="all">すべての国</option>
+    <option value="germany">ドイツ</option>
+    <option value="japan">日本</option>
+    <option value="eu">EU</option>
+  </select>
 
-  var localeIndex = -1;
-  for (var i = 0; i < segments.length; i++) {
-    if (segments[i] === 'ja' || segments[i] === 'de') { localeIndex = i; break; }
-  }
+  <select id="cityFilter">
+    <option value="all">すべての都市</option>
+    <option value="duesseldorf">Düsseldorf</option>
+    <option value="nrw">NRW</option>
+    <option value="berlin">Berlin</option>
+    <option value="frankfurt">Frankfurt</option>
+    <option value="nationwide">全国</option>
+  </select>
 
-  var depth = localeIndex >= 0 ? (segments.length - localeIndex) : Math.max(segments.length - 1, 0);
-  var prefix = depth === 0 ? './' : '../'.repeat(depth);
+  <select id="categoryFilter">
+    <option value="all">すべてのカテゴリ</option>
+    <option value="life">生活</option>
+    <option value="transport">交通</option>
+    <option value="visa">ビザ・行政</option>
+    <option value="law">法律</option>
+    <option value="work">仕事・経済</option>
+    <option value="medical">医療</option>
+    <option value="travel">観光・イベント</option>
+    <option value="safety">災害・安全</option>
+  </select>
 
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = prefix + 'assets/css/cookie-consent.css';
-  document.head.appendChild(css);
+  <select id="importanceFilter">
+    <option value="all">すべての重要度</option>
+    <option value="important">重要</option>
+    <option value="impact">生活影響あり</option>
+    <option value="check">要確認</option>
+    <option value="normal">通常</option>
+  </select>
+</section>
 
-  var js = document.createElement('script');
-  js.src = prefix + 'assets/js/cookie-consent.js';
-  js.defer = true;
-  document.head.appendChild(js);
-})();
-</script>
-</head>
-
-<body>
-  <header class="site-header">
-    <div class="container">
-      <h1>ニュース</h1>
-      <p>ドイツ生活に関連する最新情報を掲載します。</p>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="content-box">
-      <p>このページのコンテンツは準備中です。</p>
-      <ul class="nav-links">
-        <li><a href="../index.html">日本語トップへ戻る</a></li>
-      </ul>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Nihon Gateway</p>
-    </div>
-  </footer>
-
-  <script src="../../assets/js/main.js"></script>
-</body>
-
-</html>
+<section id="newsGrid" class="news-grid"></section>

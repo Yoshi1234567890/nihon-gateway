@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f7f3ee" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/medical/" />
-  <link rel="icon" type="image/png" href="../../assets/images/brand/favicon.png" />
+  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
 
   <meta property="og:title" content="Medical | 医療・病院 | Nihon Gateway Germany" />
   <meta property="og:description" content="病院、クリニック、家庭医などの医療情報を日本語で見やすく一覧化。" />
@@ -29,17 +29,27 @@
 
   <style>
     :root{
+      --bg:#f7f8fa;
+      --surface:#ffffff;
+      --surface:#fbfcfd;
+      --line:#e6eaf0;
+      --line-strong:#d9e0e8;
+      --text:#16202a;
+      --muted:#5f6b76;
+      --muted-2:#7d8893;
+      --brand:#d84b6a;
+      --brand-dark:#bc3856;
+      --hover-pink:#f3c8d4;
+      --hover-pink-bg:#fff4f7;
+      --accent:#2f80ed;
+      --shadow:0 12px 32px rgba(19,35,58,.12);
+      --shadow-hover:0 18px 42px rgba(19,35,58,.12);
+
       --red:#e8002d;
-      --orange:#ff6b2b;
-      --yellow:#ffc93c;
-      --teal:#00b4a6;
-      --blue:#2f6df5;
-      --purple:#7c3aed;
       --pink:#f472b6;
       --cream:#fdf8f2;
       --paper:#fffdf9;
       --ink:#1a1014;
-      --muted:#6b5e68;
       --border:#ede5e0;
       --card-shadow:0 10px 30px rgba(26,16,20,.07);
       --radius-xl:28px;
@@ -47,23 +57,30 @@
       --radius-md:14px;
       --radius-sm:10px;
       --max:1280px;
+      --container:1220px;
       --map-height:calc(100vh - 120px);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'Inter','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      font-family:'Inter','Noto Sans JP',sans-serif;
+      color:var(--text);
+      line-height:1.6;
       background:
         linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
         url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
-        var(--cream);
-      color:var(--ink);
-      line-height:1.6;
+        var(--bg);
     }
 
-    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
     button,input,select{font:inherit}
+
+    .container{
+      width:min(var(--container), calc(100% - 32px));
+      margin:0 auto;
+    }
 
     .site-header{
       position:sticky;
@@ -72,11 +89,6 @@
       background:rgba(255,255,255,.84);
       backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(230,234,240,.92);
-    }
-
-    .container{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
     }
 
     .header-inner{
@@ -91,6 +103,7 @@
       display:flex;
       align-items:center;
       gap:12px;
+      text-decoration:none;
       min-width:0;
     }
 
@@ -129,6 +142,45 @@
       justify-content:flex-end;
     }
 
+    .header-nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .header-nav a{
+      text-decoration:none;
+      font-size:14px;
+      font-weight:600;
+      color:#34414d;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #dce4ee;
+      background:rgba(255,255,255,.74);
+      transition:all .18s ease;
+    }
+
+    .header-nav a.active{
+      color:#34414d;
+      border-color:#dce4ee;
+      background:rgba(255,255,255,.74);
+      transform:none;
+    }
+
+    .header-nav a:hover{
+      color:var(--brand);
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
+      transform:translateY(-1px);
+    }
+
+    .header-search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
     .header-city,
     .header-category,
     .header-language{
@@ -137,7 +189,7 @@
       gap:8px;
       padding:8px 12px;
       border-radius:999px;
-      border:1px solid #e6eaf0;
+      border:1px solid var(--line);
       background:#fff;
       color:var(--muted);
       font-size:13px;
@@ -146,8 +198,8 @@
 
     .header-category:hover,
     .header-language:hover{
-      border-color:#f3c8d4;
-      background:#fff4f7;
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
       transform:translateY(-1px);
     }
 
@@ -169,7 +221,7 @@
     .header-category-trigger{
       border:none;
       background:transparent;
-      color:var(--ink);
+      color:var(--text);
       font-weight:700;
       cursor:pointer;
       display:flex;
@@ -192,7 +244,7 @@
       left:0;
       min-width:220px;
       background:#fff;
-      border:1px solid #e6eaf0;
+      border:1px solid var(--line);
       border-radius:14px;
       box-shadow:0 16px 30px rgba(19,35,58,.14);
       padding:8px;
@@ -207,6 +259,7 @@
     }
 
     .category-dropdown a{
+      text-decoration:none;
       font-size:13px;
       color:#2f3e4c;
       padding:8px 10px;
@@ -215,16 +268,20 @@
     }
 
     .category-dropdown a:hover{
-      background:#fff4f7;
-      border-color:#f3c8d4;
-      color:#d84b6a;
+      background:var(--hover-pink-bg);
+      border-color:var(--hover-pink);
+      color:var(--brand);
       transform:translateY(-1px);
     }
 
-    .header-search{
-      display:flex;
-      align-items:center;
-      gap:8px;
+    .header-city select,
+    .header-category select,
+    .header-language select{
+      border:none;
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
+      outline:none;
     }
 
     .search-box{
@@ -232,13 +289,13 @@
       align-items:center;
       gap:10px;
       background:rgba(255,255,255,.96);
-      border:1px solid #d9e0e8;
+      border:1px solid var(--line-strong);
       border-radius:14px;
       padding:0 14px;
     }
 
     .search-box span{
-      color:#7d8893;
+      color:var(--muted-2);
       font-size:18px;
     }
 
@@ -249,34 +306,47 @@
       min-width:170px;
       padding:10px 0;
       font-size:13px;
-      color:var(--ink);
+      color:var(--text);
       background:transparent;
     }
 
     .search-box input::placeholder{color:#94a0ad}
 
+    .header-search .search-box{
+      min-width:220px;
+      height:42px;
+      border-radius:999px;
+      padding:0 12px;
+    }
+
+    .header-search .search-box span{font-size:19px}
+    .header-search .search-box input{font-size:13px}
+
     .search-btn{
-      width:38px;
-      height:38px;
-      border:none;
-      border-radius:12px;
-      background:#1b2d42;
-      color:#fff;
-      display:grid;
-      place-items:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:42px;
+      border-radius:999px;
+      padding:0 14px;
+      font-size:24px;
+      line-height:1;
+      color:#1f5fbf;
+      background:rgba(47,128,237,.20);
+      border:1px solid rgba(47,128,237,.32);
       cursor:pointer;
     }
 
     .search-btn:hover{
       transform:translateY(-1px);
-      background:#2e435c;
+      filter:brightness(.96);
     }
 
     .header-language select{
       border:none;
       outline:none;
       background:transparent;
-      color:var(--ink);
+      color:var(--text);
       font-size:13px;
       cursor:pointer;
     }
@@ -662,66 +732,95 @@
     }
 
     .page-footer{
-      margin:24px auto 30px;
-      width:min(var(--max), calc(100% - 32px));
-      background:var(--paper);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:18px;
-      box-shadow:var(--card-shadow);
+      width:min(var(--container), calc(100% - 32px));
+      margin:34px auto 30px;
+      padding:14px 20px 18px;
+      background:linear-gradient(135deg, rgba(248,250,252,.72) 0%, rgba(238,243,249,.68) 100%);
+      border:1px solid #e1e8f0;
+      border-radius:24px;
+      box-shadow:0 12px 24px rgba(19,35,58,.06);
+      backdrop-filter:blur(6px);
     }
 
     .footer-inner{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:20px;
-      flex-wrap:wrap;
+      gap:24px;
+      flex-wrap:nowrap;
     }
 
     .footer-left{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
+      flex:0 1 auto;
+      min-width:0;
+      padding-left:0;
+    }
+
+    .footer-copy{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
 
     .footer-logo{
-      width:72px;
-      height:44px;
+      display:block;
+      width:auto;
+      height:68px;
+      max-width:none;
       object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      border-radius:0;
+      flex-shrink:0;
     }
 
     .footer-title{
+      font-size:14px;
       font-weight:800;
-      font-size:12px;
-      letter-spacing:.12em;
-      color:#4e3d47;
+      color:var(--text);
     }
 
-    .footer-sub,.footer-meta{
+    .footer-sub,
+    .footer-meta{
       font-size:12px;
-      color:#7b6b77;
+      color:var(--muted);
     }
 
     .footer-links{
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+      flex-wrap:nowrap;
+      gap:8px;
+      flex:1 1 auto;
+      justify-content:flex-end;
+      align-items:center;
+      min-width:0;
+      white-space:nowrap;
+      overflow-x:auto;
+      overflow-y:visible;
+      scrollbar-width:thin;
+      padding:4px 0;
     }
 
     .footer-links a{
       font-size:12px;
-      color:#6c5966;
-      border:1px solid #eadfe7;
+      color:#34414d;
+      text-decoration:none;
       padding:6px 10px;
       border-radius:999px;
-      background:#fff;
+      background:rgba(255,255,255,.72);
+      border:1px solid #e2e8f0;
+      transition:all .18s ease;
     }
 
     .footer-links a:hover{
-      color:#d54a74;
-      border-color:#f2b6ca;
-      background:#fff5f9;
+      color:var(--brand);
+      border-color:var(--hover-pink);
+      background:var(--hover-pink-bg);
+      transform:translateY(-1px);
     }
 
     @media (max-width:1180px){
@@ -755,9 +854,30 @@
 
       .view-toggle-wrap{justify-content:flex-start}
       .cards{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+
+      .footer-inner{
+        flex-wrap:wrap;
+        align-items:flex-start;
+      }
+
+      .footer-left,
+      .footer-links{
+        width:100%;
+      }
+
+      .footer-links{
+        justify-content:flex-start;
+      }
     }
 
     @media (max-width:560px){
+      body{
+        background:
+          linear-gradient(rgba(247,248,250,.96), rgba(247,248,250,.98)),
+          url("../../assets/images/brand/site-bg.jpg") center top / cover no-repeat,
+          var(--bg);
+      }
+
       .container,.layout,.view-toggle-wrap,.page-footer{
         width:calc(100% - 20px);
       }
@@ -809,34 +929,37 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/nihon-gateway-germany/ja/">
-        <img class="brand-logo" src="../../assets/images/brand/logo.png" alt="Nihon Gateway Germany ロゴ">
+      <a class="brand" href="../" aria-label="Nihon Gateway Germany ホーム">
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
         <span class="brand-copy">
           <span class="brand-title">NIHON GATEWAY GERMANY</span>
-          <span class="brand-sub">ドイツ生活の総合ポータル</span>
+          <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
         </span>
       </a>
 
       <div class="header-actions">
-        <div class="header-city">📍 Düsseldorf</div>
+        <nav class="header-nav" aria-label="メインナビゲーション">
+          <a href="../">ホーム</a>
+          <a href="../about/">このサイトについて</a>
+        </nav>
 
         <div class="header-category header-category-menu" aria-label="カテゴリ選択">
           <button type="button" class="header-category-trigger">カテゴリ</button>
           <div class="category-dropdown">
-            <a href="/nihon-gateway-germany/ja/guides/">手続き・制度</a>
-            <a href="/nihon-gateway-germany/ja/living/">住まい・生活</a>
-            <a href="/nihon-gateway-germany/ja/jobs/">仕事・求人</a>
-            <a href="/nihon-gateway-germany/ja/medical/">医療・緊急</a>
-            <a href="/nihon-gateway-germany/ja/eat/">食べる</a>
-            <a href="/nihon-gateway-germany/ja/shopping/">買い物・サービス</a>
-            <a href="/nihon-gateway-germany/ja/community/">交流・掲示板</a>
-            <a href="/nihon-gateway-germany/ja/events/">おでかけ・イベント</a>
-            <a href="/nihon-gateway-germany/ja/learn-german/">ドイツ語・学び</a>
-            <a href="/nihon-gateway-germany/ja/news/">ニュース・読みもの</a>
+            <a href="../guides/">手続き・制度</a>
+            <a href="../living/">住まい・生活</a>
+            <a href="../jobs/" data-base="jobs">仕事・求人</a>
+            <a href="../medical/" data-base="medical">医療・緊急</a>
+            <a href="../eat/" data-base="eat">グルメ・飲食</a>
+            <a href="../shopping/" data-base="shopping">買い物・サービス</a>
+            <a href="../community/" data-base="community">交流・掲示板</a>
+            <a href="../events/" data-base="events">おでかけ・イベント</a>
+            <a href="../learn-german/">ドイツ語・学び</a>
+            <a href="../news/">ニュース・読みもの</a>
           </div>
         </div>
 
-        <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
+        <form class="header-search" action="../search/" method="get" role="search">
           <label class="search-box" aria-label="サイト内検索">
             <span>⌕</span>
             <input type="search" name="q" placeholder="検索">
@@ -847,9 +970,11 @@
         <label class="header-language" aria-label="言語切り替え">
           <span>Language</span>
           <select id="languageSelect">
-            <option value="/nihon-gateway-germany/ja/" selected>日本語</option>
-            <option value="/nihon-gateway-germany/">English</option>
-            <option value="/nihon-gateway-germany/de/">Deutsch</option>
+            <option value="../" selected>日本語</option>
+            <option value="../../">English</option>
+            <option value="../../de/">Deutsch</option>
+            <option value="../../zh/">中文</option>
+            <option value="../../ko/">한국어</option>
           </select>
         </label>
       </div>
@@ -943,11 +1068,11 @@
       </div>
 
       <div class="footer-links">
-        <a href="/nihon-gateway-germany/ja/about/">このサイトについて</a>
-        <a href="/nihon-gateway-germany/ja/contact/">お問い合わせ</a>
-        <a href="/nihon-gateway-germany/ja/terms/">利用規約</a>
-        <a href="/nihon-gateway-germany/ja/privacy/">プライバシー</a>
-        <a href="/nihon-gateway-germany/ja/impressum/">運営者情報</a>
+        <a href="../about/">このサイトについて</a>
+        <a href="../contact/">お問い合わせ</a>
+        <a href="../terms/">利用規約</a>
+        <a href="../privacy/">プライバシー</a>
+        <a href="../impressum/">運営者情報</a>
       </div>
     </div>
   </footer>
@@ -960,354 +1085,6 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec?sheet=medical&city=duesseldorf";
-
-    const FALLBACK_ITEMS = [
-      {
-        slug:"evangelisches-krankenhaus-duesseldorf",
-        name_ja:"エヴァンゲリッシュ病院デュッセルドルフ",
-        name_en:"Evangelisches Krankenhaus Düsseldorf",
-        description_ja:"デュッセルドルフ中心部にある総合病院で513床と15の診療科を持つ",
-        description_en:"A large general hospital in central Düsseldorf with 513 beds and 15 departments",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Friedrichstadt",
-        tags:"hospital,general",
-        address:"Kirchfeldstr. 40, 40217 Düsseldorf",
-        postcode:"40217",
-        website:"https://www.evk-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"florence-nightingale-krankenhaus",
-        name_ja:"フローレンス・ナイチンゲール病院",
-        name_en:"Florence-Nightingale-Krankenhaus",
-        description_ja:"556床と14診療科を持つカイザースヴェルトの病院",
-        description_en:"A specialist hospital in Kaiserswerth with 556 beds and 14 departments",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Kaiserswerth",
-        tags:"hospital,nursing",
-        address:"Kreuzbergstr. 79, 40489 Düsseldorf",
-        postcode:"40489",
-        website:"https://www.kaiserswerther-diakonie.de/krankenhaus",
-        map_url:""
-      },
-      {
-        slug:"marien-hospital-duesseldorf",
-        name_ja:"マリエン病院デュッセルドルフ",
-        name_en:"Marien Hospital Düsseldorf",
-        description_ja:"461床のカトリック系総合病院で幅広い診療を提供",
-        description_en:"Catholic hospital with 461 beds offering a wide range of services",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Pempelfort",
-        tags:"hospital,catholic",
-        address:"Rochusstr. 2, 40479 Düsseldorf",
-        postcode:"40479",
-        website:"https://www.marienhospital-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"sana-kliniken-gerresheim",
-        name_ja:"ザナ病院ゲレスハイム",
-        name_en:"Sana Kliniken Düsseldorf Gerresheim",
-        description_ja:"ゲレスハイム地区の180床の地域病院",
-        description_en:"District hospital in Gerresheim with 180 beds",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Gerresheim",
-        tags:"hospital,community",
-        address:"Gräulinger Str. 120, 40625 Düsseldorf",
-        postcode:"40625",
-        website:"https://www.sana-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"sana-kliniken-benrath",
-        name_ja:"ザナ病院ベンラート",
-        name_en:"Sana Kliniken Düsseldorf Benrath",
-        description_ja:"ベンラート地区にある188床の病院",
-        description_en:"Hospital in Benrath with about 188 beds",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Benrath",
-        tags:"hospital,community",
-        address:"Urdenbacher Allee 83, 40593 Düsseldorf",
-        postcode:"40593",
-        website:"https://www.sana-benrath.de",
-        map_url:""
-      },
-      {
-        slug:"schoen-klinik-duesseldorf",
-        name_ja:"シェーン・クリニック デュッセルドルフ",
-        name_en:"Schön Klinik Düsseldorf",
-        description_ja:"内科や外科などを提供する私立病院",
-        description_en:"A private hospital offering internal medicine and surgery",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Heerdt",
-        tags:"hospital,private",
-        address:"Am Heerdter Krankenhaus 2, 40549 Düsseldorf",
-        postcode:"40549",
-        website:"https://www.schoen-klinik.de/duesseldorf",
-        map_url:""
-      },
-      {
-        slug:"augusta-krankenhaus",
-        name_ja:"アウグスタ病院",
-        name_en:"Augusta-Krankenhaus",
-        description_ja:"約200床の急性期病院で幅広い医療を提供",
-        description_en:"Acute hospital with about 200 beds",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Rath",
-        tags:"hospital,acute",
-        address:"Amalienstraße 9, 40472 Düsseldorf",
-        postcode:"40472",
-        website:"https://www.augusta-hospital.de",
-        map_url:""
-      },
-      {
-        slug:"st-vinzenz-krankenhaus",
-        name_ja:"聖ヴィンツェンツ病院",
-        name_en:"St. Vinzenz-Krankenhaus Düsseldorf",
-        description_ja:"322床のカトリック系病院で複数の専門診療を提供",
-        description_en:"Catholic hospital with 322 beds and multiple specialties",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Pempelfort",
-        tags:"hospital,catholic",
-        address:"Schlossstr. 85, 40477 Düsseldorf",
-        postcode:"40477",
-        website:"https://www.vinzenz-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"st-martinus-krankenhaus",
-        name_ja:"聖マルティヌス病院",
-        name_en:"St. Martinus-Krankenhaus Düsseldorf",
-        description_ja:"209床の病院で内科や老年医学などを提供",
-        description_en:"Hospital with 209 beds including geriatrics and internal medicine",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Bilk",
-        tags:"hospital,geriatrics",
-        address:"Gladbacher Str. 26, 40219 Düsseldorf",
-        postcode:"40219",
-        website:"https://www.martinus-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"universitaetsklinikum-duesseldorf",
-        name_ja:"デュッセルドルフ大学病院",
-        name_en:"Universitätsklinikum Düsseldorf",
-        description_ja:"1247床を持つ大学病院で高度医療を提供",
-        description_en:"University hospital with 1247 beds providing advanced care",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Wersten",
-        tags:"hospital,university",
-        address:"Moorenstraße 5, 40225 Düsseldorf",
-        postcode:"40225",
-        website:"https://www.uniklinik-duesseldorf.de",
-        map_url:""
-      },
-      {
-        slug:"paracelsus-klinik-golzheim",
-        name_ja:"パラケルスス・クリニック",
-        name_en:"Paracelsus Klinik Golzheim",
-        description_ja:"泌尿器専門の大規模クリニック",
-        description_en:"Large urology specialist clinic",
-        category:"clinic",
-        city:"duesseldorf",
-        area:"Golzheim",
-        tags:"clinic,urology",
-        address:"Friedrich-Lau-Straße 11, 40474 Düsseldorf",
-        postcode:"40474",
-        website:"https://www.paracelsus-klinik.de/golzheim",
-        map_url:""
-      },
-      {
-        slug:"krankenhaus-elbroich",
-        name_ja:"エルブロイヒ病院",
-        name_en:"Krankenhaus Elbroich",
-        description_ja:"高齢者医療と精神科に特化した病院",
-        description_en:"Hospital specializing in geriatrics and psychiatry",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Holthausen",
-        tags:"hospital,geriatrics",
-        address:"Am Falder 6, 40589 Düsseldorf",
-        postcode:"40589",
-        website:"https://www.krankenhaus-elbroich.de",
-        map_url:""
-      },
-      {
-        slug:"luisenkrankenhaus",
-        name_ja:"ルイゼン病院",
-        name_en:"Luisenkrankenhaus Düsseldorf",
-        description_ja:"乳腺医療に特化した小規模病院",
-        description_en:"Specialist hospital for breast health",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Flingern",
-        tags:"hospital,breast",
-        address:"Luise-Rainer-Str. 6-10, 40235 Düsseldorf",
-        postcode:"40235",
-        website:"https://luisenkrankenhaus.de",
-        map_url:""
-      },
-      {
-        slug:"lvr-klinikum-duesseldorf",
-        name_ja:"LVRクリニクム",
-        name_en:"LVR-Klinikum Düsseldorf",
-        description_ja:"精神科・心理療法の専門病院",
-        description_en:"Psychiatric hospital and psychotherapy center",
-        category:"hospital",
-        city:"duesseldorf",
-        area:"Grafenberg",
-        tags:"hospital,psychiatry",
-        address:"Bergische Landstraße 2, 40629 Düsseldorf",
-        postcode:"40629",
-        website:"https://klinikum-duesseldorf.lvr.de",
-        map_url:""
-      },
-      {
-        slug:"johanniter-tagesklinik",
-        name_ja:"ヨハンニター日帰りクリニック",
-        name_en:"Johanniter Tagesklinik Düsseldorf",
-        description_ja:"精神科デイクリニック",
-        description_en:"Psychiatric day clinic",
-        category:"clinic",
-        city:"duesseldorf",
-        area:"Holthausen",
-        tags:"clinic,psychiatry",
-        address:"Marbacher Straße 79, 40597 Düsseldorf",
-        postcode:"40597",
-        website:"https://www.johanniter.de/johanniter-kliniken/duesseldorf",
-        map_url:""
-      },
-      {
-        slug:"wdgz",
-        name_ja:"西ドイツ糖尿病センター",
-        name_en:"Westdeutsches Diabetes- und Gesundheitszentrum",
-        description_ja:"糖尿病と予防医療の専門施設",
-        description_en:"Diabetes and preventive health center",
-        category:"clinic",
-        city:"duesseldorf",
-        area:"Wersten",
-        tags:"clinic,diabetes",
-        address:"Hohensandweg 37, 40591 Düsseldorf",
-        postcode:"40591",
-        website:"https://wdgz.de",
-        map_url:""
-      },
-      {
-        slug:"gemeinschaftspraxis-rethelstrasse",
-        name_ja:"レーテル通り診療所",
-        name_en:"Gemeinschaftspraxis Rethelstraße",
-        description_ja:"家庭医の共同診療所",
-        description_en:"General practice",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Düsseltal",
-        tags:"hausarzt,general",
-        address:"Rethelstraße 7, 40237 Düsseldorf",
-        postcode:"40237",
-        website:"https://www.praxis-rethelstrasse.de",
-        map_url:""
-      },
-      {
-        slug:"hausaerzte-am-kaiserteich",
-        name_ja:"カイザーテイク家庭医",
-        name_en:"Hausärzte am Kaiserteich",
-        description_ja:"バリアフリーの家庭医診療所",
-        description_en:"Barrier-free general practice",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Friedrichstadt",
-        tags:"hausarzt,general",
-        address:"Reichsstraße 59, 40217 Düsseldorf",
-        postcode:"40217",
-        website:"https://hausaerzte-am-kaiserteich.de",
-        map_url:""
-      },
-      {
-        slug:"vantis-hausarztpraxis",
-        name_ja:"バンティス家庭医",
-        name_en:"Vantis Hausarztpraxis",
-        description_ja:"慢性疾患に強い家庭医クリニック",
-        description_en:"General practice focusing on chronic care",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Medienhafen",
-        tags:"hausarzt,chronic",
-        address:"Völklinger Straße 3, 40219 Düsseldorf",
-        postcode:"40219",
-        website:"https://www.vantis.com",
-        map_url:""
-      },
-      {
-        slug:"hafendoc-praxis",
-        name_ja:"ハーフェンドック",
-        name_en:"Hafendoc Praxis",
-        description_ja:"内科・家庭医療クリニック",
-        description_en:"Internal medicine and general practice",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Medienhafen",
-        tags:"hausarzt,internal",
-        address:"Erftstraße 7-9, 40219 Düsseldorf",
-        postcode:"40219",
-        website:"https://hafendoc.de",
-        map_url:""
-      },
-      {
-        slug:"graf-adolf-praxis",
-        name_ja:"グラーフ＝アドルフ診療所",
-        name_en:"Graf-Adolf-Praxis",
-        description_ja:"駅近の家庭医クリニック",
-        description_en:"Walk-in general practice near station",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Stadtmitte",
-        tags:"hausarzt,walk-in",
-        address:"Graf-Adolf-Str. 59, 40210 Düsseldorf",
-        postcode:"40210",
-        website:"https://graf-adolf-praxis.de",
-        map_url:""
-      },
-      {
-        slug:"hausarztpraxis-duesseltal",
-        name_ja:"デュッセルタール家庭医",
-        name_en:"Hausarztpraxis Düsseltal",
-        description_ja:"予防と慢性疾患管理を提供",
-        description_en:"General practice with preventive care",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Düsseltal",
-        tags:"hausarzt,checkup",
-        address:"Goethestraße 75, 40237 Düsseldorf",
-        postcode:"40237",
-        website:"https://hausarzt-duesseltal.de",
-        map_url:""
-      },
-      {
-        slug:"hausarztpraxis-eller",
-        name_ja:"エラー家庭医",
-        name_en:"Hausarztpraxis Eller",
-        description_ja:"内科中心の家庭医クリニック",
-        description_en:"Internal medicine general practice",
-        category:"hausarzt",
-        city:"duesseldorf",
-        area:"Eller",
-        tags:"hausarzt,internal",
-        address:"Gumbertstraße 180, 40229 Düsseldorf",
-        postcode:"40229",
-        website:"https://www.hausarztpraxis-eller.de",
-        map_url:""
-      }
-    ];
 
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
@@ -1893,7 +1670,7 @@
       els.mapViewBtn.addEventListener("click", () => setView("map"));
     }
 
-    function useRows(rows, fromFallback = false) {
+    function useRows(rows) {
       rawItems = rows.map(parseItem).filter((it) => !!it.name);
       categoryMap = buildCategoryMap(rawItems);
       updateCategory1Options();
@@ -1904,11 +1681,7 @@
         return;
       }
 
-      if (fromFallback) {
-        setStatus("Spreadsheetからの読み込みに失敗したため、HTML内の予備データを表示しています。", true);
-      } else {
-        clearStatus();
-      }
+      clearStatus();
     }
 
     async function init() {
@@ -1920,14 +1693,29 @@
         const rows = normalizeIncomingPayload(payload);
 
         if (!rows.length) {
-          useRows(FALLBACK_ITEMS, true);
+          rawItems = [];
+          filteredItems = [];
+          categoryMap = {};
+          updateCategory1Options();
+          renderSummary();
+          renderCards();
+          setStatus("Spreadsheetに表示できるmedicalデータが見つかりませんでした。", true);
           return;
         }
 
-        useRows(rows, false);
+        useRows(rows);
       } catch (error) {
         console.error(error);
-        useRows(FALLBACK_ITEMS, true);
+        rawItems = [];
+        filteredItems = [];
+        categoryMap = {};
+        updateCategory1Options();
+        renderSummary();
+        renderCards();
+        setStatus(
+          "データの読み込みに失敗しました。<br>API URL、Apps Scriptの公開設定、またはmedicalシートの列名を確認してください。",
+          true
+        );
       }
     }
 

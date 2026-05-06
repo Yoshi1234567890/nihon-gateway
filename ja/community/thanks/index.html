@@ -1,33 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>送信完了</title><script>
-(function () {
-  var segments = location.pathname.split('/').filter(Boolean);
-  if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
-
-  var localeIndex = -1;
-  for (var i = 0; i < segments.length; i++) {
-    if (segments[i] === 'ja' || segments[i] === 'de') { localeIndex = i; break; }
-  }
-
-  var depth = localeIndex >= 0 ? (segments.length - localeIndex) : Math.max(segments.length - 1, 0);
-  var prefix = depth === 0 ? './' : '../'.repeat(depth);
-
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = prefix + 'assets/css/cookie-consent.css';
-  document.head.appendChild(css);
-
-  var js = document.createElement('script');
-  js.src = prefix + 'assets/js/cookie-consent.js';
-  js.defer = true;
-  document.head.appendChild(js);
-})();
-</script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>送信完了 | Nihon Gateway Germany</title>
+  <link rel="icon" type="image/png" href="../../../assets/images/brand/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>:root{--bg:#f7f8fa;--surface:#fff;--line:#e6eaf0;--text:#16202a;--muted:#5f6b76;--brand:#d84b6a;--brand-dark:#bc3856;--container:980px}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Noto Sans JP',sans-serif;color:var(--text);line-height:1.6;background:linear-gradient(rgba(247,248,250,.8),rgba(247,248,250,.84)),url('../../../assets/images/brand/site-bg.jpg') center top/cover fixed no-repeat,var(--bg)}.container{width:min(var(--container),calc(100% - 32px));margin:0 auto}.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between}.brand img{height:58px}.main{padding:28px 0 56px}.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 14px 34px rgba(19,35,58,.1)}h1{font-size:30px;margin-bottom:10px}.lead{color:var(--muted);margin-bottom:18px}label{display:block;font-size:14px;font-weight:700;margin:10px 0 6px}input,textarea,select{width:100%;border:1px solid #dce3ec;border-radius:12px;padding:12px;background:#fff;font:inherit}textarea{min-height:130px;resize:vertical}.btn{border:none;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-weight:800;padding:12px 24px;cursor:pointer;margin-top:12px}.nav{margin-bottom:14px}.nav a{color:#3d4a57;text-decoration:none;font-weight:700}.site-footer{margin-top:56px;border-top:1px solid var(--line);background:rgba(255,255,255,.86)}.footer-inner{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0}.footer-inner img{height:48px}</style>
 </head>
-<body style="font-family:Arial,sans-serif;max-width:760px;margin:auto;padding:40px;background:#fdf8f2">
-  <h1>送信ありがとうございました</h1>
-  <p>内容を受け付けました。</p>
-  <p><a href="./index.html">掲示板トップへ戻る</a></p>
-</body>
-</html>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="../../index.html"><img src="../../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany"></a><a href="../index.html" style="text-decoration:none;color:#3d4a57;font-weight:700">掲示板トップ</a></div></header>
+<main class="main"><div class="container"><div class="nav"><a href="../index.html">← 掲示板一覧へ戻る</a></div><section class="card"><h1>送信ありがとうございました</h1><p class="lead">内容を受け付けました。確認後、必要に応じて担当よりご連絡します。</p><p><a href="../index.html">掲示板トップへ戻る</a></p></section></div></main>
+<footer class="site-footer"><div class="container footer-inner"><img src="../../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany"><small>© Nihon Gateway Germany</small></div></footer>
+<script src="../../../assets/js/cookie-consent.js" defer></script>
+
+</body></html>

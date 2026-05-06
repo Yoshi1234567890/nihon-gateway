@@ -4,314 +4,93 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>投稿フォーム | Nihon Gateway Germany</title>
+  <meta name="description" content="Nihon Gateway Germany 掲示板への投稿フォームです。" />
+  <link rel="icon" type="image/png" href="../../../assets/images/brand/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --teal:#00b4a6;
-      --blue:#2f6df5;
-      --cream:#fdf8f2;
-      --ink:#1a1014;
-      --muted:#6b5e68;
-      --border:#ede5e0;
-      --shadow:0 10px 30px rgba(0,0,0,.07);
-      --radius:22px
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:'Outfit','Noto Sans JP',sans-serif;
-      background:var(--cream);
-      color:var(--ink)
-    }
-    .wrap{
-      max-width:980px;
-      margin:0 auto;
-      padding:28px 18px 60px
-    }
-    .panel{
-      background:#fff;
-      border:1.5px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:22px
-    }
-    h1{
-      margin:0 0 16px;
-      font-size:2rem
-    }
-    p{
-      color:var(--muted);
-      line-height:1.8
-    }
-    .form-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px
-    }
+    :root{--bg:#f7f8fa;--surface:#ffffff;--line:#e6eaf0;--text:#16202a;--muted:#5f6b76;--brand:#d84b6a;--brand-dark:#bc3856;--container:1120px;--shadow:0 14px 34px rgba(19,35,58,.1)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter','Noto Sans JP',sans-serif;color:var(--text);line-height:1.6;background:linear-gradient(rgba(247,248,250,.8),rgba(247,248,250,.84)),url('../../../assets/images/brand/site-bg.jpg') center top/cover fixed no-repeat,var(--bg)}
+    .container{width:min(var(--container),calc(100% - 32px));margin:0 auto}
+    .site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand img{height:58px;width:auto;display:block}
+    .home-link{text-decoration:none;color:#3d4a57;font-weight:700;font-size:14px}
+    .main{padding:28px 0 56px}
+    .page-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px}
+    h1{font-size:30px;margin-bottom:10px}
+    .lead{color:var(--muted);margin-bottom:20px}
+    .nav a{color:#3d4a57;text-decoration:none;font-weight:700}
+    .nav{margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .full{grid-column:1/-1}
-    label{
-      display:block;
-      margin:0 0 6px;
-      font-size:.92rem;
-      font-weight:700
-    }
-    input,select,textarea{
-      width:100%;
-      border:1.5px solid var(--border);
-      background:#fff;
-      border-radius:14px;
-      padding:12px 13px;
-      font:inherit;
-      color:var(--ink);
-      outline:none
-    }
-    textarea{
-      min-height:150px;
-      resize:vertical
-    }
-    input:focus,select:focus,textarea:focus{
-      border-color:var(--teal)
-    }
-    .btn{
-      border:none;
-      border-radius:14px;
-      min-height:46px;
-      padding:0 18px;
-      font:inherit;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      transition:.18s ease;
-      background:linear-gradient(135deg,var(--teal),var(--blue));
-      color:#fff
-    }
-    .btn:hover{transform:translateY(-2px)}
-    .subtle{
-      font-size:.84rem;
-      color:var(--muted)
-    }
-    .nav{
-      margin-bottom:18px
-    }
-    .nav a{
-      color:inherit;
-      text-decoration:none;
-      font-weight:700
-    }
-    .nav a:hover{
-      text-decoration:underline
-    }
-    @media (max-width:760px){
-      .form-grid{grid-template-columns:1fr}
-    }
+    label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+    input,select,textarea{width:100%;border:1px solid #dce3ec;border-radius:12px;padding:12px;background:#fff;font:inherit;color:var(--text)}
+    textarea{min-height:150px;resize:vertical}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:#86a7cf;box-shadow:0 0 0 3px rgba(47,128,237,.12)}
+    .agree{display:flex;align-items:flex-start;gap:10px}
+    .agree input{width:auto;margin-top:4px}
+    .btn{border:none;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-weight:800;padding:12px 24px;cursor:pointer}
+    .subtle{font-size:13px;color:var(--muted);margin-top:12px}
+    .site-footer{margin-top:56px;border-top:1px solid var(--line);background:rgba(255,255,255,.86)}
+    .footer-inner{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0}
+    .footer-inner img{height:48px;width:auto}
+    @media (max-width:820px){.grid{grid-template-columns:1fr}h1{font-size:26px}}
   </style>
-<script>
-(function () {
-  var segments = location.pathname.split('/').filter(Boolean);
-  if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
-
-  var localeIndex = -1;
-  for (var i = 0; i < segments.length; i++) {
-    if (segments[i] === 'ja' || segments[i] === 'de') { localeIndex = i; break; }
-  }
-
-  var depth = localeIndex >= 0 ? (segments.length - localeIndex) : Math.max(segments.length - 1, 0);
-  var prefix = depth === 0 ? './' : '../'.repeat(depth);
-
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = prefix + 'assets/css/cookie-consent.css';
-  document.head.appendChild(css);
-
-  var js = document.createElement('script');
-  js.src = prefix + 'assets/js/cookie-consent.js';
-  js.defer = true;
-  document.head.appendChild(js);
-})();
-</script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="nav"><a href="../">← 掲示板一覧へ戻る</a></div>
-
-    <div class="panel">
-      <h1>投稿フォーム</h1>
-      <p>投稿は送信後に管理者確認となります。メールアドレスや電話番号は掲示板に表示されません。</p>
-
-      <form id="postForm" class="form-grid" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="submitPost">
-
-        <div>
-          <label for="category1">カテゴリ1</label>
-          <select name="category1" id="category1" required></select>
-        </div>
-
-        <div>
-          <label for="category2">カテゴリ2</label>
-          <select name="category2" id="category2" required></select>
-        </div>
-
-        <div class="full">
-          <label for="title">タイトル</label>
-          <input id="title" name="title" required placeholder="例：デュッセルドルフでソファ売ります">
-        </div>
-
-        <div class="full">
-          <label for="body">本文</label>
-          <textarea id="body" name="body" required placeholder="内容、条件、受け渡し方法などを記載してください"></textarea>
-        </div>
-
-        <div>
-          <label for="country">国</label>
-          <input id="country" name="country" value="Germany">
-        </div>
-
-        <div>
-          <label for="region">地域</label>
-          <input id="region" name="region" placeholder="NRW, Berlin など">
-        </div>
-
-        <div>
-          <label for="city">都市</label>
-          <input id="city" name="city" required placeholder="Düsseldorf">
-        </div>
-
-        <div>
-          <label for="nickname">ニックネーム</label>
-          <input id="nickname" name="nickname" required>
-        </div>
-
-        <div>
-          <label for="contact_email_private">非公開メールアドレス</label>
-          <input id="contact_email_private" name="contact_email_private" type="email" required>
-        </div>
-
-        <div>
-          <label for="contact_phone_private">非公開電話番号（任意）</label>
-          <input id="contact_phone_private" name="contact_phone_private">
-        </div>
-
-        <div>
-          <label for="preferred_contact_method">希望連絡方法</label>
-          <input id="preferred_contact_method" name="preferred_contact_method" placeholder="サイト経由メッセージ優先 など">
-        </div>
-
-        <div>
-          <label for="price">価格（必要な場合）</label>
-          <input id="price" name="price" placeholder="€50">
-        </div>
-
-        <div>
-          <label for="event_date">イベント日（イベント投稿のみ）</label>
-          <input id="event_date" name="event_date" type="date">
-        </div>
-
-        <div>
-          <label for="availability_date">利用可能日（物件など）</label>
-          <input id="availability_date" name="availability_date" type="date">
-        </div>
-
-        <div>
-          <label for="image1">画像1</label>
-          <input id="image1" name="image1" type="file" accept=".jpg,.jpeg,.png,.webp">
-        </div>
-
-        <div>
-          <label for="image2">画像2</label>
-          <input id="image2" name="image2" type="file" accept=".jpg,.jpeg,.png,.webp">
-        </div>
-
-        <div class="full">
-          <label for="image3">画像3</label>
-          <input id="image3" name="image3" type="file" accept=".jpg,.jpeg,.png,.webp">
-        </div>
-
-        <div class="full">
-          <label><input type="checkbox" required> 利用ルールに同意します</label>
-        </div>
-
-        <div class="full">
-          <button class="btn" type="submit">投稿を送信する</button>
-        </div>
-      </form>
-
-      <p class="subtle">送信後、投稿者メール宛に削除リンクが送られます。</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../index.html"><img src="../../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany"></a>
+      <a class="home-link" href="../index.html">掲示板トップ</a>
     </div>
-  </div>
+  </header>
 
+  <main class="main">
+    <div class="container">
+      <div class="nav"><a href="../index.html">← 掲示板一覧へ戻る</a></div>
+      <section class="page-card">
+        <h1>投稿フォーム</h1>
+        <p class="lead">投稿は送信後に管理者確認となります。メールアドレスや電話番号は掲示板に表示されません。</p>
+        <form id="postForm" class="grid" enctype="multipart/form-data">
+          <input type="hidden" name="action" value="submitPost">
+          <div><label for="category1">カテゴリ1</label><select name="category1" id="category1" required></select></div>
+          <div><label for="category2">カテゴリ2</label><select name="category2" id="category2" required></select></div>
+          <div class="full"><label for="title">タイトル</label><input id="title" name="title" required placeholder="例：デュッセルドルフでソファ売ります"></div>
+          <div class="full"><label for="body">本文</label><textarea id="body" name="body" required placeholder="内容、条件、受け渡し方法などを記載してください"></textarea></div>
+          <div><label for="country">国</label><input id="country" name="country" value="Germany"></div>
+          <div><label for="region">地域</label><input id="region" name="region" placeholder="NRW, Berlin など"></div>
+          <div><label for="city">都市</label><input id="city" name="city" required placeholder="Düsseldorf"></div>
+          <div><label for="nickname">ニックネーム</label><input id="nickname" name="nickname" required></div>
+          <div><label for="contact_email_private">非公開メールアドレス</label><input id="contact_email_private" name="contact_email_private" type="email" required></div>
+          <div><label for="contact_phone_private">非公開電話番号（任意）</label><input id="contact_phone_private" name="contact_phone_private"></div>
+          <div><label for="preferred_contact_method">希望連絡方法</label><input id="preferred_contact_method" name="preferred_contact_method" placeholder="サイト経由メッセージ優先 など"></div>
+          <div><label for="price">価格（必要な場合）</label><input id="price" name="price" placeholder="€50"></div>
+          <div><label for="event_date">イベント日（イベント投稿のみ）</label><input id="event_date" name="event_date" type="date"></div>
+          <div><label for="availability_date">利用可能日（物件など）</label><input id="availability_date" name="availability_date" type="date"></div>
+          <div><label for="image1">画像1</label><input id="image1" name="image1" type="file" accept=".jpg,.jpeg,.png,.webp"></div>
+          <div><label for="image2">画像2</label><input id="image2" name="image2" type="file" accept=".jpg,.jpeg,.png,.webp"></div>
+          <div class="full"><label for="image3">画像3</label><input id="image3" name="image3" type="file" accept=".jpg,.jpeg,.png,.webp"></div>
+          <div class="full agree"><input id="agree" type="checkbox" required><label for="agree">利用ルールに同意します</label></div>
+          <div class="full"><button class="btn" type="submit">投稿を送信する</button></div>
+        </form>
+        <p class="subtle">送信後、投稿者メール宛に削除リンクが送られます。</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><img src="../../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany"><small>© Nihon Gateway Germany</small></div></footer>
+
+  <script src="../../../assets/js/cookie-consent.js" defer></script>
   <script>
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
-
-    async function fetchJson(url, options = {}) {
-      const res = await fetch(url, options);
-      if (!res.ok) throw new Error('Network error');
-      return await res.json();
-    }
-
-    let categoryMap = {};
-
-    async function loadCategories() {
-      try {
-        const data = await fetchJson(GAS_URL + '?action=getCategories');
-        const rows = data.categories || [];
-
-        categoryMap = rows.reduce((acc, row) => {
-          if (!acc[row.category1]) acc[row.category1] = [];
-          acc[row.category1].push(row.category2);
-          return acc;
-        }, {});
-
-        const cat1 = document.getElementById('category1');
-        cat1.innerHTML =
-          '<option value="">選択してください</option>' +
-          Object.keys(categoryMap).map(v => `<option value="${v}">${v}</option>`).join('');
-      } catch (e) {
-        alert('カテゴリの読み込みに失敗しました');
-        console.error(e);
-      }
-    }
-
-    function updateCategory2() {
-      const cat1 = document.getElementById('category1').value;
-      const cat2 = document.getElementById('category2');
-      const list = categoryMap[cat1] || [];
-
-      cat2.innerHTML =
-        '<option value="">選択してください</option>' +
-        list.map(v => `<option value="${v}">${v}</option>`).join('');
-    }
-
-    document.getElementById('category1').addEventListener('change', updateCategory2);
-
-    document.getElementById('postForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-
-      try {
-        const res = await fetch(GAS_URL, {
-          method: 'POST',
-          body: formData
-        });
-
-        const data = await res.json();
-
-        if (data.ok) {
-          location.href = '../thanks/';
-        } else {
-          alert('送信に失敗しました');
-          console.error(data);
-        }
-      } catch (e) {
-        alert('通信に失敗しました');
-        console.error(e);
-      }
-    });
-
+    const GAS_URL='https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
+    const category1=document.getElementById('category1'); const category2=document.getElementById('category2');
+    let categoryMap={};
+    function setOptions(el,arr){el.innerHTML='';arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);});}
+    async function loadCategories(){try{const res=await fetch(GAS_URL+'?action=getCategories');const data=await res.json();if(data&&data.ok&&data.categoryMap){categoryMap=data.categoryMap;const keys=Object.keys(categoryMap);setOptions(category1,keys);setOptions(category2,categoryMap[keys[0]]||[]);}else throw new Error();}catch(e){setOptions(category1,['売ります','買います','募集']);setOptions(category2,['その他']);}}
+    category1.addEventListener('change',()=>setOptions(category2,categoryMap[category1.value]||['その他']));
+    document.getElementById('postForm').addEventListener('submit',async(e)=>{e.preventDefault();const fd=new FormData(e.target);try{const res=await fetch(GAS_URL,{method:'POST',body:fd});const data=await res.json();if(data.ok){location.href='../thanks/index.html';}else{alert('送信に失敗しました。入力内容をご確認ください。');}}catch(_){alert('送信に失敗しました。時間を置いて再度お試しください。');}});
     loadCategories();
   </script>
 </body>

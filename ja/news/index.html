@@ -86,6 +86,54 @@
       color:var(--muted);
     }
 
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .header-city,
+    .header-category,
+    .header-language{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid #e6eaf0;
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      transition:all .18s ease;
+    }
+    .header-category:hover,
+    .header-language:hover{
+      border-color:#f3c8d4;
+      background:#fff4f7;
+      transform:translateY(-1px);
+    }
+    .header-category-menu{position:relative;display:flex;align-items:center;}
+    .header-category-menu::before{content:"";position:absolute;left:0;top:100%;width:100%;height:12px;}
+    .header-category-trigger{border:none;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
+    .header-category-menu::after{content:"▾";font-size:24px;line-height:1;color:var(--muted);margin-top:1px;pointer-events:none;}
+    .category-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 16px 30px rgba(19,35,58,.14);padding:8px;display:none;z-index:20;}
+    .header-category-menu:hover .category-dropdown,
+    .header-category-menu:focus-within .category-dropdown{display:grid;gap:2px;}
+    .category-dropdown a{text-decoration:none;font-size:13px;color:#2f3e4c;padding:8px 10px;border-radius:10px;}
+    .category-dropdown a:hover{background:#fff4f7;border:1px solid #f3c8d4;color:#d84b6a;transform:translateY(-1px);}
+    .header-city select,
+    .header-category select,
+    .header-language select{border:none;background:transparent;color:var(--ink);font-weight:700;outline:none;}
+    .header-search{display:flex;align-items:center;gap:8px;}
+    .search-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.96);border:1px solid #d9e0e8;border-radius:14px;padding:0 14px;}
+    .search-box span{color:#7d8893;font-size:18px;}
+    .search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--ink);}
+    .header-search .search-box{min-width:220px;height:42px;border-radius:999px;padding:0 12px;}
+    .header-search .search-box span{font-size:19px;}
+    .header-search .search-box input{font-size:13px;}
+    .header-search .search-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:999px;padding:0 14px;font-size:24px;line-height:1;color:#1f5fbf;background:rgba(47,128,237,.20);border:1px solid rgba(47,128,237,.32);cursor:pointer;}
     .header-nav{
       display:flex;
       align-items:center;
@@ -296,19 +344,53 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="../">
-        <img class="brand-logo" src="../../assets/images/brand/site-logo-main.png" alt="Nihon Gateway Germany" />
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany" />
         <span>
           <span class="brand-title">NIHON GATEWAY GERMANY</span>
           <span class="brand-sub">日本語生活ガイド</span>
         </span>
       </a>
 
-      <nav class="header-nav" aria-label="主要ナビゲーション">
-        <a href="../eat/">Eat</a>
-        <a href="../shopping/">Shopping</a>
-        <a href="../events/">Events</a>
-        <a class="active" href="./">News</a>
-      </nav>
+      <div class="header-actions">
+        <label class="header-city" aria-label="都市選択">
+          🏙️
+          <select onchange="if(this.value) location.href=this.value;">
+            <option value="../">Düsseldorf</option>
+          </select>
+        </label>
+
+        <div class="header-category header-category-menu" aria-label="カテゴリ選択">
+          <button type="button" class="header-category-trigger">📂 カテゴリ</button>
+          <div class="category-dropdown" role="menu">
+            <a href="../guides/" role="menuitem">Guides</a>
+            <a href="../living/" role="menuitem">Living</a>
+            <a href="../jobs/" role="menuitem">Jobs</a>
+            <a href="../medical/" role="menuitem">Medical</a>
+            <a href="../eat/" role="menuitem">Eat</a>
+            <a href="../shopping/" role="menuitem">Shopping</a>
+            <a href="../community/" role="menuitem">Community</a>
+            <a href="../events/" role="menuitem">Events</a>
+            <a href="../learn-german/" role="menuitem">Learn German</a>
+            <a href="./" role="menuitem" aria-current="page">News</a>
+          </div>
+        </div>
+
+        <label class="header-language" aria-label="言語切替">
+          🌐
+          <select onchange="if(this.value) location.href=this.value;">
+            <option value="./" selected>JA</option>
+            <option value="../../de/news/">DE</option>
+          </select>
+        </label>
+
+        <form class="header-search" action="./" method="get" role="search">
+          <div class="search-box">
+            <span aria-hidden="true">🔍</span>
+            <input type="search" id="headerNewsSearch" placeholder="サイト内検索" aria-label="サイト内検索">
+          </div>
+          <button type="submit" class="search-btn" aria-label="検索">⌕</button>
+        </form>
+      </div>
     </div>
   </header>
 
@@ -373,7 +455,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">© Nihon Gateway Germany</div>
+    <div class="container">© 2026 Nihon Gateway Germany · Düsseldorf</div>
   </footer>
 
   <script src="../../assets/js/news.js"></script>

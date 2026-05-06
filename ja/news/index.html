@@ -273,6 +273,7 @@
       color:#6b5e68;
     }
 
+
     .site-footer{
       border-top:1px solid #e6eaf0;
       background:rgba(255,255,255,.8);
@@ -280,6 +281,26 @@
       color:#6b5e68;
       font-size:13px;
     }
+    .footer-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .footer-brand img{
+      width:120px;
+      height:auto;
+      object-fit:contain;
+    }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:13px;
+    }
+    .footer-links a:hover{color:#d84b6a;}
+    .footer-copy{color:#6b5e68;}
 
     @media (max-width:1080px){
       .news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -289,6 +310,7 @@
       .header-inner{flex-direction:column;padding:10px 0}
       .news-grid{grid-template-columns:1fr}
       .news-controls{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
@@ -296,7 +318,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="../">
-        <img class="brand-logo" src="../../assets/images/brand/site-logo-main.png" alt="Nihon Gateway Germany" />
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany" />
         <span>
           <span class="brand-title">NIHON GATEWAY GERMANY</span>
           <span class="brand-sub">日本語生活ガイド</span>
@@ -373,7 +395,18 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">© Nihon Gateway Germany</div>
+    <div class="container footer-inner">
+      <a class="footer-brand" href="../">
+        <img src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ" />
+      </a>
+      <div class="footer-links">
+        <a href="../terms/">利用規約</a>
+        <a href="../privacy/">プライバシー</a>
+        <a href="../about/">運営情報</a>
+        <a href="../contact/">お問い合わせ</a>
+      </div>
+      <p class="footer-copy">© Nihon Gateway Germany</p>
+    </div>
   </footer>
 
   <script src="../../assets/js/news.js"></script>

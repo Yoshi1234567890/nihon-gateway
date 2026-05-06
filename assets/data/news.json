@@ -57,6 +57,25 @@
     "url": "https://www.dw.com/en/germany-couple-admits-€1-9-million-parking-meter-thefts/a-77052664?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
+    "id": "deutsche-welle-https-www-dw-com-en-germany-news-leipzig-ramming-suspect-ordered-",
+    "country": "germany",
+    "country_ja": "ドイツ",
+    "city": "nationwide",
+    "city_ja": "全国",
+    "category": "life",
+    "category_ja": "生活",
+    "topic": "general",
+    "topic_ja": "一般",
+    "importance": "normal",
+    "importance_ja": "通常",
+    "source_type": "media",
+    "source_name": "Deutsche Welle",
+    "title": "Germany news: Leipzig ramming suspect ordered to psych ward",
+    "summary": "A German man faced court on Tuesday after he was accused of a deadly car ramming in Leipzig. Prosecutors said they do not believe the suspect had a religious or political motive.",
+    "published_at": "Tue, 5 May 2026 ",
+    "url": "https://www.dw.com/en/germany-news-leipzig-ramming-suspect-ordered-to-psych-ward/live-77046961?maca=en-rss-en-ger-1023-xml-mrss"
+  },
+  {
     "id": "deutsche-welle-https-www-dw-com-en-germany-news-merz-plays-down-us-military-with",
     "country": "germany",
     "country_ja": "ドイツ",
@@ -74,25 +93,6 @@
     "summary": "German Chancellor Friedrich Merz has said a US threat to pull troops out of Germany is \"nothing new.\" Meanwhile, Germany’s interior minister says border controls will stay despite falling asylum numbers.",
     "published_at": "Mon, 4 May 2026 ",
     "url": "https://www.dw.com/en/germany-news-merz-plays-down-us-military-withdrawal-plans/live-77030293?maca=en-rss-en-ger-1023-xml-mrss"
-  },
-  {
-    "id": "deutsche-welle-https-www-dw-com-en-merz-not-giving-up-on-germany-s-relationship-",
-    "country": "germany",
-    "country_ja": "ドイツ",
-    "city": "nationwide",
-    "city_ja": "全国",
-    "category": "life",
-    "category_ja": "生活",
-    "topic": "general",
-    "topic_ja": "一般",
-    "importance": "normal",
-    "importance_ja": "通常",
-    "source_type": "media",
-    "source_name": "Deutsche Welle",
-    "title": "Merz &#039;not giving up&#039; on Germany&#039;s relationship with US",
-    "summary": "The German chancellor said there was \"no connection\" between disagreements over the Iran war and the pullout of US troops from Germany. He insisted he shared Trump&#039;s goal of ensuring Iran never obtains a nuclear weapon.",
-    "published_at": "Sun, 3 May 2026 ",
-    "url": "https://www.dw.com/en/merz-not-giving-up-on-germany-s-relationship-with-us/a-77026062?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
     "id": "deutsche-welle-https-www-dw-com-en-germany-who-is-cdu-parliamentary-leader-jens-",

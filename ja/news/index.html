@@ -274,12 +274,25 @@
     }
 
     .site-footer{
-      border-top:1px solid #e6eaf0;
-      background:rgba(255,255,255,.8);
-      padding:24px 0;
-      color:#6b5e68;
+      margin-top:56px;
+      border-top:1px solid #e8ecf3;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(8px);
+      color:var(--muted);
       font-size:13px;
     }
+    .footer-inner{
+      min-height:84px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding:18px 0;
+    }
+    .footer-brand{display:flex;align-items:center;gap:10px;}
+    .footer-logo{height:52px;width:auto;display:block;}
+
 
     @media (max-width:1080px){
       .news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -296,14 +309,14 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="../">
-        <img class="brand-logo" src="../../assets/images/brand/site-logo-main.png" alt="Nihon Gateway Germany" />
+        <img class="brand-logo" src="../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ" />
         <span>
           <span class="brand-title">NIHON GATEWAY GERMANY</span>
           <span class="brand-sub">日本語生活ガイド</span>
         </span>
       </a>
 
-      <nav class="header-nav" aria-label="主要ナビゲーション">
+      <nav class="header-nav" aria-label="メインナビゲーション">
         <a href="../eat/">Eat</a>
         <a href="../shopping/">Shopping</a>
         <a href="../events/">Events</a>
@@ -373,7 +386,12 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">© Nihon Gateway Germany</div>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img class="footer-logo" src="../../assets/images/brand/logo_footer.png" alt="Nihon Gateway Germany フッターロゴ">
+      </div>
+      <p>© 2026 Nihon Gateway Germany. 生活情報は公式情報とあわせてご確認ください。</p>
+    </div>
   </footer>
 
   <script src="../../assets/js/news.js"></script>

@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Medical | 医療・病院 | Nihon Gateway Germany</title>
-  <meta name="description" content="デュッセルドルフの病院、クリニック、歯科、薬局などの医療情報を日本語で見やすく整理。カテゴリ、評価、レビュー数、地図リンクをまとめて確認できます。" />
+  <meta name="description" content="デュッセルドルフの病院、クリニック、家庭医などの医療情報を日本語で見やすく整理。カテゴリ、エリア、住所、地図リンクをまとめて確認できます。" />
   <meta name="theme-color" content="#f7f3ee" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/medical/" />
-  <link rel="icon" type="image/jpeg" href="../../assets/images/brand/favicon.png" />
+  <link rel="icon" type="image/png" href="../../assets/images/brand/favicon.png" />
 
   <meta property="og:title" content="Medical | 医療・病院 | Nihon Gateway Germany" />
-  <meta property="og:description" content="病院、クリニック、歯科、薬局などの医療情報を日本語で見やすく一覧化。" />
+  <meta property="og:description" content="病院、クリニック、家庭医などの医療情報を日本語で見やすく一覧化。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/medical/" />
   <meta property="og:locale" content="ja_JP" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <link
     rel="stylesheet"
@@ -45,10 +49,11 @@
       --max:1280px;
       --map-height:calc(100vh - 120px);
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
+      font-family:'Inter','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;
       background:
         linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
         url("../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,
@@ -56,8 +61,10 @@
       color:var(--ink);
       line-height:1.6;
     }
+
     a{text-decoration:none;color:inherit}
     button,input,select{font:inherit}
+
     .site-header{
       position:sticky;
       top:0;
@@ -66,10 +73,12 @@
       backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(230,234,240,.92);
     }
+
     .container{
       width:min(var(--max), calc(100% - 32px));
       margin:0 auto;
     }
+
     .header-inner{
       min-height:72px;
       display:flex;
@@ -77,13 +86,14 @@
       justify-content:space-between;
       gap:20px;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
-      text-decoration:none;
       min-width:0;
     }
+
     .brand-logo{
       width:120px;
       height:70px;
@@ -93,7 +103,9 @@
       border:none;
       box-shadow:none;
     }
-    .brand-copy{min-width:0;}
+
+    .brand-copy{min-width:0}
+
     .brand-title{
       display:block;
       font-size:14px;
@@ -101,12 +113,14 @@
       letter-spacing:.08em;
       line-height:1.1;
     }
+
     .brand-sub{
       display:block;
       margin-top:4px;
       font-size:12px;
       color:var(--muted);
     }
+
     .header-actions{
       display:flex;
       align-items:center;
@@ -114,6 +128,7 @@
       flex-wrap:wrap;
       justify-content:flex-end;
     }
+
     .header-city,
     .header-category,
     .header-language{
@@ -128,17 +143,20 @@
       font-size:13px;
       transition:all .18s ease;
     }
+
     .header-category:hover,
     .header-language:hover{
       border-color:#f3c8d4;
       background:#fff4f7;
       transform:translateY(-1px);
     }
+
     .header-category-menu{
       position:relative;
       display:flex;
       align-items:center;
     }
+
     .header-category-menu::before{
       content:"";
       position:absolute;
@@ -147,6 +165,7 @@
       width:100%;
       height:12px;
     }
+
     .header-category-trigger{
       border:none;
       background:transparent;
@@ -157,6 +176,7 @@
       align-items:center;
       gap:8px;
     }
+
     .header-category-menu::after{
       content:"▾";
       font-size:24px;
@@ -165,6 +185,7 @@
       margin-top:1px;
       pointer-events:none;
     }
+
     .category-dropdown{
       position:absolute;
       top:calc(100% + 8px);
@@ -178,29 +199,34 @@
       display:none;
       z-index:20;
     }
+
     .header-category-menu:hover .category-dropdown,
     .header-category-menu:focus-within .category-dropdown{
       display:grid;
       gap:2px;
     }
+
     .category-dropdown a{
-      text-decoration:none;
       font-size:13px;
       color:#2f3e4c;
       padding:8px 10px;
       border-radius:10px;
+      border:1px solid transparent;
     }
+
     .category-dropdown a:hover{
       background:#fff4f7;
-      border:1px solid #f3c8d4;
+      border-color:#f3c8d4;
       color:#d84b6a;
       transform:translateY(-1px);
     }
+
     .header-search{
       display:flex;
       align-items:center;
       gap:8px;
     }
+
     .search-box{
       display:flex;
       align-items:center;
@@ -210,10 +236,12 @@
       border-radius:14px;
       padding:0 14px;
     }
+
     .search-box span{
       color:#7d8893;
       font-size:18px;
     }
+
     .search-box input{
       flex:1;
       border:none;
@@ -224,7 +252,9 @@
       color:var(--ink);
       background:transparent;
     }
+
     .search-box input::placeholder{color:#94a0ad}
+
     .search-btn{
       width:38px;
       height:38px;
@@ -236,10 +266,12 @@
       place-items:center;
       cursor:pointer;
     }
+
     .search-btn:hover{
       transform:translateY(-1px);
       background:#2e435c;
     }
+
     .header-language select{
       border:none;
       outline:none;
@@ -252,6 +284,7 @@
     .hero{
       padding:clamp(20px,4vw,36px) 16px 6px;
     }
+
     .hero-box{
       width:min(var(--max),100%);
       margin:0 auto;
@@ -261,6 +294,7 @@
       padding:clamp(24px,4vw,40px);
       box-shadow:0 14px 34px rgba(28,30,45,.08);
     }
+
     .eyebrow{
       display:inline-flex;
       align-items:center;
@@ -275,20 +309,25 @@
       letter-spacing:.08em;
       text-transform:uppercase;
     }
+
     .eyebrow-dot{
-      width:7px;height:7px;border-radius:50%;
+      width:7px;
+      height:7px;
+      border-radius:50%;
       background:linear-gradient(135deg,var(--red),var(--pink));
     }
+
     .hero h1{
       margin-top:16px;
       font-size:clamp(28px,5.4vw,52px);
       line-height:1.08;
       letter-spacing:-.02em;
-      max-width:15ch;
+      max-width:17ch;
     }
+
     .hero p{
       margin-top:14px;
-      max-width:62ch;
+      max-width:66ch;
       color:#51404a;
       font-size:15px;
     }
@@ -299,6 +338,7 @@
       display:flex;
       justify-content:flex-end;
     }
+
     .view-toggle{
       display:inline-flex;
       gap:8px;
@@ -308,6 +348,7 @@
       padding:6px;
       box-shadow:0 10px 22px rgba(30,24,38,.08);
     }
+
     .view-btn{
       border:none;
       background:transparent;
@@ -319,6 +360,7 @@
       cursor:pointer;
       transition:all .18s ease;
     }
+
     .view-btn.active{
       background:linear-gradient(135deg,#ff5f6d,#ff7e5f);
       color:#fff;
@@ -333,6 +375,7 @@
       gap:18px;
       align-items:start;
     }
+
     .layout.with-map{
       grid-template-columns:minmax(240px,280px) minmax(0,1fr) minmax(320px,36%);
     }
@@ -353,10 +396,14 @@
       scrollbar-width:thin;
       scrollbar-color:#e2d5df transparent;
     }
+
     .filter-panel::-webkit-scrollbar{width:8px}
+
     .filter-panel::-webkit-scrollbar-thumb{
-      background:#e7dce5;border-radius:999px;
+      background:#e7dce5;
+      border-radius:999px;
     }
+
     .panel-title-row{
       display:flex;
       align-items:center;
@@ -364,11 +411,13 @@
       margin-bottom:14px;
       gap:12px;
     }
+
     .panel-title{
       font-size:16px;
       font-weight:800;
       letter-spacing:.01em;
     }
+
     .reset-btn{
       border:none;
       background:#f4edf2;
@@ -379,12 +428,14 @@
       cursor:pointer;
       transition:all .18s ease;
     }
+
     .reset-btn:hover{
       background:#efe3eb;
       transform:translateY(-1px);
     }
 
     .field{margin-bottom:14px}
+
     .label{
       display:block;
       font-size:12px;
@@ -392,6 +443,7 @@
       color:#7a6872;
       margin-bottom:7px;
     }
+
     .input,.select{
       width:100%;
       border:1px solid #dcd2d8;
@@ -402,6 +454,7 @@
       font-size:13px;
       transition:border-color .18s ease, box-shadow .18s ease;
     }
+
     .input:focus,.select:focus{
       outline:none;
       border-color:#f28aa2;
@@ -413,6 +466,7 @@
       gap:14px;
       min-width:0;
     }
+
     .toolbar{
       display:flex;
       align-items:flex-end;
@@ -420,22 +474,26 @@
       gap:16px;
       flex-wrap:wrap;
     }
+
     .results-title{
       font-size:22px;
       font-weight:800;
       letter-spacing:.01em;
     }
+
     .results-sub{
       margin-top:2px;
       font-size:13px;
       color:var(--muted);
     }
+
     .chips{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
       justify-content:flex-end;
     }
+
     .chip{
       background:#fff;
       border:1px solid #eadde6;
@@ -460,6 +518,7 @@
       grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
       gap:14px;
     }
+
     .card{
       background:var(--paper);
       border:1px solid #eee3ea;
@@ -472,28 +531,33 @@
       transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       cursor:pointer;
     }
+
     .card:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 30px rgba(25,16,24,.11);
       border-color:#f3cedd;
     }
+
     .card.active{
       border-color:#f07f9e;
       box-shadow:0 0 0 3px rgba(240,127,158,.18),0 16px 30px rgba(25,16,24,.11);
     }
+
     .card-head{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:10px;
     }
+
     .card-title{
       font-size:16px;
       line-height:1.35;
       font-weight:800;
       margin:0;
     }
-    .rating-pill{
+
+    .category-pill{
       display:inline-flex;
       align-items:center;
       gap:6px;
@@ -506,11 +570,13 @@
       font-weight:700;
       white-space:nowrap;
     }
+
     .meta-row{
       display:flex;
       flex-wrap:wrap;
       gap:6px;
     }
+
     .tag{
       font-size:11px;
       padding:4px 8px;
@@ -519,22 +585,26 @@
       border:1px solid #e7dbe6;
       color:#6f5967;
     }
+
     .desc{
       font-size:13px;
       color:#4f4148;
       min-height:42px;
     }
+
     .addr{
       font-size:12px;
       color:#756471;
       line-height:1.45;
     }
+
     .links{
       display:flex;
       gap:8px;
       flex-wrap:wrap;
       margin-top:auto;
     }
+
     .btn-link{
       display:inline-flex;
       align-items:center;
@@ -549,6 +619,7 @@
       color:#5d4956;
       transition:all .18s ease;
     }
+
     .btn-link:hover{
       border-color:#f0adc4;
       background:#fff5f8;
@@ -558,6 +629,7 @@
 
     .map-panel{display:none}
     .layout.with-map .map-panel{display:block}
+
     .map-shell{
       position:sticky;
       top:92px;
@@ -568,13 +640,19 @@
       box-shadow:0 16px 30px rgba(24,20,29,.08);
       background:#fff;
     }
-    #map{width:100%;height:100%}
+
+    #map{
+      width:100%;
+      height:100%;
+    }
+
     .leaflet-popup-content{
       margin:10px 12px;
       font-size:12px;
       line-height:1.45;
       color:#40333a;
     }
+
     .map-card-link{
       display:inline-block;
       margin-top:6px;
@@ -592,6 +670,7 @@
       padding:18px;
       box-shadow:var(--card-shadow);
     }
+
     .footer-inner{
       display:flex;
       align-items:center;
@@ -599,33 +678,50 @@
       gap:20px;
       flex-wrap:wrap;
     }
+
     .footer-left{
       display:flex;
       align-items:center;
       gap:14px;
     }
+
     .footer-logo{
-      width:72px;height:44px;object-fit:contain;
+      width:72px;
+      height:44px;
+      object-fit:contain;
     }
+
     .footer-title{
       font-weight:800;
       font-size:12px;
       letter-spacing:.12em;
       color:#4e3d47;
     }
+
     .footer-sub,.footer-meta{
-      font-size:12px;color:#7b6b77;
+      font-size:12px;
+      color:#7b6b77;
     }
+
     .footer-links{
-      display:flex;flex-wrap:wrap;gap:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
+
     .footer-links a{
-      font-size:12px;color:#6c5966;
+      font-size:12px;
+      color:#6c5966;
       border:1px solid #eadfe7;
-      padding:6px 10px;border-radius:999px;background:#fff;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#fff;
     }
+
     .footer-links a:hover{
-      color:#d54a74;border-color:#f2b6ca;background:#fff5f9;
+      color:#d54a74;
+      border-color:#f2b6ca;
+      background:#fff5f9;
     }
 
     @media (max-width:1180px){
@@ -634,6 +730,7 @@
       }
       .map-panel{display:none!important}
     }
+
     @media (max-width:900px){
       .header-inner{
         flex-direction:column;
@@ -641,58 +738,74 @@
         gap:10px;
         padding:10px 0 12px;
       }
+
       .header-actions{justify-content:flex-start}
       .header-search{width:100%}
       .search-box{flex:1;min-width:0}
+
       .layout,.layout.with-map{
         grid-template-columns:1fr;
       }
+
       .filter-panel{
         position:relative;
         top:0;
         max-height:none;
       }
+
       .view-toggle-wrap{justify-content:flex-start}
       .cards{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
     }
+
     @media (max-width:560px){
       .container,.layout,.view-toggle-wrap,.page-footer{
         width:calc(100% - 20px);
       }
+
       .hero{padding-inline:10px}
       .hero-box{border-radius:20px}
+
       .header-city,
       .header-category,
-      .header-language{padding:7px 10px;font-size:12px}
+      .header-language{
+        padding:7px 10px;
+        font-size:12px;
+      }
+
       .search-box input{min-width:110px}
       .cards{grid-template-columns:1fr}
     }
   </style>
-<script>
-(function () {
-  var segments = location.pathname.split('/').filter(Boolean);
-  if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
 
-  var localeIndex = -1;
-  for (var i = 0; i < segments.length; i++) {
-    if (segments[i] === 'ja' || segments[i] === 'de') { localeIndex = i; break; }
-  }
+  <script>
+    (function () {
+      var segments = location.pathname.split('/').filter(Boolean);
+      if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
 
-  var depth = localeIndex >= 0 ? (segments.length - localeIndex) : Math.max(segments.length - 1, 0);
-  var prefix = depth === 0 ? './' : '../'.repeat(depth);
+      var localeIndex = -1;
+      for (var i = 0; i < segments.length; i++) {
+        if (segments[i] === 'ja' || segments[i] === 'de') {
+          localeIndex = i;
+          break;
+        }
+      }
 
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = prefix + 'assets/css/cookie-consent.css';
-  document.head.appendChild(css);
+      var depth = localeIndex >= 0 ? (segments.length - localeIndex) : Math.max(segments.length - 1, 0);
+      var prefix = depth === 0 ? './' : '../'.repeat(depth);
 
-  var js = document.createElement('script');
-  js.src = prefix + 'assets/js/cookie-consent.js';
-  js.defer = true;
-  document.head.appendChild(js);
-})();
-</script>
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = prefix + 'assets/css/cookie-consent.css';
+      document.head.appendChild(css);
+
+      var js = document.createElement('script');
+      js.src = prefix + 'assets/js/cookie-consent.js';
+      js.defer = true;
+      document.head.appendChild(js);
+    })();
+  </script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container header-inner">
@@ -734,7 +847,7 @@
         <label class="header-language" aria-label="言語切り替え">
           <span>Language</span>
           <select id="languageSelect">
-            <option value="/nihon-gateway-germany/ja/">日本語</option>
+            <option value="/nihon-gateway-germany/ja/" selected>日本語</option>
             <option value="/nihon-gateway-germany/">English</option>
             <option value="/nihon-gateway-germany/de/">Deutsch</option>
           </select>
@@ -746,9 +859,10 @@
   <section class="hero">
     <div class="hero-box">
       <div class="eyebrow"><span class="eyebrow-dot"></span>医療・病院ガイド</div>
-      <h1>ほしい医療機関が見つかる<br>　医療機関探しをもっと便利に</h1>
+      <h1>受診先探しを<br>もっと分かりやすく</h1>
       <p>
-        評価、レビュー数、カテゴリ、地図リンクをひと目で確認。受診先を条件から探せます。
+        デュッセルドルフ周辺の病院、クリニック、家庭医をカテゴリやエリアから探せます。
+        住所、公式サイト、地図リンクをまとめて確認できます。
       </p>
     </div>
   </section>
@@ -770,19 +884,14 @@
 
         <div class="field">
           <label class="label" for="keywordInput">キーワードで検索</label>
-          <input id="keywordInput" class="input" type="text" placeholder="タイトル・要約・用途・シーンなど" />
+          <input id="keywordInput" class="input" type="text" placeholder="病院名・診療内容・エリアなど" />
         </div>
 
         <div class="field">
-          <label class="label" for="citySelect">レベル</label>
+          <label class="label" for="citySelect">都市</label>
           <select id="citySelect" class="select">
             <option value="">すべて</option>
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
+            <option value="duesseldorf">Düsseldorf</option>
           </select>
         </div>
 
@@ -794,31 +903,11 @@
         </div>
 
         <div class="field">
-          <label class="label" for="category2Select">詳細カテゴリ</label>
+          <label class="label" for="category2Select">エリア</label>
           <select id="category2Select" class="select" disabled>
             <option value="">まずカテゴリを選択</option>
           </select>
         </div>
-
-        <div class="field">
-          <label class="label" for="ratingSelect">公開ステータス</label>
-          <select id="ratingSelect" class="select">
-            <option value="">すべて</option>
-            <option value="published">published</option>
-            <option value="draft">draft</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label class="label" for="starRatingSelect">ソース種別</label>
-          <select id="starRatingSelect" class="select">
-            <option value="">すべて</option>
-            <option value="original">original</option>
-            <option value="external">external</option>
-            <option value="ai_tool">ai_tool</option>
-          </select>
-        </div>
-
       </div>
     </aside>
 
@@ -870,7 +959,355 @@
   ></script>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec?sheet=medical&lang=ja&city=duesseldorf&status=active";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzpVvPrboEPZaFQHf87Q1LPhiU40J03ntX1JicNoA4NOo6ngNWh8knFwJ_9IVkKgTKx/exec?sheet=medical&city=duesseldorf";
+
+    const FALLBACK_ITEMS = [
+      {
+        slug:"evangelisches-krankenhaus-duesseldorf",
+        name_ja:"エヴァンゲリッシュ病院デュッセルドルフ",
+        name_en:"Evangelisches Krankenhaus Düsseldorf",
+        description_ja:"デュッセルドルフ中心部にある総合病院で513床と15の診療科を持つ",
+        description_en:"A large general hospital in central Düsseldorf with 513 beds and 15 departments",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Friedrichstadt",
+        tags:"hospital,general",
+        address:"Kirchfeldstr. 40, 40217 Düsseldorf",
+        postcode:"40217",
+        website:"https://www.evk-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"florence-nightingale-krankenhaus",
+        name_ja:"フローレンス・ナイチンゲール病院",
+        name_en:"Florence-Nightingale-Krankenhaus",
+        description_ja:"556床と14診療科を持つカイザースヴェルトの病院",
+        description_en:"A specialist hospital in Kaiserswerth with 556 beds and 14 departments",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Kaiserswerth",
+        tags:"hospital,nursing",
+        address:"Kreuzbergstr. 79, 40489 Düsseldorf",
+        postcode:"40489",
+        website:"https://www.kaiserswerther-diakonie.de/krankenhaus",
+        map_url:""
+      },
+      {
+        slug:"marien-hospital-duesseldorf",
+        name_ja:"マリエン病院デュッセルドルフ",
+        name_en:"Marien Hospital Düsseldorf",
+        description_ja:"461床のカトリック系総合病院で幅広い診療を提供",
+        description_en:"Catholic hospital with 461 beds offering a wide range of services",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Pempelfort",
+        tags:"hospital,catholic",
+        address:"Rochusstr. 2, 40479 Düsseldorf",
+        postcode:"40479",
+        website:"https://www.marienhospital-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"sana-kliniken-gerresheim",
+        name_ja:"ザナ病院ゲレスハイム",
+        name_en:"Sana Kliniken Düsseldorf Gerresheim",
+        description_ja:"ゲレスハイム地区の180床の地域病院",
+        description_en:"District hospital in Gerresheim with 180 beds",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Gerresheim",
+        tags:"hospital,community",
+        address:"Gräulinger Str. 120, 40625 Düsseldorf",
+        postcode:"40625",
+        website:"https://www.sana-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"sana-kliniken-benrath",
+        name_ja:"ザナ病院ベンラート",
+        name_en:"Sana Kliniken Düsseldorf Benrath",
+        description_ja:"ベンラート地区にある188床の病院",
+        description_en:"Hospital in Benrath with about 188 beds",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Benrath",
+        tags:"hospital,community",
+        address:"Urdenbacher Allee 83, 40593 Düsseldorf",
+        postcode:"40593",
+        website:"https://www.sana-benrath.de",
+        map_url:""
+      },
+      {
+        slug:"schoen-klinik-duesseldorf",
+        name_ja:"シェーン・クリニック デュッセルドルフ",
+        name_en:"Schön Klinik Düsseldorf",
+        description_ja:"内科や外科などを提供する私立病院",
+        description_en:"A private hospital offering internal medicine and surgery",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Heerdt",
+        tags:"hospital,private",
+        address:"Am Heerdter Krankenhaus 2, 40549 Düsseldorf",
+        postcode:"40549",
+        website:"https://www.schoen-klinik.de/duesseldorf",
+        map_url:""
+      },
+      {
+        slug:"augusta-krankenhaus",
+        name_ja:"アウグスタ病院",
+        name_en:"Augusta-Krankenhaus",
+        description_ja:"約200床の急性期病院で幅広い医療を提供",
+        description_en:"Acute hospital with about 200 beds",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Rath",
+        tags:"hospital,acute",
+        address:"Amalienstraße 9, 40472 Düsseldorf",
+        postcode:"40472",
+        website:"https://www.augusta-hospital.de",
+        map_url:""
+      },
+      {
+        slug:"st-vinzenz-krankenhaus",
+        name_ja:"聖ヴィンツェンツ病院",
+        name_en:"St. Vinzenz-Krankenhaus Düsseldorf",
+        description_ja:"322床のカトリック系病院で複数の専門診療を提供",
+        description_en:"Catholic hospital with 322 beds and multiple specialties",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Pempelfort",
+        tags:"hospital,catholic",
+        address:"Schlossstr. 85, 40477 Düsseldorf",
+        postcode:"40477",
+        website:"https://www.vinzenz-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"st-martinus-krankenhaus",
+        name_ja:"聖マルティヌス病院",
+        name_en:"St. Martinus-Krankenhaus Düsseldorf",
+        description_ja:"209床の病院で内科や老年医学などを提供",
+        description_en:"Hospital with 209 beds including geriatrics and internal medicine",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Bilk",
+        tags:"hospital,geriatrics",
+        address:"Gladbacher Str. 26, 40219 Düsseldorf",
+        postcode:"40219",
+        website:"https://www.martinus-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"universitaetsklinikum-duesseldorf",
+        name_ja:"デュッセルドルフ大学病院",
+        name_en:"Universitätsklinikum Düsseldorf",
+        description_ja:"1247床を持つ大学病院で高度医療を提供",
+        description_en:"University hospital with 1247 beds providing advanced care",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Wersten",
+        tags:"hospital,university",
+        address:"Moorenstraße 5, 40225 Düsseldorf",
+        postcode:"40225",
+        website:"https://www.uniklinik-duesseldorf.de",
+        map_url:""
+      },
+      {
+        slug:"paracelsus-klinik-golzheim",
+        name_ja:"パラケルスス・クリニック",
+        name_en:"Paracelsus Klinik Golzheim",
+        description_ja:"泌尿器専門の大規模クリニック",
+        description_en:"Large urology specialist clinic",
+        category:"clinic",
+        city:"duesseldorf",
+        area:"Golzheim",
+        tags:"clinic,urology",
+        address:"Friedrich-Lau-Straße 11, 40474 Düsseldorf",
+        postcode:"40474",
+        website:"https://www.paracelsus-klinik.de/golzheim",
+        map_url:""
+      },
+      {
+        slug:"krankenhaus-elbroich",
+        name_ja:"エルブロイヒ病院",
+        name_en:"Krankenhaus Elbroich",
+        description_ja:"高齢者医療と精神科に特化した病院",
+        description_en:"Hospital specializing in geriatrics and psychiatry",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Holthausen",
+        tags:"hospital,geriatrics",
+        address:"Am Falder 6, 40589 Düsseldorf",
+        postcode:"40589",
+        website:"https://www.krankenhaus-elbroich.de",
+        map_url:""
+      },
+      {
+        slug:"luisenkrankenhaus",
+        name_ja:"ルイゼン病院",
+        name_en:"Luisenkrankenhaus Düsseldorf",
+        description_ja:"乳腺医療に特化した小規模病院",
+        description_en:"Specialist hospital for breast health",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Flingern",
+        tags:"hospital,breast",
+        address:"Luise-Rainer-Str. 6-10, 40235 Düsseldorf",
+        postcode:"40235",
+        website:"https://luisenkrankenhaus.de",
+        map_url:""
+      },
+      {
+        slug:"lvr-klinikum-duesseldorf",
+        name_ja:"LVRクリニクム",
+        name_en:"LVR-Klinikum Düsseldorf",
+        description_ja:"精神科・心理療法の専門病院",
+        description_en:"Psychiatric hospital and psychotherapy center",
+        category:"hospital",
+        city:"duesseldorf",
+        area:"Grafenberg",
+        tags:"hospital,psychiatry",
+        address:"Bergische Landstraße 2, 40629 Düsseldorf",
+        postcode:"40629",
+        website:"https://klinikum-duesseldorf.lvr.de",
+        map_url:""
+      },
+      {
+        slug:"johanniter-tagesklinik",
+        name_ja:"ヨハンニター日帰りクリニック",
+        name_en:"Johanniter Tagesklinik Düsseldorf",
+        description_ja:"精神科デイクリニック",
+        description_en:"Psychiatric day clinic",
+        category:"clinic",
+        city:"duesseldorf",
+        area:"Holthausen",
+        tags:"clinic,psychiatry",
+        address:"Marbacher Straße 79, 40597 Düsseldorf",
+        postcode:"40597",
+        website:"https://www.johanniter.de/johanniter-kliniken/duesseldorf",
+        map_url:""
+      },
+      {
+        slug:"wdgz",
+        name_ja:"西ドイツ糖尿病センター",
+        name_en:"Westdeutsches Diabetes- und Gesundheitszentrum",
+        description_ja:"糖尿病と予防医療の専門施設",
+        description_en:"Diabetes and preventive health center",
+        category:"clinic",
+        city:"duesseldorf",
+        area:"Wersten",
+        tags:"clinic,diabetes",
+        address:"Hohensandweg 37, 40591 Düsseldorf",
+        postcode:"40591",
+        website:"https://wdgz.de",
+        map_url:""
+      },
+      {
+        slug:"gemeinschaftspraxis-rethelstrasse",
+        name_ja:"レーテル通り診療所",
+        name_en:"Gemeinschaftspraxis Rethelstraße",
+        description_ja:"家庭医の共同診療所",
+        description_en:"General practice",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Düsseltal",
+        tags:"hausarzt,general",
+        address:"Rethelstraße 7, 40237 Düsseldorf",
+        postcode:"40237",
+        website:"https://www.praxis-rethelstrasse.de",
+        map_url:""
+      },
+      {
+        slug:"hausaerzte-am-kaiserteich",
+        name_ja:"カイザーテイク家庭医",
+        name_en:"Hausärzte am Kaiserteich",
+        description_ja:"バリアフリーの家庭医診療所",
+        description_en:"Barrier-free general practice",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Friedrichstadt",
+        tags:"hausarzt,general",
+        address:"Reichsstraße 59, 40217 Düsseldorf",
+        postcode:"40217",
+        website:"https://hausaerzte-am-kaiserteich.de",
+        map_url:""
+      },
+      {
+        slug:"vantis-hausarztpraxis",
+        name_ja:"バンティス家庭医",
+        name_en:"Vantis Hausarztpraxis",
+        description_ja:"慢性疾患に強い家庭医クリニック",
+        description_en:"General practice focusing on chronic care",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Medienhafen",
+        tags:"hausarzt,chronic",
+        address:"Völklinger Straße 3, 40219 Düsseldorf",
+        postcode:"40219",
+        website:"https://www.vantis.com",
+        map_url:""
+      },
+      {
+        slug:"hafendoc-praxis",
+        name_ja:"ハーフェンドック",
+        name_en:"Hafendoc Praxis",
+        description_ja:"内科・家庭医療クリニック",
+        description_en:"Internal medicine and general practice",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Medienhafen",
+        tags:"hausarzt,internal",
+        address:"Erftstraße 7-9, 40219 Düsseldorf",
+        postcode:"40219",
+        website:"https://hafendoc.de",
+        map_url:""
+      },
+      {
+        slug:"graf-adolf-praxis",
+        name_ja:"グラーフ＝アドルフ診療所",
+        name_en:"Graf-Adolf-Praxis",
+        description_ja:"駅近の家庭医クリニック",
+        description_en:"Walk-in general practice near station",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Stadtmitte",
+        tags:"hausarzt,walk-in",
+        address:"Graf-Adolf-Str. 59, 40210 Düsseldorf",
+        postcode:"40210",
+        website:"https://graf-adolf-praxis.de",
+        map_url:""
+      },
+      {
+        slug:"hausarztpraxis-duesseltal",
+        name_ja:"デュッセルタール家庭医",
+        name_en:"Hausarztpraxis Düsseltal",
+        description_ja:"予防と慢性疾患管理を提供",
+        description_en:"General practice with preventive care",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Düsseltal",
+        tags:"hausarzt,checkup",
+        address:"Goethestraße 75, 40237 Düsseldorf",
+        postcode:"40237",
+        website:"https://hausarzt-duesseltal.de",
+        map_url:""
+      },
+      {
+        slug:"hausarztpraxis-eller",
+        name_ja:"エラー家庭医",
+        name_en:"Hausarztpraxis Eller",
+        description_ja:"内科中心の家庭医クリニック",
+        description_en:"Internal medicine general practice",
+        category:"hausarzt",
+        city:"duesseldorf",
+        area:"Eller",
+        tags:"hausarzt,internal",
+        address:"Gumbertstraße 180, 40229 Düsseldorf",
+        postcode:"40229",
+        website:"https://www.hausarztpraxis-eller.de",
+        map_url:""
+      }
+    ];
 
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
@@ -880,12 +1317,32 @@
       });
     }
 
-    const DEFAULT_CATEGORY_MAP = {
-      "病院・クリニック": ["総合病院","内科","小児科","婦人科","皮膚科","耳鼻科"],
-      "歯科・薬局": ["歯科医院","矯正歯科","薬局","救急薬局"],
-      "専門医療": ["眼科","整形外科","心療内科","精神科"],
-      "検査・リハビリ": ["画像検査","健康診断","理学療法","リハビリ施設"],
-      "その他": []
+    const CATEGORY_LABELS = {
+      hospital: "病院",
+      clinic: "クリニック",
+      hausarzt: "家庭医"
+    };
+
+    const TAG_LABELS = {
+      hospital: "病院",
+      general: "総合",
+      nursing: "看護",
+      catholic: "カトリック系",
+      community: "地域医療",
+      private: "私立",
+      acute: "急性期",
+      geriatrics: "老年医学",
+      university: "大学病院",
+      urology: "泌尿器",
+      breast: "乳腺",
+      psychiatry: "精神科",
+      diabetes: "糖尿病",
+      hausarzt: "家庭医",
+      clinic: "クリニック",
+      chronic: "慢性疾患",
+      internal: "内科",
+      "walk-in": "駅近・相談しやすい",
+      checkup: "予防・健診"
     };
 
     const els = {
@@ -893,8 +1350,6 @@
       citySelect: document.getElementById("citySelect"),
       category1Select: document.getElementById("category1Select"),
       category2Select: document.getElementById("category2Select"),
-      ratingSelect: document.getElementById("ratingSelect"),
-      starRatingSelect: document.getElementById("starRatingSelect"),
       resetFiltersBtn: document.getElementById("resetFiltersBtn"),
       resultsSummary: document.getElementById("resultsSummary"),
       activeChips: document.getElementById("activeChips"),
@@ -930,7 +1385,7 @@
     }
 
     function toNumber(value) {
-      if (value === null || value === undefined) return null;
+      if (value === null || value === undefined || value === "") return null;
       const n = parseFloat(String(value).replace(/[^\d.-]/g, ""));
       return Number.isFinite(n) ? n : null;
     }
@@ -944,60 +1399,91 @@
         .trim();
     }
 
+    function categoryLabel(value) {
+      return CATEGORY_LABELS[value] || value || "その他";
+    }
+
+    function tagLabel(value) {
+      return TAG_LABELS[value] || value;
+    }
+
     function parseItem(item, index) {
       const id =
+        item.slug ||
         item.id ||
         item.ID ||
-        item._id ||
-        `${normalizeText(item.name || item.title || "item")}-${index}`;
+        `${normalizeText(item.name_ja || item.name_en || "item")}-${index}`;
 
       const name =
-        item.title_ja ||
-        item.title ||
+        item.name_ja ||
+        item.name_en ||
         item.name ||
         "名称未設定";
 
+      const nameEn =
+        item.name_en ||
+        "";
+
       const description =
-        item.summary_ja ||
+        item.description_ja ||
+        item.description_en ||
         item.description ||
         "";
 
+      const descriptionEn =
+        item.description_en ||
+        "";
+
       const city =
-        item.level || "";
+        item.city || "";
+
+      const categoryValue =
+        item.category || "その他";
 
       const category1 =
-        item.layer1 || item.category1 || "その他";
+        categoryLabel(categoryValue);
+
+      const categoryRaw =
+        categoryValue;
 
       const category2 =
-        item.layer2 || item.category2 || "";
+        item.area || "";
 
       const address =
-        item.recommended_use_ja || item.purpose || "";
+        item.address || "";
+
+      const postcode =
+        item.postcode || "";
 
       const googleMapsUrl =
-        item.url || "";
+        item.map_url ||
+        item.google_maps_url ||
+        item.googleMapsUrl ||
+        "";
 
       const website =
-        item.url || "";
+        item.website ||
+        item.website_url ||
+        "";
 
       const reviewCount =
-        toNumber(
-          item.priority) ?? 0;
+        toNumber(item.review_count || item.reviews || item.priority) ?? 0;
 
       const starRating =
-        null;
+        toNumber(item.rating || item.star_rating || item.stars);
 
       const lat =
-        toNumber(item.lat || item.latitude || item["緯度"] || item["lat"]) ?? null;
+        toNumber(item.lat || item.latitude || item["緯度"]) ?? null;
+
       const lng =
-        toNumber(item.lng || item.longitude || item["経度"] || item["lng"]) ?? null;
+        toNumber(item.lng || item.longitude || item["経度"]) ?? null;
 
       const tagsRaw =
         item.tags ||
         item.tag ||
-        item["タグ"] ||
         item.labels ||
         "";
+
       const tags = Array.isArray(tagsRaw)
         ? tagsRaw.map((t) => String(t).trim()).filter(Boolean)
         : String(tagsRaw)
@@ -1008,11 +1494,15 @@
       return {
         id,
         name,
+        nameEn,
         description,
+        descriptionEn,
         city,
         category1,
+        categoryRaw,
         category2,
         address,
+        postcode,
         googleMapsUrl,
         website,
         reviewCount,
@@ -1020,7 +1510,7 @@
         lat,
         lng,
         tags,
-        status: item.status || "",
+        status: item.status || "published",
         sourceType: item.source_type || ""
       };
     }
@@ -1031,6 +1521,15 @@
       return res.json();
     }
 
+    function normalizeIncomingPayload(payload) {
+      if (!payload) return [];
+      if (Array.isArray(payload)) return payload;
+      if (Array.isArray(payload.items)) return payload.items;
+      if (Array.isArray(payload.data)) return payload.data;
+      if (Array.isArray(payload.results)) return payload.results;
+      return [];
+    }
+
     function buildCategoryMap(items) {
       const result = {};
       for (const it of items) {
@@ -1039,10 +1538,11 @@
         if (!result[c1]) result[c1] = new Set();
         if (c2) result[c1].add(c2);
       }
+
       Object.keys(result).forEach((k) => {
         result[k] = Array.from(result[k]).sort((a, b) => a.localeCompare(b, "ja"));
       });
-      if (!Object.keys(result).length) return DEFAULT_CATEGORY_MAP;
+
       return result;
     }
 
@@ -1062,9 +1562,11 @@
     function updateCategory1Options() {
       const prev = els.category1Select.value;
       const keys = Object.keys(categoryMap).sort((a, b) => a.localeCompare(b, "ja"));
+
       els.category1Select.innerHTML =
         `<option value="">すべて</option>` +
         keys.map((k) => `<option value="${escapeHtml(k)}">${escapeHtml(k)}</option>`).join("");
+
       if (keys.includes(prev)) els.category1Select.value = prev;
       updateCategory2Options();
     }
@@ -1072,15 +1574,19 @@
     function updateCategory2Options() {
       const c1 = els.category1Select.value;
       const options = c1 ? categoryMap[c1] || [] : [];
-      els.category2Select.disabled = !c1;
       const prev = els.category2Select.value;
+
+      els.category2Select.disabled = !c1;
+
       if (!c1) {
         els.category2Select.innerHTML = `<option value="">まずカテゴリを選択</option>`;
         return;
       }
+
       els.category2Select.innerHTML =
         `<option value="">すべて</option>` +
         options.map((k) => `<option value="${escapeHtml(k)}">${escapeHtml(k)}</option>`).join("");
+
       if (options.includes(prev)) els.category2Select.value = prev;
     }
 
@@ -1089,58 +1595,62 @@
         keyword: normalizeText(els.keywordInput.value),
         city: normalizeText(els.citySelect.value),
         category1: els.category1Select.value,
-        category2: els.category2Select.value,
-        minReviews: els.ratingSelect.value || null,
-        minStars: els.starRatingSelect.value || null
+        category2: els.category2Select.value
       };
     }
 
     function itemTextForSearch(it) {
       return normalizeText([
         it.name,
+        it.nameEn,
         it.description,
+        it.descriptionEn,
         it.address,
+        it.postcode,
+        it.city,
         it.category1,
+        it.categoryRaw,
         it.category2,
-        ...(it.tags || [])
+        ...(it.tags || []),
+        ...(it.tags || []).map(tagLabel)
       ].join(" "));
     }
 
     function applyFilters() {
       const f = getActiveFilters();
+
       filteredItems = rawItems.filter((it) => {
-        if (f.city && !(it.city || "").split(",").map(v=>v.trim()).includes(f.city)) return false;
+        if (f.city && normalizeText(it.city) !== f.city) return false;
         if (f.category1 && it.category1 !== f.category1) return false;
         if (f.category2 && it.category2 !== f.category2) return false;
-        if (f.minReviews !== null && String(it.status||"") !== String(f.minReviews)) return false;
-        if (f.minStars !== null && String(it.sourceType||"") !== String(f.minStars)) return false;
+
         if (f.keyword) {
           const hay = itemTextForSearch(it);
           if (!hay.includes(f.keyword)) return false;
         }
+
         return true;
       });
 
       filteredItems.sort((a, b) => {
-        const starsA = a.starRating ?? -1;
-        const starsB = b.starRating ?? -1;
-        if (starsB !== starsA) return starsB - starsA;
-        return (b.reviewCount ?? 0) - (a.reviewCount ?? 0);
+        const categoryCompare = String(a.category1).localeCompare(String(b.category1), "ja");
+        if (categoryCompare !== 0) return categoryCompare;
+        return String(a.name).localeCompare(String(b.name), "ja");
       });
 
       renderActiveChips(f);
       renderSummary();
       renderCards();
+
       if (currentView === "map") renderMapMarkers();
     }
 
     function renderActiveChips(f) {
       const chips = [];
+
       if (f.city) chips.push(`都市: ${f.city}`);
       if (f.category1) chips.push(`カテゴリ: ${f.category1}`);
-      if (f.category2) chips.push(`詳細: ${f.category2}`);
-      if (f.minReviews !== null) chips.push(`レビュー: ${f.minReviews}件以上`);
-      if (f.minStars !== null) chips.push(`星評価: ${f.minStars}以上`);
+      if (f.category2) chips.push(`エリア: ${f.category2}`);
       if (f.keyword) chips.push(`検索: ${f.keyword}`);
 
       els.activeChips.innerHTML = chips
@@ -1154,9 +1664,9 @@
       els.resultsSummary.textContent = `${visible} 件 / 全 ${total} 件`;
     }
 
-    function starText(value) {
-      if (value === null || value === undefined || Number.isNaN(value)) return "評価なし";
-      return `${value.toFixed(1)} ★`;
+    function createMapUrlFromAddress(address) {
+      if (!address) return "";
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
     }
 
     function createCard(it) {
@@ -1167,28 +1677,32 @@
       const tagsHtml = [
         it.category1 ? `<span class="tag">${escapeHtml(it.category1)}</span>` : "",
         it.category2 ? `<span class="tag">${escapeHtml(it.category2)}</span>` : "",
-        ...(it.tags || []).slice(0, 3).map((t) => `<span class="tag">${escapeHtml(t)}</span>`)
+        ...(it.tags || []).slice(0, 4).map((t) => `<span class="tag">${escapeHtml(tagLabel(t))}</span>`)
       ].join("");
+
+      const mapUrl = it.googleMapsUrl || createMapUrlFromAddress(it.address);
 
       card.innerHTML = `
         <div class="card-head">
           <h3 class="card-title">${escapeHtml(it.name)}</h3>
-          <span class="rating-pill">★ ${escapeHtml(starText(it.starRating))}</span>
+          <span class="category-pill">${escapeHtml(it.category1)}</span>
         </div>
+        ${it.nameEn ? `<div class="addr">${escapeHtml(it.nameEn)}</div>` : ""}
         <div class="meta-row">${tagsHtml}</div>
         <p class="desc">${escapeHtml(it.description || "説明は準備中です。")}</p>
         <p class="addr">${escapeHtml(it.address || "住所情報なし")}</p>
         <div class="meta-row">
-          <span class="tag">レビュー ${escapeHtml(String(it.reviewCount ?? 0))} 件</span>
           <span class="tag">都市 ${escapeHtml(it.city || "-")}</span>
+          ${it.postcode ? `<span class="tag">郵便番号 ${escapeHtml(it.postcode)}</span>` : ""}
         </div>
         <div class="links">
-          ${it.googleMapsUrl ? `<a class="btn-link" href="${escapeHtml(it.googleMapsUrl)}" target="_blank" rel="noopener">地図</a>` : ""}
+          ${mapUrl ? `<a class="btn-link" href="${escapeHtml(mapUrl)}" target="_blank" rel="noopener">地図</a>` : ""}
           ${it.website ? `<a class="btn-link" href="${escapeHtml(it.website)}" target="_blank" rel="noopener">公式サイト</a>` : ""}
         </div>
       `;
 
-      card.addEventListener("click", () => {
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
         focusItemOnMap(it.id, true);
       });
 
@@ -1197,10 +1711,12 @@
 
     function renderCards() {
       els.cards.innerHTML = "";
+
       if (!filteredItems.length) {
         setStatus("条件に一致するデータがありません。フィルターを変更して再検索してください。");
         return;
       }
+
       clearStatus();
 
       const frag = document.createDocumentFragment();
@@ -1219,7 +1735,9 @@
 
     function ensureMap() {
       if (mapInitialized) return;
+
       map = L.map("map", { zoomControl: true });
+
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; OpenStreetMap contributors"
@@ -1236,16 +1754,21 @@
       if (geocodeCache.has(key)) return geocodeCache.get(key);
 
       const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(address)}`;
+
       try {
         const res = await fetch(url, {
           headers: { "Accept-Language": "ja,en;q=0.8" }
         });
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
         const data = await res.json();
         const first = data && data[0];
+
         const value = first
           ? { lat: parseFloat(first.lat), lng: parseFloat(first.lon) }
           : null;
+
         geocodeCache.set(key, value);
         return value;
       } catch (e) {
@@ -1255,11 +1778,14 @@
     }
 
     function markerPopupHtml(it) {
+      const mapUrl = it.googleMapsUrl || createMapUrlFromAddress(it.address);
+
       return `
         <strong>${escapeHtml(it.name)}</strong><br>
+        ${it.nameEn ? `${escapeHtml(it.nameEn)}<br>` : ""}
         ${escapeHtml(it.category1 || "")}${it.category2 ? ` / ${escapeHtml(it.category2)}` : ""}<br>
         ${escapeHtml(it.address || "住所情報なし")}<br>
-        ${it.googleMapsUrl ? `<a class="map-card-link" href="${escapeHtml(it.googleMapsUrl)}" target="_blank" rel="noopener">Googleマップを開く</a>` : ""}
+        ${mapUrl ? `<a class="map-card-link" href="${escapeHtml(mapUrl)}" target="_blank" rel="noopener">Googleマップを開く</a>` : ""}
       `;
     }
 
@@ -1279,7 +1805,9 @@
 
         if ((lat === null || lng === null) && it.address) {
           const geocoded = await geocodeAddress(it.address);
+
           if (token !== geocodeRunToken) return;
+
           if (geocoded) {
             lat = geocoded.lat;
             lng = geocoded.lng;
@@ -1290,6 +1818,7 @@
 
         const marker = L.marker([lat, lng]);
         marker.bindPopup(markerPopupHtml(it));
+
         marker.on("click", () => {
           activeItemId = it.id;
           highlightActiveCard(it.id);
@@ -1345,34 +1874,41 @@
       els.citySelect.value = "";
       els.category1Select.value = "";
       updateCategory2Options();
-      els.ratingSelect.value = "";
-      els.starRatingSelect.value = "";
       applyFilters();
     }
 
     function bindEvents() {
       els.keywordInput.addEventListener("input", applyFilters);
       els.citySelect.addEventListener("change", applyFilters);
+
       els.category1Select.addEventListener("change", () => {
         updateCategory2Options();
         applyFilters();
       });
+
       els.category2Select.addEventListener("change", applyFilters);
-      els.ratingSelect.addEventListener("change", applyFilters);
-      els.starRatingSelect.addEventListener("change", applyFilters);
       els.resetFiltersBtn.addEventListener("click", resetFilters);
 
       els.cardViewBtn.addEventListener("click", () => setView("card"));
       els.mapViewBtn.addEventListener("click", () => setView("map"));
     }
 
-    function normalizeIncomingPayload(payload) {
-      if (!payload) return [];
-      if (Array.isArray(payload)) return payload;
-      if (Array.isArray(payload.items)) return payload.items;
-      if (Array.isArray(payload.data)) return payload.data;
-      if (Array.isArray(payload.results)) return payload.results;
-      return [];
+    function useRows(rows, fromFallback = false) {
+      rawItems = rows.map(parseItem).filter((it) => !!it.name);
+      categoryMap = buildCategoryMap(rawItems);
+      updateCategory1Options();
+      applyFilters();
+
+      if (!rawItems.length) {
+        setStatus("表示できるデータが見つかりませんでした。");
+        return;
+      }
+
+      if (fromFallback) {
+        setStatus("Spreadsheetからの読み込みに失敗したため、HTML内の予備データを表示しています。", true);
+      } else {
+        clearStatus();
+      }
     }
 
     async function init() {
@@ -1382,28 +1918,16 @@
       try {
         const payload = await fetchJson(API_URL);
         const rows = normalizeIncomingPayload(payload);
-        rawItems = rows.map(parseItem).filter((it) => !!it.name);
 
-        categoryMap = buildCategoryMap(rawItems);
-        updateCategory1Options();
-        applyFilters();
-
-        clearStatus();
-        if (!rawItems.length) {
-          setStatus("表示できるデータが見つかりませんでした。");
+        if (!rows.length) {
+          useRows(FALLBACK_ITEMS, true);
+          return;
         }
+
+        useRows(rows, false);
       } catch (error) {
         console.error(error);
-        rawItems = [];
-        filteredItems = [];
-        categoryMap = DEFAULT_CATEGORY_MAP;
-        updateCategory1Options();
-        renderSummary();
-        renderCards();
-        setStatus(
-          "データの読み込みに失敗しました。<br>API URL、Apps Script の公開設定、sheet=medical のデータ構造を確認してください。",
-          true
-        );
+        useRows(FALLBACK_ITEMS, true);
       }
     }
 

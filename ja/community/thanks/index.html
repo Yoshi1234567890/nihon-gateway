@@ -1,7 +1,578 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>送信完了</title>
-  <link rel="icon" type="image/jpeg" href="../../../assets/images/brand/favicon.png"><script>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>送信完了 | 掲示板 | Nihon Gateway Germany</title>
+<meta name="description" content="Nihon Gateway Germanyの掲示板投稿送信完了ページです。">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/community/thanks/">
+
+<link rel="icon" type="image/jpeg" href="../../../assets/images/brand/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f7f8fa;
+  --surface:#ffffff;
+  --line:#e6eaf0;
+  --line-strong:#d9e0e8;
+  --text:#16202a;
+  --muted:#5f6b76;
+  --muted-2:#7d8893;
+  --brand:#d84b6a;
+  --brand-dark:#bc3856;
+  --hover-pink:#f3c8d4;
+  --hover-pink-bg:#fff4f7;
+  --accent:#2f80ed;
+  --shadow:0 12px 32px rgba(19,35,58,.12);
+  --container:1220px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter','Noto Sans JP',sans-serif;
+  color:var(--text);
+  line-height:1.6;
+  background:
+    linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),
+    url('../../../assets/images/brand/site-bg.jpg') center top / cover fixed no-repeat,
+    var(--bg);
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button,input,select{font:inherit;}
+
+.container{
+  width:min(var(--container), calc(100% - 32px));
+  margin:0 auto;
+}
+
+/* Header */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:200;
+  background:rgba(255,255,255,.84);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(230,234,240,.92);
+}
+.header-inner{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  min-width:0;
+}
+.brand-logo{
+  width:120px;
+  height:70px;
+  border-radius:14px;
+  object-fit:contain;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+}
+.brand-copy{min-width:0;}
+.brand-title{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.08em;
+  line-height:1.1;
+}
+.brand-sub{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.header-search{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-category,
+.header-language{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--muted);
+  font-size:13px;
+  transition:all .18s ease;
+}
+.header-category:hover,
+.header-language:hover{
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+.header-category-menu{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+.header-category-menu::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:100%;
+  width:100%;
+  height:12px;
+}
+.header-category-trigger{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-category-menu::after{
+  content:"▾";
+  font-size:24px;
+  line-height:1;
+  color:var(--muted);
+  margin-top:1px;
+  pointer-events:none;
+}
+.category-dropdown{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 16px 30px rgba(19,35,58,.14);
+  padding:8px;
+  display:none;
+  z-index:20;
+}
+.header-category-menu:hover .category-dropdown,
+.header-category-menu:focus-within .category-dropdown{
+  display:grid;
+  gap:2px;
+}
+.category-dropdown a{
+  text-decoration:none;
+  font-size:13px;
+  color:#2f3e4c;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid transparent;
+}
+.category-dropdown a:hover{
+  background:var(--hover-pink-bg);
+  border-color:var(--hover-pink);
+  color:var(--brand);
+  transform:translateY(-1px);
+}
+.header-language select{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  font-weight:700;
+  outline:none;
+}
+.header-search .search-box{
+  min-width:220px;
+  height:42px;
+  border-radius:999px;
+  padding:0 12px;
+}
+.header-search .search-box span{font-size:19px;}
+.header-search .search-box input{font-size:13px;}
+.search-box{
+  flex:1 1 340px;
+  min-width:220px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:54px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:0 14px;
+}
+.search-box span{
+  color:var(--muted-2);
+  font-size:18px;
+}
+.search-box input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-size:15px;
+}
+.header-search .search-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:42px;
+  border-radius:999px;
+  padding:0 14px;
+  font-size:24px;
+  line-height:1;
+  color:#1f5fbf;
+  background:rgba(47,128,237,.20);
+  border:1px solid rgba(47,128,237,.32);
+}
+.search-btn{
+  height:54px;
+  border:none;
+  border-radius:14px;
+  padding:0 18px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.search-btn:hover{filter:brightness(.96);}
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.header-nav a{
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  color:#34414d;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid #dce4ee;
+  background:rgba(255,255,255,.74);
+  transition:all .18s ease;
+}
+.header-nav a.active{
+  color:#34414d;
+  border-color:#dce4ee;
+  background:rgba(255,255,255,.74);
+  transform:none;
+}
+.header-nav a:hover{
+  color:var(--brand);
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+
+/* Main */
+.main{
+  padding:22px 0 60px;
+}
+
+/* Hero */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(210,218,228,.95);
+  border-radius:28px;
+  box-shadow:
+    0 14px 34px rgba(19,35,58,.12),
+    0 0 0 1px rgba(255,255,255,.5) inset;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.84) 0%, rgba(255,255,255,.76) 44%, rgba(255,255,255,.46) 100%),
+    url('../../../assets/images/hero/top-hero.jpg') center center / cover no-repeat,
+    #fff;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.05));
+}
+.hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  align-items:stretch;
+  min-height:320px;
+  padding:30px;
+}
+.hero-main{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.hero-title{
+  font-size:clamp(2rem, 4vw, 3.2rem);
+  line-height:1.08;
+  letter-spacing:-.03em;
+  font-weight:800;
+}
+.hero-title .brand-word{
+  color:var(--brand);
+  white-space:nowrap;
+}
+.hero-desc{
+  max-width:88ch;
+  color:#485664;
+  font-size:15px;
+  line-height:1.8;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:4px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:46px;
+  padding:0 18px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:800;
+  transition:all .18s ease;
+}
+.btn-primary{
+  color:#fff;
+  background:var(--brand);
+  border:1px solid var(--brand);
+  box-shadow:0 10px 22px rgba(216,75,106,.22);
+}
+.btn-primary:hover{
+  background:var(--brand-dark);
+  border-color:var(--brand-dark);
+  transform:translateY(-1px);
+}
+.btn-soft{
+  color:#34414d;
+  background:rgba(255,255,255,.82);
+  border:1px solid var(--line-strong);
+}
+.btn-soft:hover{
+  color:var(--brand);
+  background:var(--hover-pink-bg);
+  border-color:var(--hover-pink);
+  transform:translateY(-1px);
+}
+
+/* Completion card */
+.section{
+  margin-top:24px;
+}
+.complete-card{
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:26px;
+}
+.complete-grid{
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:18px;
+  align-items:flex-start;
+}
+.complete-icon{
+  width:72px;
+  height:72px;
+  border-radius:22px;
+  display:grid;
+  place-items:center;
+  font-size:34px;
+  background:var(--hover-pink-bg);
+  border:1px solid var(--hover-pink);
+  color:var(--brand);
+}
+.complete-card h2{
+  font-size:24px;
+  line-height:1.3;
+  margin-bottom:8px;
+}
+.complete-card p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+}
+.notice-list{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+.notice-item{
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#fbfcfd;
+  color:#4b5966;
+  font-size:14px;
+}
+.notice-item strong{
+  color:var(--text);
+}
+
+/* Footer */
+.page-footer{
+  margin-top:34px;
+  padding:14px 20px 18px;
+  background:linear-gradient(135deg, rgba(248,250,252,.72) 0%, rgba(238,243,249,.68) 100%);
+  border:1px solid #e1e8f0;
+  border-radius:24px;
+  box-shadow:0 12px 24px rgba(19,35,58,.06);
+  backdrop-filter:blur(6px);
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:nowrap;
+}
+.footer-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:0 1 auto;
+  min-width:0;
+  padding-left:0;
+}
+.footer-copy{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.footer-logo{
+  display:block;
+  width:auto;
+  height:68px;
+  max-width:none;
+  object-fit:contain;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  border-radius:0;
+  flex-shrink:0;
+}
+.footer-title{
+  font-size:14px;
+  font-weight:800;
+}
+.footer-sub,
+.footer-meta{
+  font-size:12px;
+  color:var(--muted);
+}
+.footer-links{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:8px;
+  flex:1 1 auto;
+  justify-content:flex-end;
+  align-items:center;
+  min-width:0;
+  white-space:nowrap;
+  overflow-x:auto;
+  overflow-y:visible;
+  scrollbar-width:thin;
+  padding:4px 0;
+}
+.footer-links a{
+  font-size:12px;
+  color:#34414d;
+  text-decoration:none;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  border:1px solid #e2e8f0;
+  transition:all .18s ease;
+}
+.footer-links a:hover{
+  color:var(--brand);
+  border-color:var(--hover-pink);
+  background:var(--hover-pink-bg);
+  transform:translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width:780px){
+  .container{width:min(var(--container), calc(100% - 24px));}
+  .header-inner{
+    min-height:auto;
+    padding:14px 0;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .header-actions{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .header-search{
+    width:100%;
+  }
+  .header-search .search-box{
+    flex:1 1 auto;
+  }
+  .hero-grid{
+    min-height:auto;
+    padding:22px;
+  }
+  .complete-grid{
+    grid-template-columns:1fr;
+  }
+  .page-footer{padding:16px;}
+  .footer-inner{
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .footer-left,
+  .footer-links{
+    width:100%;
+  }
+  .footer-links{
+    justify-content:flex-start;
+  }
+}
+@media (max-width:560px){
+  body{
+    background:
+      linear-gradient(rgba(247,248,250,.96), rgba(247,248,250,.98)),
+      url('../../../assets/images/brand/site-bg.jpg') center top / cover no-repeat,
+      var(--bg);
+  }
+  .hero{
+    background-position:64% center;
+  }
+}
+</style>
+
+<script>
 (function () {
   var segments = location.pathname.split('/').filter(Boolean);
   if (segments.length && /\.html$/i.test(segments[segments.length - 1])) segments.pop();
@@ -25,49 +596,148 @@
   document.head.appendChild(js);
 })();
 </script>
-  <style>
-:root{--cream:#fdf8f2;--ink:#1a1014;--muted:#6b5e68;--border:#dce4ee;--card:0 10px 30px rgba(26,16,20,.07)}
-*{box-sizing:border-box}
-body{margin:0;font-family:'Outfit','Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif;background:linear-gradient(rgba(247,248,250,.78), rgba(247,248,250,.82)),url("../../../assets/images/brand/site-bg.jpg") center top / cover fixed no-repeat,var(--cream);color:var(--ink);line-height:1.6}
-a{text-decoration:none;color:inherit}
-.site-header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.84);backdrop-filter:blur(12px);border-bottom:1px solid rgba(230,234,240,.92)}
-.container{width:min(1280px,calc(100% - 32px));margin:0 auto}
-.header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:12px}.brand-logo{width:120px;height:70px;object-fit:contain}.brand-title{font-size:14px;font-weight:800;letter-spacing:.08em}.brand-sub{font-size:12px;color:var(--muted)}
-.header-nav a{font-size:14px;font-weight:600;color:#34414d;padding:8px 12px;border-radius:999px;border:1px solid #dce4ee;background:rgba(255,255,255,.74)}
-.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
-.panel{background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--card);padding:22px}
-.page-footer{margin:24px auto 0;max-width:980px;border:1px solid #dce4ee;border-radius:20px;background:linear-gradient(135deg,#fbfdff,#f6f9fc);box-shadow:0 16px 34px rgba(19,35,58,.10);padding:24px}
-.footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}.footer-left{display:flex;gap:16px;align-items:flex-start}.footer-logo{width:112px;height:112px;object-fit:contain}
-.footer-title{font-size:14px;font-weight:800;letter-spacing:.08em}.footer-sub,.footer-meta{color:var(--muted);font-size:13px}
-.footer-links{display:flex;gap:8px;flex-wrap:wrap}.footer-links a{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid #e2e8f0}
-
-  </style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="../">
-        <img class="brand-logo" src="../../../assets/images/brand/nihon-gateway-logo.png" alt="Nihon Gateway Germany">
-        <div><span class="brand-title">NIHON GATEWAY GERMANY</span><span class="brand-sub">Community Board</span></div>
-      </a>
-      <nav class="header-nav"><a href="../">掲示板トップへ戻る</a></nav>
-    </div>
-  </header>
 
-  <h1>送信ありがとうございました</h1>
-  <p>内容を受け付けました。</p>
-  <p><a href="./index.html">掲示板トップへ戻る</a></p>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../../" aria-label="Nihon Gateway Germany ホーム">
+      <img class="brand-logo" src="../../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ヘッダーロゴ">
+      <span class="brand-copy">
+        <span class="brand-title">NIHON GATEWAY GERMANY</span>
+        <span class="brand-sub">ドイツと日本をつなぐ総合ポータル</span>
+      </span>
+    </a>
 
-  <footer class="page-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <img class="footer-logo" src="../../../assets/images/brand/nihon-gateway-logo.png" alt="Nihon Gateway Germany">
-        <div><p class="footer-title">NIHON GATEWAY GERMANY</p><p class="footer-sub">日本人コミュニティのための情報ハブ</p><p class="footer-meta">© Nihon Gateway Germany</p></div>
+    <div class="header-actions">
+      <nav class="header-nav" aria-label="メインナビゲーション">
+        <a href="../../">ホーム</a>
+        <a href="../../about/">このサイトについて</a>
+      </nav>
+
+      <div class="header-category header-category-menu" aria-label="カテゴリ選択">
+        <button type="button" class="header-category-trigger">カテゴリ</button>
+        <div class="category-dropdown">
+          <a href="../../guides/">手続き・制度</a>
+          <a href="../../living/">住まい・生活</a>
+          <a href="../../jobs/">仕事・求人</a>
+          <a href="../../medical/">医療・緊急</a>
+          <a href="../../eat/">グルメ・飲食</a>
+          <a href="../../shopping/">買い物・サービス</a>
+          <a href="../../community/">交流・掲示板</a>
+          <a href="../../events/">おでかけ・イベント</a>
+          <a href="../../learn-german/">ドイツ語・学び</a>
+          <a href="../../news/">ニュース・読みもの</a>
+        </div>
       </div>
-      <div class="footer-links"><a href="../../about/">運営情報</a><a href="../../contact/">お問い合わせ</a></div>
+
+      <form class="header-search" action="../../search/" method="get" role="search">
+        <label class="search-box" aria-label="サイト内検索">
+          <span>⌕</span>
+          <input type="search" name="q" placeholder="検索">
+        </label>
+        <button class="search-btn" type="submit" aria-label="検索">⌕</button>
+      </form>
+
+      <label class="header-language">
+        <span>Language</span>
+        <select aria-label="言語選択" onchange="if(this.value) location.href=this.value;">
+          <option value="../../" selected>日本語</option>
+          <option value="../../../de/">Deutsch</option>
+        </select>
+      </label>
     </div>
-  </footer>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container">
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1 class="hero-title">
+            送信が<span class="brand-word">完了</span>しました
+          </h1>
+          <p class="hero-desc">
+            掲示板への投稿内容を受け付けました。ご投稿ありがとうございます。
+            内容の確認後、必要に応じて掲載・反映されます。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="../">掲示板トップへ戻る</a>
+            <a class="btn btn-soft" href="../../">日本語トップへ戻る</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="complete-card">
+        <div class="complete-grid">
+          <div class="complete-icon" aria-hidden="true">✓</div>
+          <div>
+            <h2>投稿を受け付けました</h2>
+            <p>
+              送信された内容は、確認後に掲示板へ反映されます。
+              画像を添付した場合は、保存処理に少し時間がかかる場合があります。
+            </p>
+
+            <div class="notice-list">
+              <div class="notice-item">
+                <strong>掲載について：</strong>
+                内容確認後、サイトの方針に沿って掲載されます。
+              </div>
+              <div class="notice-item">
+                <strong>修正・削除について：</strong>
+                投稿内容の修正や削除が必要な場合は、お問い合わせページからご連絡ください。
+              </div>
+              <div class="notice-item">
+                <strong>次の操作：</strong>
+                続けて別の投稿をする場合は、掲示板トップから投稿フォームへ進んでください。
+              </div>
+            </div>
+
+            <div class="hero-actions" style="margin-top:20px;">
+              <a class="btn btn-primary" href="../">掲示板トップへ</a>
+              <a class="btn btn-soft" href="../../contact/">お問い合わせ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <img class="footer-logo" src="../../../assets/images/brand/logo_header.png" alt="Nihon Gateway Germany ロゴ">
+          <div class="footer-copy">
+            <p class="footer-title">NIHON GATEWAY GERMANY</p>
+            <p class="footer-sub">ドイツと日本をつなぐ総合ポータル</p>
+            <p class="footer-meta">© Nihon Gateway Germany</p>
+          </div>
+        </div>
+
+        <nav class="footer-links" aria-label="フッターナビゲーション">
+          <a href="../../">ホーム</a>
+          <a href="../../about/">このサイトについて</a>
+          <a href="../../guides/">手続き・制度</a>
+          <a href="../../living/">住まい・生活</a>
+          <a href="../../jobs/">仕事・求人</a>
+          <a href="../../medical/">医療・緊急</a>
+          <a href="../../eat/">グルメ・飲食</a>
+          <a href="../../shopping/">買い物・サービス</a>
+          <a href="../../community/">交流・掲示板</a>
+          <a href="../../events/">イベント</a>
+          <a href="../../learn-german/">ドイツ語</a>
+          <a href="../../news/">ニュース</a>
+          <a href="../../contact/">お問い合わせ</a>
+        </nav>
+      </div>
+    </footer>
+
+  </div>
+</main>
 
 </body>
 </html>

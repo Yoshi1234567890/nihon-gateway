@@ -7,7 +7,7 @@
 <meta name="description" content="Nihon Gateway Germanyの交流・掲示板に投稿するためのフォームです。投稿は管理者確認後に掲載されます。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://yoshi1234567890.github.io/nihon-gateway-germany/ja/community/post/">
-<link rel="icon" type="image/jpeg" href="../../../assets/images/brand/favicon.png">
+<link rel="icon" type="image/png" href="../../../assets/images/brand/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 
@@ -479,6 +479,35 @@ button,input,select,textarea{font:inherit}
   color:#9aa4af;
 }
 
+.file-note{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.message{
+  display:none;
+  grid-column:1/-1;
+  border-radius:14px;
+  padding:12px 14px;
+  font-weight:700;
+  font-size:14px;
+}
+
+.message.success{
+  display:block;
+  color:#166534;
+  background:#ecfdf3;
+  border:1px solid #bbf7d0;
+}
+
+.message.error{
+  display:block;
+  color:#991b1b;
+  background:#fff1f2;
+  border:1px solid #fecdd3;
+}
+
 .btn{
   border:none;
   border-radius:14px;
@@ -665,34 +694,6 @@ button,input,select,textarea{font:inherit}
   .hero{background-position:64% center}
 }
 </style>
-
-<script>
-(function(){
-  var segments=location.pathname.split('/').filter(Boolean);
-  if(segments.length && /\.html$/i.test(segments[segments.length-1])) segments.pop();
-
-  var localeIndex=-1;
-  for(var i=0;i<segments.length;i++){
-    if(segments[i]==='ja'||segments[i]==='de'){
-      localeIndex=i;
-      break;
-    }
-  }
-
-  var depth=localeIndex>=0 ? (segments.length-localeIndex) : Math.max(segments.length-1,0);
-  var prefix=depth===0 ? './' : '../'.repeat(depth);
-
-  var css=document.createElement('link');
-  css.rel='stylesheet';
-  css.href=prefix+'assets/css/cookie-consent.css';
-  document.head.appendChild(css);
-
-  var js=document.createElement('script');
-  js.src=prefix+'assets/js/cookie-consent.js';
-  js.defer=true;
-  document.head.appendChild(js);
-})();
-</script>
 </head>
 
 <body>
@@ -775,17 +776,23 @@ button,input,select,textarea{font:inherit}
       </div>
 
       <div class="panel">
-        <form id="postForm" class="form-grid" enctype="multipart/form-data">
+        <form id="postForm" class="form-grid">
           <input type="hidden" name="action" value="submitPost">
+
+          <div id="messageBox" class="message"></div>
 
           <div class="form-field">
             <label for="category1">カテゴリ1<span class="required-mark">*</span></label>
-            <select name="category1" id="category1" required></select>
+            <select name="category1" id="category1" required>
+              <option value="">読み込み中...</option>
+            </select>
           </div>
 
           <div class="form-field">
             <label for="category2">カテゴリ2<span class="required-mark">*</span></label>
-            <select name="category2" id="category2" required></select>
+            <select name="category2" id="category2" required>
+              <option value="">カテゴリ1を選択してください</option>
+            </select>
           </div>
 
           <div class="form-field full">
@@ -850,22 +857,25 @@ button,input,select,textarea{font:inherit}
 
           <div class="form-field">
             <label for="image1">画像1</label>
-            <input id="image1" name="image1" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+            <input id="image1" name="image1" type="file" accept="image/jpeg,image/png,image/webp">
+            <p class="file-note">JPG / PNG / WebP。1枚5MBまで。</p>
           </div>
 
           <div class="form-field">
             <label for="image2">画像2</label>
-            <input id="image2" name="image2" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+            <input id="image2" name="image2" type="file" accept="image/jpeg,image/png,image/webp">
+            <p class="file-note">JPG / PNG / WebP。1枚5MBまで。</p>
           </div>
 
           <div class="form-field full">
             <label for="image3">画像3</label>
-            <input id="image3" name="image3" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+            <input id="image3" name="image3" type="file" accept="image/jpeg,image/png,image/webp">
+            <p class="file-note">JPG / PNG / WebP。1枚5MBまで。</p>
           </div>
 
           <div class="full">
             <label class="agree-label">
-              <input type="checkbox" required>
+              <input id="agreement" type="checkbox" required>
               利用ルールに同意します<span class="required-mark">*</span>
             </label>
           </div>
@@ -913,132 +923,209 @@ button,input,select,textarea{font:inherit}
 </main>
 
 <script>
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwvGmCKVjbWak1xmqU3li33sS_eSx-g5eZU9NUPUYA_9YD7E2NmwUHe9a0SrG6YFBZt/exec';
+const GAS_URL = 'https://script.google.com/macros/s/ここにGASデプロイURL/exec';
 
-async function fetchJson(url, options = {}) {
-  const res = await fetch(url, options);
-  if (!res.ok) throw new Error('Network error');
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const fallbackCategories = [
+  { category1: '売ります・買います', category2: '家具・家電' },
+  { category1: '売ります・買います', category2: '本・教材' },
+  { category1: '住まい', category2: '部屋探し' },
+  { category1: '住まい', category2: '入居者募集' },
+  { category1: 'イベント', category2: '交流会' },
+  { category1: '質問・相談', category2: '生活相談' },
+  { category1: '仲間募集', category2: '友達・趣味' }
+];
+
+let categoryMap = {};
+
+function showMessage(type, text) {
+  const box = document.getElementById('messageBox');
+  box.className = 'message ' + type;
+  box.textContent = text;
+}
+
+function clearMessage() {
+  const box = document.getElementById('messageBox');
+  box.className = 'message';
+  box.textContent = '';
+}
+
+async function fetchJson(url, options) {
+  const res = await fetch(url, options || {});
+  if (!res.ok) {
+    throw new Error('Network error');
+  }
   return await res.json();
 }
 
-let categoryMap = {};
+function buildCategoryMap(rows) {
+  categoryMap = {};
+
+  rows.forEach(function(row) {
+    if (!row.category1 || !row.category2) return;
+
+    if (!categoryMap[row.category1]) {
+      categoryMap[row.category1] = [];
+    }
+
+    if (!categoryMap[row.category1].includes(row.category2)) {
+      categoryMap[row.category1].push(row.category2);
+    }
+  });
+}
+
+function renderCategory1() {
+  const cat1 = document.getElementById('category1');
+  const values = Object.keys(categoryMap);
+
+  cat1.innerHTML =
+    '<option value="">選択してください</option>' +
+    values.map(function(value) {
+      return '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>';
+    }).join('');
+}
+
+function renderCategory2(selectedCategory1) {
+  const cat2 = document.getElementById('category2');
+  const values = categoryMap[selectedCategory1] || [];
+
+  cat2.innerHTML =
+    '<option value="">選択してください</option>' +
+    values.map(function(value) {
+      return '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>';
+    }).join('');
+}
 
 async function loadCategories() {
   try {
     const data = await fetchJson(GAS_URL + '?action=getCategories');
     const rows = data.categories || [];
-
-    categoryMap = rows.reduce((acc, row) => {
-      if (!acc[row.category1]) acc[row.category1] = [];
-      acc[row.category1].push(row.category2);
-      return acc;
-    }, {});
-
-    const cat1 = document.getElementById('category1');
-    cat1.innerHTML =
-      '<option value="">選択してください</option>' +
-      Object.keys(categoryMap).map(v => `<option value="${v}">${v}</option>`).join('');
-  } catch (e) {
-    alert('カテゴリの読み込みに失敗しました');
-    console.error(e);
+    buildCategoryMap(rows.length ? rows : fallbackCategories);
+  } catch (error) {
+    buildCategoryMap(fallbackCategories);
   }
+
+  renderCategory1();
+  renderCategory2('');
 }
 
-function updateCategory2() {
-  const cat1 = document.getElementById('category1').value;
-  const cat2 = document.getElementById('category2');
-  const list = categoryMap[cat1] || [];
-
-  cat2.innerHTML =
-    '<option value="">選択してください</option>' +
-    list.map(v => `<option value="${v}">${v}</option>`).join('');
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
 
-function fileToBase64Payload(file) {
-  return new Promise((resolve, reject) => {
+function getValue(name) {
+  const element = document.querySelector('[name="' + name + '"]');
+  return element ? element.value.trim() : '';
+}
+
+function fileToBase64(file) {
+  return new Promise(function(resolve, reject) {
     if (!file) {
       resolve({
         base64: '',
-        name: '',
-        type: ''
+        name: ''
       });
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      reject(new Error('画像はJPG、PNG、WebPのみ使用できます。'));
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      reject(new Error('画像サイズは1枚5MB以下にしてください。'));
       return;
     }
 
     const reader = new FileReader();
 
-    reader.onload = () => {
-      const result = String(reader.result || '');
-      const base64 = result.includes(',') ? result.split(',')[1] : '';
-
+    reader.onload = function() {
       resolve({
-        base64: base64,
-        name: file.name || '',
-        type: file.type || ''
+        base64: String(reader.result || ''),
+        name: file.name
       });
     };
 
-    reader.onerror = () => reject(reader.error);
+    reader.onerror = function() {
+      reject(new Error('画像の読み込みに失敗しました。'));
+    };
+
     reader.readAsDataURL(file);
   });
 }
 
-document.getElementById('category1').addEventListener('change', updateCategory2);
+async function submitForm(event) {
+  event.preventDefault();
+  clearMessage();
 
-document.getElementById('postForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const form = e.target;
   const submitButton = document.getElementById('submitButton');
-
   submitButton.disabled = true;
   submitButton.textContent = '送信中...';
 
   try {
-    const formData = new FormData(form);
+    const image1 = await fileToBase64(document.getElementById('image1').files[0]);
+    const image2 = await fileToBase64(document.getElementById('image2').files[0]);
+    const image3 = await fileToBase64(document.getElementById('image3').files[0]);
 
-    const image1 = await fileToBase64Payload(document.getElementById('image1').files[0]);
-    const image2 = await fileToBase64Payload(document.getElementById('image2').files[0]);
-    const image3 = await fileToBase64Payload(document.getElementById('image3').files[0]);
+    const body = new URLSearchParams();
 
-    formData.delete('image1');
-    formData.delete('image2');
-    formData.delete('image3');
+    body.append('action', 'submitPost');
 
-    formData.append('image1_base64', image1.base64);
-    formData.append('image1_name', image1.name);
-    formData.append('image1_type', image1.type);
+    body.append('category1', getValue('category1'));
+    body.append('category2', getValue('category2'));
+    body.append('title', getValue('title'));
+    body.append('body', getValue('body'));
+    body.append('country', getValue('country'));
+    body.append('region', getValue('region'));
+    body.append('city', getValue('city'));
+    body.append('nickname', getValue('nickname'));
+    body.append('contact_email_private', getValue('contact_email_private'));
+    body.append('contact_phone_private', getValue('contact_phone_private'));
+    body.append('preferred_contact_method', getValue('preferred_contact_method'));
+    body.append('price', getValue('price'));
+    body.append('event_date', getValue('event_date'));
+    body.append('availability_date', getValue('availability_date'));
 
-    formData.append('image2_base64', image2.base64);
-    formData.append('image2_name', image2.name);
-    formData.append('image2_type', image2.type);
+    body.append('image1_base64', image1.base64);
+    body.append('image1_name', image1.name);
+    body.append('image2_base64', image2.base64);
+    body.append('image2_name', image2.name);
+    body.append('image3_base64', image3.base64);
+    body.append('image3_name', image3.name);
 
-    formData.append('image3_base64', image3.base64);
-    formData.append('image3_name', image3.name);
-    formData.append('image3_type', image3.type);
-
-    const res = await fetch(GAS_URL, {
+    const response = await fetchJson(GAS_URL, {
       method: 'POST',
-      body: formData
+      body: body
     });
 
-    const data = await res.json();
-
-    if (data.ok) {
-      location.href = '../thanks/';
-    } else {
-      alert('送信に失敗しました。\n' + (data.error || '入力内容をご確認ください。'));
-      console.error(data);
-      submitButton.disabled = false;
-      submitButton.textContent = '投稿を送信する';
+    if (!response.ok) {
+      throw new Error(response.error || '送信に失敗しました。');
     }
-  } catch (e) {
-    alert('通信に失敗しました。時間をおいて再度お試しください。');
-    console.error(e);
+
+    showMessage('success', '投稿を受け付けました。管理者確認後に掲載されます。');
+    document.getElementById('postForm').reset();
+    renderCategory2('');
+
+  } catch (error) {
+    showMessage('error', error.message || '送信に失敗しました。時間を置いて再度お試しください。');
+  } finally {
     submitButton.disabled = false;
     submitButton.textContent = '投稿を送信する';
   }
+}
+
+document.getElementById('category1').addEventListener('change', function() {
+  renderCategory2(this.value);
 });
+
+document.getElementById('postForm').addEventListener('submit', submitForm);
 
 loadCategories();
 </script>

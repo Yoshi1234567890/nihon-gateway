@@ -17,6 +17,7 @@
 :root{
   --bg:#f7f8fa;
   --surface:#ffffff;
+  --surface:#fbfcfd;
   --line:#e6eaf0;
   --line-strong:#d9e0e8;
   --text:#16202a;
@@ -28,7 +29,12 @@
   --hover-pink-bg:#fff4f7;
   --accent:#2f80ed;
   --shadow:0 12px 32px rgba(19,35,58,.12);
+  --shadow-hover:0 18px 42px rgba(19,35,58,.12);
   --container:1220px;
+  --hero-overlay-a:.42;
+  --hero-overlay-b:.32;
+  --hero-overlay-c:.18;
+  --hero-overlay-d:.08;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -206,30 +212,6 @@ button,input,select{font:inherit;}
 }
 .header-search .search-box span{font-size:19px;}
 .header-search .search-box input{font-size:13px;}
-.search-box{
-  flex:1 1 340px;
-  min-width:220px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  height:54px;
-  background:rgba(255,255,255,.96);
-  border:1px solid var(--line-strong);
-  border-radius:14px;
-  padding:0 14px;
-}
-.search-box span{
-  color:var(--muted-2);
-  font-size:18px;
-}
-.search-box input{
-  flex:1;
-  border:none;
-  outline:none;
-  background:transparent;
-  color:var(--text);
-  font-size:15px;
-}
 .header-search .search-btn{
   display:flex;
   align-items:center;
@@ -243,17 +225,6 @@ button,input,select{font:inherit;}
   background:rgba(47,128,237,.20);
   border:1px solid rgba(47,128,237,.32);
 }
-.search-btn{
-  height:54px;
-  border:none;
-  border-radius:14px;
-  padding:0 18px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
-.search-btn:hover{filter:brightness(.96);}
 .header-nav{
   display:flex;
   align-items:center;
@@ -299,7 +270,7 @@ button,input,select{font:inherit;}
     0 14px 34px rgba(19,35,58,.12),
     0 0 0 1px rgba(255,255,255,.5) inset;
   background:
-    linear-gradient(90deg, rgba(255,255,255,.84) 0%, rgba(255,255,255,.76) 44%, rgba(255,255,255,.46) 100%),
+    linear-gradient(90deg, rgba(255,255,255,var(--hero-overlay-a)) 0%, rgba(255,255,255,var(--hero-overlay-b)) 42%, rgba(255,255,255,var(--hero-overlay-c)) 60%, rgba(255,255,255,var(--hero-overlay-d)) 100%),
     url('../../../assets/images/hero/top-hero.jpg') center center / cover no-repeat,
     #fff;
 }
@@ -308,7 +279,8 @@ button,input,select{font:inherit;}
   position:absolute;
   inset:0;
   pointer-events:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.05));
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.05));
 }
 .hero-grid{
   position:relative;
@@ -341,6 +313,42 @@ button,input,select{font:inherit;}
   font-size:15px;
   line-height:1.8;
 }
+.search-box{
+  flex:1 1 340px;
+  min-width:220px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:54px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:0 14px;
+}
+.search-box span{
+  color:var(--muted-2);
+  font-size:18px;
+}
+.search-box input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-size:15px;
+}
+.search-btn{
+  height:54px;
+  border:none;
+  border-radius:14px;
+  padding:0 18px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.search-btn:hover{filter:brightness(.96);}
+
 .hero-actions{
   display:flex;
   flex-wrap:wrap;
@@ -383,7 +391,7 @@ button,input,select{font:inherit;}
   transform:translateY(-1px);
 }
 
-/* Completion card */
+/* Complete card */
 .section{
   margin-top:24px;
 }
@@ -438,7 +446,7 @@ button,input,select{font:inherit;}
   color:var(--text);
 }
 
-/* Footer */
+/* Footer - same as ja/index.html */
 .page-footer{
   margin-top:34px;
   padding:14px 20px 18px;
@@ -521,6 +529,9 @@ button,input,select{font:inherit;}
 }
 
 /* Responsive */
+@media (max-width:1100px){
+  .hero-grid{grid-template-columns:1fr;}
+}
 @media (max-width:780px){
   .container{width:min(var(--container), calc(100% - 24px));}
   .header-inner{
@@ -538,6 +549,10 @@ button,input,select{font:inherit;}
   }
   .header-search .search-box{
     flex:1 1 auto;
+  }
+  .header-actions .header-category,
+  .header-actions .header-language{
+    width:max-content;
   }
   .hero-grid{
     min-height:auto;
@@ -739,5 +754,6 @@ button,input,select{font:inherit;}
   </div>
 </main>
 
+<script src="../../../assets/js/main.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 [
   {
-    "id": "deutsche-welle-https-www-dw-com-en-young-hijab-wearing-german-beauty-contestant-",
+    "id": "deutsche-welle-https-www-dw-com-en-germany-s-shortfall-in-medium-range-defense-c",
     "country": "germany",
     "country_ja": "ドイツ",
     "city": "nationwide",
@@ -13,10 +13,29 @@
     "importance_ja": "通常",
     "source_type": "media",
     "source_name": "Deutsche Welle",
-    "title": "Young hijab-wearing German beauty contestant takes on the AfD",
-    "summary": "As a Miss Germany contestant, Büsra Sayed wore a hijab on stage. This had never happened before — and the AfD didn&#039;t like it. Her response went viral.",
-    "published_at": "Tue, 12 May 2026",
-    "url": "https://www.dw.com/en/young-hijab-wearing-german-beauty-contestant-takes-on-the-afd/a-77114886?maca=en-rss-en-ger-1023-xml-mrss"
+    "title": "Germany&#039;s shortfall in medium-range defense capabilities",
+    "summary": "The US has announced that it will not be deploying Tomahawk cruise missiles in Germany. Now the German government is looking for alternatives. Could drones be part of the solution?",
+    "published_at": "Wed, 13 May 2026",
+    "url": "https://www.dw.com/en/germany-s-shortfall-in-medium-range-defense-capabilities/a-77151793?maca=en-rss-en-ger-1023-xml-mrss"
+  },
+  {
+    "id": "deutsche-welle-https-www-dw-com-en-germany-news-carmakers-paint-bleak-picture-on",
+    "country": "germany",
+    "country_ja": "ドイツ",
+    "city": "nationwide",
+    "city_ja": "全国",
+    "category": "life",
+    "category_ja": "生活",
+    "topic": "general",
+    "topic_ja": "一般",
+    "importance": "normal",
+    "importance_ja": "通常",
+    "source_type": "media",
+    "source_name": "Deutsche Welle",
+    "title": "Germany news: Carmakers paint bleak picture on jobs",
+    "summary": "German automakers say there is a strong likelihood of huge job losses over the next decade. Meanwhile, Germany&#039;s football fans are wondering whether former national keeper Manuel Neuer is set to return.",
+    "published_at": "Wed, 13 May 2026",
+    "url": "https://www.dw.com/en/germany-news-carmakers-paint-bleak-picture-on-jobs/live-77142074?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
     "id": "deutsche-welle-https-www-dw-com-en-germany-news-merz-booed-as-he-advocates-econo",
@@ -38,7 +57,7 @@
     "url": "https://www.dw.com/en/germany-news-merz-booed-as-he-advocates-economic-reform/live-77129138?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
-    "id": "deutsche-welle-https-www-dw-com-en-germany-news-1-in-6-retailers-fear-for-future",
+    "id": "deutsche-welle-https-www-dw-com-en-cem-zdemir-first-german-state-premier-with-tu",
     "country": "germany",
     "country_ja": "ドイツ",
     "city": "nationwide",
@@ -51,10 +70,10 @@
     "importance_ja": "通常",
     "source_type": "media",
     "source_name": "Deutsche Welle",
-    "title": "Germany news: 1-in-6 retailers fear for future",
-    "summary": "About one-in-12 German businesses worry about survival, with twice as many retailers jittery. Meanwhile in Stuttgart, five pro-Palestinian activists face trial over attacking an Israeli defense company site. Follow DW.",
-    "published_at": "Mon, 11 May 2026",
-    "url": "https://www.dw.com/en/germany-news-1-in-6-retailers-fear-for-future/live-77114178?maca=en-rss-en-ger-1023-xml-mrss"
+    "title": "Cem Özdemir, first German state premier with Turkish roots",
+    "summary": "Cem Özdemir is the first leader of a German federal state to have Turkish roots. His Green Party won elections in the wealthy southwestern region of Baden-Württemberg.",
+    "published_at": "Wed, 13 May 2026",
+    "url": "https://www.dw.com/en/cem-özdemir-first-german-state-premier-with-turkish-roots/a-76252684?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
     "id": "deutsche-welle-https-www-dw-com-en-bundesliga-kathleen-kr-ger-appointed-hamburg-",
@@ -76,6 +95,25 @@
     "url": "https://www.dw.com/en/bundesliga-kathleen-krüger-appointed-hamburg-s-head-of-sport/a-77135968?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
+    "id": "deutsche-welle-https-www-dw-com-en-hijab-wearing-german-beauty-contestant-takes-",
+    "country": "germany",
+    "country_ja": "ドイツ",
+    "city": "nationwide",
+    "city_ja": "全国",
+    "category": "life",
+    "category_ja": "生活",
+    "topic": "general",
+    "topic_ja": "一般",
+    "importance": "normal",
+    "importance_ja": "通常",
+    "source_type": "media",
+    "source_name": "Deutsche Welle",
+    "title": "Hijab-wearing German beauty contestant takes on the AfD",
+    "summary": "As a Miss Germany contestant, Büsra Sayed wore a hijab on stage. This had never happened before — and the far-right AfD didn&#039;t like it. Her response went viral.",
+    "published_at": "Tue, 12 May 2026",
+    "url": "https://www.dw.com/en/hijab-wearing-german-beauty-contestant-takes-on-the-afd/a-77114886?maca=en-rss-en-ger-1023-xml-mrss"
+  },
+  {
     "id": "deutsche-welle-https-www-dw-com-en-germany-s-businesses-frustrated-by-economic-d",
     "country": "germany",
     "country_ja": "ドイツ",
@@ -93,63 +131,6 @@
     "summary": "No one had higher hopes for Friedrich Merz&#039;s chancellorship than the German business community. Now, however, early euphoria has given way to bitter disappointment.",
     "published_at": "Mon, 11 May 2026",
     "url": "https://www.dw.com/en/germany-s-businesses-frustrated-by-economic-decline/a-77097307?maca=en-rss-en-ger-1023-xml-mrss"
-  },
-  {
-    "id": "deutsche-welle-https-www-dw-com-en-could-german-ex-leader-really-negotiate-ukrai",
-    "country": "germany",
-    "country_ja": "ドイツ",
-    "city": "nationwide",
-    "city_ja": "全国",
-    "category": "life",
-    "category_ja": "生活",
-    "topic": "general",
-    "topic_ja": "一般",
-    "importance": "normal",
-    "importance_ja": "通常",
-    "source_type": "media",
-    "source_name": "Deutsche Welle",
-    "title": "Could German ex-leader really negotiate Ukraine peace?",
-    "summary": "Former German chancellor Gerhard Schröder is a controversial — and some critics would even say, unserious — choice as a negotiator on the Ukraine war. He&#039;s long been criticized for being too close to Russia.",
-    "published_at": "Sun, 10 May 2026",
-    "url": "https://www.dw.com/en/could-german-ex-leader-really-negotiate-ukraine-peace/a-77111372?maca=en-rss-en-ger-1023-xml-mrss"
-  },
-  {
-    "id": "deutsche-welle-https-www-dw-com-en-germany-ulm-5-on-trial-after-attack-on-israel",
-    "country": "germany",
-    "country_ja": "ドイツ",
-    "city": "nationwide",
-    "city_ja": "全国",
-    "category": "life",
-    "category_ja": "生活",
-    "topic": "general",
-    "topic_ja": "一般",
-    "importance": "normal",
-    "importance_ja": "通常",
-    "source_type": "media",
-    "source_name": "Deutsche Welle",
-    "title": "Germany: &#039;Ulm 5&#039; on trial after attack on Israeli arms firm",
-    "summary": "Five activists have gone on trial in Germany following a break-in at the Israeli arms company Elbit Systems in Ulm. Their lawyers intend to argue they were trying to obstruct a genocide.",
-    "published_at": "Sun, 10 May 2026",
-    "url": "https://www.dw.com/en/germany-ulm-5-on-trial-after-attack-on-israeli-arms-firm/a-77038804?maca=en-rss-en-ger-1023-xml-mrss"
-  },
-  {
-    "id": "deutsche-welle-https-www-dw-com-en-berlin-fighting-the-city-s-young-far-right-sc",
-    "country": "germany",
-    "country_ja": "ドイツ",
-    "city": "nationwide",
-    "city_ja": "全国",
-    "category": "life",
-    "category_ja": "生活",
-    "topic": "general",
-    "topic_ja": "一般",
-    "importance": "normal",
-    "importance_ja": "通常",
-    "source_type": "media",
-    "source_name": "Deutsche Welle",
-    "title": "Berlin: Fighting the city&#039;s young far-right scene",
-    "summary": "A recent police raid on Germany&#039;s neo-Nazi scene has revealed how alarmingly young some of its members are. But those targeted by this hatred are fighting back.",
-    "published_at": "Sun, 10 May 2026",
-    "url": "https://www.dw.com/en/berlin-fighting-the-city-s-young-far-right-scene/a-77098275?maca=en-rss-en-ger-1023-xml-mrss"
   },
   {
     "id": "deutsche-welle-https-www-dw-com-en-new-film-portrays-thomas-and-erika-mann-with-",
@@ -188,5 +169,24 @@
     "summary": "Holders Paris Saint-Germain are one game away from retaining the Champions League after knocking out German champions Bayern Munich. Bayern can still complete the domestic double but again miss out on the big one.",
     "published_at": "Wed, 6 May 2026 ",
     "url": "https://www.dw.com/en/bayern-munich-exit-champions-league-in-semifinal-to-psg/a-77072250?maca=en-rss-en-ger-1023-xml-mrss"
+  },
+  {
+    "id": "deutsche-welle-https-www-dw-com-en-women-s-champions-league-bayern-fall-to-barce",
+    "country": "germany",
+    "country_ja": "ドイツ",
+    "city": "nationwide",
+    "city_ja": "全国",
+    "category": "life",
+    "category_ja": "生活",
+    "topic": "general",
+    "topic_ja": "一般",
+    "importance": "normal",
+    "importance_ja": "通常",
+    "source_type": "media",
+    "source_name": "Deutsche Welle",
+    "title": "Women&#039;s Champions League: Bayern fall to Barcelona in semis",
+    "summary": "Bayern Munich have come up short in their bid to win the Women&#039;s Champions League for the first time after losing to Barcelona in the semifinals.",
+    "published_at": "Mon, 4 May 2026 ",
+    "url": "https://www.dw.com/en/women-s-champions-league-bayern-fall-to-barcelona-in-semis/a-77030846?maca=en-rss-en-ger-1023-xml-mrss"
   }
 ]

@@ -66,7 +66,7 @@ button,input,select,textarea{font:inherit;}
   margin:0 auto;
 }
 
-/* Header: aligned with ja/index.html */
+/* Header */
 .site-header{
   position:sticky;
   top:0;
@@ -454,6 +454,7 @@ button,input,select,textarea{font:inherit;}
   display:grid;
   gap:8px;
 }
+
 .notice{
   border:1px solid #f0cf9d;
   background:rgba(255,249,235,.94);
@@ -462,6 +463,23 @@ button,input,select,textarea{font:inherit;}
   color:#6d4d14;
   font-size:14px;
 }
+.free-notice{
+  display:grid;
+  gap:8px;
+  border:2px solid #f0cf9d;
+  background:linear-gradient(135deg,#fff7dd,#ffffff);
+}
+.free-notice strong{
+  display:block;
+  font-size:21px;
+  color:var(--green);
+  font-weight:950;
+  line-height:1.35;
+}
+.free-notice span{
+  color:#6d4d14;
+}
+
 .policy-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -530,6 +548,10 @@ button,input,select,textarea{font:inherit;}
   min-height:130px;
   resize:vertical;
 }
+.input::placeholder,
+.textarea::placeholder{
+  color:#a3adb8;
+}
 .input:focus,
 .select:focus,
 .textarea:focus{
@@ -576,6 +598,11 @@ button,input,select,textarea{font:inherit;}
   box-shadow:var(--shadow);
   padding:18px;
 }
+.job-preview-card,
+.job-preview-card *{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
 .card-head{
   display:flex;
   justify-content:space-between;
@@ -600,12 +627,13 @@ button,input,select,textarea{font:inherit;}
   background:#fff4f7;
   color:#b83355;
   border:1px solid #f2c8d4;
-  white-space:nowrap;
+  white-space:normal;
+  max-width:160px;
 }
 .meta{
   margin-top:14px;
   display:grid;
-  grid-template-columns:86px minmax(0,1fr);
+  grid-template-columns:112px minmax(0,1fr);
   gap:8px 10px;
   font-size:14px;
 }
@@ -615,6 +643,10 @@ button,input,select,textarea{font:inherit;}
 }
 .meta dd{
   color:#564a55;
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
 }
 .detail-preview{
   margin-top:16px;
@@ -638,13 +670,21 @@ button,input,select,textarea{font:inherit;}
 }
 .detail-item{
   display:grid;
-  grid-template-columns:100px minmax(0,1fr);
+  grid-template-columns:132px minmax(0,1fr);
   gap:8px;
   font-size:14px;
 }
 .detail-item .k{
   font-weight:900;
   color:#433744;
+}
+.detail-item div,
+.detail-sec p,
+.detail-sec li{
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
 }
 .detail-sec{
   margin-top:16px;
@@ -664,8 +704,11 @@ button,input,select,textarea{font:inherit;}
   display:grid;
   gap:4px;
 }
+.optional-preview{
+  display:none;
+}
 
-/* Footer: aligned with ja/index.html */
+/* Footer */
 .page-footer{
   margin-top:34px;
   padding:14px 20px 18px;
@@ -881,7 +924,7 @@ button,input,select,textarea{font:inherit;}
       <form class="header-search" action="/nihon-gateway-germany/ja/search/" method="get" role="search">
         <label class="search-box" aria-label="サイト内検索">
           <span>⌕</span>
-          <input type="search" name="q" placeholder="検索">
+          <input type="search" name="q" placeholder="検索 / Search">
         </label>
         <button class="search-btn" type="submit" aria-label="検索">⌕</button>
       </form>
@@ -910,21 +953,21 @@ button,input,select,textarea{font:inherit;}
           <div class="kicker">For Companies</div>
           <h1 class="hero-title">
             求人掲載希望の<br>
-            <span class="brand-word">企業様へ</span>
+            <span class="brand-word">企業様へ / For Employers</span>
           </h1>
           <p class="hero-desc">
-            Nihon Gateway Germanyでは、ドイツ在住の日本語話者、日本語人材、日本企業に関心のある求職者へ向けた求人情報を掲載しています。
+            Nihon Gateway Germanyでは、ドイツで働きたい方、日本語話者、日本に関心のある求職者へ向けた求人情報を掲載しています。
             現在は掲載件数拡大のため、求人掲載を無料で受け付けています。
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#postingForm">掲載フォーマットを入力する</a>
-            <a class="btn btn-secondary" href="/nihon-gateway-germany/ja/jobs/">掲載中の求人を見る</a>
+            <a class="btn btn-primary" href="#postingForm">掲載フォーマットを入力する / Fill in the Posting Form</a>
+            <a class="btn btn-secondary" href="/nihon-gateway-germany/ja/jobs/">掲載中の求人を見る / View Jobs</a>
           </div>
         </div>
 
         <aside class="hero-side">
           <section class="info-panel">
-            <h2>現在の掲載料金</h2>
+            <h2>現在の掲載料金 / Current Posting Fee</h2>
             <p>
               求人掲載数の拡大とサービス改善のため、現在は通常掲載を無料で受け付けています。
               掲載内容は確認後に公開されます。
@@ -932,11 +975,12 @@ button,input,select,textarea{font:inherit;}
           </section>
 
           <section class="info-panel">
-            <h2>掲載の対象</h2>
+            <h2>掲載内容のイメージ / Examples of Listings</h2>
             <ul>
-              <li>ドイツ国内勤務、またはドイツ在住者向けの求人</li>
-              <li>日本語話者歓迎、日本語を使う仕事、日系企業関連の求人</li>
-              <li>正社員、パート、アルバイト、学生、ワーキングホリデー向け求人</li>
+              <li>ドイツで働きたい方、ドイツ在住者、日本語話者に関連する求人</li>
+              <li>日本語、英語、ドイツ語などを活かせる仕事</li>
+              <li>正社員、パート、アルバイト、学生向け、ワーキングホリデー向けなど幅広い雇用形態</li>
+              <li>業種・職種は問いません。内容を確認のうえ掲載可否を判断します。</li>
             </ul>
           </section>
         </aside>
@@ -944,10 +988,13 @@ button,input,select,textarea{font:inherit;}
     </section>
 
     <section class="section">
-      <div class="notice">
-        現在は掲載件数拡大のため、求人掲載を無料で受け付けています。
-        無料掲載は予告なく終了・変更される場合があります。
-        掲載可否、掲載期間、表示順位、内容修正については運営側の判断により調整される場合があります。
+      <div class="notice free-notice">
+        <strong>現在、求人掲載は無料です。 / Job posting is currently free.</strong>
+        <span>
+          掲載件数拡大のため、求人掲載を無料で受け付けています。
+          無料掲載は予告なく終了・変更される場合があります。
+          掲載可否、掲載期間、表示順位、内容修正については運営側の判断により調整される場合があります。
+        </span>
       </div>
     </section>
 
@@ -955,9 +1002,10 @@ button,input,select,textarea{font:inherit;}
       <div class="section-head">
         <div>
           <div class="section-kicker">Posting Form</div>
-          <h2 class="section-title">求人掲載フォーマット</h2>
+          <h2 class="section-title">求人掲載フォーマット / Job Posting Form</h2>
           <p class="section-desc">
             左側のフォーマットに入力すると、右側に求人一覧ページと同じ雰囲気のプレビューが表示されます。
+            入力がない任意項目はプレビューには表示されません。
           </p>
         </div>
       </div>
@@ -965,122 +1013,122 @@ button,input,select,textarea{font:inherit;}
       <div class="form-preview-grid">
         <section class="panel">
           <form id="postingForm" class="job-form" action="https://formspree.io/f/xlgojvar" method="POST">
-            <input type="hidden" name="_subject" value="[Nihon Gateway Germany] 求人掲載希望">
+            <input type="hidden" name="_subject" value="[Nihon Gateway Germany] 求人掲載希望 / Job Posting Request">
             <input type="hidden" name="_language" value="ja">
-            <input type="hidden" name="inquiry_type" value="求人掲載希望">
+            <input type="hidden" name="inquiry_type" value="求人掲載希望 / Job Posting Request">
             <input type="text" name="_gotcha" style="display:none">
 
             <div class="form-grid">
               <div class="field">
-                <label for="company_name">会社名 <span class="required">*</span></label>
-                <input class="input js-preview" id="company_name" name="会社名" type="text" placeholder="例：Sakura GmbH" required>
+                <label for="company_name">会社名 / Company Name <span class="required">*</span></label>
+                <input class="input js-preview" id="company_name" name="会社名 / Company Name" type="text" placeholder="例 / Example: Sakura GmbH" required>
               </div>
 
               <div class="field">
-                <label for="contact_name">担当者名 <span class="required">*</span></label>
-                <input class="input" id="contact_name" name="担当者名" type="text" placeholder="例：山田 太郎" required>
+                <label for="contact_name">担当者名 / Contact Person <span class="required">*</span></label>
+                <input class="input js-preview" id="contact_name" name="担当者名 / Contact Person" type="text" placeholder="例 / Example: Taro Yamada" required>
               </div>
 
               <div class="field">
-                <label for="contact_email">連絡先メールアドレス <span class="required">*</span></label>
-                <input class="input js-preview" id="contact_email" name="連絡先メールアドレス" type="email" placeholder="example@company.com" required>
+                <label for="contact_email">連絡先メールアドレス / Contact Email <span class="required">*</span></label>
+                <input class="input js-preview" id="contact_email" name="連絡先メールアドレス / Contact Email" type="email" placeholder="例 / Example: example@company.com" required>
               </div>
 
               <div class="field">
-                <label for="company_url">会社URL</label>
-                <input class="input" id="company_url" name="会社URL" type="url" placeholder="https://example.com">
+                <label for="company_url">会社URL / Company Website</label>
+                <input class="input js-preview" id="company_url" name="会社URL / Company Website" type="url" placeholder="例 / Example: https://example.com">
               </div>
 
               <div class="field">
-                <label for="position_title">求人タイトル <span class="required">*</span></label>
-                <input class="input js-preview" id="position_title" name="求人タイトル" type="text" placeholder="例：営業アシスタント / Sales Assistant" required>
+                <label for="position_title">求人タイトル / Job Title <span class="required">*</span></label>
+                <input class="input js-preview" id="position_title" name="求人タイトル / Job Title" type="text" placeholder="例 / Example: 営業アシスタント / Sales Assistant" required>
               </div>
 
               <div class="field">
-                <label for="city">勤務地・都市名 <span class="required">*</span></label>
-                <input class="input js-preview" id="city" name="勤務地・都市名" type="text" placeholder="例：Düsseldorf" required>
+                <label for="city">勤務地・都市名 / Location・City <span class="required">*</span></label>
+                <input class="input js-preview" id="city" name="勤務地・都市名 / Location・City" type="text" placeholder="例 / Example: Düsseldorf" required>
               </div>
 
               <div class="field">
-                <label for="employment_type">雇用形態 <span class="required">*</span></label>
-                <select class="select js-preview" id="employment_type" name="雇用形態" required>
-                  <option value="">選択してください</option>
-                  <option>正社員</option>
-                  <option>契約社員</option>
-                  <option>パート・アルバイト</option>
-                  <option>インターン</option>
-                  <option>学生向け</option>
-                  <option>ワーキングホリデー向け</option>
-                  <option>フリーランス</option>
-                  <option>その他</option>
+                <label for="employment_type">雇用形態 / Employment Type <span class="required">*</span></label>
+                <select class="select js-preview" id="employment_type" name="雇用形態 / Employment Type" required>
+                  <option value="">選択してください / Please select</option>
+                  <option>正社員 / Full-time</option>
+                  <option>契約社員 / Contract</option>
+                  <option>パート・アルバイト / Part-time</option>
+                  <option>インターン / Internship</option>
+                  <option>学生向け / Student job</option>
+                  <option>ワーキングホリデー向け / Working holiday</option>
+                  <option>フリーランス / Freelance</option>
+                  <option>その他 / Other</option>
                 </select>
               </div>
 
               <div class="field">
-                <label for="salary">給与目安</label>
-                <input class="input js-preview" id="salary" name="給与目安" type="text" placeholder="例：年収 35,000€〜45,000€">
+                <label for="salary">給与目安 / Salary Range</label>
+                <input class="input js-preview" id="salary" name="給与目安 / Salary Range" type="text" placeholder="例 / Example: 年収 35,000€〜45,000€ / €35,000–€45,000 per year">
               </div>
 
               <div class="field">
-                <label for="visa_support">ビザサポート有無</label>
-                <select class="select js-preview" id="visa_support" name="ビザサポート有無">
-                  <option value="">選択してください</option>
-                  <option>あり</option>
-                  <option>なし</option>
-                  <option>応相談</option>
-                  <option>職種・条件による</option>
+                <label for="visa_support">ビザサポート有無 / Visa Support</label>
+                <select class="select js-preview" id="visa_support" name="ビザサポート有無 / Visa Support">
+                  <option value="">選択してください / Please select</option>
+                  <option>あり / Available</option>
+                  <option>なし / Not available</option>
+                  <option>応相談 / Negotiable</option>
+                  <option>職種・条件による / Depends on position and conditions</option>
                 </select>
               </div>
 
               <div class="field">
-                <label for="start_date">勤務開始時期</label>
-                <input class="input" id="start_date" name="勤務開始時期" type="text" placeholder="例：2026年7月以降 / 応相談">
+                <label for="start_date">勤務開始時期 / Start Date</label>
+                <input class="input js-preview" id="start_date" name="勤務開始時期 / Start Date" type="text" placeholder="例 / Example: 2026年7月以降 / From July 2026">
               </div>
 
               <div class="field">
-                <label for="publish_date">掲載希望開始日</label>
-                <input class="input" id="publish_date" name="掲載希望開始日" type="text" placeholder="例：できるだけ早く / 2026年6月1日">
+                <label for="publish_date">掲載希望開始日 / Preferred Publishing Date</label>
+                <input class="input js-preview" id="publish_date" name="掲載希望開始日 / Preferred Publishing Date" type="text" placeholder="例 / Example: できるだけ早く / As soon as possible">
               </div>
 
               <div class="field">
-                <label for="apply_method">応募方法</label>
-                <input class="input" id="apply_method" name="応募方法" type="text" placeholder="例：メール応募 / 会社サイト応募 / LinkedIn応募">
+                <label for="apply_method">応募方法 / Application Method</label>
+                <input class="input js-preview" id="apply_method" name="応募方法 / Application Method" type="text" placeholder="例 / Example: メール応募 / Apply by email">
               </div>
 
               <div class="field full">
-                <label for="summary">求人概要 <span class="required">*</span></label>
-                <textarea class="textarea js-preview" id="summary" name="求人概要" placeholder="例：ドイツ国内の日系顧客を対象に、営業事務・受発注管理・問い合わせ対応を担当していただきます。" required></textarea>
+                <label for="summary">求人概要 / Job Summary <span class="required">*</span></label>
+                <textarea class="textarea js-preview" id="summary" name="求人概要 / Job Summary" placeholder="例 / Example: ドイツ国内の日系顧客を対象に、営業事務・受発注管理・問い合わせ対応を担当します。 / You will support sales administration, order management, and customer inquiries." required></textarea>
               </div>
 
               <div class="field full">
-                <label for="job_details">職務詳細 <span class="required">*</span></label>
-                <textarea class="textarea js-preview" id="job_details" name="職務詳細" placeholder="例：顧客対応、見積作成、受発注管理、社内調整、レポート作成など。" required></textarea>
+                <label for="job_details">職務詳細 / Job Details <span class="required">*</span></label>
+                <textarea class="textarea js-preview" id="job_details" name="職務詳細 / Job Details" placeholder="例 / Example: 顧客対応、見積作成、受発注管理、社内調整など。 / Customer support, quotations, order management, and internal coordination." required></textarea>
               </div>
 
               <div class="field full">
-                <label for="requirements">必要要件・歓迎条件 <span class="required">*</span></label>
-                <textarea class="textarea js-preview" id="requirements" name="必要要件・歓迎条件" placeholder="例：日本語ネイティブレベル、英語またはドイツ語での業務経験、基本的なPCスキル。" required></textarea>
+                <label for="requirements">必要要件・歓迎条件 / Requirements・Preferred Skills <span class="required">*</span></label>
+                <textarea class="textarea js-preview" id="requirements" name="必要要件・歓迎条件 / Requirements・Preferred Skills" placeholder="例 / Example: 日本語ネイティブレベル、英語またはドイツ語での業務経験。 / Native-level Japanese and business experience in English or German." required></textarea>
                 <div class="help">複数ある場合は改行、読点、カンマで区切るとプレビューで見やすく表示されます。</div>
               </div>
 
               <div class="field full">
-                <label for="free_comment">自由コメント</label>
-                <textarea class="textarea js-preview" id="free_comment" name="自由コメント" placeholder="例：未経験者歓迎、勤務時間応相談、リモート勤務一部可など。"></textarea>
+                <label for="free_comment">自由コメント / Additional Comment</label>
+                <textarea class="textarea js-preview" id="free_comment" name="自由コメント / Additional Comment" placeholder="例 / Example: 未経験者歓迎、勤務時間応相談、リモート勤務一部可。 / Beginners welcome, flexible working hours, partial remote work possible."></textarea>
               </div>
 
               <div class="field full">
-                <label for="logo_url">会社ロゴ画像URL</label>
-                <input class="input" id="logo_url" name="会社ロゴ画像URL" type="url" placeholder="https://example.com/logo.png">
+                <label for="logo_url">会社ロゴ画像URL / Company Logo URL</label>
+                <input class="input js-preview" id="logo_url" name="会社ロゴ画像URL / Company Logo URL" type="url" placeholder="例 / Example: https://example.com/logo.png">
               </div>
             </div>
 
-            <button class="btn btn-primary" id="submitButton" type="submit">掲載希望を送信する</button>
+            <button class="btn btn-primary" id="submitButton" type="submit">掲載希望を送信する / Submit Posting Request</button>
             <div class="status-box" id="formStatus" aria-live="polite"></div>
           </form>
         </section>
 
-        <aside class="panel preview-wrap" aria-label="求人プレビュー">
-          <h2>求人プレビュー</h2>
+        <aside class="panel preview-wrap" aria-label="求人プレビュー / Job Preview">
+          <h2>求人プレビュー / Job Preview</h2>
           <p class="preview-label">
             実際の求人一覧ページに近い形式で表示されます。送信前の確認用です。
           </p>
@@ -1088,71 +1136,101 @@ button,input,select,textarea{font:inherit;}
           <article class="job-preview-card">
             <div class="card-head">
               <div>
-                <h3 class="company" id="previewCompany">会社名未設定</h3>
-                <p class="position" id="previewPosition">職種未設定</p>
+                <h3 class="company" id="previewCompany">会社名未設定 / Company not set</h3>
+                <p class="position" id="previewPosition">職種未設定 / Job title not set</p>
               </div>
-              <span class="badge" id="previewType">雇用形態未設定</span>
+              <span class="badge" id="previewType">雇用形態未設定 / Type not set</span>
             </div>
 
             <dl class="meta">
-              <dt>給与</dt>
-              <dd id="previewSalary">給与情報なし</dd>
+              <dt>給与 / Salary</dt>
+              <dd id="previewSalary">給与情報なし / Salary not specified</dd>
 
-              <dt>都市</dt>
-              <dd id="previewCity">勤務地未設定</dd>
+              <dt>都市 / City</dt>
+              <dd id="previewCity">勤務地未設定 / Location not set</dd>
 
-              <dt>職種</dt>
-              <dd id="previewPositionMeta">職種未設定</dd>
+              <dt>職種 / Job Title</dt>
+              <dd id="previewPositionMeta">職種未設定 / Job title not set</dd>
 
-              <dt>概要</dt>
-              <dd id="previewSummary">概要は準備中です。</dd>
+              <dt>概要 / Summary</dt>
+              <dd id="previewSummary">概要は準備中です。 / Summary not set.</dd>
             </dl>
 
             <div class="detail-preview">
-              <h3 id="previewCompanyDetail">会社名未設定</h3>
-              <p class="sub" id="previewPositionDetail">職種未設定</p>
+              <h3 id="previewCompanyDetail">会社名未設定 / Company not set</h3>
+              <p class="sub" id="previewPositionDetail">職種未設定 / Job title not set</p>
 
               <div class="detail-grid">
                 <div class="detail-item">
-                  <div class="k">雇用形態</div>
-                  <div id="previewTypeDetail">雇用形態未設定</div>
+                  <div class="k">雇用形態 / Employment Type</div>
+                  <div id="previewTypeDetail">雇用形態未設定 / Type not set</div>
                 </div>
 
                 <div class="detail-item">
-                  <div class="k">給与</div>
-                  <div id="previewSalaryDetail">給与情報なし</div>
+                  <div class="k">給与 / Salary</div>
+                  <div id="previewSalaryDetail">給与情報なし / Salary not specified</div>
                 </div>
 
                 <div class="detail-item">
-                  <div class="k">勤務地</div>
-                  <div id="previewCityDetail">勤務地未設定</div>
+                  <div class="k">勤務地 / Location</div>
+                  <div id="previewCityDetail">勤務地未設定 / Location not set</div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewContactNameRow">
+                  <div class="k">担当者名 / Contact Person</div>
+                  <div id="previewContactName"></div>
                 </div>
 
                 <div class="detail-item">
-                  <div class="k">ビザサポート</div>
-                  <div id="previewVisa">未記載</div>
+                  <div class="k">連絡先 / Contact Email</div>
+                  <div id="previewEmail">未記載 / Not specified</div>
                 </div>
 
                 <div class="detail-item">
-                  <div class="k">連絡先</div>
-                  <div id="previewEmail">未記載</div>
+                  <div class="k">ビザサポート / Visa Support</div>
+                  <div id="previewVisa">未記載 / Not specified</div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewCompanyUrlRow">
+                  <div class="k">会社URL / Company Website</div>
+                  <div id="previewCompanyUrl"></div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewStartDateRow">
+                  <div class="k">勤務開始時期 / Start Date</div>
+                  <div id="previewStartDate"></div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewPublishDateRow">
+                  <div class="k">掲載希望開始日 / Preferred Publishing Date</div>
+                  <div id="previewPublishDate"></div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewApplyMethodRow">
+                  <div class="k">応募方法 / Application Method</div>
+                  <div id="previewApplyMethod"></div>
+                </div>
+
+                <div class="detail-item optional-preview" id="previewLogoUrlRow">
+                  <div class="k">会社ロゴURL / Company Logo URL</div>
+                  <div id="previewLogoUrl"></div>
                 </div>
               </div>
 
               <section class="detail-sec">
-                <h4>職務詳細</h4>
-                <p id="previewDetails">職務詳細は準備中です。</p>
+                <h4>職務詳細 / Job Details</h4>
+                <p id="previewDetails">職務詳細は準備中です。 / Job details not set.</p>
               </section>
 
               <section class="detail-sec">
-                <h4>必要要件・経験</h4>
+                <h4>必要要件・歓迎条件 / Requirements・Preferred Skills</h4>
                 <ul id="previewRequirements">
-                  <li>未記載</li>
+                  <li>未記載 / Not specified</li>
                 </ul>
               </section>
 
-              <section class="detail-sec" id="previewCommentSection" style="display:none;">
-                <h4>自由コメント</h4>
+              <section class="detail-sec optional-preview" id="previewCommentSection">
+                <h4>自由コメント / Additional Comment</h4>
                 <p id="previewComment"></p>
               </section>
             </div>
@@ -1165,13 +1243,13 @@ button,input,select,textarea{font:inherit;}
       <div class="section-head">
         <div>
           <div class="section-kicker">Guidelines</div>
-          <h2 class="section-title">掲載条件と運用について</h2>
+          <h2 class="section-title">掲載条件と運用について / Listing Guidelines</h2>
         </div>
       </div>
 
       <div class="policy-grid">
         <div class="policy-card">
-          <strong>現在は無料掲載</strong>
+          <strong>現在は無料掲載 / Currently Free</strong>
           <span>
             求人掲載数の拡大とサービス改善のため、現在は通常掲載を無料で受け付けています。
             無料掲載は予告なく終了・変更される場合があります。
@@ -1179,7 +1257,7 @@ button,input,select,textarea{font:inherit;}
         </div>
 
         <div class="policy-card">
-          <strong>掲載前に内容確認</strong>
+          <strong>掲載前に内容確認 / Review Before Publishing</strong>
           <span>
             送信内容は運営側で確認後に掲載します。
             内容が不明確な場合やサイト方針に合わない場合は、掲載できないことがあります。
@@ -1187,7 +1265,7 @@ button,input,select,textarea{font:inherit;}
         </div>
 
         <div class="policy-card">
-          <strong>削除・修正依頼</strong>
+          <strong>削除・修正依頼 / Removal or Correction</strong>
           <span>
             掲載後の修正・削除希望はいつでも受け付けます。
             削除希望については、原則として受付後2週間以内を目安に対応します。
@@ -1198,7 +1276,7 @@ button,input,select,textarea{font:inherit;}
 
     <section class="section">
       <div class="panel">
-        <h2>将来の有料化について</h2>
+        <h2>将来の有料化について / Future Paid Options</h2>
         <p>
           将来的に、通常掲載、掲載延長、上位表示、SNS告知、企業紹介記事などの有料プランを導入する可能性があります。
           有料化または掲載条件を変更する場合は、原則として少なくとも1か月前までに通知し、掲載延長および支払い希望の有無を確認します。
@@ -1212,7 +1290,7 @@ button,input,select,textarea{font:inherit;}
 
     <section class="section">
       <div class="panel">
-        <h2>掲載できない可能性がある内容</h2>
+        <h2>掲載できない可能性がある内容 / Content That May Not Be Published</h2>
         <ul>
           <li>違法性のある求人、または法令遵守が確認できない求人</li>
           <li>給与、勤務条件、勤務地、雇用形態が極端に不明確な求人</li>
@@ -1263,12 +1341,18 @@ const submitButton = document.getElementById('submitButton');
 
 const fields = {
   company: document.getElementById('company_name'),
+  contactName: document.getElementById('contact_name'),
   position: document.getElementById('position_title'),
   type: document.getElementById('employment_type'),
   salary: document.getElementById('salary'),
   city: document.getElementById('city'),
   visa: document.getElementById('visa_support'),
   email: document.getElementById('contact_email'),
+  companyUrl: document.getElementById('company_url'),
+  startDate: document.getElementById('start_date'),
+  publishDate: document.getElementById('publish_date'),
+  applyMethod: document.getElementById('apply_method'),
+  logoUrl: document.getElementById('logo_url'),
   summary: document.getElementById('summary'),
   details: document.getElementById('job_details'),
   requirements: document.getElementById('requirements'),
@@ -1293,7 +1377,19 @@ const preview = {
   details: document.getElementById('previewDetails'),
   requirements: document.getElementById('previewRequirements'),
   commentSection: document.getElementById('previewCommentSection'),
-  comment: document.getElementById('previewComment')
+  comment: document.getElementById('previewComment'),
+  contactNameRow: document.getElementById('previewContactNameRow'),
+  contactName: document.getElementById('previewContactName'),
+  companyUrlRow: document.getElementById('previewCompanyUrlRow'),
+  companyUrl: document.getElementById('previewCompanyUrl'),
+  startDateRow: document.getElementById('previewStartDateRow'),
+  startDate: document.getElementById('previewStartDate'),
+  publishDateRow: document.getElementById('previewPublishDateRow'),
+  publishDate: document.getElementById('previewPublishDate'),
+  applyMethodRow: document.getElementById('previewApplyMethodRow'),
+  applyMethod: document.getElementById('previewApplyMethod'),
+  logoUrlRow: document.getElementById('previewLogoUrlRow'),
+  logoUrl: document.getElementById('previewLogoUrl')
 };
 
 function escapeHtml(value){
@@ -1317,16 +1413,28 @@ function splitRequirements(value){
     .filter(Boolean);
 }
 
+function updateOptional(row, target, value){
+  const cleaned = String(value || '').trim();
+
+  if (cleaned) {
+    row.style.display = 'grid';
+    target.textContent = cleaned;
+  } else {
+    row.style.display = 'none';
+    target.textContent = '';
+  }
+}
+
 function updatePreview(){
-  const company = valueOf(fields.company, '会社名未設定');
-  const position = valueOf(fields.position, '職種未設定');
-  const type = valueOf(fields.type, '雇用形態未設定');
-  const salary = valueOf(fields.salary, '給与情報なし');
-  const city = valueOf(fields.city, '勤務地未設定');
-  const visa = valueOf(fields.visa, '未記載');
-  const email = valueOf(fields.email, '未記載');
-  const summary = valueOf(fields.summary, '概要は準備中です。');
-  const details = valueOf(fields.details, '職務詳細は準備中です。');
+  const company = valueOf(fields.company, '会社名未設定 / Company not set');
+  const position = valueOf(fields.position, '職種未設定 / Job title not set');
+  const type = valueOf(fields.type, '雇用形態未設定 / Type not set');
+  const salary = valueOf(fields.salary, '給与情報なし / Salary not specified');
+  const city = valueOf(fields.city, '勤務地未設定 / Location not set');
+  const visa = valueOf(fields.visa, '未記載 / Not specified');
+  const email = valueOf(fields.email, '未記載 / Not specified');
+  const summary = valueOf(fields.summary, '概要は準備中です。 / Summary not set.');
+  const details = valueOf(fields.details, '職務詳細は準備中です。 / Job details not set.');
   const comment = fields.comment.value.trim();
 
   preview.company.textContent = company;
@@ -1345,13 +1453,20 @@ function updatePreview(){
   preview.summary.textContent = summary;
   preview.details.textContent = details;
 
+  updateOptional(preview.contactNameRow, preview.contactName, fields.contactName.value);
+  updateOptional(preview.companyUrlRow, preview.companyUrl, fields.companyUrl.value);
+  updateOptional(preview.startDateRow, preview.startDate, fields.startDate.value);
+  updateOptional(preview.publishDateRow, preview.publishDate, fields.publishDate.value);
+  updateOptional(preview.applyMethodRow, preview.applyMethod, fields.applyMethod.value);
+  updateOptional(preview.logoUrlRow, preview.logoUrl, fields.logoUrl.value);
+
   const requirements = splitRequirements(fields.requirements.value);
   if (requirements.length) {
     preview.requirements.innerHTML = requirements
       .map(item => `<li>${escapeHtml(item)}</li>`)
       .join('');
   } else {
-    preview.requirements.innerHTML = '<li>未記載</li>';
+    preview.requirements.innerHTML = '<li>未記載 / Not specified</li>';
   }
 
   if (comment) {
@@ -1376,34 +1491,40 @@ form.addEventListener('submit', async function(event) {
   statusBox.className = 'status-box';
   statusBox.textContent = '';
   submitButton.disabled = true;
-  submitButton.textContent = '送信中...';
+  submitButton.textContent = '送信中... / Sending...';
 
   const formData = new FormData(form);
 
   const previewText = [
-    '--- 求人プレビュー ---',
-    '会社名：' + fields.company.value.trim(),
-    '求人タイトル：' + fields.position.value.trim(),
-    '雇用形態：' + fields.type.value.trim(),
-    '給与目安：' + fields.salary.value.trim(),
-    '勤務地：' + fields.city.value.trim(),
-    'ビザサポート：' + fields.visa.value.trim(),
-    '連絡先メール：' + fields.email.value.trim(),
+    '--- 求人プレビュー / Job Preview ---',
+    '会社名 / Company Name：' + fields.company.value.trim(),
+    '担当者名 / Contact Person：' + fields.contactName.value.trim(),
+    '連絡先メールアドレス / Contact Email：' + fields.email.value.trim(),
+    '会社URL / Company Website：' + fields.companyUrl.value.trim(),
+    '求人タイトル / Job Title：' + fields.position.value.trim(),
+    '勤務地・都市名 / Location・City：' + fields.city.value.trim(),
+    '雇用形態 / Employment Type：' + fields.type.value.trim(),
+    '給与目安 / Salary Range：' + fields.salary.value.trim(),
+    'ビザサポート有無 / Visa Support：' + fields.visa.value.trim(),
+    '勤務開始時期 / Start Date：' + fields.startDate.value.trim(),
+    '掲載希望開始日 / Preferred Publishing Date：' + fields.publishDate.value.trim(),
+    '応募方法 / Application Method：' + fields.applyMethod.value.trim(),
+    '会社ロゴ画像URL / Company Logo URL：' + fields.logoUrl.value.trim(),
     '',
-    '求人概要：',
+    '求人概要 / Job Summary：',
     fields.summary.value.trim(),
     '',
-    '職務詳細：',
+    '職務詳細 / Job Details：',
     fields.details.value.trim(),
     '',
-    '必要要件・歓迎条件：',
+    '必要要件・歓迎条件 / Requirements・Preferred Skills：',
     fields.requirements.value.trim(),
     '',
-    '自由コメント：',
+    '自由コメント / Additional Comment：',
     fields.comment.value.trim()
   ].join('\n');
 
-  formData.append('求人プレビュー', previewText);
+  formData.append('求人プレビュー / Job Preview', previewText);
 
   try {
     const response = await fetch(form.action, {
@@ -1429,7 +1550,7 @@ form.addEventListener('submit', async function(event) {
     statusBox.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = '掲載希望を送信する';
+    submitButton.textContent = '掲載希望を送信する / Submit Posting Request';
   }
 });
 </script>

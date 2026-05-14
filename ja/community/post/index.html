@@ -876,7 +876,7 @@ button,input,select,textarea{font:inherit}
         </form>
 
         <p class="subtle">
-          送信後、投稿者メール宛に削除リンクが送られます。画像は管理用Google Driveに保存され、保存URLがSpreadsheetの image_url_1 / image_url_2 / image_url_3 に記録される想定です。
+          送信後、投稿者メール宛に削除リンクが送られます。画像は管理用Google Driveに保存され、保存URLがSpreadsheetの image_url_1 / image_url_2 / image_url_3 に記録されます。
         </p>
       </div>
     </section>
@@ -954,6 +954,35 @@ function updateCategory2() {
     list.map(v => `<option value="${v}">${v}</option>`).join('');
 }
 
+function fileToBase64Payload(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      resolve({
+        base64: '',
+        name: '',
+        type: ''
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = String(reader.result || '');
+      const base64 = result.includes(',') ? result.split(',')[1] : '';
+
+      resolve({
+        base64: base64,
+        name: file.name || '',
+        type: file.type || ''
+      });
+    };
+
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
 document.getElementById('category1').addEventListener('change', updateCategory2);
 
 document.getElementById('postForm').addEventListener('submit', async (e) => {
@@ -961,12 +990,33 @@ document.getElementById('postForm').addEventListener('submit', async (e) => {
 
   const form = e.target;
   const submitButton = document.getElementById('submitButton');
-  const formData = new FormData(form);
 
   submitButton.disabled = true;
   submitButton.textContent = '送信中...';
 
   try {
+    const formData = new FormData(form);
+
+    const image1 = await fileToBase64Payload(document.getElementById('image1').files[0]);
+    const image2 = await fileToBase64Payload(document.getElementById('image2').files[0]);
+    const image3 = await fileToBase64Payload(document.getElementById('image3').files[0]);
+
+    formData.delete('image1');
+    formData.delete('image2');
+    formData.delete('image3');
+
+    formData.append('image1_base64', image1.base64);
+    formData.append('image1_name', image1.name);
+    formData.append('image1_type', image1.type);
+
+    formData.append('image2_base64', image2.base64);
+    formData.append('image2_name', image2.name);
+    formData.append('image2_type', image2.type);
+
+    formData.append('image3_base64', image3.base64);
+    formData.append('image3_name', image3.name);
+    formData.append('image3_type', image3.type);
+
     const res = await fetch(GAS_URL, {
       method: 'POST',
       body: formData
@@ -977,7 +1027,7 @@ document.getElementById('postForm').addEventListener('submit', async (e) => {
     if (data.ok) {
       location.href = '../thanks/';
     } else {
-      alert('送信に失敗しました。入力内容をご確認ください。');
+      alert('送信に失敗しました。\n' + (data.error || '入力内容をご確認ください。'));
       console.error(data);
       submitButton.disabled = false;
       submitButton.textContent = '投稿を送信する';

@@ -29,7 +29,7 @@
       --blue:#2f6df5;
       --card-shadow:0 10px 30px rgba(26,16,20,.07);
       --radius-xl:28px;
-      --max:1280px;
+      --max:1380px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -267,59 +267,60 @@
       font-size:16px;
       color:var(--muted);
     }
-.hero-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:24px;
-}
 
-.hero-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:46px;
-  padding:12px 18px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:900;
-  border:1px solid transparent;
-  transition:.18s;
-}
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:24px;
+    }
 
-.hero-btn:hover{
-  transform:translateY(-1px);
-}
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:12px 18px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:900;
+      border:1px solid transparent;
+      transition:.18s;
+    }
 
-.hero-btn-primary{
-  color:#fff;
-  background:linear-gradient(135deg,var(--red),var(--orange));
-  box-shadow:0 12px 24px rgba(232,0,45,.18);
-}
+    .hero-btn:hover{
+      transform:translateY(-1px);
+    }
 
-.hero-btn-secondary{
-  color:#1f4f98;
-  background:#fff;
-  border-color:#cfd9e8;
-}
+    .hero-btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+      box-shadow:0 12px 24px rgba(232,0,45,.18);
+    }
 
-.hero-notice{
-  margin-top:18px;
-  max-width:900px;
-  border:1px solid #f0cf9d;
-  background:rgba(255,249,235,.94);
-  border-radius:18px;
-  padding:14px 16px;
-  color:#6d4d14;
-  font-size:14px;
-}
-    
+    .hero-btn-secondary{
+      color:#1f4f98;
+      background:#fff;
+      border-color:#cfd9e8;
+    }
+
+    .hero-notice{
+      margin-top:18px;
+      max-width:900px;
+      border:1px solid #f0cf9d;
+      background:rgba(255,249,235,.94);
+      border-radius:18px;
+      padding:14px 16px;
+      color:#6d4d14;
+      font-size:14px;
+    }
+
     .layout{
       max-width:var(--max);
       margin:0 auto;
       padding:12px 20px 80px;
       display:grid;
-      grid-template-columns:320px minmax(0,1fr) 420px;
+      grid-template-columns:280px 360px minmax(0,1fr);
       gap:22px;
       align-items:start;
     }
@@ -486,9 +487,16 @@
       border:1px solid var(--border);
       border-radius:22px;
       box-shadow:var(--card-shadow);
-      padding:18px;
+      padding:16px;
       cursor:pointer;
       transition:.18s;
+      min-width:0;
+    }
+
+    .card,
+    .card *{
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .card:hover{
@@ -508,34 +516,35 @@
     }
 
     .company{
-      font-size:20px;
+      font-size:18px;
       font-weight:950;
       line-height:1.15;
     }
 
     .position{
-      font-size:14px;
+      font-size:13px;
       color:var(--muted);
       margin-top:4px;
     }
 
     .badge{
-      font-size:12px;
+      font-size:11px;
       font-weight:900;
-      padding:6px 10px;
+      padding:6px 9px;
       border-radius:999px;
       background:#fff4f7;
       color:#b83355;
       border:1px solid #f2c8d4;
-      white-space:nowrap;
+      white-space:normal;
+      max-width:120px;
     }
 
     .meta{
       margin-top:14px;
       display:grid;
-      grid-template-columns:86px minmax(0,1fr);
-      gap:8px 10px;
-      font-size:14px;
+      grid-template-columns:72px minmax(0,1fr);
+      gap:8px 8px;
+      font-size:13px;
     }
 
     .meta dt{
@@ -545,37 +554,53 @@
 
     .meta dd{
       color:#564a55;
+      min-width:0;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .detail{
       position:sticky;
       top:92px;
-      padding:20px;
+      padding:26px;
+      min-width:0;
+    }
+
+    .detail,
+    .detail *{
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .detail h3{
-      font-size:26px;
+      font-size:32px;
       font-weight:950;
       line-height:1.15;
     }
 
     .detail .sub{
-      margin-top:4px;
+      margin-top:6px;
       color:var(--muted);
       font-weight:700;
+      font-size:16px;
     }
 
     .detail-grid{
-      margin-top:16px;
+      margin-top:20px;
       display:grid;
-      gap:10px;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
     .detail-item{
       display:grid;
-      grid-template-columns:100px minmax(0,1fr);
+      grid-template-columns:132px minmax(0,1fr);
       gap:8px;
       font-size:14px;
+      border:1px solid #eee6e2;
+      background:#fff;
+      border-radius:16px;
+      padding:12px;
     }
 
     .detail-item .k{
@@ -583,14 +608,22 @@
       color:#433744;
     }
 
+    .detail-item.full{
+      grid-column:1/-1;
+    }
+
     .detail-sec{
-      margin-top:16px;
+      margin-top:20px;
+      border:1px solid #eee6e2;
+      background:#fff;
+      border-radius:18px;
+      padding:16px;
     }
 
     .detail-sec h4{
-      font-size:14px;
+      font-size:15px;
       font-weight:900;
-      margin-bottom:6px;
+      margin-bottom:8px;
     }
 
     .detail-sec p,
@@ -671,9 +704,23 @@
       transition:.18s;
     }
 
-    @media (max-width:1100px){
+    @media (max-width:1200px){
       .layout{
-        grid-template-columns:300px minmax(0,1fr);
+        grid-template-columns:260px 320px minmax(0,1fr);
+      }
+
+      .detail-grid{
+        grid-template-columns:1fr;
+      }
+
+      .detail h3{
+        font-size:28px;
+      }
+    }
+
+    @media (max-width:980px){
+      .layout{
+        grid-template-columns:280px minmax(0,1fr);
       }
 
       .detail-wrap{
@@ -717,10 +764,17 @@
       .detail-item{
         grid-template-columns:1fr;
       }
+
+      .detail-grid{
+        grid-template-columns:1fr;
+      }
+
+      .detail h3{
+        font-size:26px;
+      }
     }
   </style>
 
-  
 <script>
 (function () {
   var segments = location.pathname.split('/').filter(Boolean);
@@ -808,15 +862,15 @@
       </div>
       <h1>日本語で探せる、<br>企業掲載型のドイツ求人</h1>
       <p>会社名・ポジション・給与・都市で絞り込み可能。カードをクリックすると右側（モバイルは下側）に職務詳細、必要要件、連絡先メールを表示します。</p>
-      
-      <div class="hero-actions">
-  <a class="hero-btn hero-btn-primary" href="/nihon-gateway-germany/ja/jobs/posting/">求人掲載希望の企業様へ</a>
-  <a class="hero-btn hero-btn-secondary" href="#cards">掲載中の求人を見る</a>
-</div>
 
-<div class="hero-notice">
-  現在、掲載件数拡大のため求人掲載を無料で受け付けています。無料掲載は予告なく終了・変更される場合があります。
-</div>
+      <div class="hero-actions">
+        <a class="hero-btn hero-btn-primary" href="/nihon-gateway-germany/ja/jobs/posting/">求人掲載希望の企業様へ</a>
+        <a class="hero-btn hero-btn-secondary" href="#cards">掲載中の求人を見る</a>
+      </div>
+
+      <div class="hero-notice">
+        現在、掲載件数拡大のため求人掲載を無料で受け付けています。無料掲載は予告なく終了・変更される場合があります。
+      </div>
     </div>
   </section>
 
@@ -929,21 +983,36 @@
     const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${SHEET_GID}&tqx=out:json`;
 
     const JOB_HEADERS = [
+      'id',
+      'status',
+      'priority',
+      'company_name',
+      'contact_name',
+      'contact_email',
+      'company_url',
+      'position_title_ja',
+      'position_title_en',
+      'employment_type_ja',
+      'employment_type_en',
       'city_ja',
       'city_en',
       'salary_min_eur',
       'salary_max_eur',
+      'salary_label_ja',
+      'salary_label_en',
       'summary_ja',
       'summary_en',
       'job_details_ja',
       'job_details_en',
       'requirements_ja',
       'requirements_en',
-      'contact_email',
       'free_comment_ja',
       'free_comment_en',
       'visa_support_ja',
       'visa_support_en',
+      'start_date',
+      'publish_date',
+      'apply_method',
       'updated_at',
       'published_at',
       'expires_at',
@@ -990,8 +1059,14 @@
         visa: 'ビザサポート',
         updated: '更新日',
         contact: '連絡先',
+        contactName: '担当者名',
+        companyUrl: '会社URL',
+        startDate: '勤務開始時期',
+        publishDate: '掲載希望開始日',
+        applyMethod: '応募方法',
+        logoUrl: '会社ロゴURL',
         details: '職務詳細',
-        requirements: '必要要件・経験',
+        requirements: '必要要件・歓迎条件',
         comment: '自由コメント',
         unspecifiedCompany: '会社名未設定',
         unspecifiedPosition: '職種未設定',
@@ -1029,9 +1104,15 @@
         visa: 'Visa Support',
         updated: 'Updated',
         contact: 'Contact',
+        contactName: 'Contact Person',
+        companyUrl: 'Company Website',
+        startDate: 'Start Date',
+        publishDate: 'Preferred Publishing Date',
+        applyMethod: 'Application Method',
+        logoUrl: 'Company Logo URL',
         details: 'Job Details',
-        requirements: 'Requirements',
-        comment: 'Comment',
+        requirements: 'Requirements / Preferred Skills',
+        comment: 'Additional Comment',
         unspecifiedCompany: 'Company not set',
         unspecifiedPosition: 'Position not set',
         unspecifiedType: 'Employment type not set',
@@ -1103,52 +1184,20 @@
     }
 
     function normalizeRow(row){
-      if (Array.isArray(row)) {
-        return rowArrayToObject(row);
-      }
-
-      if (row && typeof row === 'object') {
-        return row;
-      }
-
+      if (Array.isArray(row)) return rowArrayToObject(row);
+      if (row && typeof row === 'object') return row;
       return {};
-    }
-
-    function getRowsFromApiResponse(data){
-      let rows = [];
-
-      if (Array.isArray(data)) {
-        rows = data;
-      } else if (Array.isArray(data.items)) {
-        rows = data.items;
-      } else if (Array.isArray(data.rows)) {
-        rows = data.rows;
-      } else if (Array.isArray(data.data)) {
-        rows = data.data;
-      }
-
-      if (rows.length && Array.isArray(rows[0])) {
-        const firstRow = rows[0].map(v => normalize(v));
-        const looksLikeHeader =
-          firstRow.includes('city_ja') &&
-          firstRow.includes('city_en') &&
-          firstRow.includes('summary_ja');
-
-        if (looksLikeHeader) {
-          rows = rows.slice(1);
-        }
-      }
-
-      return rows;
     }
 
     function getRowsFromGvizResponse(rawText){
       const start = rawText.indexOf('{');
       const end = rawText.lastIndexOf('}');
       if (start < 0 || end < 0) return [];
+
       const json = JSON.parse(rawText.slice(start, end + 1));
       const table = json.table || {};
       const headers = (table.cols || []).map(col => clean(col.label || col.id));
+
       return (table.rows || []).map(row => {
         const obj = {};
         headers.forEach((header, index) => {
@@ -1159,57 +1208,64 @@
       });
     }
 
-    function getValue(row, key){
-      return clean(row[key]);
+    function getValue(row, ...keys){
+      for (const key of keys) {
+        const value = clean(row[key]);
+        if (value) return value;
+      }
+      return '';
     }
 
     function normalizeJob(row, index){
       const r = normalizeRow(row);
-
-      const summaryEn = getValue(r, 'summary_en');
 
       return {
         id: getValue(r, 'id') || `job-${index + 1}`,
         status: getValue(r, 'status') || 'active',
         priority: toNumber(getValue(r, 'priority')) || 999,
 
-        company_name: getValue(r, 'company_name') || getValue(r, 'city_ja') || getValue(r, 'city_en'),
+        company_name: getValue(r, 'company_name', '会社名 / Company Name', '会社名', 'Company Name'),
+        contact_name: getValue(r, 'contact_name', '担当者名 / Contact Person', '担当者名', 'Contact Person'),
+        contact_email: getValue(r, 'contact_email', '連絡先メールアドレス / Contact Email', '連絡先メールアドレス', 'Contact Email'),
+        company_url: getValue(r, 'company_url', '会社URL / Company Website', '会社URL', 'Company Website'),
 
-        position_title_ja: getValue(r, 'position_title_ja'),
+        position_title_ja: getValue(r, 'position_title_ja', '求人タイトル / Job Title', '求人タイトル', 'Job Title'),
         position_title_en: getValue(r, 'position_title_en'),
 
-        employment_type_ja: getValue(r, 'employment_type_ja'),
-        employment_type_en: getValue(r, 'employment_type_en'),
+        employment_type_ja: getValue(r, 'employment_type_ja', '雇用形態 / Employment Type', '雇用形態'),
+        employment_type_en: getValue(r, 'employment_type_en', 'Employment Type'),
 
-        city_ja: getValue(r, 'city_ja'),
-        city_en: getValue(r, 'city_en'),
+        city_ja: getValue(r, 'city_ja', '勤務地・都市名 / Location・City', '勤務地・都市名', '都市', 'Location・City'),
+        city_en: getValue(r, 'city_en', 'City', 'Location'),
 
         salary_min_eur: toNumber(getValue(r, 'salary_min_eur')),
         salary_max_eur: toNumber(getValue(r, 'salary_max_eur')),
-        salary_label_ja: getValue(r, 'salary_label_ja'),
-        salary_label_en: getValue(r, 'salary_label_en'),
+        salary_label_ja: getValue(r, 'salary_label_ja', '給与目安 / Salary Range', '給与目安', '給与'),
+        salary_label_en: getValue(r, 'salary_label_en', 'Salary Range', 'Salary'),
 
-        summary_ja: getValue(r, 'summary_ja'),
-        summary_en: summaryEn,
+        summary_ja: getValue(r, 'summary_ja', '求人概要 / Job Summary', '求人概要', '概要'),
+        summary_en: getValue(r, 'summary_en', 'Job Summary', 'Summary'),
 
-        job_details_ja: getValue(r, 'job_details_ja'),
-        job_details_en: getValue(r, 'job_details_en'),
+        job_details_ja: getValue(r, 'job_details_ja', '職務詳細 / Job Details', '職務詳細'),
+        job_details_en: getValue(r, 'job_details_en', 'Job Details'),
 
-        requirements_ja: getValue(r, 'requirements_ja'),
-        requirements_en: getValue(r, 'requirements_en'),
+        requirements_ja: getValue(r, 'requirements_ja', '必要要件・歓迎条件 / Requirements・Preferred Skills', '必要要件・歓迎条件', '必要要件'),
+        requirements_en: getValue(r, 'requirements_en', 'Requirements・Preferred Skills', 'Requirements'),
 
-        contact_email: getValue(r, 'contact_email'),
+        free_comment_ja: getValue(r, 'free_comment_ja', '自由コメント / Additional Comment', '自由コメント'),
+        free_comment_en: getValue(r, 'free_comment_en', 'Additional Comment'),
 
-        free_comment_ja: getValue(r, 'free_comment_ja'),
-        free_comment_en: getValue(r, 'free_comment_en'),
+        visa_support_ja: getValue(r, 'visa_support_ja', 'ビザサポート有無 / Visa Support', 'ビザサポート有無', 'ビザサポート'),
+        visa_support_en: getValue(r, 'visa_support_en', 'Visa Support'),
 
-        visa_support_ja: getValue(r, 'visa_support_ja'),
-        visa_support_en: getValue(r, 'visa_support_en'),
+        start_date: getValue(r, 'start_date', '勤務開始時期 / Start Date', '勤務開始時期', 'Start Date'),
+        publish_date: getValue(r, 'publish_date', '掲載希望開始日 / Preferred Publishing Date', '掲載希望開始日', 'Preferred Publishing Date'),
+        apply_method: getValue(r, 'apply_method', '応募方法 / Application Method', '応募方法', 'Application Method'),
 
         updated_at: getValue(r, 'updated_at'),
         published_at: getValue(r, 'published_at'),
         expires_at: getValue(r, 'expires_at'),
-        company_logo_url: getValue(r, 'company_logo_url')
+        company_logo_url: getValue(r, 'company_logo_url', '会社ロゴ画像URL / Company Logo URL', '会社ロゴ画像URL', 'Company Logo URL')
       };
     }
 
@@ -1313,6 +1369,9 @@
         jobs = rows
           .map(normalizeJob)
           .filter(job => normalize([
+            job.company_name,
+            job.position_title_ja,
+            job.position_title_en,
             job.city_ja,
             job.city_en,
             job.summary_ja,
@@ -1351,10 +1410,10 @@
           <section class="detail-sec">
             <h4>確認ポイント</h4>
             <ul>
-              <li>GASのデプロイが「全員」に公開されているか</li>
-              <li>API URLのdeploy IDが正しいか</li>
-              <li>Spreadsheetのタブ名が「job」か</li>
-              <li>GAS側がJSONを返しているか</li>
+              <li>Spreadsheetが公開または読み取り可能になっているか</li>
+              <li>SHEET_IDとSHEET_GIDが正しいか</li>
+              <li>1行目の列名が正しいか</li>
+              <li>gviz形式でJSONを返しているか</li>
             </ul>
           </section>
         `;
@@ -1372,6 +1431,9 @@
       filtered = jobs.filter(job => {
         const text = normalize([
           job.company_name,
+          job.contact_name,
+          job.contact_email,
+          job.company_url,
           job.position_title_ja,
           job.position_title_en,
           job.summary_ja,
@@ -1383,7 +1445,10 @@
           job.free_comment_ja,
           job.free_comment_en,
           job.employment_type_ja,
-          job.employment_type_en
+          job.employment_type_en,
+          job.apply_method,
+          job.start_date,
+          job.publish_date
         ].join(' '));
 
         const matchKeyword = !keyword || text.includes(keyword);
@@ -1544,6 +1609,27 @@
       renderDetail();
     }
 
+    function renderOptionalDetail(label, value, isFull = false){
+      if (!value) return '';
+      return `
+        <div class="detail-item ${isFull ? 'full' : ''}">
+          <div class="k">${escapeHtml(label)}</div>
+          <div>${escapeHtml(value)}</div>
+        </div>
+      `;
+    }
+
+    function renderLinkDetail(label, value, isFull = false){
+      if (!value) return '';
+      const safe = escapeHtml(value);
+      return `
+        <div class="detail-item ${isFull ? 'full' : ''}">
+          <div class="k">${escapeHtml(label)}</div>
+          <div><a href="${safe}" target="_blank" rel="noopener">${safe}</a></div>
+        </div>
+      `;
+    }
+
     function renderDetail(){
       const job = filtered.find(j => String(j.id) === String(selectedId));
 
@@ -1592,6 +1678,11 @@
             <div>${escapeHtml(visa)}</div>
           </div>
 
+          ${renderOptionalDetail(t('contactName'), job.contact_name)}
+          ${renderOptionalDetail(t('startDate'), job.start_date)}
+          ${renderOptionalDetail(t('publishDate'), job.publish_date)}
+          ${renderOptionalDetail(t('applyMethod'), job.apply_method)}
+
           <div class="detail-item">
             <div class="k">${t('updated')}</div>
             <div>${escapeHtml(updated)}</div>
@@ -1603,7 +1694,15 @@
               ${email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : t('unspecified')}
             </div>
           </div>
+
+          ${renderLinkDetail(t('companyUrl'), job.company_url, true)}
+          ${renderLinkDetail(t('logoUrl'), job.company_logo_url, true)}
         </div>
+
+        <section class="detail-sec">
+          <h4>${t('summary')}</h4>
+          <p>${escapeHtml(getL10n(job,'summary') || t('summaryPreparing'))}</p>
+        </section>
 
         <section class="detail-sec">
           <h4>${t('details')}</h4>

@@ -267,7 +267,53 @@
       font-size:16px;
       color:var(--muted);
     }
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:24px;
+}
 
+.hero-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:12px 18px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:900;
+  border:1px solid transparent;
+  transition:.18s;
+}
+
+.hero-btn:hover{
+  transform:translateY(-1px);
+}
+
+.hero-btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  box-shadow:0 12px 24px rgba(232,0,45,.18);
+}
+
+.hero-btn-secondary{
+  color:#1f4f98;
+  background:#fff;
+  border-color:#cfd9e8;
+}
+
+.hero-notice{
+  margin-top:18px;
+  max-width:900px;
+  border:1px solid #f0cf9d;
+  background:rgba(255,249,235,.94);
+  border-radius:18px;
+  padding:14px 16px;
+  color:#6d4d14;
+  font-size:14px;
+}
+    
     .layout{
       max-width:var(--max);
       margin:0 auto;
@@ -762,6 +808,7 @@
       </div>
       <h1>日本語で探せる、<br>企業掲載型のドイツ求人</h1>
       <p>会社名・ポジション・給与・都市で絞り込み可能。カードをクリックすると右側（モバイルは下側）に職務詳細、必要要件、連絡先メールを表示します。</p>
+      
       <div class="hero-actions">
   <a class="hero-btn hero-btn-primary" href="/nihon-gateway-germany/ja/jobs/posting/">求人掲載希望の企業様へ</a>
   <a class="hero-btn hero-btn-secondary" href="#cards">掲載中の求人を見る</a>
